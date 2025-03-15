@@ -1,0 +1,20 @@
+@model TourismWeb.Models.User
+
+<h2>Đăng Ký</h2>
+
+@if (ViewBag.SuccessMessage != null)
+{
+    <p style="color: green;">@ViewBag.SuccessMessage</p>
+    <a href="/Users/Login">
+        <button>Đăng nhập</button>
+    </a>
+}
+else
+{
+    <form method="post">
+        <input asp-for="Username" placeholder="Tên đăng nhập" required />
+        <input asp-for="Email" placeholder="Email" type="email" required />
+        <input asp-for="PasswordHash" placeholder="Mật khẩu" type="password" required />
+        <button type="submit">Đăng ký</button>
+    </form>
+}

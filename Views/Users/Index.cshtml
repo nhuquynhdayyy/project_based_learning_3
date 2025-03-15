@@ -1,0 +1,31 @@
+@model IEnumerable<TourismWeb.Models.User> 
+
+<h1>Danh sách Người Dùng</h1>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên Người Dùng</th>
+            <th>Email</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)  // Lặp qua danh sách User
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.Username</td>
+                <td>@user.Email</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@user.UserId">Chỉnh sửa</a> | 
+                    <a asp-action="Details" asp-route-id="@user.UserId">Chi tiết</a> | 
+                    <a asp-action="Delete" asp-route-id="@user.UserId">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create">Thêm Người Dùng</a> <!-- Nút thêm người dùng -->
