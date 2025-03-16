@@ -2,13 +2,14 @@ using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDistributedMemoryCache();
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian hết hạn session
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TourismDB")));
@@ -30,14 +31,14 @@ app.UseHttpsRedirection();
 app.UseSession(); // Bật session
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapControllers();
 });
-
-app.UseAuthorization();
 
 app.MapStaticAssets();
 

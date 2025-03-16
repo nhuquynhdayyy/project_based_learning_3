@@ -8,15 +8,15 @@ namespace TourismWeb.Models
     {
         [Key]
         public int PostId { get; set; }
-
+        [Required]
         public int UserId { get; set; }
-        [ForeignKey("UserId")]
-        public User User { get; set; }
-
-        [Required, MaxLength(100)]
+        // [ForeignKey("UserId")]
+        // public User User { get; set; }
+        public virtual User? User { get; set; }  // Đảm bảo nullable
+        [Required(ErrorMessage = "Tiêu đề không được để trống"), MaxLength(100)]
         public string Title { get; set; } // Tiêu đề bài viết
 
-        [Required]
+        [Required(ErrorMessage = "Nội dung không được để trống")]
         public string Content { get; set; } // Nội dung bài viết
 
         public DateTime CreatedAt { get; set; } = DateTime.Now; // Ngày đăng bài

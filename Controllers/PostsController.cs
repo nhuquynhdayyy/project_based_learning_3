@@ -1,15 +1,14 @@
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using TourismWeb.Models;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TourismWeb.Models;
-
-namespace TourismWeb
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore; 
+using Microsoft.AspNetCore.Http; 
+namespace TourismWeb.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PostsController : ControllerBase
+    public class PostsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -18,86 +17,64 @@ namespace TourismWeb
             _context = context;
         }
 
-        // GET: api/Posts
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
+        // Hiển thị danh sách bài viết
+        public IActionResult Index()
         {
-            return await _context.Posts.ToListAsync();
+            var posts = _context.Posts.ToList();
+            return View(posts);
         }
 
-        // GET: api/Posts/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Post>> GetPost(int id)
+        // Hiển thị form tạo bài viết
+        public IActionResult Create()
         {
-            var post = await _context.Posts.FindAsync(id);
-
-            if (post == null)
-            {
-                return NotFound();
-            }
-
-            return post;
+            return View();
         }
 
-        // PUT: api/Posts/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPost(int id, Post post)
+        // Xử lý tạo bài viết
+        [HttpPost]
+        public async Task<IActionResult> Create(Post post)
         {
-            if (id != post.PostId)
+            if (!ModelState.IsValid)
             {
-                return BadRequest();
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error.ErrorMessage); // In lỗi ra console
+                }
+                return View(post);
             }
 
-            _context.Entry(post).State = EntityState.Modified;
+            var userId = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userId))
+            {
+                ModelState.AddModelError("", "Bạn cần đăng nhập để đăng bài!");
+                return View(post);
+            }
+            post.UserId = int.Parse(userId);
+            post.CreatedAt = DateTime.Now;
+            ModelState.Remove("User");
+            if (!ModelState.IsValid)
+            {
+                return View(post);
+            }
+
+
+            Console.WriteLine($"DEBUG: Title = {post.Title}, Content = {post.Content}, UserId = {post.UserId}");
 
             try
             {
+                _context.Posts.Add(post);
                 await _context.SaveChangesAsync();
+                Console.WriteLine("DEBUG: Bài viết đã được lưu thành công.");
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!PostExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                Console.WriteLine($"LỖI: {ex.Message}");
+                ModelState.AddModelError("", "Có lỗi xảy ra khi lưu bài viết: " + ex.Message);
+                return View(post);
             }
 
-            return NoContent();
-        }
-
-        // POST: api/Posts
-        [HttpPost]
-        public async Task<ActionResult<Post>> PostPost(Post post)
-        {
-            _context.Posts.Add(post);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPost", new { id = post.PostId }, post);
-        }
-
-        // DELETE: api/Posts/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePost(int id)
-        {
-            var post = await _context.Posts.FindAsync(id);
-            if (post == null)
-            {
-                return NotFound();
-            }
-
-            _context.Posts.Remove(post);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool PostExists(int id)
-        {
-            return _context.Posts.Any(e => e.PostId == id);
+            return RedirectToAction("Index","Home");
         }
     }
 }

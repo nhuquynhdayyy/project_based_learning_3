@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
 
 namespace TourismWeb.Controllers
 {
@@ -120,7 +121,6 @@ namespace TourismWeb.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
 
         public IActionResult TestSession()
         {

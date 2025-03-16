@@ -1,0 +1,24 @@
+@model IEnumerable<TourismWeb.Models.Post>
+
+
+<h2>Danh sách bài đăng</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Tiêu đề</th>
+            <th>Nội dung</th>
+            <th>Ngày đăng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var post in Model)
+        {
+            <tr>
+                <td>@post.Title</td>
+                <td>@post.Content</td>
+                <td>@post.CreatedAt.ToString("dd/MM/yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>
