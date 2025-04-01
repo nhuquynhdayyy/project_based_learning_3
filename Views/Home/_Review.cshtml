@@ -1,0 +1,133 @@
+@{
+    ViewData["Title"] = "Khách Hàng Nhận Xét";
+}
+
+<style>
+    .review-section {
+        font-family: Arial, sans-serif;
+    }
+
+    .review-section .testimonials {
+        position: relative;
+        background: url('background.jpg') no-repeat center center/cover;
+        color: white;
+        text-align: center;
+        padding: 80px 20px;
+    }
+
+    .review-section .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .review-section .container {
+        position: relative;
+        z-index: 1;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    .review-section .title {
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    .review-section .subtitle {
+        font-size: 18px;
+        margin-bottom: 40px;
+    }
+
+    .review-section .reviews {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .review-section .review {
+        background: rgba(24, 34, 124, 0.61);
+        padding: 20px;
+        border-radius: 10px;
+        width: 30%;
+    }
+
+    .review-section .avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+
+    .review-section .stars {
+        color: orange;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .review-section .comment {
+        font-style: italic;
+        font-size: 14px;
+    }
+
+    .review-section .author {
+        font-size: 14px;
+        margin-top: 10px;
+        color: #FFD700;
+    }
+
+    .review-section {
+        background-image: url('/images/xinchao2.jpg');
+        /* Đường dẫn ảnh */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        padding: 50px 0;
+    }
+
+    .review {
+        background: rgba(0, 0, 0, 0.5);
+        /* Làm mờ nền để chữ dễ đọc hơn */
+        padding: 20px;
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+    }
+</style>
+
+<div class="review-section">
+    <section class="testimonials">
+        <div class="overlay"></div>
+        <div class="container">
+            <h2 class="title">KHÁCH HÀNG NHẬN XÉT</h2>
+            <p class="subtitle">Cùng nhau tạo những trải nghiệm tuyệt vời cho khách hàng</p>
+            <div class="reviews">
+                <div class="review">
+                    <img src="~/images/avatar1.png" alt="Khách hàng 1" class="avatar">
+                    <div class="stars">★★★★★</div>
+                    <p class="comment">Tôi đi Đà Lạt thấy các dịch vụ khá ổn từ khách sạn, nhà hàng, phương tiện di
+                        chuyển
+                        đến hành trình tham quan. Không phát sinh chi phí phụ là điều tuyệt vời.</p>
+                    <p class="author"><strong>Mark Jance</strong> / Tour Đà Lạt</p>
+                </div>
+                <div class="review">
+                    <img src="~/images/avatar1.png" alt="Khách hàng 2" class="avatar">
+                    <div class="stars">★★★★★</div>
+                    <p class="comment">Tôi vừa đi tour du lịch Hàn Quốc ngày 24.03.2017 vừa qua. Cảm nhận ăn ngon chất
+                        lượng. Hướng dẫn quá tốt, quá nhiệt tình.</p>
+                    <p class="author"><strong>Mark Jance</strong> / Tour Hàn Quốc</p>
+                </div>
+                <div class="review">
+                    <img src="~/images/avatar1.png" alt="Khách hàng 3" class="avatar">
+                    <div class="stars">★★★★★</div>
+                    <p class="comment">Tôi đi Singapore vào ngày 28/04 vừa rồi và cảm thấy các dịch vụ khá ổn. Mong công
+                        ty
+                        sẽ phát huy tốt những điều này.</p>
+                    <p class="author"><strong>Mark Jance</strong> / Tour Singapore</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

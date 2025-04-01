@@ -1,50 +1,486 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@* <!DOCTYPE html>
+<html lang="vi">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewData["Title"] - TourismWeb</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/TourismWeb.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TourismWeb</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+     *@
+    @* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"> *@
+    
+    <!-- Bootstrap CSS -->
+    @* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+    <!-- Favicon -->
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    @RenderSection("Styles", required: false)
+
+</head> *@
+
+@* <body class="d-flex flex-column min-vh-100">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">TourismWeb</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                            <i class="fas fa-home"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Location" asp-action="Index">
+                            <i class="fas fa-map-marker-alt"></i> Địa điểm
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Guide" asp-action="Index">
+                            <i class="fas fa-book"></i> Cẩm nang du lịch
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Experience" asp-action="Index">
+                            <i class="fas fa-walking"></i> Trải nghiệm
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Contact" asp-action="Index">
+                            <i class="fas fa-envelope"></i> Liên hệ
+                        </a>
+                    </li>
+                </ul>
+
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Tìm kiếm...">
+                    <button class="btn btn-outline-light" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+                <div class="dropdown ms-3">
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="userMenu"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu"> *@
+                        @* @if (HttpContext.Session.GetString("UserId") == null)  <!-- Kiểm tra trạng thái đăng nhập --> *@
+                        @* @if (!User.Identity.IsAuthenticated)
+                        {
+                            <!-- Guest: Chưa đăng nhập -->
+                            <li><a class="dropdown-item" asp-controller="Users" asp-action="Login">Đăng nhập</a></li>
+                            <li><a class="dropdown-item" asp-controller="Users" asp-action="Register">Đăng ký</a></li>
+                        }
+                        else
+                        {
+                            <!-- User: Đã đăng nhập -->
+                            <li><a class="dropdown-item" asp-controller="Users" asp-action="Profile">Trang cá nhân</a></li>
+                            <li><a class="dropdown-item" asp-controller="Users" asp-action="Logout">Đăng xuất</a></li>
+                        }
                     </ul>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - TourismWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main role="main" class="flex-grow-1">
+        <div>
+            @RenderBody()
+        </div>
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Khởi tạo Swiper slider
+            var swiper = new Swiper(".swiper-container", {
+                slidesPerView: 3,
+                spaceBetween: 40,
+                centeredSlides: "auto",
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                speed: 1000,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                grabCursor: true
+            });
+
+            // Khởi tạo dropdown Bootstrap
+            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+            var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+                return new bootstrap.Dropdown(dropdownToggleEl);
+            });
+        });
+    </script>
+
+    <!-- Footer -->
+    @await RenderSectionAsync("Scripts", required: false)
+    <footer class="bg-dark text-light text-center py-3 mt-auto">
+        <div class="container">
+            &copy; 2025 - TourismWeb - <a asp-controller="Home" asp-action="Privacy" class="text-light">Privacy</a>
+        </div>
+
+        <section class="footer-wrapper">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="~/images/logo2.webp" alt="Logo">
+                    <p>WELCOME TourismWeb!</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Điều hướng</h4>
+                    <ul>
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><a href="/diadiem">Địa điểm</a></li>
+                        <li><a href="/camnang">Cẩm nang du lịch</a></li>
+                        <li><a href="/trainghiem">Trải nghiệm</a></li>
+                        <li><a href="/lienhe">Liên hệ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-instagram">
+                    <h4>Instagram</h4>
+                    <div class="footer-gallery">
+                        <img src="~/images/danang.jpg" alt="">
+                        <img src="~/images/hoian.jpg" alt="">
+                        <img src="~/images/hue.jpg" alt="">
+                        <img src="~/images/nhatrang.jpg" alt="">
+                        <img src="~/images/phongnha.jpg" alt="">
+                        <img src="~/images/xinchao3.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="footer-subscribe">
+                    <h4>Theo dõi</h4>
+                    <p>Đăng ký nhận tin tức</p>
+                    <input type="email" placeholder="Email...">
+                    <button>ĐĂNG KÝ</button>
+                </div>
+
+            </div>
+        </section>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+</body>
+
+</html> *@
+
+
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"] - TourismWeb</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+    <!-- Favicon -->
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    
+    @RenderSection("Styles", required: false)
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">TourismWeb</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                            <i class="fas fa-home"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Location" asp-action="Index">
+                            <i class="fas fa-map-marker-alt"></i> Địa điểm
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Guide" asp-action="Index">
+                            <i class="fas fa-book"></i> Cẩm nang du lịch
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Experience" asp-action="Index">
+                            <i class="fas fa-walking"></i> Trải nghiệm
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Contact" asp-action="Index">
+                            <i class="fas fa-envelope"></i> Liên hệ
+                        </a>
+                    </li>
+                </ul>
+
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Tìm kiếm...">
+                    <button class="btn btn-outline-light" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+
+                <div class="dropdown ms-3">
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <!-- User: Đã đăng nhập -->
+                            <li><a class="dropdown-item" asp-controller="Users" asp-action="Profile">Trang cá nhân</a></li>
+                            <li><a class="dropdown-item" asp-controller="Users" asp-action="Logout">Đăng xuất</a></li>
+                        }
+                        else
+                        {
+                            <!-- Guest: Chưa đăng nhập -->
+                            <li><a class="dropdown-item" asp-controller="Users" asp-action="Login">Đăng nhập</a></li>
+                            <li><a class="dropdown-item" asp-controller="Users" asp-action="Register">Đăng ký</a></li>
+                        }
+                    </ul>
+                </div>
+
+
+                @* <!-- Hiển thị khi người dùng chưa đăng nhập -->
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Users" asp-action="Login">
+                                <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Users" asp-action="Register">
+                                <i class="fas fa-user-plus"></i> Đăng ký
+                            </a>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                <!-- Hiển thị khi người dùng đã đăng nhập -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Users" asp-action="Profile">
+                            <i class="fas fa-user"></i> Trang cá nhân
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Users" asp-action="Logout">
+                            <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                        </a>
+                    </li>
+                </ul>
+            } *@
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main role="main" class="flex-grow-1">
+        <div>
+            @RenderBody()
+        </div>
+    </main>
+
+    <div class="text-center mt-4 fade-in">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <!-- Nếu đã đăng nhập, nút này sẽ đưa người dùng đến trang đăng bài -->
+            <a href="/Posts/Create" class="btn btn-warning btn-lg btn-custom">Đăng bài</a>
+        }
+        else
+        {
+            <!-- Nếu chưa đăng nhập, nút này sẽ kích hoạt modal -->
+            @* <button class="btn btn-warning btn-lg btn-custom" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng bài</button> *@
+            <button class="btn btn-warning btn-lg btn-custom"
+                data-bs-toggle="modal" data-bs-target="#loginModal"
+                onclick="saveRedirectUrl('/Posts/Create')">
+            Đăng bài
+        </button>
+        }
+    </div>
+    <!-- Modal Đăng nhập/Đăng ký -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Vui lòng đăng nhập</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn cần đăng nhập để đăng bài.</p>
+                    <div class="text-center">
+                        <a href="/Users/Login" class="btn btn-primary">Đăng nhập</a>
+                        <a href="/Users/Register" class="btn btn-success">Đăng ký</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function saveRedirectUrl(url) {
+            sessionStorage.setItem("redirectAfterLogin", url);
+        }
+
+        function redirectIfNeeded() {
+            var redirectUrl = sessionStorage.getItem("redirectAfterLogin");
+
+            // Kiểm tra nếu người dùng đã đăng nhập thì mới chuyển hướng
+            if (redirectUrl && document.getElementById("isAuthenticated")?.value === "true") {
+                sessionStorage.removeItem("redirectAfterLogin"); // Xóa sau khi sử dụng
+                window.location.href = redirectUrl;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", redirectIfNeeded);
+    </script>
+
+    <!-- Ẩn giá trị xác định trạng thái đăng nhập -->
+    <input type="hidden" id="isAuthenticated" value="@User.Identity.IsAuthenticated.ToString().ToLower()" />
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light text-center py-3 mt-auto">
+        <div class="container">
+            &copy; 2025 - TourismWeb - <a asp-controller="Home" asp-action="Privacy" class="text-light">Privacy</a>
+        </div>
+
+        <section class="footer-wrapper">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="~/images/logo2.webp" alt="Logo">
+                    <p>WELCOME TourismWeb!</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Điều hướng</h4>
+                    <ul>
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><a href="/diadiem">Địa điểm</a></li>
+                        <li><a href="/camnang">Cẩm nang du lịch</a></li>
+                        <li><a href="/trainghiem">Trải nghiệm</a></li>
+                        <li><a href="/lienhe">Liên hệ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-instagram">
+                    <h4>Instagram</h4>
+                    <div class="footer-gallery">
+                        <img src="~/images/danang.jpg" alt="Da Nang">
+                        <img src="~/images/hoian.jpg" alt="Hoi An">
+                        <img src="~/images/hue.jpg" alt="Hue">
+                        <img src="~/images/nhatrang.jpg" alt="Nha Trang">
+                        <img src="~/images/phongnha.jpg" alt="Phong Nha">
+                        <img src="~/images/xinchao3.jpg" alt="Xin Chao">
+                    </div>
+                </div>
+
+                <div class="footer-subscribe">
+                    <h4>Theo dõi</h4>
+                    <p>Đăng ký nhận tin tức</p>
+                    <input type="email" placeholder="Email...">
+                    <button>ĐĂNG KÝ</button>
+                </div>
+
+            </div>
+        </section>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Custom Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Khởi tạo Swiper slider
+            var swiper = new Swiper(".swiper-container", {
+                slidesPerView: 3,
+                spaceBetween: 40,
+                centeredSlides: "auto",
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                speed: 1000,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                grabCursor: true
+            });
+
+            // Khởi tạo dropdown Bootstrap
+            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+            var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+                return new bootstrap.Dropdown(dropdownToggleEl);
+            });
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

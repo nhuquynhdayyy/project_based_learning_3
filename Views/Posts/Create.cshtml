@@ -1,4 +1,4 @@
-@model TourismWeb.Models.Post
+@* @model TourismWeb.Models.Post
 
 <h2>Đăng Bài Viết</h2>
 
@@ -24,4 +24,201 @@ else
         </div>
         <button type="submit">Đăng bài</button>
     </form>
-}
+} *@
+@* @model TourismWeb.Models.Post
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0">Đăng Bài Viết</h3>
+                </div>
+                <div class="card-body p-4">
+                    @if (ViewBag.SuccessMessage != null)
+                    {
+                        <div class="alert alert-success text-center">
+                            <p>@ViewBag.SuccessMessage</p>
+                            <a href="/Posts/Index" class="btn btn-success mt-2">Xem danh sách bài viết</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <form asp-action="Create" method="post">
+                            <div class="mb-3">
+                                <label asp-for="Title" class="form-label fw-bold">Tiêu đề</label>
+                                <input asp-for="Title" class="form-control" placeholder="Nhập tiêu đề bài viết" required />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Content" class="form-label fw-bold">Nội dung</label>
+                                <textarea asp-for="Content" class="form-control" rows="5" placeholder="Nhập nội dung bài viết" required></textarea>
+                                <span asp-validation-for="Content" class="text-danger"></span>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Đăng bài</button>
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS tùy chỉnh -->
+<style>
+    .card {
+        max-width: 600px;
+        margin: auto;
+    }
+    
+    .btn-primary {
+        transition: 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+</style> *@
+
+@model TourismWeb.Models.Post
+
+<div class="post-container">
+    <h2 class="post-title">Đăng Bài Viết Mới</h2>
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <div class="success-message">
+            <p>@ViewBag.SuccessMessage</p>
+            <a href="/Posts/Index" class="view-list-btn">Xem danh sách bài viết</a>
+        </div>
+    }
+    else
+    {
+        <form asp-action="Create" method="post" class="post-form">
+            <div class="form-group">
+                <label asp-for="Title" class="form-label">Tiêu đề</label>
+                <input asp-for="Title" class="form-input" placeholder="Nhập tiêu đề bài viết" required />
+                <span asp-validation-for="Title" class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Content" class="form-label">Nội dung</label>
+                <textarea asp-for="Content" class="form-textarea" placeholder="Viết nội dung bài viết..." required></textarea>
+                <span asp-validation-for="Content" class="error-message"></span>
+            </div>
+
+            <button type="submit" class="submit-btn">Đăng bài</button>
+        </form>
+    }
+
+
+<style>
+    .post-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-title {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 28px;
+        font-weight: 600;
+    }
+
+    .success-message {
+        text-align: center;
+        padding: 20px;
+        background: #d4edda;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .success-message p {
+        color: #155724;
+        margin: 0 0 15px 0;
+        font-size: 16px;
+    }
+
+    .view-list-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+
+    .view-list-btn:hover {
+        background: #0056b3;
+    }
+
+    .post-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-label {
+        color: #34495e;
+        font-weight: 500;
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    .form-input, .form-textarea {
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    }
+
+    .form-textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .submit-btn {
+        padding: 12px 25px;
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+        align-self: flex-start;
+    }
+
+    .submit-btn:hover {
+        background: #218838;
+    }
+</style>

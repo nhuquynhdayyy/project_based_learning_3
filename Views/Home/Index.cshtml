@@ -1,204 +1,162 @@
-﻿@{
-    ViewData["Title"] = "Khám phá thế giới";
+﻿@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+
 }
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    
-    <style>
-        /* Toàn bộ trang */
-        body {
-            background-color: #f4f9ff;
-            padding-bottom: 50px; /* Để footer không che nội dung */
-        }
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+@await Html.PartialAsync("_Carousel")
 
-        /* Hiệu ứng fade-in */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-        }
-        .loaded .fade-in {
-            opacity: 1;
-            transform: translateY(0);
-        }
 
-        /* Tiêu đề nổi bật */
-        .hero-section {
-            background: url('/images/banner.jpg') center/cover;
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            color: #003366;
-        }
-        .hero-section h1 {
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: rgb(184, 161, 161); /* Fallback color */
-            background: #0033FF;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+<section class="mt-4">
+    <div class="container">
+        <h2 class="text-center">Khám phá miền Trung</h2>
+        <p class="text-center">Những điểm đến hấp dẫn không thể bỏ lỡ</p>
 
-        /* Ô tìm kiếm */
-        .search-form input {
-            width: 100%;
-            max-width: 500px;
-            border-radius: 25px;
-            padding: 10px;
-            border: 2px solid #007bff;
-            transition: all 0.3s ease-in-out;
-        }
-        .search-form input:focus {
-            border-color: #ff7e5f;
-            box-shadow: 0 0 10px rgba(255, 126, 95, 0.5);
-        }
-
-        /* Card địa điểm */
-        .card {
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
-            border: 2px solid transparent;
-        }
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 0, 255, 0.2);
-            border: 2px solid #007bff;
-        }
-
-        /* Nút bấm đẹp hơn */
-        .btn-custom {
-            border-radius: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 255, 0.2);
-            transition: all 0.3s ease-in-out;
-        }
-        .btn-custom:hover {
-            transform: scale(1.1);
-        }
-
-        /* Footer căn chỉnh đẹp */
-        footer {
-            position: relative;
-            bottom: 0;
-            width: 100%;
-            color: black;
-            text-align: center;
-            padding: 10px 0;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body onload="document.body.classList.add('loaded')">
-    <div class="hero-section text-center fade-in">
-        <h1 class="display-3">Khám phá & Chia sẻ Địa Điểm Du Lịch</h1>
-        <p class="lead">Tìm kiếm địa điểm du lịch yêu thích và chia sẻ trải nghiệm của bạn!</p>
-        <form method="get" action="/Search" class="search-form fade-in">
-            <input type="text" name="query" placeholder="Tìm địa điểm, thành phố..." class="form-control">
-            <button type="submit" class="btn btn-primary btn-custom mt-2">Tìm kiếm</button>
-        </form>
-    </div>
-
-    <div class="container mt-5 fade-in">
-        <h2 class="text-center">Địa Điểm Nổi Bật</h2>
         <div class="row">
-            <div class="col-md-4 fade-in">
-                <div class="card">
-                    <img src="/images/danang.jpg" class="card-img-top" alt="Địa điểm 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Đà Nẵng</h5>
-                        <p class="card-text">Thành phố biển đẹp nhất Việt Nam.</p>
-                        <a href="/places/1" class="btn btn-primary btn-custom">Xem chi tiết</a>
+            <div class="col-md-4">
+                <div class="card tour-card">
+                    <img src="/images/danang.jpg" class="card-img-top" alt="Đà Nẵng">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-warning">ĐÀ NẴNG</h5>
+                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 fade-in">
-                <div class="card">
-                    <img src="/images/hue.jpg" class="card-img-top" alt="Địa điểm 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Huế</h5>
-                        <p class="card-text">Cố đô với vẻ đẹp hoài cổ.</p>
-                        <a href="/places/2" class="btn btn-primary btn-custom">Xem chi tiết</a>
+            <div class="col-md-4">
+                <div class="card tour-card">
+                    <img src="/images/hue.jpg" class="card-img-top" alt="Huế">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-warning">HUẾ</h5>
+                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 fade-in">
-                <div class="card">
-                    <img src="/images/hoian.jpg" class="card-img-top" alt="Địa điểm 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Hội An</h5>
-                        <p class="card-text">Phố cổ lung linh sắc đèn lồng.</p>
-                        <a href="/places/3" class="btn btn-primary btn-custom">Xem chi tiết</a>
+            <div class="col-md-4">
+                <div class="card tour-card">
+                    <img src="/images/hoian.jpg" class="card-img-top" alt="Hội An">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-warning">HỘI AN</h5>
+                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card tour-card">
+                    <img src="/images/phongnha.jpg" class="card-img-top" alt="Quảng Bình">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-warning">QUẢNG BÌNH</h5>
+                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card tour-card">
+                    <img src="/images/nhatrang.jpg" class="card-img-top" alt="Nha Trang">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-warning">NHA TRANG</h5>
+                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card tour-card">
+                    <img src="/images/phuyen.jpg" class="card-img-top" alt="Phú Yên">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-warning">PHÚ YÊN</h5>
+                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="text-center mt-5 fade-in">
-        <a href="/Users/Register" class="btn btn-success btn-lg btn-custom">Đăng ký ngay</a>
-        <a href="/Users/Login" class="btn btn-outline-primary btn-lg btn-custom">Đăng nhập</a>
-    </div>
 
-    <div class="text-center mt-4 fade-in">
-        @if (User.Identity.IsAuthenticated)
-        {
-            <!-- Nếu đã đăng nhập, nút này sẽ đưa người dùng đến trang đăng bài -->
-            <a href="/Posts/Create" class="btn btn-warning btn-lg btn-custom">Đăng bài</a>
-        }
-        else
-        {
-            <!-- Nếu chưa đăng nhập, nút này sẽ kích hoạt modal -->
-            @* <button class="btn btn-warning btn-lg btn-custom" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng bài</button> *@
-            <button class="btn btn-warning btn-lg btn-custom"
-                data-bs-toggle="modal" data-bs-target="#loginModal"
-                onclick="saveRedirectUrl('/Posts/Create')">
-            Đăng bài
-        </button>
-        }
-    </div>
-    <!-- Modal Đăng nhập/Đăng ký -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Vui lòng đăng nhập</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <section>
+        <div class="swiper-container">
+            <h2 class="text-center">Bài viết gần đây</h2>
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="post-container">
+                        <div class="post">
+                            <img src="/images/hue.jpg" alt="Bài viết 1">
+                            <a href="#">Bài viết 1</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <p>Bạn cần đăng nhập để đăng bài.</p>
-                    <div class="text-center">
-                        <a href="/Users/Login" class="btn btn-primary">Đăng nhập</a>
-                        <a href="/Users/Register" class="btn btn-success">Đăng ký</a>
+                <div class="swiper-slide">
+                    <div class="post-container">
+                        <div class="post">
+                            <img src="/images/hue.jpg" alt="Bài viết 2">
+                            <a href="#">Bài viết 2</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="post-container">
+                        <div class="post">
+                            <img src="/images/hue.jpg" alt="Bài viết 3">
+                            <a href="#">Bài viết 3</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="post-container">
+                        <div class="post">
+                            <img src="/images/nhatrang.jpg" alt="Bài viết 4">
+                            <a href="#">Bài viết 4</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="post-container">
+                        <div class="post">
+                            <img src="/images/danang.jpg" alt="Bài viết 5">
+                            <a href="#">Bài viết 5</a>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Nút điều hướng -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <!-- Chấm tròn pagination -->
+            <div class="swiper-pagination"></div>
         </div>
-    </div>
-    <script>
-        function saveRedirectUrl(url) {
-            localStorage.setItem("redirectAfterLogin", url);
-        }
 
-        function redirectIfNeeded() {
-            var redirectUrl = localStorage.getItem("redirectAfterLogin");
-            if (redirectUrl) {
-                localStorage.removeItem("redirectAfterLogin"); // Xóa sau khi sử dụng
-                window.location.href = redirectUrl;
-            }
-        }
-        
-        // Kiểm tra ngay khi trang tải lại (sau khi đăng nhập)
-        document.addEventListener("DOMContentLoaded", redirectIfNeeded);
-    </script>
+        @await Html.PartialAsync("_Review")
 
-    <footer>
-        <p>&copy; 2025 Khám phá thế giới. Mọi quyền được bảo lưu.</p>
-    </footer>
-</body>
-</html>
+        <section class="guide-wrapper">
+            <div class="guide-section">
+                <h2 class="guide-title">CẨM NANG DU LỊCH TỪ A - Z</h2>
+                <div class="guide-container">
+                    <div class="card">
+                        <img src="~/images/danang.jpg" class="card-img-top" alt="Đà Nẵng">
+                        <div class="card-body">
+                            <h5 class="card-title">Tất tần tật kinh nghiệm du lịch Đà Nẵng</h5>
+                            <p class="card-text">Giới thiệu sơ lược về đảo Bình Ba...</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="~/images/hue.jpg" class="card-img-top" alt="Huế ">
+                        <div class="card-body">
+                            <h5 class="card-title">Vì sao bạn phải đến Huế?</h5>
+                            <p class="card-text">Khung cảnh tuyệt đẹp, văn hóa đặc sắc...</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="~/images/hoian.jpg" class="card-img-top" alt="Hội An">
+                        <div class="card-body">
+                            <h5 class="card-title">Du lịch Hội An: 10 điểm hấp dẫn</h5>
+                            <p class="card-text">Khám phá những điểm đến đẹp nhất...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </section>
