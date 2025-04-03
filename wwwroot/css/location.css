@@ -1,0 +1,435 @@
+Reset & Global Styles
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    /* Bảng màu mới: chủ đạo tông ấm, thay vì xanh */
+    --primary-color: #302dca;   /* Màu đỏ chủ đạo */
+    --secondary-color: #7ea8e0; /* Màu hồng nhạt */
+    --accent-color: #df5616;    /* Màu cam nổi bật */
+    --light-gray: #f5f5f5;
+    --dark-gray: #524e4e;
+    --white: #fcfcfc;         /* Thay màu trắng bằng màu kem ấm nhẹ */
+    --shadow: 0 4px 6px rgba(0,0,0,0.1);
+    --hover-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    --border-radius: 12px;
+}
+
+/* Base styles */
+body {
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    line-height: 1.6;
+}
+
+/* Container for page content */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    padding: 30px 0;
+    text-align: center;
+    margin-bottom: 30px;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: var(--shadow);
+    position: relative;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Main content layout */
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+/* Sidebar for filters */
+.sidebar {
+    flex: 3;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+/* Content area */
+.content {
+    flex: 7;
+    background-color: transparent;
+}
+
+/* Filter & Sort styling */
+.filter-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.filter-title i {
+    margin-right: 10px;
+}
+
+.filter-section {
+    margin-bottom: 30px;
+}
+
+.filter-section h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: var(--dark-gray);
+    display: flex;
+    align-items: center;
+}
+
+.filter-section h3 i {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+.category-list {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.category-list li {
+    margin-bottom: 12px;
+}
+
+.category-list label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+    padding: 5px 0;
+}
+
+.category-list label:hover {
+    transform: translateX(5px);
+    color: var(--primary-color);
+}
+
+.category-list input {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+}
+
+.rating-filter {
+    margin-bottom: 25px;
+}
+
+.rating-option {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.rating-option input {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+}
+
+.stars {
+    display: flex;
+    color: #FFD700;
+    font-size: 18px;
+}
+
+.star {
+    margin-right: 2px;
+}
+
+.gray-star {
+    color: #ddd;
+}
+
+.sort-options {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 25px;
+    background-color: var(--white);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.sort-dropdown {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: border 0.3s;
+}
+
+.sort-dropdown:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Location Grid */
+.location-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+@media (max-width: 992px) {
+    .location-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .location-grid {
+        grid-template-columns: 1fr;
+    }
+    header h1 {
+        font-size: 1.8rem;
+    }
+}
+
+/* Location Card */
+.location-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.location-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--hover-shadow);
+}
+
+.featured-badge {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    background-color: var(--accent-color);
+    color: var(--white);
+    padding: 5px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 0 20px 20px 0;
+    z-index: 10;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(255,255,255,0.8);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.3s, background-color 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.favorite-btn:hover {
+    background-color: rgba(255,255,255,1);
+    transform: scale(1.1);
+}
+
+.favorite-btn i {
+    font-size: 18px;
+    color: #FF5252;
+    transition: transform 0.3s;
+}
+
+.favorite-btn:hover i {
+    transform: scale(1.2);
+}
+
+/* Image Container & Image */
+.location-img-container {
+    width: 350px;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+}
+
+.location-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.location-card:hover .location-img {
+    transform: scale(1.1);
+}
+
+/* Location Information */
+.location-info {
+    padding: 20px;
+}
+
+.location-name {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.location-rating {
+    color: #FFD700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.location-rating span {
+    color: var(--dark-gray);
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+.location-address {
+    font-size: 14px;
+    color: var(--dark-gray);
+    display: flex;
+    align-items: center;
+}
+
+.location-address i {
+    margin-right: 8px;
+    color: var(--accent-color);
+}
+
+/* Tags */
+.category-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: rgba(211, 47, 47, 0.1); /* màu chủ đạo nhẹ, dựa trên primary-color */
+    color: var(--primary-color);
+    border-radius: 20px;
+    font-size: 12px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.tags-container {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #B71C1C;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+/* Custom Checkbox */
+.custom-checkbox {
+    display: inline-block;
+    position: relative;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+}
+
+.custom-checkbox input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #eee;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+
+.custom-checkbox:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: var(--primary-color);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.custom-checkbox .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}

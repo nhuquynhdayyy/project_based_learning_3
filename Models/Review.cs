@@ -23,6 +23,7 @@ namespace TourismWeb.Models
         public string Comment { get; set; }
 
         public string ImageUrl { get; set; }
+        public string Video_Url { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }

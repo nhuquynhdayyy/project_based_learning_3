@@ -17,6 +17,10 @@ namespace TourismWeb.Models
         [ForeignKey("SpotId")]
         public TouristSpot Spot { get; set; }
 
+        public int? PostId { get; set; }
+        [ForeignKey("PostId")]
+        public TouristSpot PostID { get; set; }
+
         [Required]
         public string Content { get; set; }
 

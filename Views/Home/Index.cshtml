@@ -2,11 +2,12 @@
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
 
 }
-
 @{
     ViewData["Title"] = "Trang chủ";
 }
 @await Html.PartialAsync("_Carousel")
+
+
 
 
 <section class="mt-4">
@@ -43,6 +44,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row mt-4">
             <div class="col-md-4">
                 <div class="card tour-card">
@@ -83,23 +85,23 @@
                     <div class="post-container">
                         <div class="post">
                             <img src="/images/hue.jpg" alt="Bài viết 1">
-                            <a href="#">Bài viết 1</a>
+                            <a href="#">Kinh thành Huế</a>
                         </div>
                     </div>
                 </div>
                 <div class="swiper-slide">
                     <div class="post-container">
                         <div class="post">
-                            <img src="/images/hue.jpg" alt="Bài viết 2">
-                            <a href="#">Bài viết 2</a>
+                            <img src="/images/danang2.webp" alt="Bài viết 2">
+                            <a href="#">Đà Nẵng</a>
                         </div>
                     </div>
                 </div>
                 <div class="swiper-slide">
                     <div class="post-container">
                         <div class="post">
-                            <img src="/images/hue.jpg" alt="Bài viết 3">
-                            <a href="#">Bài viết 3</a>
+                            <img src="/images/hoian2.jpg" alt="Bài viết 3">
+                            <a href="#">Hội An</a>
                         </div>
                     </div>
                 </div>
@@ -107,15 +109,15 @@
                     <div class="post-container">
                         <div class="post">
                             <img src="/images/nhatrang.jpg" alt="Bài viết 4">
-                            <a href="#">Bài viết 4</a>
+                            <a href="#">Nha Trang</a>
                         </div>
                     </div>
                 </div>
                 <div class="swiper-slide">
                     <div class="post-container">
                         <div class="post">
-                            <img src="/images/danang.jpg" alt="Bài viết 5">
-                            <a href="#">Bài viết 5</a>
+                            <img src="/images/quangbinh2.jpg" alt="Bài viết 5">
+                            <a href="#">Quảng Bình</a>
                         </div>
                     </div>
                 </div>
@@ -124,39 +126,55 @@
             <!-- Nút điều hướng -->
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
+
             <!-- Chấm tròn pagination -->
             <div class="swiper-pagination"></div>
         </div>
-
         @await Html.PartialAsync("_Review")
-
         <section class="guide-wrapper">
             <div class="guide-section">
-                <h2 class="guide-title">CẨM NANG DU LỊCH TỪ A - Z</h2>
-                <div class="guide-container">
-                    <div class="card">
-                        <img src="~/images/danang.jpg" class="card-img-top" alt="Đà Nẵng">
-                        <div class="card-body">
-                            <h5 class="card-title">Tất tần tật kinh nghiệm du lịch Đà Nẵng</h5>
-                            <p class="card-text">Giới thiệu sơ lược về đảo Bình Ba...</p>
-                        </div>
+                <div class="container"></div>
+                <h2><b>Cẩm Nang Du Lịch Miền Trung từ A - Z</b></h2>
+                <div class="divider">
+                    <hr>
+                    <div class="dots">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
                     </div>
-                    <div class="card">
-                        <img src="~/images/hue.jpg" class="card-img-top" alt="Huế ">
-                        <div class="card-body">
-                            <h5 class="card-title">Vì sao bạn phải đến Huế?</h5>
-                            <p class="card-text">Khung cảnh tuyệt đẹp, văn hóa đặc sắc...</p>
-                        </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="guide-container">
+                <div class="card">
+                    <img src="~/images/danang2.webp" class="card-img-top" alt="Đà Nẵng">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Đà Nẵng - Thành phố đáng sống với những bãi biển tuyệt đẹp</b></h5>
+                        <p class="guide-date">31 tháng Mười Hai, 2024</p>
+                        <p class="card-text">Giới thiệu sơ lược về đảo Bình Ba...</p>
                     </div>
-                    <div class="card">
-                        <img src="~/images/hoian.jpg" class="card-img-top" alt="Hội An">
-                        <div class="card-body">
-                            <h5 class="card-title">Du lịch Hội An: 10 điểm hấp dẫn</h5>
-                            <p class="card-text">Khám phá những điểm đến đẹp nhất...</p>
-                        </div>
+                </div>
+                <div class="card">
+                    <img src="~/images/hue.jpg" class="card-img-top" alt="Huế ">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Khám phá vẻ đẹp cổ kính của Đại Nội Huế - Kinh đô của triều Nguyễn</b>
+                        </h5>
+                        <p class="guide-date">31 tháng Mười Hai, 2024</p>
+                        <p class="card-text">Khung cảnh tuyệt đẹp, văn hóa đặc sắc...</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="~/images/hoian.jpg" class="card-img-top" alt="Hội An">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Phố cổ Hội An: Bước chân vào ký ức thương cảng sầm uất một thời</b>
+                        </h5>
+                        <p class="guide-date">31 tháng Mười Hai, 2024</p>
+                        <p class="card-text">Khám phá những điểm đến đẹp nhất...</p>
                     </div>
                 </div>
             </div>
+            </div>
         </section>
+
 
     </section>

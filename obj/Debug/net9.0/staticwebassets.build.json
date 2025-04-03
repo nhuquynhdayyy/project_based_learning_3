@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "j69cq/lVKGQ3SH96XOzm76wyJh9BJ/MPg8JE2VSWamk=",
+  "Hash": "hsXFWB+pwUD5w7xZ+aBkyaciuvY7wEq32oUQBFJbNtY=",
   "Source": "TourismWeb",
   "BasePath": "_content/TourismWeb",
   "Mode": "Default",
@@ -162,6 +162,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\3zhvn2qyo5-hlfv9w4shf.gz",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "css/location#[.{fingerprint=hlfv9w4shf}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\location.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "mhjl7efbic",
+      "Integrity": "FpsHdvkCyBSXDwYjeWthTDCTHYEjT3K8aG8svPFXqS0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\location.css"
     },
     {
       "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\4oeor7spqj-fsbi9cje9m.gz",
@@ -815,6 +836,27 @@
       "OriginalItemSpec": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\mmfoti1uct-n68j1xxasz.gz",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "css/guide#[.{fingerprint=n68j1xxasz}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\guide.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "8vgfvhkzqf",
+      "Integrity": "3JlvJIRGjwa+LTMDsr2UY0lm70Tndv3ofK7Ww4QR9hw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\guide.css"
+    },
+    {
       "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\mz0dtoe0gx-ttgo8qnofa.gz",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
@@ -855,6 +897,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\noqcdaocax-qf3fi8882i.gz",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "css/contact#[.{fingerprint=qf3fi8882i}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\contact.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "trs786hgzg",
+      "Integrity": "l4JGGJnlBwvNnelbuNfBOz3Jnki3AQKcSnqbudcOXiM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\contact.css"
     },
     {
       "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\oay1q5ntz8-jd9uben2k1.gz",
@@ -1025,12 +1088,12 @@
       "OriginalItemSpec": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-2mceelaeos.gz",
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-h3ad1h3x8b.gz",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/TourismWeb",
-      "RelativePath": "css/layout#[.{fingerprint=2mceelaeos}]?.css.gz",
+      "RelativePath": "css/layout#[.{fingerprint=h3ad1h3x8b}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -1039,8 +1102,8 @@
       "RelatedAsset": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\layout.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "x93tyj3qf6",
-      "Integrity": "1fPci6tAHvQXfYqiwaD1n3fvZ7HThj4iWWtzFDgH1oY=",
+      "Fingerprint": "mz8f48elq2",
+      "Integrity": "vmBZteeLBEescfjordyf6sZKgqtneVaOSa9SPGHIU0M=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\layout.css"
@@ -1256,12 +1319,12 @@
       "OriginalItemSpec": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\yljvie71jl-gy5s7wgjrh.gz",
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\yljvie71jl-b1fv9s4vyy.gz",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/TourismWeb",
-      "RelativePath": "css/home#[.{fingerprint=gy5s7wgjrh}]?.css.gz",
+      "RelativePath": "css/home#[.{fingerprint=b1fv9s4vyy}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -1270,8 +1333,8 @@
       "RelatedAsset": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\home.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "c65jfm2ilg",
-      "Integrity": "9MdrW8DVsDBKT0YWarQoljCCz5HqWvVTtOOqRcsAxqk=",
+      "Fingerprint": "90m5v7cetk",
+      "Integrity": "V8aNcjkepzirrTJFpWJ941X+7NKZhgztXZ4DdpdPBY0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\home.css"
@@ -1340,6 +1403,48 @@
       "OriginalItemSpec": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\contact.css",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "css/contact#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "qf3fi8882i",
+      "Integrity": "2k4+d1O+YjT7YHXCrr8pi71bbaFGxvjQ82CbT5OTG8g=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\contact.css"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\guide.css",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "css/guide#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "n68j1xxasz",
+      "Integrity": "LwWOo2O5ne8Jqtg6uFoWq9MM3JAv9h8II7Kwx9xvnco=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\guide.css"
+    },
+    {
       "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\home.css",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
@@ -1354,8 +1459,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "gy5s7wgjrh",
-      "Integrity": "2EsV1PQfl0CTGkuKL5QaSaa9Rc5kGu09AgiFQdz9JHs=",
+      "Fingerprint": "b1fv9s4vyy",
+      "Integrity": "IQmJmgTMDO/j8JiW7xLHcW2jIc1ciXNbRz6eGIregqM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\home.css"
@@ -1375,11 +1480,32 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "2mceelaeos",
-      "Integrity": "WplWJFHUTX5oS6yfPBSSdqzjwLFnUmiXa4SLnSLReYo=",
+      "Fingerprint": "h3ad1h3x8b",
+      "Integrity": "o5bw/lY9V03Y6SSW7vPZGDhrd0GeH7fRM8afS9fLzVs=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\layout.css"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\location.css",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "css/location#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "hlfv9w4shf",
+      "Integrity": "tcmZ47Eg1P8l629rVkqtvIpLkciRriwyfSy0ddzzXaE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\location.css"
     },
     {
       "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\favicon.ico",
@@ -1424,6 +1550,69 @@
       "OriginalItemSpec": "wwwroot\\images\\avatar1.png"
     },
     {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\avatar2.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/avatar2#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "20ifr52pg6",
+      "Integrity": "HmgBBurPYC61jtZzdYqpwLxT9qXFRkoqBY9eEzrjVCs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\avatar2.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\avatar3.png",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/avatar3#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "yqxafcanfa",
+      "Integrity": "Wkj9GA6/pMBRkk7E83cmjVv/IXNuZSXbj5Sd0ONaE3A=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\avatar3.png"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\chualinhung.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/chualinhung#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "k8i2ytancu",
+      "Integrity": "LOG/jxTUCB7+V9vKkttJRq/hrwWX3BjzJ6Ce+QpDnoE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\chualinhung.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\codohue.jpg",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
@@ -1443,6 +1632,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\codohue.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\culaocham.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/culaocham#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5jgjy3jrfe",
+      "Integrity": "j+dEnC10UtG23W6Xs2K8PQhbcg6pWPWSGJZm4u9wsCs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\culaocham.jpg"
     },
     {
       "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\danang.jpg",
@@ -1466,6 +1676,48 @@
       "OriginalItemSpec": "wwwroot\\images\\danang.jpg"
     },
     {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\danang2.webp",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/danang2#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "x8vc1t0f9z",
+      "Integrity": "z+GNrdWlCa+++ncHcYKmUwfI4wuDgLPycIDVr4uGSrA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\danang2.webp"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\golden bridge.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/golden bridge#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "1wzuqquatp",
+      "Integrity": "MXMIuSbglWcn7mRdIPlc0Zu4AmcJevq5kHujwURjeV4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\golden bridge.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\hoian.jpg",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
@@ -1485,6 +1737,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\hoian.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\hoian2.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/hoian2#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "qd5o25vk4d",
+      "Integrity": "wmi+yVeL6uCZuka+i9INCh4NxVV9e2iqM5hajn2TijI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\hoian2.jpg"
     },
     {
       "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\hue.jpg",
@@ -1592,6 +1865,90 @@
       "OriginalItemSpec": "wwwroot\\images\\logo3.jpg"
     },
     {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\lyson.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/lyson#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bojghm6ddj",
+      "Integrity": "Zc9pykuwiSme/EP/dMAJOqIWNCuMX1besq1D0YQHXSk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\lyson.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\myson.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/myson#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "wuunpk9amz",
+      "Integrity": "CGvBlbv2OC6cX/bWPXSowkZA4HtWc9i0GuTUJ2Qmw8A=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\myson.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\nguhanhson.png",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/nguhanhson#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bnfelvq6q8",
+      "Integrity": "t3dV2Vp2N/4Ay6BQCdrBcaWrtc36L2FWYyppGUgouxw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\nguhanhson.png"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\nhatho.webp",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/nhatho#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "6aztemtail",
+      "Integrity": "InJwNGF00/mWfawt3eX4zVwpxajiFhtw/rUW2OkFuEw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\nhatho.webp"
+    },
+    {
       "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\nhatrang.jpg",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
@@ -1611,6 +1968,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\nhatrang.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\nhatrangg.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/nhatrangg#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ek4g6o5p0a",
+      "Integrity": "HjFMp0SZQI4eg0iZ30p9rl5E2HpMv8ROBh0pl/0LdzI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\nhatrangg.jpg"
     },
     {
       "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\phongnha.jpg",
@@ -1653,6 +2031,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\phuyen.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\quangbinh2.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/quangbinh2#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "98pme04dw7",
+      "Integrity": "x4hXGEduOI3g0wByQvYOFUUma4Mei8VZjYEtC7yKLdA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\quangbinh2.jpg"
     },
     {
       "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\quangngai.jpg",
@@ -1802,6 +2201,27 @@
       "OriginalItemSpec": "wwwroot\\images\\xinchao3.jpg"
     },
     {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\xinchao4.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/xinchao4#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "xg3qzrlgd9",
+      "Integrity": "ETNU7B8jNVx2BShMGI+JPplpmCW37uvLL5OWVHZOcrs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\xinchao4.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\xinchao4.webp",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
@@ -1821,6 +2241,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\xinchao4.webp"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\xinchao5.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/xinchao5#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "4b7tnkdti3",
+      "Integrity": "QCGWHm0Dt4U9JfzK/WCnNeuLY4gOA16sIDn89bxEqPw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\xinchao5.jpg"
     },
     {
       "Identity": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\site.js",
@@ -3106,13 +3547,13 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/home.css",
-      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\yljvie71jl-gy5s7wgjrh.gz",
+      "Route": "css/contact.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\noqcdaocax-qf3fi8882i.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000839630563"
+          "Quality": "0.000848896435"
         }
       ],
       "ResponseHeaders": [
@@ -3122,15 +3563,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1190"
+          "Value": "1177"
         },
         {
           "Name": "ETag",
-          "Value": "\"9MdrW8DVsDBKT0YWarQoljCCz5HqWvVTtOOqRcsAxqk=\""
+          "Value": "\"l4JGGJnlBwvNnelbuNfBOz3Jnki3AQKcSnqbudcOXiM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3150,18 +3591,622 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"2EsV1PQfl0CTGkuKL5QaSaa9Rc5kGu09AgiFQdz9JHs=\""
+          "Value": "W/\"2k4+d1O+YjT7YHXCrr8pi71bbaFGxvjQ82CbT5OTG8g=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-2EsV1PQfl0CTGkuKL5QaSaa9Rc5kGu09AgiFQdz9JHs="
+          "Value": "sha256-2k4+d1O+YjT7YHXCrr8pi71bbaFGxvjQ82CbT5OTG8g="
         }
       ]
     },
     {
-      "Route": "css/home.css",
+      "Route": "css/contact.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\contact.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3865"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2k4+d1O+YjT7YHXCrr8pi71bbaFGxvjQ82CbT5OTG8g=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-2k4+d1O+YjT7YHXCrr8pi71bbaFGxvjQ82CbT5OTG8g="
+        }
+      ]
+    },
+    {
+      "Route": "css/contact.css.gz",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\noqcdaocax-qf3fi8882i.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1177"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"l4JGGJnlBwvNnelbuNfBOz3Jnki3AQKcSnqbudcOXiM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-l4JGGJnlBwvNnelbuNfBOz3Jnki3AQKcSnqbudcOXiM="
+        }
+      ]
+    },
+    {
+      "Route": "css/contact.qf3fi8882i.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\noqcdaocax-qf3fi8882i.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000848896435"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1177"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"l4JGGJnlBwvNnelbuNfBOz3Jnki3AQKcSnqbudcOXiM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"2k4+d1O+YjT7YHXCrr8pi71bbaFGxvjQ82CbT5OTG8g=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qf3fi8882i"
+        },
+        {
+          "Name": "label",
+          "Value": "css/contact.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-2k4+d1O+YjT7YHXCrr8pi71bbaFGxvjQ82CbT5OTG8g="
+        }
+      ]
+    },
+    {
+      "Route": "css/contact.qf3fi8882i.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\contact.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3865"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2k4+d1O+YjT7YHXCrr8pi71bbaFGxvjQ82CbT5OTG8g=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qf3fi8882i"
+        },
+        {
+          "Name": "label",
+          "Value": "css/contact.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-2k4+d1O+YjT7YHXCrr8pi71bbaFGxvjQ82CbT5OTG8g="
+        }
+      ]
+    },
+    {
+      "Route": "css/contact.qf3fi8882i.css.gz",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\noqcdaocax-qf3fi8882i.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1177"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"l4JGGJnlBwvNnelbuNfBOz3Jnki3AQKcSnqbudcOXiM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qf3fi8882i"
+        },
+        {
+          "Name": "label",
+          "Value": "css/contact.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-l4JGGJnlBwvNnelbuNfBOz3Jnki3AQKcSnqbudcOXiM="
+        }
+      ]
+    },
+    {
+      "Route": "css/guide.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\mmfoti1uct-n68j1xxasz.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000694927033"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1438"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"3JlvJIRGjwa+LTMDsr2UY0lm70Tndv3ofK7Ww4QR9hw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"LwWOo2O5ne8Jqtg6uFoWq9MM3JAv9h8II7Kwx9xvnco=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-LwWOo2O5ne8Jqtg6uFoWq9MM3JAv9h8II7Kwx9xvnco="
+        }
+      ]
+    },
+    {
+      "Route": "css/guide.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\guide.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5777"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LwWOo2O5ne8Jqtg6uFoWq9MM3JAv9h8II7Kwx9xvnco=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-LwWOo2O5ne8Jqtg6uFoWq9MM3JAv9h8II7Kwx9xvnco="
+        }
+      ]
+    },
+    {
+      "Route": "css/guide.css.gz",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\mmfoti1uct-n68j1xxasz.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1438"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"3JlvJIRGjwa+LTMDsr2UY0lm70Tndv3ofK7Ww4QR9hw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-3JlvJIRGjwa+LTMDsr2UY0lm70Tndv3ofK7Ww4QR9hw="
+        }
+      ]
+    },
+    {
+      "Route": "css/guide.n68j1xxasz.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\mmfoti1uct-n68j1xxasz.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000694927033"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1438"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"3JlvJIRGjwa+LTMDsr2UY0lm70Tndv3ofK7Ww4QR9hw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"LwWOo2O5ne8Jqtg6uFoWq9MM3JAv9h8II7Kwx9xvnco=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "n68j1xxasz"
+        },
+        {
+          "Name": "label",
+          "Value": "css/guide.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-LwWOo2O5ne8Jqtg6uFoWq9MM3JAv9h8II7Kwx9xvnco="
+        }
+      ]
+    },
+    {
+      "Route": "css/guide.n68j1xxasz.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\guide.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5777"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LwWOo2O5ne8Jqtg6uFoWq9MM3JAv9h8II7Kwx9xvnco=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "n68j1xxasz"
+        },
+        {
+          "Name": "label",
+          "Value": "css/guide.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-LwWOo2O5ne8Jqtg6uFoWq9MM3JAv9h8II7Kwx9xvnco="
+        }
+      ]
+    },
+    {
+      "Route": "css/guide.n68j1xxasz.css.gz",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\mmfoti1uct-n68j1xxasz.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1438"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"3JlvJIRGjwa+LTMDsr2UY0lm70Tndv3ofK7Ww4QR9hw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "n68j1xxasz"
+        },
+        {
+          "Name": "label",
+          "Value": "css/guide.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-3JlvJIRGjwa+LTMDsr2UY0lm70Tndv3ofK7Ww4QR9hw="
+        }
+      ]
+    },
+    {
+      "Route": "css/home.b1fv9s4vyy.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\yljvie71jl-b1fv9s4vyy.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000863557858"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1157"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"V8aNcjkepzirrTJFpWJ941X+7NKZhgztXZ4DdpdPBY0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"IQmJmgTMDO/j8JiW7xLHcW2jIc1ciXNbRz6eGIregqM=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "b1fv9s4vyy"
+        },
+        {
+          "Name": "label",
+          "Value": "css/home.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-IQmJmgTMDO/j8JiW7xLHcW2jIc1ciXNbRz6eGIregqM="
+        }
+      ]
+    },
+    {
+      "Route": "css/home.b1fv9s4vyy.css",
       "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\home.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3171,7 +4216,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4286"
+          "Value": "4085"
         },
         {
           "Name": "Content-Type",
@@ -3179,121 +4224,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"2EsV1PQfl0CTGkuKL5QaSaa9Rc5kGu09AgiFQdz9JHs=\""
+          "Value": "\"IQmJmgTMDO/j8JiW7xLHcW2jIc1ciXNbRz6eGIregqM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-2EsV1PQfl0CTGkuKL5QaSaa9Rc5kGu09AgiFQdz9JHs="
-        }
-      ]
-    },
-    {
-      "Route": "css/home.css.gz",
-      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\yljvie71jl-gy5s7wgjrh.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1190"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"9MdrW8DVsDBKT0YWarQoljCCz5HqWvVTtOOqRcsAxqk=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-9MdrW8DVsDBKT0YWarQoljCCz5HqWvVTtOOqRcsAxqk="
-        }
-      ]
-    },
-    {
-      "Route": "css/home.gy5s7wgjrh.css",
-      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\yljvie71jl-gy5s7wgjrh.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000839630563"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1190"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"9MdrW8DVsDBKT0YWarQoljCCz5HqWvVTtOOqRcsAxqk=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
         },
         {
           "Name": "Cache-Control",
           "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"2EsV1PQfl0CTGkuKL5QaSaa9Rc5kGu09AgiFQdz9JHs=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "gy5s7wgjrh"
+          "Value": "b1fv9s4vyy"
         },
         {
           "Name": "label",
@@ -3301,13 +4246,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-2EsV1PQfl0CTGkuKL5QaSaa9Rc5kGu09AgiFQdz9JHs="
+          "Value": "sha256-IQmJmgTMDO/j8JiW7xLHcW2jIc1ciXNbRz6eGIregqM="
         }
       ]
     },
     {
-      "Route": "css/home.gy5s7wgjrh.css",
-      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\home.css",
+      "Route": "css/home.b1fv9s4vyy.css.gz",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\yljvie71jl-b1fv9s4vyy.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3316,7 +4261,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4286"
+          "Value": "1157"
         },
         {
           "Name": "Content-Type",
@@ -3324,56 +4269,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"2EsV1PQfl0CTGkuKL5QaSaa9Rc5kGu09AgiFQdz9JHs=\""
+          "Value": "\"V8aNcjkepzirrTJFpWJ941X+7NKZhgztXZ4DdpdPBY0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "gy5s7wgjrh"
-        },
-        {
-          "Name": "label",
-          "Value": "css/home.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-2EsV1PQfl0CTGkuKL5QaSaa9Rc5kGu09AgiFQdz9JHs="
-        }
-      ]
-    },
-    {
-      "Route": "css/home.gy5s7wgjrh.css.gz",
-      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\yljvie71jl-gy5s7wgjrh.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1190"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"9MdrW8DVsDBKT0YWarQoljCCz5HqWvVTtOOqRcsAxqk=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3391,7 +4291,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "gy5s7wgjrh"
+          "Value": "b1fv9s4vyy"
         },
         {
           "Name": "label",
@@ -3399,18 +4299,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-9MdrW8DVsDBKT0YWarQoljCCz5HqWvVTtOOqRcsAxqk="
+          "Value": "sha256-V8aNcjkepzirrTJFpWJ941X+7NKZhgztXZ4DdpdPBY0="
         }
       ]
     },
     {
-      "Route": "css/layout.2mceelaeos.css",
-      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-2mceelaeos.gz",
+      "Route": "css/home.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\yljvie71jl-b1fv9s4vyy.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000461680517"
+          "Quality": "0.000863557858"
         }
       ],
       "ResponseHeaders": [
@@ -3420,19 +4320,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2165"
+          "Value": "1157"
         },
         {
           "Name": "ETag",
-          "Value": "\"1fPci6tAHvQXfYqiwaD1n3fvZ7HThj4iWWtzFDgH1oY=\""
+          "Value": "\"V8aNcjkepzirrTJFpWJ941X+7NKZhgztXZ4DdpdPBY0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -3448,26 +4348,155 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"WplWJFHUTX5oS6yfPBSSdqzjwLFnUmiXa4SLnSLReYo=\""
+          "Value": "W/\"IQmJmgTMDO/j8JiW7xLHcW2jIc1ciXNbRz6eGIregqM=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "2mceelaeos"
-        },
-        {
-          "Name": "label",
-          "Value": "css/layout.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-WplWJFHUTX5oS6yfPBSSdqzjwLFnUmiXa4SLnSLReYo="
+          "Value": "sha256-IQmJmgTMDO/j8JiW7xLHcW2jIc1ciXNbRz6eGIregqM="
         }
       ]
     },
     {
-      "Route": "css/layout.2mceelaeos.css",
+      "Route": "css/home.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\home.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4085"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IQmJmgTMDO/j8JiW7xLHcW2jIc1ciXNbRz6eGIregqM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-IQmJmgTMDO/j8JiW7xLHcW2jIc1ciXNbRz6eGIregqM="
+        }
+      ]
+    },
+    {
+      "Route": "css/home.css.gz",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\yljvie71jl-b1fv9s4vyy.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1157"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"V8aNcjkepzirrTJFpWJ941X+7NKZhgztXZ4DdpdPBY0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-V8aNcjkepzirrTJFpWJ941X+7NKZhgztXZ4DdpdPBY0="
+        }
+      ]
+    },
+    {
+      "Route": "css/layout.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-h3ad1h3x8b.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000461467467"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2166"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"vmBZteeLBEescfjordyf6sZKgqtneVaOSa9SPGHIU0M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"o5bw/lY9V03Y6SSW7vPZGDhrd0GeH7fRM8afS9fLzVs=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-o5bw/lY9V03Y6SSW7vPZGDhrd0GeH7fRM8afS9fLzVs="
+        }
+      ]
+    },
+    {
+      "Route": "css/layout.css",
       "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\layout.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3477,7 +4506,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7431"
+          "Value": "7435"
         },
         {
           "Name": "Content-Type",
@@ -3485,11 +4514,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"WplWJFHUTX5oS6yfPBSSdqzjwLFnUmiXa4SLnSLReYo=\""
+          "Value": "\"o5bw/lY9V03Y6SSW7vPZGDhrd0GeH7fRM8afS9fLzVs=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-o5bw/lY9V03Y6SSW7vPZGDhrd0GeH7fRM8afS9fLzVs="
+        }
+      ]
+    },
+    {
+      "Route": "css/layout.css.gz",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-h3ad1h3x8b.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2166"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"vmBZteeLBEescfjordyf6sZKgqtneVaOSa9SPGHIU0M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-vmBZteeLBEescfjordyf6sZKgqtneVaOSa9SPGHIU0M="
+        }
+      ]
+    },
+    {
+      "Route": "css/layout.h3ad1h3x8b.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-h3ad1h3x8b.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000461467467"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2166"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"vmBZteeLBEescfjordyf6sZKgqtneVaOSa9SPGHIU0M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"o5bw/lY9V03Y6SSW7vPZGDhrd0GeH7fRM8afS9fLzVs=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "h3ad1h3x8b"
+        },
+        {
+          "Name": "label",
+          "Value": "css/layout.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-o5bw/lY9V03Y6SSW7vPZGDhrd0GeH7fRM8afS9fLzVs="
+        }
+      ]
+    },
+    {
+      "Route": "css/layout.h3ad1h3x8b.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\layout.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7435"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"o5bw/lY9V03Y6SSW7vPZGDhrd0GeH7fRM8afS9fLzVs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3499,7 +4673,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "2mceelaeos"
+          "Value": "h3ad1h3x8b"
         },
         {
           "Name": "label",
@@ -3507,13 +4681,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-WplWJFHUTX5oS6yfPBSSdqzjwLFnUmiXa4SLnSLReYo="
+          "Value": "sha256-o5bw/lY9V03Y6SSW7vPZGDhrd0GeH7fRM8afS9fLzVs="
         }
       ]
     },
     {
-      "Route": "css/layout.2mceelaeos.css.gz",
-      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-2mceelaeos.gz",
+      "Route": "css/layout.h3ad1h3x8b.css.gz",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-h3ad1h3x8b.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3522,7 +4696,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2165"
+          "Value": "2166"
         },
         {
           "Name": "Content-Type",
@@ -3530,11 +4704,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"1fPci6tAHvQXfYqiwaD1n3fvZ7HThj4iWWtzFDgH1oY=\""
+          "Value": "\"vmBZteeLBEescfjordyf6sZKgqtneVaOSa9SPGHIU0M=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3552,7 +4726,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "2mceelaeos"
+          "Value": "h3ad1h3x8b"
         },
         {
           "Name": "label",
@@ -3560,18 +4734,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-1fPci6tAHvQXfYqiwaD1n3fvZ7HThj4iWWtzFDgH1oY="
+          "Value": "sha256-vmBZteeLBEescfjordyf6sZKgqtneVaOSa9SPGHIU0M="
         }
       ]
     },
     {
-      "Route": "css/layout.css",
-      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-2mceelaeos.gz",
+      "Route": "css/location.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\3zhvn2qyo5-hlfv9w4shf.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000461680517"
+          "Quality": "0.000469924812"
         }
       ],
       "ResponseHeaders": [
@@ -3581,15 +4755,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2165"
+          "Value": "2127"
         },
         {
           "Name": "ETag",
-          "Value": "\"1fPci6tAHvQXfYqiwaD1n3fvZ7HThj4iWWtzFDgH1oY=\""
+          "Value": "\"FpsHdvkCyBSXDwYjeWthTDCTHYEjT3K8aG8svPFXqS0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3609,19 +4783,19 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"WplWJFHUTX5oS6yfPBSSdqzjwLFnUmiXa4SLnSLReYo=\""
+          "Value": "W/\"tcmZ47Eg1P8l629rVkqtvIpLkciRriwyfSy0ddzzXaE=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-WplWJFHUTX5oS6yfPBSSdqzjwLFnUmiXa4SLnSLReYo="
+          "Value": "sha256-tcmZ47Eg1P8l629rVkqtvIpLkciRriwyfSy0ddzzXaE="
         }
       ]
     },
     {
-      "Route": "css/layout.css",
-      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\layout.css",
+      "Route": "css/location.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\location.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3630,7 +4804,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7431"
+          "Value": "8599"
         },
         {
           "Name": "Content-Type",
@@ -3638,11 +4812,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"WplWJFHUTX5oS6yfPBSSdqzjwLFnUmiXa4SLnSLReYo=\""
+          "Value": "\"tcmZ47Eg1P8l629rVkqtvIpLkciRriwyfSy0ddzzXaE=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3652,13 +4826,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-WplWJFHUTX5oS6yfPBSSdqzjwLFnUmiXa4SLnSLReYo="
+          "Value": "sha256-tcmZ47Eg1P8l629rVkqtvIpLkciRriwyfSy0ddzzXaE="
         }
       ]
     },
     {
-      "Route": "css/layout.css.gz",
-      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-2mceelaeos.gz",
+      "Route": "css/location.css.gz",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\3zhvn2qyo5-hlfv9w4shf.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3667,7 +4841,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2165"
+          "Value": "2127"
         },
         {
           "Name": "Content-Type",
@@ -3675,11 +4849,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"1fPci6tAHvQXfYqiwaD1n3fvZ7HThj4iWWtzFDgH1oY=\""
+          "Value": "\"FpsHdvkCyBSXDwYjeWthTDCTHYEjT3K8aG8svPFXqS0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3697,7 +4871,168 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-1fPci6tAHvQXfYqiwaD1n3fvZ7HThj4iWWtzFDgH1oY="
+          "Value": "sha256-FpsHdvkCyBSXDwYjeWthTDCTHYEjT3K8aG8svPFXqS0="
+        }
+      ]
+    },
+    {
+      "Route": "css/location.hlfv9w4shf.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\3zhvn2qyo5-hlfv9w4shf.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000469924812"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2127"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"FpsHdvkCyBSXDwYjeWthTDCTHYEjT3K8aG8svPFXqS0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"tcmZ47Eg1P8l629rVkqtvIpLkciRriwyfSy0ddzzXaE=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hlfv9w4shf"
+        },
+        {
+          "Name": "label",
+          "Value": "css/location.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-tcmZ47Eg1P8l629rVkqtvIpLkciRriwyfSy0ddzzXaE="
+        }
+      ]
+    },
+    {
+      "Route": "css/location.hlfv9w4shf.css",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\location.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "8599"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"tcmZ47Eg1P8l629rVkqtvIpLkciRriwyfSy0ddzzXaE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hlfv9w4shf"
+        },
+        {
+          "Name": "label",
+          "Value": "css/location.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-tcmZ47Eg1P8l629rVkqtvIpLkciRriwyfSy0ddzzXaE="
+        }
+      ]
+    },
+    {
+      "Route": "css/location.hlfv9w4shf.css.gz",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\3zhvn2qyo5-hlfv9w4shf.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2127"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"FpsHdvkCyBSXDwYjeWthTDCTHYEjT3K8aG8svPFXqS0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hlfv9w4shf"
+        },
+        {
+          "Name": "label",
+          "Value": "css/location.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-FpsHdvkCyBSXDwYjeWthTDCTHYEjT3K8aG8svPFXqS0="
         }
       ]
     },
@@ -4022,7 +5357,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4067,7 +5402,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4078,6 +5413,252 @@
         {
           "Name": "integrity",
           "Value": "sha256-9dC0zimMNklvf9YPI92Xkk9t00eDPHEBHCKT2NtOS7g="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatar2.20ifr52pg6.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\avatar2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "240964"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HmgBBurPYC61jtZzdYqpwLxT9qXFRkoqBY9eEzrjVCs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "20ifr52pg6"
+        },
+        {
+          "Name": "label",
+          "Value": "images/avatar2.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-HmgBBurPYC61jtZzdYqpwLxT9qXFRkoqBY9eEzrjVCs="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatar2.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\avatar2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "240964"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HmgBBurPYC61jtZzdYqpwLxT9qXFRkoqBY9eEzrjVCs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-HmgBBurPYC61jtZzdYqpwLxT9qXFRkoqBY9eEzrjVCs="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatar3.png",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\avatar3.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "480714"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Wkj9GA6/pMBRkk7E83cmjVv/IXNuZSXbj5Sd0ONaE3A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Wkj9GA6/pMBRkk7E83cmjVv/IXNuZSXbj5Sd0ONaE3A="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatar3.yqxafcanfa.png",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\avatar3.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "480714"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Wkj9GA6/pMBRkk7E83cmjVv/IXNuZSXbj5Sd0ONaE3A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yqxafcanfa"
+        },
+        {
+          "Name": "label",
+          "Value": "images/avatar3.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Wkj9GA6/pMBRkk7E83cmjVv/IXNuZSXbj5Sd0ONaE3A="
+        }
+      ]
+    },
+    {
+      "Route": "images/chualinhung.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\chualinhung.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "415969"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LOG/jxTUCB7+V9vKkttJRq/hrwWX3BjzJ6Ce+QpDnoE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-LOG/jxTUCB7+V9vKkttJRq/hrwWX3BjzJ6Ce+QpDnoE="
+        }
+      ]
+    },
+    {
+      "Route": "images/chualinhung.k8i2ytancu.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\chualinhung.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "415969"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LOG/jxTUCB7+V9vKkttJRq/hrwWX3BjzJ6Ce+QpDnoE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "k8i2ytancu"
+        },
+        {
+          "Name": "label",
+          "Value": "images/chualinhung.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-LOG/jxTUCB7+V9vKkttJRq/hrwWX3BjzJ6Ce+QpDnoE="
         }
       ]
     },
@@ -4104,7 +5685,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4149,7 +5730,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4160,6 +5741,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "images/culaocham.5jgjy3jrfe.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\culaocham.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11428"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"j+dEnC10UtG23W6Xs2K8PQhbcg6pWPWSGJZm4u9wsCs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5jgjy3jrfe"
+        },
+        {
+          "Name": "label",
+          "Value": "images/culaocham.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-j+dEnC10UtG23W6Xs2K8PQhbcg6pWPWSGJZm4u9wsCs="
+        }
+      ]
+    },
+    {
+      "Route": "images/culaocham.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\culaocham.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "11428"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"j+dEnC10UtG23W6Xs2K8PQhbcg6pWPWSGJZm4u9wsCs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-j+dEnC10UtG23W6Xs2K8PQhbcg6pWPWSGJZm4u9wsCs="
         }
       ]
     },
@@ -4246,6 +5909,170 @@
       ]
     },
     {
+      "Route": "images/danang2.webp",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\danang2.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "677506"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"z+GNrdWlCa+++ncHcYKmUwfI4wuDgLPycIDVr4uGSrA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-z+GNrdWlCa+++ncHcYKmUwfI4wuDgLPycIDVr4uGSrA="
+        }
+      ]
+    },
+    {
+      "Route": "images/danang2.x8vc1t0f9z.webp",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\danang2.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "677506"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"z+GNrdWlCa+++ncHcYKmUwfI4wuDgLPycIDVr4uGSrA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "x8vc1t0f9z"
+        },
+        {
+          "Name": "label",
+          "Value": "images/danang2.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-z+GNrdWlCa+++ncHcYKmUwfI4wuDgLPycIDVr4uGSrA="
+        }
+      ]
+    },
+    {
+      "Route": "images/golden bridge.1wzuqquatp.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\golden bridge.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "288646"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"MXMIuSbglWcn7mRdIPlc0Zu4AmcJevq5kHujwURjeV4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "1wzuqquatp"
+        },
+        {
+          "Name": "label",
+          "Value": "images/golden bridge.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-MXMIuSbglWcn7mRdIPlc0Zu4AmcJevq5kHujwURjeV4="
+        }
+      ]
+    },
+    {
+      "Route": "images/golden bridge.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\golden bridge.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "288646"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"MXMIuSbglWcn7mRdIPlc0Zu4AmcJevq5kHujwURjeV4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-MXMIuSbglWcn7mRdIPlc0Zu4AmcJevq5kHujwURjeV4="
+        }
+      ]
+    },
+    {
       "Route": "images/hoian.jpg",
       "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\hoian.jpg",
       "Selectors": [],
@@ -4324,6 +6151,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-kNx4sVX7xTGgWtfg95ag2lD8oKUSeCaFLirsj0fJMtg="
+        }
+      ]
+    },
+    {
+      "Route": "images/hoian2.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\hoian2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "411043"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wmi+yVeL6uCZuka+i9INCh4NxVV9e2iqM5hajn2TijI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wmi+yVeL6uCZuka+i9INCh4NxVV9e2iqM5hajn2TijI="
+        }
+      ]
+    },
+    {
+      "Route": "images/hoian2.qd5o25vk4d.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\hoian2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "411043"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wmi+yVeL6uCZuka+i9INCh4NxVV9e2iqM5hajn2TijI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qd5o25vk4d"
+        },
+        {
+          "Name": "label",
+          "Value": "images/hoian2.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-wmi+yVeL6uCZuka+i9INCh4NxVV9e2iqM5hajn2TijI="
         }
       ]
     },
@@ -4432,7 +6341,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4477,7 +6386,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4514,7 +6423,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4551,7 +6460,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4596,7 +6505,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4641,7 +6550,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4678,7 +6587,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4723,7 +6632,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4734,6 +6643,334 @@
         {
           "Name": "integrity",
           "Value": "sha256-7YQsTsyIGOphNb51F5f31bpg0R1VZOKrzvSBOhce8RI="
+        }
+      ]
+    },
+    {
+      "Route": "images/lyson.bojghm6ddj.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\lyson.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6751"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Zc9pykuwiSme/EP/dMAJOqIWNCuMX1besq1D0YQHXSk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bojghm6ddj"
+        },
+        {
+          "Name": "label",
+          "Value": "images/lyson.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Zc9pykuwiSme/EP/dMAJOqIWNCuMX1besq1D0YQHXSk="
+        }
+      ]
+    },
+    {
+      "Route": "images/lyson.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\lyson.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6751"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Zc9pykuwiSme/EP/dMAJOqIWNCuMX1besq1D0YQHXSk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Zc9pykuwiSme/EP/dMAJOqIWNCuMX1besq1D0YQHXSk="
+        }
+      ]
+    },
+    {
+      "Route": "images/myson.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\myson.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "240723"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"CGvBlbv2OC6cX/bWPXSowkZA4HtWc9i0GuTUJ2Qmw8A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-CGvBlbv2OC6cX/bWPXSowkZA4HtWc9i0GuTUJ2Qmw8A="
+        }
+      ]
+    },
+    {
+      "Route": "images/myson.wuunpk9amz.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\myson.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "240723"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"CGvBlbv2OC6cX/bWPXSowkZA4HtWc9i0GuTUJ2Qmw8A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "wuunpk9amz"
+        },
+        {
+          "Name": "label",
+          "Value": "images/myson.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-CGvBlbv2OC6cX/bWPXSowkZA4HtWc9i0GuTUJ2Qmw8A="
+        }
+      ]
+    },
+    {
+      "Route": "images/nguhanhson.bnfelvq6q8.png",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\nguhanhson.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "105049"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"t3dV2Vp2N/4Ay6BQCdrBcaWrtc36L2FWYyppGUgouxw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bnfelvq6q8"
+        },
+        {
+          "Name": "label",
+          "Value": "images/nguhanhson.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-t3dV2Vp2N/4Ay6BQCdrBcaWrtc36L2FWYyppGUgouxw="
+        }
+      ]
+    },
+    {
+      "Route": "images/nguhanhson.png",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\nguhanhson.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "105049"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"t3dV2Vp2N/4Ay6BQCdrBcaWrtc36L2FWYyppGUgouxw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-t3dV2Vp2N/4Ay6BQCdrBcaWrtc36L2FWYyppGUgouxw="
+        }
+      ]
+    },
+    {
+      "Route": "images/nhatho.6aztemtail.webp",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\nhatho.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "192794"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"InJwNGF00/mWfawt3eX4zVwpxajiFhtw/rUW2OkFuEw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6aztemtail"
+        },
+        {
+          "Name": "label",
+          "Value": "images/nhatho.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-InJwNGF00/mWfawt3eX4zVwpxajiFhtw/rUW2OkFuEw="
+        }
+      ]
+    },
+    {
+      "Route": "images/nhatho.webp",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\nhatho.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "192794"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"InJwNGF00/mWfawt3eX4zVwpxajiFhtw/rUW2OkFuEw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-InJwNGF00/mWfawt3eX4zVwpxajiFhtw/rUW2OkFuEw="
         }
       ]
     },
@@ -4760,7 +6997,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4797,7 +7034,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4816,6 +7053,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-B2uG7ARvtVhS8i0vTtmACno5emg0pevej7LpSPCh5PE="
+        }
+      ]
+    },
+    {
+      "Route": "images/nhatrangg.ek4g6o5p0a.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\nhatrangg.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "628229"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HjFMp0SZQI4eg0iZ30p9rl5E2HpMv8ROBh0pl/0LdzI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ek4g6o5p0a"
+        },
+        {
+          "Name": "label",
+          "Value": "images/nhatrangg.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-HjFMp0SZQI4eg0iZ30p9rl5E2HpMv8ROBh0pl/0LdzI="
+        }
+      ]
+    },
+    {
+      "Route": "images/nhatrangg.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\nhatrangg.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "628229"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HjFMp0SZQI4eg0iZ30p9rl5E2HpMv8ROBh0pl/0LdzI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-HjFMp0SZQI4eg0iZ30p9rl5E2HpMv8ROBh0pl/0LdzI="
         }
       ]
     },
@@ -4842,7 +7161,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4887,7 +7206,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4924,7 +7243,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4961,7 +7280,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4980,6 +7299,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-jJDksXTfozFn0qGC96Eg1Y/tx6lHhGL7VakddCMdHIw="
+        }
+      ]
+    },
+    {
+      "Route": "images/quangbinh2.98pme04dw7.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\quangbinh2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "201831"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"x4hXGEduOI3g0wByQvYOFUUma4Mei8VZjYEtC7yKLdA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "98pme04dw7"
+        },
+        {
+          "Name": "label",
+          "Value": "images/quangbinh2.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-x4hXGEduOI3g0wByQvYOFUUma4Mei8VZjYEtC7yKLdA="
+        }
+      ]
+    },
+    {
+      "Route": "images/quangbinh2.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\quangbinh2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "201831"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"x4hXGEduOI3g0wByQvYOFUUma4Mei8VZjYEtC7yKLdA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-x4hXGEduOI3g0wByQvYOFUUma4Mei8VZjYEtC7yKLdA="
         }
       ]
     },
@@ -5006,7 +7407,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5051,7 +7452,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5088,7 +7489,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5133,7 +7534,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5170,7 +7571,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5207,7 +7608,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5252,7 +7653,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5297,7 +7698,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5334,7 +7735,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5379,7 +7780,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5416,7 +7817,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5453,7 +7854,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5498,7 +7899,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5543,7 +7944,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5580,7 +7981,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5599,6 +8000,43 @@
         {
           "Name": "integrity",
           "Value": "sha256-Nhsm1eNn2Oo97lOdXQdMH7hedYh/Ok/lMzLrzVqx9ds="
+        }
+      ]
+    },
+    {
+      "Route": "images/xinchao4.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\xinchao4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "140837"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ETNU7B8jNVx2BShMGI+JPplpmCW37uvLL5OWVHZOcrs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ETNU7B8jNVx2BShMGI+JPplpmCW37uvLL5OWVHZOcrs="
         }
       ]
     },
@@ -5625,7 +8063,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 31 Mar 2025 07:34:51 GMT"
+          "Value": "Tue, 01 Apr 2025 04:37:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5636,6 +8074,133 @@
         {
           "Name": "integrity",
           "Value": "sha256-Nhsm1eNn2Oo97lOdXQdMH7hedYh/Ok/lMzLrzVqx9ds="
+        }
+      ]
+    },
+    {
+      "Route": "images/xinchao4.xg3qzrlgd9.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\xinchao4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "140837"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ETNU7B8jNVx2BShMGI+JPplpmCW37uvLL5OWVHZOcrs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "xg3qzrlgd9"
+        },
+        {
+          "Name": "label",
+          "Value": "images/xinchao4.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ETNU7B8jNVx2BShMGI+JPplpmCW37uvLL5OWVHZOcrs="
+        }
+      ]
+    },
+    {
+      "Route": "images/xinchao5.4b7tnkdti3.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\xinchao5.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "650240"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"QCGWHm0Dt4U9JfzK/WCnNeuLY4gOA16sIDn89bxEqPw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4b7tnkdti3"
+        },
+        {
+          "Name": "label",
+          "Value": "images/xinchao5.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-QCGWHm0Dt4U9JfzK/WCnNeuLY4gOA16sIDn89bxEqPw="
+        }
+      ]
+    },
+    {
+      "Route": "images/xinchao5.jpg",
+      "AssetFile": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\xinchao5.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "650240"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"QCGWHm0Dt4U9JfzK/WCnNeuLY4gOA16sIDn89bxEqPw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 01 Apr 2025 04:39:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-QCGWHm0Dt4U9JfzK/WCnNeuLY4gOA16sIDn89bxEqPw="
         }
       ]
     },

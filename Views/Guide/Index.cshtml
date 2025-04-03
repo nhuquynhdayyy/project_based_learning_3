@@ -1,0 +1,191 @@
+@section Styles {
+    <link rel="stylesheet" href="~/css/guide.css" asp-append-version="true" />
+
+}
+@* @{ 
+ViewData["HideNavbar"] = true;
+} *@
+
+
+@{
+    ViewData["Title"] = "Cẩm nang du lịch từ A - Z";
+}
+
+<section class="hero">
+    <div class="container">
+        <h1>Cẩm Nang Du Lịch Miền Trung từ A - Z</h1>
+        <div class="divider">
+            <hr>
+            <div class="dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <hr>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="main-wrapper">
+        <!-- Main Content Area (8/10) -->
+        <div class="main-content">
+            <div class="featured-destinations">
+                <div class="destination-card">
+                    <div class="destination-image">
+                        <img src="~/images/hue.jpg" asp-append-version="true" alt="Huế">
+                        <div class="date-tag">15 Th01</div>
+                    </div>
+                    <div class="destination-content">
+                        <h3>Khám phá vẻ đẹp cổ kính của Đại Nội Huế - Kinh đô của triều Nguyễn</h3>
+                        <p>Đại Nội Huế - công trình kiến trúc đồ sộ được xây dựng từ thời vua Gia Long, là quần thể di
+                            tích lịch sử văn hóa đặc biệt quan trọng. Khu vực này gồm Hoàng thành và Tử Cấm thành với
+                            hơn 100 công trình đẹp mắt như điện Thái Hòa, Ngọ Môn, Hiển Lâm Các...</p>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <div class="destination-image">
+                        <img src="~/images/hoian.jpg" asp-append-version="true" alt="Phố cổ Hội An">
+                        <div class="date-tag">22 Th02</div>
+                    </div>
+                    <div class="destination-content">
+                        <h3>Phố cổ Hội An: Bước chân vào ký ức thương cảng sầm uất một thời</h3>
+                        <p>Hội An - thành phố cổ nằm bên bờ sông Thu Bồn, được UNESCO công nhận là Di sản Văn hóa Thế
+                            giới. Với những dãy phố đèn lồng rực rỡ, những ngôi nhà cổ mang đậm kiến trúc thời xưa và
+                            những món ẩm thực đặc sắc như cao lầu, mì Quảng...</p>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <div class="destination-image">
+                        <img src="~/images/danang2.webp" asp-append-version="true" alt="Đà Nẵng">
+                        <div class="date-tag">08 Th03</div>
+                    </div>
+                    <div class="destination-content">
+                        <h3>Đà Nẵng - Thành phố đáng sống với những bãi biển tuyệt đẹp</h3>
+                        <p>Đà Nẵng quyến rũ du khách bởi những bãi biển xanh trong như Mỹ Khê, Non Nước, và các điểm
+                            tham quan nổi tiếng như Cầu Rồng phun lửa, Bà Nà Hills, Ngũ Hành Sơn. Đây còn được mệnh danh
+                            là thành phố của những cây cầu với kiến trúc độc đáo...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="more-destinations">
+                <h2>Khám Phá Điểm Đến</h2>
+                <div class="destination-grid">
+                    <div class="destination-card">
+                        <div class="destination-image">
+                            <img src="~/images/phongnha.jpg" asp-append-version="true" alt="Phong Nha">
+                            <div class="date-tag">17 Th03</div>
+                        </div>
+                        <div class="destination-content">
+                            <h3>Phong Nha - Kẻ Bàng: Vương quốc hang động kỳ vĩ của Quảng Bình</h3>
+                            <p>Phong Nha - Kẻ Bàng, di sản thiên nhiên thế giới với hệ thống hang động đá vôi lớn nhất
+                                và đẹp nhất thế giới. Hang Sơn Đoòng - hang động tự nhiên lớn nhất thế giới, Hang Én,
+                                Động Thiên Đường là những điểm tham quan không thể bỏ qua...</p>
+                        </div>
+                    </div>
+
+                    <div class="destination-card">
+                        <div class="destination-image">
+                            <img src="~/images/lyson.jpg" asp-append-version="true" alt="Lý Sơn">
+                            <div class="date-tag">03 Th02</div>
+                        </div>
+                        <div class="destination-content">
+                            <h3>Khám phá đảo Lý Sơn - Thiên đường của tỏi và biển xanh ở Quảng Ngãi</h3>
+                            <p>Lý Sơn - hòn đảo nhỏ thuộc tỉnh Quảng Ngãi, được mệnh danh là "Vương quốc tỏi". Đảo Lý
+                                Sơn quyến rũ với làn nước biển trong xanh, những cánh đồng tỏi thơm nồng, núi lửa Thới
+                                Lới, hang Câu và Cổng Tò Vò - những tuyệt tác của thiên nhiên...</p>
+                        </div>
+                    </div>
+
+                    <div class="destination-card">
+                        <div class="destination-image">
+                            <img src="~/images/nhatho.webp" asp-append-version="true" alt="Nhà Thờ Hồng">
+                            <div class="date-tag">27 Th02</div>
+                        </div>
+                        <div class="destination-content">
+                            <h3>Ba nhà thờ màu hồng đẹp như cổ tích ở miền Trung</h3>
+                            <p>Miền Trung Việt Nam nổi bật với ba nhà thờ màu hồng độc đáo: Nhà thờ Tân Định ở Đà Nẵng,
+                                Nhà thờ Chính Tòa Quy Nhơn và Nhà thờ Domaine De Marie ở Đà Lạt. Kiến trúc độc đáo và
+                                màu sắc rực rỡ đã biến những công trình này thành điểm check-in hút khách...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar (2/10) -->
+        <div class="sidebar">
+            <!-- Search Box -->
+            <div class="search-box">
+                <h2>Tìm Kiếm</h2>
+                <div class="search-bar">
+                    <input type="text" placeholder="Tìm kiếm...">
+                    <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        </svg></button>
+                </div>
+            </div>
+
+            <!-- Recent Posts -->
+            <div class="recent-posts">
+                <h2>Bài Viết Mới Nhất</h2>
+                <div class="post-item">
+                    <div class="post-thumbnail">
+                        <img src="~/images/culaocham.jpg" asp-append-version="true" alt="Cù lao chàm">
+                    </div>
+                    <div class="post-info">
+                        <span class="post-date">15 Th01</span>
+                        <a href="#" class="post-title">Cù Lao Chàm: Thiên đường biển đảo hoang sơ cách Hội An chỉ 30
+                            phút</a>
+                    </div>
+                </div>
+
+                <div class="post-item">
+                    <div class="post-thumbnail">
+                        <img src="~/images/myson.jpg" asp-append-version="true" alt="Mỹ Sơn">
+                    </div>
+                    <div class="post-info">
+                        <span class="post-date">22 Th02</span>
+                        <a href="#" class="post-title">Thánh địa Mỹ Sơn: Dấu ấn huyền bí của vương quốc Chăm Pa</a>
+                    </div>
+                </div>
+
+                <div class="post-item">
+                    <div class="post-thumbnail">
+                        <img src="~/images/nhatrangg.jpg" asp-append-version="true" alt="NhaTrang">
+                    </div>
+                    <div class="post-info">
+                        <span class="post-date">08 Th03</span>
+                        <a href="#" class="post-title">Nha Trang: 10 điểm du lịch tham quan hấp dẫn nhất</a>
+                    </div>
+                </div>
+
+                <div class="post-item">
+                    <div class="post-thumbnail">
+                        <img src="~/images/nguhanhson.png" asp-append-version="true" alt="Ngũ Hành Sơn">
+                    </div>
+                    <div class="post-info">
+                        <span class="post-date">27 Th02</span>
+                        <a href="#" class="post-title">Ngũ Hành Sơn - Danh thắng linh thiêng với những hang động huyền
+                            bí</a>
+                    </div>
+                </div>
+
+                <div class="post-item">
+                    <div class="post-thumbnail">
+                        <img src="~/images/golden bridge.jpg" asp-append-version="true" alt="Cầu Vàng">
+                    </div>
+                    <div class="post-info">
+                        <span class="post-date">17 Th03</span>
+                        <a href="#" class="post-title">Cầu Vàng Bà Nà Hills: Kiệt tác kiến trúc trên độ cao 1400m</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -177,5 +177,11 @@ namespace TourismWeb.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet("Profile")]
+        public IActionResult Profile()
+        {
+            return View();
+        }
     }
 }

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Cá Nhân - TourismWeb</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        header {
+            background-color: #0077b6;
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #caf0f8;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+        }
+        
+        .profile-sidebar {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            display: block;
+            border: 3px solid #0077b6;
+        }
+        
+        .profile-name {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .profile-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-item {
+            flex: 1;
+        }
+        
+        .stat-number {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #0077b6;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: #666;
+        }
+        
+        .profile-menu {
+            list-style: none;
+        }
+        
+        .profile-menu li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .profile-menu li a {
+            display: block;
+            padding: 0.75rem;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+        }
+        
+        .profile-menu li a:hover {
+            background-color: #0077b6;
+            color: white;
+        }
+        
+        .profile-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #0077b6;
+            color: #0077b6;
+        }
+        
+        .memories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .memory-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .memory-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .memory-image {
+            height: 150px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .memory-content {
+            padding: 1rem;
+        }
+        
+        .memory-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .memory-date {
+            color: #666;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .memory-description {
+            font-size: 0.875rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .memory-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .memory-likes {
+            color: #f4a261;
+        }
+        
+        .memory-button {
+            background-color: #0077b6;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .memory-button:hover {
+            background-color: #023e8a;
+        }
+        
+        .travel-inspiration {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .inspiration-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .inspiration-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .inspiration-content {
+            padding: 1rem;
+        }
+        
+        .inspiration-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .inspiration-description {
+            font-size: 0.875rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .inspiration-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #666;
+        }
+        
+        .blog-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .blog-item {
+            display: flex;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .blog-image {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+        }
+        
+        .blog-content {
+            padding: 1rem;
+            flex: 1;
+        }
+        
+        .blog-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .blog-preview {
+            font-size: 0.875rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #666;
+        }
+        
+        .map-container {
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+        }
+        
+        .visited-countries {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .country-badge {
+            background-color: #e0f2fe;
+            color: #0077b6;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+        
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 0.5rem;
+        }
+        
+        .photo-item {
+            height: 150px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .photo-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        footer {
+            background-color: #0077b6;
+            color: white;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #caf0f8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin-top: 2rem;
+            font-size: 0.875rem;
+            color: #caf0f8;
+        }
+        
+        @@media (max-width: 768px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .blog-item {
+                flex-direction: column;
+            }
+            
+            .blog-image {
+                width: 100%;
+                height: 180px;
+            }
+        }
+        
+        @@media (max-width: 480px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .memories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .travel-inspiration {
+                grid-template-columns: 1fr;
+            }
+            
+            .photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">TourismWeb</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Điểm đến</a></li>
+                    <li><a href="#">Blog du lịch</a></li>
+                    <li><a href="#">Hỗ trợ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="profile-container">
+            <div class="profile-sidebar">
+                <img src="/api/placeholder/150/150" alt="Ảnh đại diện" class="profile-image">
+                <h2 class="profile-name">Nguyễn Văn A</h2>
+                
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">9</div>
+                        <div class="stat-label">Quốc gia</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">23</div>
+                        <div class="stat-label">Bài viết</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">142</div>
+                        <div class="stat-label">Kỷ niệm</div>
+                    </div>
+                </div>
+                
+                <ul class="profile-menu">
+                    <li><a href="#">Trang cá nhân</a></li>
+                    <li><a href="#">Kỷ niệm du lịch</a></li>
+                    <li><a href="#">Bộ sưu tập ảnh</a></li>
+                    <li><a href="#">Bài viết của tôi</a></li>
+                    <li><a href="#">Địa điểm yêu thích</a></li>
+                    <li><a href="#">Cài đặt tài khoản</a></li>
+                    <li><a href="#">Đăng xuất</a></li>
+                </ul>
+            </div>
+            
+            <div class="profile-content">
+                <div class="content-section">
+                    <h3 class="section-title">Kỷ niệm du lịch</h3>
+                    <div class="memories-grid">
+                        <div class="memory-card">
+                            <img src="/api/placeholder/250/150" alt="Đà Lạt" class="memory-image">
+                            <div class="memory-content">
+                                <div class="memory-title">Sương sớm Đà Lạt</div>
+                                <div class="memory-date">10/03/2025</div>
+                                <div class="memory-description">Sương sớm bao phủ thành phố Đà Lạt tạo nên khung cảnh kỳ ảo như chốn tiên cảnh.</div>
+                                <div class="memory-actions">
+                                    <div class="memory-likes">❤️ 42 lượt thích</div>
+                                    <button class="memory-button">Xem chi tiết</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="memory-card">
+                            <img src="/api/placeholder/250/150" alt="Phú Quốc" class="memory-image">
+                            <div class="memory-content">
+                                <div class="memory-title">Hoàng hôn Phú Quốc</div>
+                                <div class="memory-date">22/01/2025</div>
+                                <div class="memory-description">Hoàng hôn rực rỡ trên bãi biển Phú Quốc, một trong những khoảnh khắc khó quên.</div>
+                                <div class="memory-actions">
+                                    <div class="memory-likes">❤️ 68 lượt thích</div>
+                                    <button class="memory-button">Xem chi tiết</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="memory-card">
+                            <img src="/api/placeholder/250/150" alt="Hội An" class="memory-image">
+                            <div class="memory-content">
+                                <div class="memory-title">Đêm hội đèn lồng</div>
+                                <div class="memory-date">07/12/2024</div>
+                                <div class="memory-description">Phố cổ Hội An lung linh với hàng ngàn đèn lồng trong đêm rằm tháng giêng.</div>
+                                <div class="memory-actions">
+                                    <div class="memory-likes">❤️ 55 lượt thích</div>
+                                    <button class="memory-button">Xem chi tiết</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h3 class="section-title">Bộ sưu tập ảnh</h3>
+                    <div class="photo-grid">
+                        <div class="photo-item">
+                            <img src="/api/placeholder/150/150" alt="Ảnh du lịch 1">
+                        </div>
+                        <div class="photo-item">
+                            <img src="/api/placeholder/150/150" alt="Ảnh du lịch 2">
+                        </div>
+                        <div class="photo-item">
+                            <img src="/api/placeholder/150/150" alt="Ảnh du lịch 3">
+                        </div>
+                        <div class="photo-item">
+                            <img src="/api/placeholder/150/150" alt="Ảnh du lịch 4">
+                        </div>
+                        <div class="photo-item">
+                            <img src="/api/placeholder/150/150" alt="Ảnh du lịch 5">
+                        </div>
+                        <div class="photo-item">
+                            <img src="/api/placeholder/150/150" alt="Ảnh du lịch 6">
+                        </div>
+                        <div class="photo-item">
+                            <img src="/api/placeholder/150/150" alt="Ảnh du lịch 7">
+                        </div>
+                        <div class="photo-item">
+                            <img src="/api/placeholder/150/150" alt="Ảnh du lịch 8">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h3 class="section-title">Bản đồ du lịch cá nhân</h3>
+                    <div class="map-container">
+                        <div class="map-placeholder">Bản đồ các địa điểm đã ghé thăm</div>
+                    </div>
+                    <div class="visited-countries">
+                        <span class="country-badge">Việt Nam</span>
+                        <span class="country-badge">Thái Lan</span>
+                        <span class="country-badge">Nhật Bản</span>
+                        <span class="country-badge">Singapore</span>
+                        <span class="country-badge">Malaysia</span>
+                        <span class="country-badge">Hàn Quốc</span>
+                        <span class="country-badge">Campuchia</span>
+                        <span class="country-badge">Trung Quốc</span>
+                        <span class="country-badge">Úc</span>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h3 class="section-title">Địa điểm yêu thích</h3>
+                    <div class="travel-inspiration">
+                        <div class="inspiration-card">
+                            <img src="/api/placeholder/250/200" alt="Bali" class="inspiration-image">
+                            <div class="inspiration-content">
+                                <div class="inspiration-title">Bali, Indonesia</div>
+                                <div class="inspiration-description">Đền đài, bãi biển và văn hóa độc đáo của hòn đảo thiên đường.</div>
+                                <div class="inspiration-meta">
+                                    <span>Thời gian tốt nhất: Tháng 5-9</span>
+                                    <span>Đã lưu</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="inspiration-card">
+                            <img src="/api/placeholder/250/200" alt="Iceland" class="inspiration-image">
+                            <div class="inspiration-content">
+                                <div class="inspiration-title">Iceland</div>
+                                <div class="inspiration-description">Khám phá thiên nhiên kỳ vĩ, suối nước nóng và hiện tượng cực quang.</div>
+                                <div class="inspiration-meta">
+                                    <span>Thời gian tốt nhất: Tháng 9-3</span>
+                                    <span>Đã lưu</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="inspiration-card">
+                            <img src="/api/placeholder/250/200" alt="Maldives" class="inspiration-image">
+                            <div class="inspiration-content">
+                                <div class="inspiration-title">Maldives</div>
+                                <div class="inspiration-description">Thiên đường biển với làn nước trong vắt và các khu nghỉ dưỡng sang trọng.</div>
+                                <div class="inspiration-meta">
+                                    <span>Thời gian tốt nhất: Tháng 11-4</span>
+                                    <span>Đã lưu</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-section">
+                    <h3 class="section-title">Bài viết du lịch của tôi</h3>
+                    <div class="blog-list">
+                        <div class="blog-item">
+                            <img src="/api/placeholder/200/150" alt="Ẩm thực Hội An" class="blog-image">
+                            <div class="blog-content">
+                                <div class="blog-title">Top 10 món ăn nhất định phải thử khi đến Hội An</div>
+                                <div class="blog-preview">Từ Cao lầu đến Bánh mì Phượng, hãy cùng khám phá những món ăn tuyệt vời nhất của phố cổ...</div>
+                                <div class="blog-meta">
+                                    <span>Đăng ngày: 15/12/2024</span>
+                                    <span>325 lượt xem</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="blog-item">
+                            <img src="/api/placeholder/200/150" alt="Du lịch tiết kiệm" class="blog-image">
+                            <div class="blog-content">
+                                <div class="blog-title">Bí quyết du lịch tiết kiệm cho người lần đầu đi Nhật Bản</div>
+                                <div class="blog-preview">Kinh nghiệm tiết kiệm chi phí khi du lịch Nhật Bản từ chỗ ở, đi lại, ăn uống...</div>
+                                <div class="blog-meta">
+                                    <span>Đăng ngày: 07/02/2025</span>
+                                    <span>412 lượt xem</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="blog-item">
+                            <img src="/api/placeholder/200/150" alt="Trekking Sapa" class="blog-image">
+                            <div class="blog-content">
+                                <div class="blog-title">Trải nghiệm trekking Sapa: Hướng dẫn chi tiết cho người mới bắt đầu</div>
+                                <div class="blog-preview">Chuẩn bị gì, đi như thế nào và những lưu ý quan trọng khi trekking ở Sapa...</div>
+                                <div class="blog-meta">
+                                    <span>Đăng ngày: 25/03/2025</span>
+                                    <span>189 lượt xem</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>TourismWeb</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Về chúng tôi</a></li>
+                    <li><a href="#">Điều khoản sử dụng</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Khám phá</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Điểm đến nổi bật</a></li>
+                    <li><a href="#">Bài viết du lịch</a></li>
+                    <li><a href="#">Hướng dẫn du lịch</a></li>
+                    <li><a href="#">Cẩm nang du lịch</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Theo dõi chúng tôi</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">YouTube</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            © 2025 TourismWeb. Tất cả quyền được bảo lưu.
+        </div>
+    </footer>
+</body>
+</html>
+
