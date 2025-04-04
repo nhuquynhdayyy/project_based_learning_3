@@ -8,476 +8,400 @@
 @{
     ViewData["HideNavbar"] = true;
 }
+@* <script src="~/js/site.js"></script> *@
+<div class="container">
+    <!-- Main content - 8.2 phần -->
+    <div class="main-content">
+        <!-- Sort options -->
+        <div class="sort-options">
+            <div class="sort-option active">Mặc định</div>
+            <div class="sort-option">Mới nhất</div>
+            <div class="sort-option">Yêu thích nhất</div>
+            <div class="sort-option">Phổ biến</div>
+        </div>
+
+        <!-- Locations grid -->
+        <div class="locations-grid">
+            <!-- Location 1 -->
+            <div class="location-card">
+                <div class="location-image">
+                    <div class="location-highlight">NỔI BẬT</div> <!-- Thẻ nổi bật -->
+                    <img src="~/images/mykhe.webp" asp-append-version="true" alt="Mỹ Khê">
+                    <div class="location-favorite" onclick="toggleLike(this)">
+                        <span class="heart-icon">🤍</span> <!-- Trái tim trắng ban đầu -->
+                    </div>
+                </div>
+                <div class="location-details">
+                    <h3 class="location-name">Biển Mỹ Khê, Đà Nẵng</h3>
+                    <div class="location-meta">
+                        <div class="meta-item">
+                            <span class="interaction-icon">❤️</span>
+                            <span class="like-count">245</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>💬</span>
+                            <span>42</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>📍</span>
+                            <span>Đà Nẵng</span>
+                        </div>
+                    </div>
+                    <div class="location-tags">
+                        <span class="tag">Bãi biển</span>
+                        <span class="tag">Đà Nẵng</span>
+                    </div>
+                </div>
+            </div>
 
 
 
-@* <header>
-    <div class="container">
-        <h1>Khám Phá Địa Điểm Du Lịch Việt Nam</h1>
-        <div class="search-bar">
-            <input type="text" placeholder="Tìm kiếm địa điểm du lịch...">
-            <button><i class="fas fa-search"></i></button>
+            <!-- Location 2 -->
+            <div class="location-card">
+                <div class="location-image">
+                    <img src="~/images/phocohoian.jpg" asp-append-version="true" alt="Hội An">
+                    <div class="location-favorite" onclick="toggleLike(this)">
+                        <span class="heart-icon">🤍</span> <!-- Trái tim trắng ban đầu -->
+                    </div>
+                </div>
+                <div class="location-details">
+                    <h3 class="location-name">Phố cổ Hội An</h3>
+                    <div class="location-meta">
+                        <div class="meta-item">
+                            <span class="interaction-icon">❤️</span>
+                            <span class="like-count">245</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>💬</span>
+                            <span>87</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>📍</span>
+                            <span>Quảng Nam</span>
+                        </div>
+                    </div>
+                    <div class="location-tags">
+                        <span class="tag">Di tích</span>
+                        <span class="tag">Phố cổ</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location 3 -->
+            <div class="location-card">
+                <div class="location-image">
+                    <div class="location-highlight">NỔI BẬT</div>
+                    <img src="~/images/dainoihue.jpg" asp-append-version="true" alt="đại nội huế">
+                    <div class="location-favorite" onclick="toggleLike(this)">
+                        <span class="heart-icon">🤍</span> <!-- Trái tim trắng ban đầu -->
+                    </div>
+                </div>
+                <div class="location-details">
+                    <h3 class="location-name">Đại Nội Huế</h3>
+                    <div class="location-meta">
+                        <div class="meta-item">
+                            <span class="interaction-icon">❤️</span>
+                            <span class="like-count">245</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>💬</span>
+                            <span>63</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>📍</span>
+                            <span>Huế</span>
+                        </div>
+                    </div>
+                    <div class="location-tags">
+                        <span class="tag">Di tích</span>
+                        <span class="tag">Lịch sử</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location 4 -->
+            <div class="location-card">
+                <div class="location-image">
+                    <img src="~/images/hangsondong.jpg" asp-append-version="true" alt="Hang Sơn Đồng">
+                    <div class="location-favorite" onclick="toggleLike(this)">
+                        <span class="heart-icon">🤍</span> <!-- Trái tim trắng ban đầu -->
+                    </div>
+                </div>
+                <div class="location-details">
+                    <h3 class="location-name">Hang Sơn Đoòng</h3>
+                    <div class="location-meta">
+                        <div class="meta-item">
+                            <span class="interaction-icon">❤️</span>
+                            <span class="like-count">245</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>💬</span>
+                            <span>95</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>📍</span>
+                            <span>Quảng Bình</span>
+                        </div>
+                    </div>
+                    <div class="location-tags">
+                        <span class="tag">Hang động</span>
+                        <span class="tag">Khám phá</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location 5 -->
+            <div class="location-card">
+                <div class="location-image">
+                    <img src="~/images/nhatrangbien.jpg" asp-append-version="true" alt="Nha Trang">
+                    <div class="location-favorite" onclick="toggleLike(this)">
+                        <span class="heart-icon">🤍</span> <!-- Trái tim trắng ban đầu -->
+                    </div>
+                </div>
+                <div class="location-details">
+                    <h3 class="location-name">Biển Nha Trang</h3>
+                    <div class="location-meta">
+                        <div class="meta-item">
+                            <span class="interaction-icon">❤️</span>
+                            <span class="like-count">245</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>💬</span>
+                            <span>78</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>📍</span>
+                            <span>Khánh Hòa</span>
+                        </div>
+                    </div>
+                    <div class="location-tags">
+                        <span class="tag">Bãi biển</span>
+                        <span class="tag">Du lịch</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location 6 -->
+            <div class="location-card">
+                <div class="location-image">
+                    <img src="~/images/nuinhs.webp" asp-append-version="true" alt="Núi Ngũ Hành Sơn">
+                    <div class="location-favorite" onclick="toggleLike(this)">
+                        <span class="heart-icon">🤍</span> <!-- Trái tim trắng ban đầu -->
+                    </div>
+                </div>
+                <div class="location-details">
+                    <h3 class="location-name">Núi Ngũ Hành Sơn</h3>
+                    <div class="location-meta">
+                        <div class="meta-item">
+                            <span class="interaction-icon">❤️</span>
+                            <span class="like-count">245</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>💬</span>
+                            <span>56</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>📍</span>
+                            <span>Đà Nẵng</span>
+                        </div>
+                    </div>
+                    <div class="location-tags">
+                        <span class="tag">Cảnh đẹp</span>
+                        <span class="tag">Chùa chiền</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location 7 -->
+            <div class="location-card">
+                <div class="location-image">
+                    <img src="~/images/phongnha.jpg" asp-append-version="true" alt="Phong Nha">
+                    <div class="location-favorite" onclick="toggleLike(this)">
+                        <span class="heart-icon">🤍</span> <!-- Trái tim trắng ban đầu -->
+                    </div>
+                </div>
+                <div class="location-details">
+                    <h3 class="location-name">Động Phong Nha</h3>
+                    <div class="location-meta">
+                        <div class="meta-item">
+                            <span class="interaction-icon">❤️</span>
+                            <span class="like-count">245</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>💬</span>
+                            <span>67</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>📍</span>
+                            <span>Quảng Bình</span>
+                        </div>
+                    </div>
+                    <div class="location-tags">
+                        <span class="tag">Hang động</span>
+                        <span class="tag">Thiên nhiên</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location 8 -->
+            <div class="location-card">
+                <div class="location-image">
+                    <img src="~/images/vinpear.jpg" asp-append-version="true" alt="Vinpear Nha Trang">
+                    <div class="location-favorite" onclick="toggleLike(this)">
+                        <span class="heart-icon">🤍</span> <!-- Trái tim trắng ban đầu -->
+                    </div>
+                </div>
+                <div class="location-details">
+                    <h3 class="location-name">Vinpearl Nha Trang</h3>
+                    <div class="location-meta">
+                        <div class="meta-item">
+                            <span class="interaction-icon">❤️</span>
+                            <span class="like-count">245</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>💬</span>
+                            <span>59</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>📍</span>
+                            <span>Khánh Hòa</span>
+                        </div>
+                    </div>
+                    <div class="location-tags">
+                        <span class="tag">Khu vui chơi</span>
+                        <span class="tag">Gia đình</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</header> *@
 
-<div class="container">
-    <div class="main-content">
-        <!-- Sidebar with filters (3/10 width) -->
-        <div class="sidebar">
-            <div class="filter-section">
-                <h2 class="filter-title"><i class="fas fa-filter"></i> Bộ lọc</h2>
-
-                <div class="filter-section">
-                    <h3><i class="fas fa-tags"></i> Danh mục</h3>
-                    <ul class="category-list">
-                        <li>
-                            <label>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" name="category" value="beach">
-                                    <span class="checkmark"></span>
-                                </span>
-                                Bãi biển, Đảo
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" name="category" value="landscape">
-                                    <span class="checkmark"></span>
-                                </span>
-                                Cảnh đẹp
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" name="category" value="pagoda">
-                                    <span class="checkmark"></span>
-                                </span>
-                                Chùa
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" name="category" value="cave">
-                                    <span class="checkmark"></span>
-                                </span>
-                                Hang động
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" name="category" value="historical">
-                                    <span class="checkmark"></span>
-                                </span>
-                                Di tích
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" name="category" value="amusement">
-                                    <span class="checkmark"></span>
-                                </span>
-                                Khu vui chơi
-                            </label>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="filter-section">
-                    <h3><i class="fas fa-star"></i> Đánh giá</h3>
-                    <div class="rating-option">
-                        <input type="radio" name="rating" value="5" id="rating5">
-                        <label for="rating5">
-                            <div class="stars">
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" name="rating" value="4" id="rating4">
-                        <label for="rating4">
-                            <div class="stars">
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star gray-star"><i class="fas fa-star"></i></span>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" name="rating" value="3" id="rating3">
-                        <label for="rating3">
-                            <div class="stars">
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star gray-star"><i class="fas fa-star"></i></span>
-                                <span class="star gray-star"><i class="fas fa-star"></i></span>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" name="rating" value="2" id="rating2">
-                        <label for="rating2">
-                            <div class="stars">
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star gray-star"><i class="fas fa-star"></i></span>
-                                <span class="star gray-star"><i class="fas fa-star"></i></span>
-                                <span class="star gray-star"><i class="fas fa-star"></i></span>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" name="rating" value="1" id="rating1">
-                        <label for="rating1">
-                            <div class="stars">
-                                <span class="star"><i class="fas fa-star"></i></span>
-                                <span class="star gray-star"><i class="fas fa-star"></i></span>
-                                <span class="star gray-star"><i class="fas fa-star"></i></span>
-                                <span class="star gray-star"><i class="fas fa-star"></i></span>
-                                <span class="star gray-star"><i class="fas fa-star"></i></span>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-                <button class="btn">Áp dụng</button>
-                <button class="btn btn-outline" style="margin-left: 10px;">Đặt lại</button>
-
-                <!-- Mục Địa điểm phổ biến -->
-                <div class="filter-section">
-                    <h3><i class="fas fa-fire"></i> Địa điểm phổ biến</h3>
-                    <ul class="popular-list">
-                        <li>
-                            <label>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" name="popular" value="true">
-                                    <span class="checkmark"></span>
-                                </span>
-                                Top 10
-                            </label>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Mục Bài viết gần đây -->
-                <div class="filter-section">
-                    <h3><i class="fas fa-clock"></i> Bài viết gần đây</h3>
-                    <ul class="recent-list">
-                        <li>
-                            <label>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" name="recent" value="true">
-                                    <span class="checkmark"></span>
-                                </span>
-                                7 ngày qua
-                            </label>
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
+    <!-- Sidebar - 2 phần -->
+    <div class="sidebar">
+        <!-- Categories -->
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Danh mục</h3>
+            <ul class="category-list">
+                <li class="category-item">
+                    <a href="#">
+                        <span>Bãi biển, đảo</span>
+                        <span class="category-count">26</span>
+                    </a>
+                </li>
+                <li class="category-item">
+                    <a href="#">
+                        <span>Cảnh đẹp</span>
+                        <span class="category-count">32</span>
+                    </a>
+                </li>
+                <li class="category-item">
+                    <a href="#">
+                        <span>Chùa chiền</span>
+                        <span class="category-count">18</span>
+                    </a>
+                </li>
+                <li class="category-item">
+                    <a href="#">
+                        <span>Hang động</span>
+                        <span class="category-count">14</span>
+                    </a>
+                </li>
+                <li class="category-item">
+                    <a href="#">
+                        <span>Di tích</span>
+                        <span class="category-count">29</span>
+                    </a>
+                </li>
+                <li class="category-item">
+                    <a href="#">
+                        <span>Khu vui chơi</span>
+                        <span class="category-count">21</span>
+                    </a>
+                </li>
+            </ul>
         </div>
 
-        <!-- Main content with locations (7/10 width) -->
-        <div class="content">
-            <div class="sort-options">
-                <select class="sort-dropdown">
-                    <option value="default">Sắp xếp theo: Mặc định</option>
-                    <option value="newest">Mới nhất</option>
-                    <option value="rating">Mức độ đánh giá</option>
-                    <option value="popular">Phổ biến</option>
-                </select>
+        <!-- Popular locations -->
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Địa điểm phổ biến</h3>
+
+            <div class="popular-location">
+                <div class="popular-image">
+                    <img src="~/images/hoian2.jpg" asp-append-version="true" alt="Hội An">
+                </div>
+                <div class="popular-details">
+                    <h4>Phố cổ Hội An</h4>
+                    <div class="popular-meta">358 lượt thích</div>
+                </div>
             </div>
 
-            <div class="location-grid">
-                <!-- Location 1 - Featured -->
-                <div class="location-card">
-                    <div class="featured-badge">Nổi bật</div>
-                    <button class="favorite-btn">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="location-img-container">
-                        <img src="~/images/hoian.jpg" asp-append-version="true" alt="Phố cổ Hội An">
-                    </div>
-                    <div class="location-info">
-                        <h3 class="location-name">Vịnh Hạ Long</h3>
-                        <div class="location-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span>4.8 (2,534 đánh giá)</span>
-                        </div>
-                        <div class="location-address">
-                            <i class="fas fa-map-marker-alt"></i> Quảng Ninh
-                        </div>
-                        <div class="tags-container">
-                            <span class="category-tag">Di sản UNESCO</span>
-                            <span class="category-tag">Bãi biển</span>
-                        </div>
-                    </div>
+            <div class="popular-location">
+                <div class="popular-image">
+                    <img src="~/images/hangsondong.jpg" asp-append-version="true" alt="Hang SƠN ĐỒNG">
                 </div>
-
-                <!-- Location 2 - Featured -->
-                <div class="location-card">
-                    <div class="featured-badge">Nổi bật</div>
-                    <button class="favorite-btn">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="location-img-container">
-                        <img src="~/images/hoian2.jpg" asp-append-version="true" alt="Phố cổ Hội An">
-                    </div>
-                    <div class="location-info">
-                        <h3 class="location-name">Phố cổ Hội An</h3>
-                        <div class="location-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span>4.9 (3,125 đánh giá)</span>
-                        </div>
-                        <div class="location-address">
-                            <i class="fas fa-map-marker-alt"></i> Quảng Nam
-                        </div>
-                        <div class="tags-container">
-                            <span class="category-tag">Di sản UNESCO</span>
-                            <span class="category-tag">Di tích</span>
-                        </div>
-                    </div>
+                <div class="popular-details">
+                    <h4>Hang Sơn Đoòng</h4>
+                    <div class="popular-meta">412 lượt thích</div>
                 </div>
-
-                <!-- Location 3 -->
-                <div class="location-card">
-                    <button class="favorite-btn">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="location-img-container">
-                        <img src="~/images/hoian.jpg" asp-append-version="true" alt="Phố cổ Hội An">
-                    </div>
-                    <div class="location-info">
-                        <h3 class="location-name">Hang Sơn Đoòng</h3>
-                        <div class="location-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span>4.7 (1,875 đánh giá)</span>
-                        </div>
-                        <div class="location-address">
-                            <i class="fas fa-map-marker-alt"></i> Quảng Bình
-                        </div>
-                        <div class="tags-container">
-                            <span class="category-tag">Hang động</span>
-                            <span class="category-tag">Phiêu lưu</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Location 4 -->
-                <div class="location-card">
-                    <button class="favorite-btn">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="location-img-container">
-                        <img src="~/images/hoian.jpg" asp-append-version="true" alt="Phố cổ Hội An">
-                    </div>
-                    <div class="location-info">
-                        <h3 class="location-name">Sapa</h3>
-                        <div class="location-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span>4.5 (2,251 đánh giá)</span>
-                        </div>
-                        <div class="location-address">
-                            <i class="fas fa-map-marker-alt"></i> Lào Cai
-                        </div>
-                        <div class="tags-container">
-                            <span class="category-tag">Cảnh đẹp</span>
-                            <span class="category-tag">Núi</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Location 5 -->
-                <div class="location-card">
-                    <button class="favorite-btn">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="location-img-container">
-                        <img src="~/images/hoian.jpg" asp-append-version="true" alt="Phố cổ Hội An">
-                    </div>
-                    <div class="location-info">
-                        <h3 class="location-name">Chùa Hương</h3>
-                        <div class="location-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span>4.3 (1,652 đánh giá)</span>
-                        </div>
-                        <div class="location-address">
-                            <i class="fas fa-map-marker-alt"></i> Hà Nội
-                        </div>
-                        <div class="tags-container">
-                            <span class="category-tag">Chùa</span>
-                            <span class="category-tag">Di tích</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Location 6 - Featured -->
-                <div class="location-card">
-                    <div class="featured-badge">Nổi bật</div>
-                    <button class="favorite-btn">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="location-img-container">
-                        <img src="~/images/hoian.jpg" asp-append-version="true" alt="Phố cổ Hội An">
-                    </div>
-                    <div class="location-info">
-                        <h3 class="location-name">Phú Quốc</h3>
-                        <div class="location-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span>4.6 (2,847 đánh giá)</span>
-                        </div>
-                        <div class="location-address">
-                            <i class="fas fa-map-marker-alt"></i> Kiên Giang
-                        </div>
-                        <div class="tags-container">
-                            <span class="category-tag">Bãi biển</span>
-                            <span class="category-tag">Đảo</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Location 7 -->
-                <div class="location-card">
-                    <button class="favorite-btn">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="location-img-container">
-                        <img src="~/images/hoian.jpg" asp-append-version="true" alt="Phố cổ Hội An">
-                    </div>
-                    <div class="location-info">
-                        <h3 class="location-name">Cố đô Huế</h3>
-                        <div class="location-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span>4.4 (1,989 đánh giá)</span>
-                        </div>
-                        <div class="location-address">
-                            <i class="fas fa-map-marker-alt"></i> Thừa Thiên Huế
-                        </div>
-                    </div>
-                </div>
-                <!-- Location 7 -->
-                <div class="location-card">
-                    <button class="favorite-btn">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="location-img-container">
-                        <img src="~/images/hoian.jpg" asp-append-version="true" alt="Phố cổ Hội An">
-                    </div>
-                    <div class="location-info">
-                        <h3 class="location-name">Cố đô Huế</h3>
-                        <div class="location-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span>4.4 (1,989 đánh giá)</span>
-                        </div>
-                        <div class="location-address">
-                            <i class="fas fa-map-marker-alt"></i> Thừa Thiên Huế
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Location 8 - Ví dụ mới: Đà Nẵng -->
-                <div class="location-card">
-                    <div class="featured-badge">Nổi bật</div>
-                    <button class="favorite-btn">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="location-img-container">
-                        <img src="~/images/danang.jpg" asp-append-version="true" alt="Đà Nẵng">
-                    </div>
-                    <div class="location-info">
-                        <h3 class="location-name">Đà Nẵng</h3>
-                        <div class="location-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span>4.7 (2,105 đánh giá)</span>
-                        </div>
-                        <div class="location-address">
-                            <i class="fas fa-map-marker-alt"></i> Đà Nẵng
-                        </div>
-                        <div class="tags-container">
-                            <span class="category-tag">Biển xanh</span>
-                            <span class="category-tag">Cầu Rồng</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Location 9 - Ví dụ mới: Nha Trang -->
-                <div class="location-card">
-                    <button class="favorite-btn">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="location-img-container">
-                        <img src="~/images/nhatrang.jpg" asp-append-version="true" alt="Nha Trang">
-                    </div>
-                    <div class="location-info">
-                        <h3 class="location-name">Nha Trang</h3>
-                        <div class="location-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span>4.6 (1,540 đánh giá)</span>
-                        </div>
-                        <div class="location-address">
-                            <i class="fas fa-map-marker-alt"></i> Khánh Hòa
-                        </div>
-                        <div class="tags-container">
-                            <span class="category-tag">Bãi biển</span>
-                            <span class="category-tag">Du lịch</span>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+
+            <div class="popular-location">
+                <div class="popular-image">
+                    <img src="~/images/nhatrangg.jpg" asp-append-version="true" alt="NhaTrang">
+                </div>
+                <div class="popular-details">
+                    <h4>Biển Nha Trang</h4>
+                    <div class="popular-meta">327 lượt thích</div>
+                </div>
+            </div>
+
+            <a href="#" class="view-more">Xem thêm</a>
+        </div>
+
+        <!-- Recent posts -->
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Bài viết gần đây</h3>
+
+            <div class="recent-post">
+                <div class="recent-image">
+                    <img src="~/images/sondong.webp" asp-append-version="true" alt="Sơn ĐOONG">
+                </div>
+                <div class="recent-details">
+                    <h4>Khám phá Hang Sơn Đoòng - Hang động lớn nhất thế giới</h4>
+                    <div class="post-date">
+                        <span>📅</span>
+                        <span>12/03/2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-post">
+                <div class="recent-image">
+                    <img src="~/images/banhloc.jpg" asp-append-version="true" alt="Bánh Lọc">
+                </div>
+                <div class="recent-details">
+                    <h4>Top 10 món ăn không thể bỏ qua khi đến Huế</h4>
+                    <div class="post-date">
+                        <span>📅</span>
+                        <span>05/03/2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-post">
+                <div class="recent-image">
+                    <img src="~/images/hoian.jpg" asp-append-version="true" alt="Hội An">
+                </div>
+                <div class="recent-details">
+                    <h4>Hội An rực rỡ trong mùa lễ hội đèn lồng</h4>
+                    <div class="post-date">
+                        <span>📅</span>
+                        <span>28/02/2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#" class="view-more">Xem thêm</a>
         </div>
     </div>
 </div>

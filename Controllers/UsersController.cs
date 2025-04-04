@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Globalization;
 
 namespace TourismWeb.Controllers
 {
@@ -95,10 +98,6 @@ namespace TourismWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string UsernameOrEmail, string Password)
         {
-            // if (TempData["LoginSuccess"] != null)
-            // {
-            //     TempData["LoginSuccess"] = null; // Xóa giá trị sau khi popup đã được hiển thị
-            // }
             // Kiểm tra nếu Session đã sẵn sàng
             if (HttpContext.Session == null)
             {
@@ -110,14 +109,12 @@ namespace TourismWeb.Controllers
 
             if (user == null)
             {
-                // TempData["LoginSuccess"] = false;
                 ModelState.AddModelError("", "Tài khoản không tồn tại!");
                 return View();
             }
 
             if (string.IsNullOrEmpty(Password))
             {
-                // TempData["LoginSuccess"] = false;
                 ModelState.AddModelError("Password", "Mật khẩu không được để trống.");
                 return View();
             }
@@ -127,7 +124,6 @@ namespace TourismWeb.Controllers
         
             if (user.PasswordHash != hashedInputPassword)
             {
-                // TempData["LoginSuccess"] = false;
                 ModelState.AddModelError("", "Mật khẩu không chính xác!");
                 return View();
             }
@@ -135,19 +131,35 @@ namespace TourismWeb.Controllers
             // Lưu session
             HttpContext.Session.SetString("UserId", user.UserId.ToString());
             HttpContext.Session.SetString("Username", user.Username);
+            HttpContext.Session.SetString("UserRole", user.Role); // Lưu vai trò vào session
 
             // 🔹 Lưu Authentication Cookie (NẾU DÙNG AUTHENTICATION)
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.Role.ToLower()))
+
             };
 
-            var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
+            // var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
-            await HttpContext.SignInAsync("CookieAuth", claimsPrincipal);
-            
+            // await HttpContext.SignInAsync("CookieAuth", claimsPrincipal);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+
+            Console.WriteLine("[DEBUG] Session:");
+            Console.WriteLine("UserId: " + HttpContext.Session.GetString("UserId"));
+            Console.WriteLine("Username: " + HttpContext.Session.GetString("Username"));
+            Console.WriteLine("UserRole: " + HttpContext.Session.GetString("UserRole"));
+
+            Console.WriteLine("[DEBUG] Claims:");
+            foreach (var claim in claims)
+            {
+                Console.WriteLine($"Type: {claim.Type}, Value: {claim.Value}");
+            }
+
             // Kiểm tra xem có URL nào cần chuyển hướng không
             string redirectUrl = HttpContext.Session.GetString("RedirectAfterLogin");
             if (!string.IsNullOrEmpty(redirectUrl))
@@ -156,8 +168,10 @@ namespace TourismWeb.Controllers
                 return Redirect(redirectUrl);
             }
 
-            // TempData["LoginSuccess"] = true; // Gửi thông báo đến View
-            return RedirectToAction("Index", "Home");
+            if (user.Role == "admin")
+                return RedirectToAction("Index", "Admin");
+            else
+                return RedirectToAction("Index", "Home");
         }
 
         public IActionResult TestSession()
@@ -170,11 +184,9 @@ namespace TourismWeb.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync("CookieAuth"); // Sử dụng đúng scheme đã đăng ký
-
+            // await HttpContext.SignOutAsync("CookieAuth"); // Sử dụng đúng scheme đã đăng ký
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             HttpContext.Session.Clear(); // Xóa session
-            // TempData["LoginSuccess"] = false; // Reset trạng thái đăng nhập
-
             return RedirectToAction("Index", "Home");
         }
 
@@ -183,5 +195,12 @@ namespace TourismWeb.Controllers
         {
             return View();
         }
+
+        // [Authorize(Roles = "Admin")]
+        // public IActionResult Dashboard()
+        // {
+        //     return View();
+        // }
+
     }
 }

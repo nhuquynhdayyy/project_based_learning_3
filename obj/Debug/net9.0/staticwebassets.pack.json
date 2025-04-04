@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\css\\contact.css"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\experience.css",
+      "PackagePath": "staticwebassets\\css\\experience.css"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\guide.css",
       "PackagePath": "staticwebassets\\css\\guide.css"
     },
@@ -37,6 +41,30 @@
       "PackagePath": "staticwebassets\\images\\avatar3.png"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\bachma.webp",
+      "PackagePath": "staticwebassets\\images\\bachma.webp"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\baichoi.jpg",
+      "PackagePath": "staticwebassets\\images\\baichoi.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\banhloc.jpg",
+      "PackagePath": "staticwebassets\\images\\banhloc.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\banhxeo.jpg",
+      "PackagePath": "staticwebassets\\images\\banhxeo.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\bunbo.jpg",
+      "PackagePath": "staticwebassets\\images\\bunbo.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\champa.jpg",
+      "PackagePath": "staticwebassets\\images\\champa.jpg"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\chualinhung.jpg",
       "PackagePath": "staticwebassets\\images\\chualinhung.jpg"
     },
@@ -49,6 +77,14 @@
       "PackagePath": "staticwebassets\\images\\culaocham.jpg"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\dainoi.jpg",
+      "PackagePath": "staticwebassets\\images\\dainoi.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\dainoihue.jpg",
+      "PackagePath": "staticwebassets\\images\\dainoihue.jpg"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\danang.jpg",
       "PackagePath": "staticwebassets\\images\\danang.jpg"
     },
@@ -59,6 +95,18 @@
     {
       "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\golden bridge.jpg",
       "PackagePath": "staticwebassets\\images\\golden bridge.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\haivan.jpg",
+      "PackagePath": "staticwebassets\\images\\haivan.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\hangsondong.jpg",
+      "PackagePath": "staticwebassets\\images\\hangsondong.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\haunuong.jpg",
+      "PackagePath": "staticwebassets\\images\\haunuong.jpg"
     },
     {
       "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\hoian.jpg",
@@ -93,6 +141,14 @@
       "PackagePath": "staticwebassets\\images\\lyson.jpg"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\mykhe.webp",
+      "PackagePath": "staticwebassets\\images\\mykhe.webp"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\myquang.jpg",
+      "PackagePath": "staticwebassets\\images\\myquang.jpg"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\myson.jpg",
       "PackagePath": "staticwebassets\\images\\myson.jpg"
     },
@@ -109,8 +165,20 @@
       "PackagePath": "staticwebassets\\images\\nhatrang.jpg"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\nhatrangbien.jpg",
+      "PackagePath": "staticwebassets\\images\\nhatrangbien.jpg"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\nhatrangg.jpg",
       "PackagePath": "staticwebassets\\images\\nhatrangg.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\nuinhs.webp",
+      "PackagePath": "staticwebassets\\images\\nuinhs.webp"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\phocohoian.jpg",
+      "PackagePath": "staticwebassets\\images\\phocohoian.jpg"
     },
     {
       "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\phongnha.jpg",
@@ -133,8 +201,20 @@
       "PackagePath": "staticwebassets\\images\\sacmaudanang.webp"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\sanho.jpg",
+      "PackagePath": "staticwebassets\\images\\sanho.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\sondong.webp",
+      "PackagePath": "staticwebassets\\images\\sondong.webp"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\songhuong.jpg",
       "PackagePath": "staticwebassets\\images\\songhuong.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\vinpear.jpg",
+      "PackagePath": "staticwebassets\\images\\vinpear.jpg"
     },
     {
       "Id": "C:\\Users\\Admin\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\xinchao.jpg",

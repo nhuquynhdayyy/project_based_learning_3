@@ -172,12 +172,6 @@
     transform: scale(1.05);
 }
 /* ================= GLOBAL SETUP ================= */
-body, html {
-    margin: 0;
-    width: 100%;
-    padding: 0;
-    overflow-x: hidden; /* Tránh xuất hiện thanh cuộn ngang */
-}
 
 
 
