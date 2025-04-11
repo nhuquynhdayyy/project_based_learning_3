@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\css\\location.css"
     },
     {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\locationlayout.css",
+      "PackagePath": "staticwebassets\\css\\locationlayout.css"
+    },
+    {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\userprofile.css",
       "PackagePath": "staticwebassets\\css\\userprofile.css"
     },
@@ -53,6 +57,14 @@
       "PackagePath": "staticwebassets\\images\\baichoi.jpg"
     },
     {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\bana.jpg",
+      "PackagePath": "staticwebassets\\images\\bana.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\bandodanang.png",
+      "PackagePath": "staticwebassets\\images\\bandodanang.png"
+    },
+    {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\banhloc.jpg",
       "PackagePath": "staticwebassets\\images\\banhloc.jpg"
     },
@@ -65,12 +77,20 @@
       "PackagePath": "staticwebassets\\images\\bunbo.jpg"
     },
     {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\bunkhoang.jpg",
+      "PackagePath": "staticwebassets\\images\\bunkhoang.jpg"
+    },
+    {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\champa.jpg",
       "PackagePath": "staticwebassets\\images\\champa.jpg"
     },
     {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\chualinhung.jpg",
       "PackagePath": "staticwebassets\\images\\chualinhung.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\chuathienmu.webp",
+      "PackagePath": "staticwebassets\\images\\chuathienmu.webp"
     },
     {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\codohue.jpg",
@@ -95,6 +115,26 @@
     {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\danang2.webp",
       "PackagePath": "staticwebassets\\images\\danang2.webp"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\danang3.jpg",
+      "PackagePath": "staticwebassets\\images\\danang3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\danangg.jpg",
+      "PackagePath": "staticwebassets\\images\\danangg.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\dananggg.jpg",
+      "PackagePath": "staticwebassets\\images\\dananggg.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\desktop.ini",
+      "PackagePath": "staticwebassets\\images\\desktop.ini"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\ganhdadia.jpg",
+      "PackagePath": "staticwebassets\\images\\ganhdadia.jpg"
     },
     {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\golden bridge.jpg",
@@ -123,6 +163,10 @@
     {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\hue.jpg",
       "PackagePath": "staticwebassets\\images\\hue.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\huebig.jpg",
+      "PackagePath": "staticwebassets\\images\\huebig.jpg"
     },
     {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\logo.webp",
@@ -193,6 +237,10 @@
       "PackagePath": "staticwebassets\\images\\phuyen.jpg"
     },
     {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\pink.jpg",
+      "PackagePath": "staticwebassets\\images\\pink.jpg"
+    },
+    {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\quangbinh2.jpg",
       "PackagePath": "staticwebassets\\images\\quangbinh2.jpg"
     },
@@ -215,6 +263,14 @@
     {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\songhuong.jpg",
       "PackagePath": "staticwebassets\\images\\songhuong.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\sontra.jpg",
+      "PackagePath": "staticwebassets\\images\\sontra.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\sontraa.jpg",
+      "PackagePath": "staticwebassets\\images\\sontraa.jpg"
     },
     {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\vinpear.jpg",
@@ -247,6 +303,10 @@
     {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\xinchao5.jpg",
       "PackagePath": "staticwebassets\\images\\xinchao5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\script.js",
+      "PackagePath": "staticwebassets\\js\\script.js"
     },
     {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\site.js",

@@ -1,11 +1,15 @@
-﻿@section Styles {
-    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
-
-}
-@{
+﻿@{
+    Layout = "_Layout";
     ViewData["Title"] = "Trang chủ";
 }
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}
+
 @await Html.PartialAsync("_Carousel")
+
+
+<p>Vai trò hiện tại: @User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</p>
 
 <section class="mt-4">
     <div class="container">
@@ -18,7 +22,8 @@
                     <img src="/images/danang.jpg" class="card-img-top" alt="Đà Nẵng">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">ĐÀ NẴNG</h5>
-                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                        <a asp-controller="Location" asp-action="Danang1" class="btn btn-primary">Xem chi tiết</a>
+
                     </div>
                 </div>
             </div>
@@ -27,7 +32,7 @@
                     <img src="/images/hue.jpg" class="card-img-top" alt="Huế">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">HUẾ</h5>
-                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                        <a asp-controller="Location" asp-action="Hue1" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
@@ -36,7 +41,7 @@
                     <img src="/images/hoian.jpg" class="card-img-top" alt="Hội An">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">HỘI AN</h5>
-                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                        <a asp-controller="Location" asp-action="Hoian1" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
@@ -48,7 +53,7 @@
                     <img src="/images/phongnha.jpg" class="card-img-top" alt="Quảng Bình">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">QUẢNG BÌNH</h5>
-                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                        <a asp-controller="Location" asp-action="Quangbinh1" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
@@ -57,7 +62,7 @@
                     <img src="/images/nhatrang.jpg" class="card-img-top" alt="Nha Trang">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">NHA TRANG</h5>
-                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                        <a asp-controller="Location" asp-action="Nhatrang1" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
@@ -66,7 +71,7 @@
                     <img src="/images/phuyen.jpg" class="card-img-top" alt="Phú Yên">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">PHÚ YÊN</h5>
-                        <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                        <a asp-controller="Location" asp-action="Phuyen1" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
@@ -78,100 +83,177 @@
         <div class="swiper-container">
             <h2 class="text-center">Bài viết gần đây</h2>
             <div class="swiper-wrapper">
+
                 <div class="swiper-slide">
-                    <div class="post-container">
-                        <div class="post">
-                            <img src="/images/hue.jpg" alt="Bài viết 1">
-                            <a href="#">Kinh thành Huế</a>
+                    <div class="slider-card">
+                        <div class="slider-image-wrapper">
+                            <img src="/images/danang2.webp" alt="Cầu Rồng Đà Nẵng">
+                            <span class="slider-category category-du-lich">Du lịch</span>
+                        </div>
+                        <div class="slider-content">
+                            <div class="article-author">
+                                <span class="author-name">Lê Minh</span>
+                            </div>
+                            <h3 class="slider-title">Khám phá Đà Nẵng năng động</h3>
+                            <p class="slider-description">
+                                Thành phố đáng sống với những cây cầu độc đáo, bãi biển dài và ẩm thực hấp dẫn.
+                            </p>
+                            <div class="slider-location">📍 Đà Nẵng</div>
+                            <div class="article-interactions">
+                                <div class="interaction-item">
+                                    <span class="interaction-icon">❤️</span>
+                                    <span>95</span>
+                                </div>
+                                <div class="interaction-item">
+                                    <span class="interaction-icon">💬</span>
+                                    <span>12</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="swiper-slide">
-                    <div class="post-container">
-                        <div class="post">
-                            <img src="/images/danang2.webp" alt="Bài viết 2">
-                            <a href="#">Đà Nẵng</a>
+                    <div class="slider-card">
+                        <div class="slider-image-wrapper">
+                            <img src="/images/hoian2.jpg" alt="Phố cổ Hội An">
+                            <span class="slider-category category-lich-su">Lịch sử</span>
+                        </div>
+                        <div class="slider-content">
+                            <div class="article-author">
+                                <span class="author-name">Trần Hà</span>
+                            </div>
+                            <h3 class="slider-title">Phố cổ Hội An lung linh sắc màu</h3>
+                            <p class="slider-description">
+                                Nét đẹp cổ kính với những ngôi nhà mái ngói vàng và đèn lồng rực rỡ mỗi đêm.
+                            </p>
+                            <div class="slider-location">📍 Hội An</div>
+                            <div class="article-interactions">
+                                <div class="interaction-item">
+                                    <span class="interaction-icon">❤️</span>
+                                    <span>132</span>
+                                </div>
+                                <div class="interaction-item">
+                                    <span class="interaction-icon">💬</span>
+                                    <span>20</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="swiper-slide">
-                    <div class="post-container">
-                        <div class="post">
-                            <img src="/images/hoian2.jpg" alt="Bài viết 3">
-                            <a href="#">Hội An</a>
+                    <div class="slider-card">
+                        <div class="slider-image-wrapper">
+                            <img src="/images/nhatrang.jpg" alt="Bãi biển Nha Trang">
+                            <span class="slider-category category-bien">Biển</span>
+                        </div>
+                        <div class="slider-content">
+                            <div class="article-author">
+                                <span class="author-name">Phạm Thanh</span>
+                            </div>
+                            <h3 class="slider-title">Biển xanh Nha Trang quyến rũ</h3>
+                            <p class="slider-description">
+                                Một trong những vịnh biển đẹp nhất thế giới với nước trong xanh và san hô tuyệt đẹp.
+                            </p>
+                            <div class="slider-location">📍 Nha Trang</div>
+                            <div class="article-interactions">
+                                <div class="interaction-item">
+                                    <span class="interaction-icon">❤️</span>
+                                    <span>110</span>
+                                </div>
+                                <div class="interaction-item">
+                                    <span class="interaction-icon">💬</span>
+                                    <span>15</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="swiper-slide">
-                    <div class="post-container">
-                        <div class="post">
-                            <img src="/images/nhatrang.jpg" alt="Bài viết 4">
-                            <a href="#">Nha Trang</a>
+                    <div class="slider-card">
+                        <div class="slider-image-wrapper">
+                            <img src="/images/quangbinh2.jpg" alt="Động Phong Nha - Quảng Bình">
+                            <span class="slider-category category-thien-nhien">Thiên nhiên</span>
+                        </div>
+                        <div class="slider-content">
+                            <div class="article-author">
+                                <span class="author-name">Ngô Bảo</span>
+                            </div>
+                            <h3 class="slider-title">Quảng Bình - Vương quốc hang động</h3>
+                            <p class="slider-description">
+                                Phong Nha - Kẻ Bàng với những kỳ quan thiên nhiên kỳ vĩ bậc nhất Việt Nam.
+                            </p>
+                            <div class="slider-location">📍 Quảng Bình</div>
+                            <div class="article-interactions">
+                                <div class="interaction-item">
+                                    <span class="interaction-icon">❤️</span>
+                                    <span>140</span>
+                                </div>
+                                <div class="interaction-item">
+                                    <span class="interaction-icon">💬</span>
+                                    <span>22</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide">
-                    <div class="post-container">
-                        <div class="post">
-                            <img src="/images/quangbinh2.jpg" alt="Bài viết 5">
-                            <a href="#">Quảng Bình</a>
-                        </div>
-                    </div>
-                </div>
+
             </div>
-
-            <!-- Nút điều hướng -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-
             <!-- Chấm tròn pagination -->
             <div class="swiper-pagination"></div>
         </div>
-        @await Html.PartialAsync("_Review")
-        <section class="guide-wrapper">
-            <div class="guide-section">
-                <div class="container"></div>
-                <h2><b>Cẩm Nang Du Lịch Miền Trung từ A - Z</b></h2>
-                <div class="divider">
-                    <hr>
-                    <div class="dots">
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                    </div>
-                    <hr>
+    </section>>
+    @await Html.PartialAsync("_Review")
+    <section class="guide-wrapper">
+        <div class="guide-section">
+            <div class="container"></div>
+            <h2><b>Cẩm Nang Du Lịch Miền Trung từ A - Z</b></h2>
+            <div class="divider">
+                <hr>
+                <div class="dots">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="guide-container">
+            <div class="card">
+                <img src="~/images/danang2.webp" class="card-img-top" alt="Đà Nẵng">
+                <div class="card-body">
+                    <h5 class="card-title"><b>Đà Nẵng - Thành phố đáng sống với những bãi biển tuyệt đẹp</b>
+                    </h5>
+                    <p class="guide-date">31 tháng Mười Hai, 2024</p>
+                    <p class="card-text">Giới thiệu sơ lược về đảo Bình Ba...</p>
                 </div>
             </div>
-            <div class="guide-container">
-                <div class="card">
-                    <img src="~/images/danang2.webp" class="card-img-top" alt="Đà Nẵng">
-                    <div class="card-body">
-                        <h5 class="card-title"><b>Đà Nẵng - Thành phố đáng sống với những bãi biển tuyệt đẹp</b></h5>
-                        <p class="guide-date">31 tháng Mười Hai, 2024</p>
-                        <p class="card-text">Giới thiệu sơ lược về đảo Bình Ba...</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="~/images/hue.jpg" class="card-img-top" alt="Huế ">
-                    <div class="card-body">
-                        <h5 class="card-title"><b>Khám phá vẻ đẹp cổ kính của Đại Nội Huế - Kinh đô của triều Nguyễn</b>
-                        </h5>
-                        <p class="guide-date">31 tháng Mười Hai, 2024</p>
-                        <p class="card-text">Khung cảnh tuyệt đẹp, văn hóa đặc sắc...</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="~/images/hoian.jpg" class="card-img-top" alt="Hội An">
-                    <div class="card-body">
-                        <h5 class="card-title"><b>Phố cổ Hội An: Bước chân vào ký ức thương cảng sầm uất một thời</b>
-                        </h5>
-                        <p class="guide-date">31 tháng Mười Hai, 2024</p>
-                        <p class="card-text">Khám phá những điểm đến đẹp nhất...</p>
-                    </div>
+            <div class="card">
+                <img src="~/images/hue.jpg" class="card-img-top" alt="Huế ">
+                <div class="card-body">
+                    <h5 class="card-title"><b>Khám phá vẻ đẹp cổ kính của Đại Nội Huế - Kinh đô của triều
+                            Nguyễn</b>
+                    </h5>
+                    <p class="guide-date">31 tháng Mười Hai, 2024</p>
+                    <p class="card-text">Khung cảnh tuyệt đẹp, văn hóa đặc sắc...</p>
                 </div>
             </div>
+            <div class="card">
+                <img src="~/images/hoian.jpg" class="card-img-top" alt="Hội An">
+                <div class="card-body">
+                    <h5 class="card-title"><b>Phố cổ Hội An: Bước chân vào ký ức thương cảng sầm uất một
+                            thời</b>
+                    </h5>
+                    <p class="guide-date">31 tháng Mười Hai, 2024</p>
+                    <p class="card-text">Khám phá những điểm đến đẹp nhất...</p>
+                </div>
             </div>
-        </section>
-
+        </div>
 
     </section>
+</section>

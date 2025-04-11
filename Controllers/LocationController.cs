@@ -8,5 +8,31 @@ namespace TourismWeb.Controllers
         {
             return View();
         }
+
+        // Action để hiển thị trang Đà Nẵng
+        public IActionResult Danang1()
+        {
+            return View();
+        }
+        public IActionResult Hue1()
+        {
+            return View();
+        }
+        public IActionResult Hoian1()
+        {
+            return View();
+        }
+        public IActionResult Quangbinh1()
+        {
+            return View();
+        }
+        public IActionResult Nhatrang1()
+        {
+            return View();
+        }
+        public IActionResult Phuyen1()
+        {
+            return View();
+        }
     }
 }

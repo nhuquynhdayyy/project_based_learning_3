@@ -8,17 +8,11 @@
 
 /* Header */
 .header {
-<<<<<<< HEAD
-    background: linear-gradient(to right, #162da0, #5095f0);
-    text-align: center;
-    padding: 40px 20px;
-=======
     padding-top: 40px;
     margin-top: 20px;
     background: linear-gradient(to right, #162da0, #5095f0);
     text-align: center;
     padding: 60px 20px;
->>>>>>> 28b4ba92002a53cd0543731c314e9cfa9f8b1a9e
     color: white;
     position: relative;
 }
@@ -51,19 +45,11 @@
 }
 
 /* Container 2 cột */
-<<<<<<< HEAD
-.container {
-=======
 .contact_container {
->>>>>>> 28b4ba92002a53cd0543731c314e9cfa9f8b1a9e
     display: flex;
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
-<<<<<<< HEAD
-    margin-bottom: 30px;
-=======
->>>>>>> 28b4ba92002a53cd0543731c314e9cfa9f8b1a9e
 }
 
 /* Card chung */
@@ -74,18 +60,12 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 350px;
     text-align: left;
-<<<<<<< HEAD
-=======
    
->>>>>>> 28b4ba92002a53cd0543731c314e9cfa9f8b1a9e
 }
 
 /* Tiêu đề trong card */
 .card h2 {
-<<<<<<< HEAD
-=======
    
->>>>>>> 28b4ba92002a53cd0543731c314e9cfa9f8b1a9e
     font-size: 20px;
     color: #333;
     margin-bottom: 10px;
@@ -100,10 +80,7 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
-<<<<<<< HEAD
-=======
 
->>>>>>> 28b4ba92002a53cd0543731c314e9cfa9f8b1a9e
 }
 
 .card textarea {
@@ -139,10 +116,7 @@
     border-radius: 10px;
     text-align: center;
     margin-bottom: 30px;
-<<<<<<< HEAD
-=======
     
->>>>>>> 28b4ba92002a53cd0543731c314e9cfa9f8b1a9e
 }
 
 .login-prompt h3 {
@@ -230,13 +204,9 @@ footer {
     padding: 10px 20px;
     /* border-radius: 5px; */
     text-decoration: none;
-<<<<<<< HEAD
-    font-weight: bold;
-=======
     margin: 0 10px;
     font-weight: bold;
   
->>>>>>> 28b4ba92002a53cd0543731c314e9cfa9f8b1a9e
 }
 
 .btn-primary {

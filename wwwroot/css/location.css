@@ -4,24 +4,10 @@ body {
 }
   
   
-<<<<<<< HEAD
-  .container {
-    max-width: 1200px;
-    
-    display: flex;
-    gap: 30px;
-   
-  }
-
-  
-  .main-content {
-    flex: 8.2;
-=======
 
   
   .main-content {
     flex: 8;
->>>>>>> 28b4ba92002a53cd0543731c314e9cfa9f8b1a9e
   }
   
   .sidebar {

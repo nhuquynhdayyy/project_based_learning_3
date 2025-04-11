@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewData["Title"] - TourismWeb</title>
-    
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <!-- Font Awesome Icons -->
@@ -19,7 +19,7 @@
     <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    
+
     @RenderSection("Styles", required: false)
 </head>
 
@@ -56,20 +56,20 @@
                     </li>
 
                     <li class="nav-item"></li>
-    @if (User.Identity?.IsAuthenticated == true)
-    {
-        <a class="nav-link" asp-controller="Posts" asp-action="Create">
-             <i class="fas fa-book"></i> Đăng bài
-        </a>
-    }
-    else
-    {
-        <a class="nav-link" href="#" data-bs-toggle="modal" 
-           data-bs-target="#loginModal" onclick="saveRedirectUrl('/Posts/Create')">
-             <i class="fas fa-book"></i> Đăng bài
-        </a>
-    }
-</li>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a class="nav-link" asp-controller="Posts" asp-action="Create">
+                            <i class="fas fa-book"></i> Đăng bài
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal"
+                            onclick="saveRedirectUrl('/Posts/Create')">
+                            <i class="fas fa-book"></i> Đăng bài
+                        </a>
+                    }
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Contact" asp-action="Index">
                             <i class="fas fa-envelope"></i> Liên hệ
@@ -83,49 +83,50 @@
                 </form>
 
                 <div class="dropdown ms-3">
-    <button class="btn btn-outline-light dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fas fa-user"></i>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-        @if (User.Identity?.IsAuthenticated == true)
-        {
-            @if (User.IsInRole("admin") || User.IsInRole("Admin"))
-            {
-                <li>
-                    <a class="dropdown-item" asp-controller="Admin" asp-action="Dashboard">
-                        <i class="fas fa-tachometer-alt me-2"></i>Trang quản lý
-                    </a>
-                </li>
-            }
-            else
-            {
-                <li>
-                    <a class="dropdown-item" asp-controller="Users" asp-action="Profile">
-                        <i class="fas fa-user-circle me-2"></i>Trang cá nhân
-                    </a>
-                </li>
-            }
-            <li>
-                <a class="dropdown-item" asp-controller="Users" asp-action="Logout">
-                    <i class="fas fa-sign-out-alt me-2"></i>Đăng xuất
-                </a>
-            </li>
-        }
-        else
-        {
-            <li>
-                <a class="dropdown-item" asp-controller="Users" asp-action="Login">
-                    <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" asp-controller="Users" asp-action="Register">
-                    <i class="fas fa-user-plus me-2"></i>Đăng ký
-                </a>
-            </li>
-        }
-    </ul>
-</div>
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="userMenu"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            @if (User.IsInRole("admin") || User.IsInRole("Admin"))
+                            {
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Admin" asp-action="Dashboard">
+                                        <i class="fas fa-tachometer-alt me-2"></i>Trang quản lý
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Users" asp-action="Profile">
+                                        <i class="fas fa-user-circle me-2"></i>Trang cá nhân
+                                    </a>
+                                </li>
+                            }
+                            <li>
+                                <a class="dropdown-item" asp-controller="Users" asp-action="Logout">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Đăng xuất
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a class="dropdown-item" asp-controller="Users" asp-action="Login">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-controller="Users" asp-action="Register">
+                                    <i class="fas fa-user-plus me-2"></i>Đăng ký
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
 
 
                 @* <!-- Hiển thị khi người dùng chưa đăng nhập -->
@@ -192,7 +193,7 @@
             </div>
         </div>
     </div>
-    
+
     <script>
         function saveRedirectUrl(url) {
             sessionStorage.setItem("redirectAfterLogin", url);
@@ -212,7 +213,9 @@
     </script>
 
     <!-- Ẩn giá trị xác định trạng thái đăng nhập -->
-    <input type="hidden" id="isAuthenticated" value="@User.Identity.IsAuthenticated.ToString().ToLower()" />
+    <input type="hidden" id="isAuthenticated"
+        value="@((User?.Identity?.IsAuthenticated ?? false).ToString().ToLower())" />
+
 
 
     <!-- Footer -->
@@ -260,9 +263,13 @@
 
                 <div class="footer-subscribe">
                     <h4>Theo dõi</h4>
-                    <p>Đăng ký nhận tin tức</p>
+                    <p>Đăng ký tài khoản</p>
                     <input type="email" placeholder="Email...">
-                    <button>ĐĂNG KÝ</button>
+                    <a asp-controller="Users" asp-action="Register" class="footer-subscribe-btn">
+                        ĐĂNG KÝ
+                    </a>
+
+
                 </div>
 
             </div>
@@ -280,7 +287,7 @@
             var swiper = new Swiper(".swiper-container", {
                 slidesPerView: 3,
                 spaceBetween: 40,
-                centeredSlides: "auto",
+                centeredSlides: true,
                 loop: true,
                 autoplay: {
                     delay: 4000,
