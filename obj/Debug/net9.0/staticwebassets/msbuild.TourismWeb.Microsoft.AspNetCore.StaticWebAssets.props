@@ -12,8 +12,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>656ecx0wz3</Fingerprint>
-      <Integrity>ZjlcifJ5zzDPRCNz0WJnFMgF3UJYwkE0f+Oe0jhQUgk=</Integrity>
+      <Fingerprint>brjv9bj37v</Fingerprint>
+      <Integrity>xxqupjAB5CF7/HxxtK7LxzKysL4ianguzeCmmhFp1qc=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\contact.css'))</OriginalItemSpec>
@@ -30,8 +30,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>lwp2zjm9ct</Fingerprint>
-      <Integrity>W0G3bjV+9oSEqW83rBhWgNXFc9cgw3OWSSoQpmQql3A=</Integrity>
+      <Fingerprint>12w072xcgw</Fingerprint>
+      <Integrity>SWH1GYBJtrYcDIxCb1pC4rNL/4LCEAP0AN5T2gImLWQ=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\experience.css'))</OriginalItemSpec>
@@ -48,8 +48,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>8lf7z3vqqg</Fingerprint>
-      <Integrity>VFYaKfJ2lWXT3Jurq3d5T0L7vOtwSo0tCwouo8/+pBQ=</Integrity>
+      <Fingerprint>6afnfqeqak</Fingerprint>
+      <Integrity>HiSFjZDz1ewzVMYMk5CYVQH2lytEpDPoXKJY+Mdd8IQ=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\guide.css'))</OriginalItemSpec>
@@ -102,11 +102,29 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>f8bjze6vag</Fingerprint>
-      <Integrity>YSW+cxWG4sqhsXhBIolj/5zpgpp3nzJjUOPAJrVbsBQ=</Integrity>
+      <Fingerprint>3flspblszg</Fingerprint>
+      <Integrity>b3C4F0AUzqQTpN0AnUuSHZJfmYfAvaqb2H57/XHTg+w=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\location.css'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\userprofile.css'))">
+      <SourceType>Package</SourceType>
+      <SourceId>TourismWeb</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TourismWeb</BasePath>
+      <RelativePath>css/userprofile.css</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>16mlr16e95</Fingerprint>
+      <Integrity>eeJseR+aSb8s3ZbV7fgPLJUOu5F5yGtv9NC2ThYNIPw=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\userprofile.css'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))">
       <SourceType>Package</SourceType>

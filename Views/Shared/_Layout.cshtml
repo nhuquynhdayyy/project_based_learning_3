@@ -54,6 +54,22 @@
                             <i class="fas fa-walking"></i> Trải nghiệm
                         </a>
                     </li>
+
+                    <li class="nav-item"></li>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <a class="nav-link" asp-controller="Posts" asp-action="Create">
+             <i class="fas fa-book"></i> Đăng bài
+        </a>
+    }
+    else
+    {
+        <a class="nav-link" href="#" data-bs-toggle="modal" 
+           data-bs-target="#loginModal" onclick="saveRedirectUrl('/Posts/Create')">
+             <i class="fas fa-book"></i> Đăng bài
+        </a>
+    }
+</li>
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Contact" asp-action="Index">
                             <i class="fas fa-envelope"></i> Liên hệ
@@ -67,45 +83,49 @@
                 </form>
 
                 <div class="dropdown ms-3">
-                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-                        @* @if (User.Identity?.IsAuthenticated == true)
-                        {
-                            <!-- User: Đã đăng nhập -->
-                            <li><a class="dropdown-item" asp-controller="Users" asp-action="Profile">Trang cá nhân</a></li>
-                            <li><a class="dropdown-item" asp-controller="Users" asp-action="Logout">Đăng xuất</a></li>
-                        }
-                        else
-                        {
-                            <!-- Guest: Chưa đăng nhập -->
-                            <li><a class="dropdown-item" asp-controller="Users" asp-action="Login">Đăng nhập</a></li>
-                            <li><a class="dropdown-item" asp-controller="Users" asp-action="Register">Đăng ký</a></li>
-                        } *@
-                        @if (User.Identity?.IsAuthenticated == true)
-                        {
-                            <p>Xin chào, @User.Identity.Name!</p>
-                            @* <p>Vai trò hiện tại: @User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</p> *@
-                            @if (User.IsInRole("admin") || User.IsInRole("Admin"))
-                            {
-                                <a asp-controller="Admin" asp-action="Dashboard">Trang quản lý</a>
-                            }
-                            else
-                            {
-                                <a asp-controller="Users" asp-action="Profile">Trang cá nhân</a>
-                            }
-
-                            <a asp-controller="Users" asp-action="Logout">Đăng xuất</a>
-                        }
-                        else
-                        {
-                            <a asp-controller="Users" asp-action="Login">Đăng nhập</a>
-                            <a asp-controller="Users" asp-action="Register">Đăng ký</a>
-                        }
-
-                    </ul>
-                </div>
+    <button class="btn btn-outline-light dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-user"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            @if (User.IsInRole("admin") || User.IsInRole("Admin"))
+            {
+                <li>
+                    <a class="dropdown-item" asp-controller="Admin" asp-action="Dashboard">
+                        <i class="fas fa-tachometer-alt me-2"></i>Trang quản lý
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a class="dropdown-item" asp-controller="Users" asp-action="Profile">
+                        <i class="fas fa-user-circle me-2"></i>Trang cá nhân
+                    </a>
+                </li>
+            }
+            <li>
+                <a class="dropdown-item" asp-controller="Users" asp-action="Logout">
+                    <i class="fas fa-sign-out-alt me-2"></i>Đăng xuất
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a class="dropdown-item" asp-controller="Users" asp-action="Login">
+                    <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" asp-controller="Users" asp-action="Register">
+                    <i class="fas fa-user-plus me-2"></i>Đăng ký
+                </a>
+            </li>
+        }
+    </ul>
+</div>
 
 
                 @* <!-- Hiển thị khi người dùng chưa đăng nhập -->
@@ -151,23 +171,9 @@
         </div>
     </main>
 
-    <div class="text-center mt-4 fade-in">
-        @if (User.Identity.IsAuthenticated)
-        {
-            <!-- Nếu đã đăng nhập, nút này sẽ đưa người dùng đến trang đăng bài -->
-            <a href="/Posts/Create" class="btn btn-warning btn-lg btn-custom">Đăng bài</a>
-        }
-        else
-        {
-            <!-- Nếu chưa đăng nhập, nút này sẽ kích hoạt modal -->
-            @* <button class="btn btn-warning btn-lg btn-custom" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng bài</button> *@
-            <button class="btn btn-warning btn-lg btn-custom"
-                data-bs-toggle="modal" data-bs-target="#loginModal"
-                onclick="saveRedirectUrl('/Posts/Create')">
-            Đăng bài
-        </button>
-        }
-    </div>
+
+
+
     <!-- Modal Đăng nhập/Đăng ký -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -232,10 +238,11 @@
                     <h4>Điều hướng</h4>
                     <ul>
                         <li><a href="/">Trang chủ</a></li>
-                        <li><a href="/diadiem">Địa điểm</a></li>
-                        <li><a href="/camnang">Cẩm nang du lịch</a></li>
-                        <li><a href="/trainghiem">Trải nghiệm</a></li>
-                        <li><a href="/lienhe">Liên hệ</a></li>
+                        <li><a href="/Location">Địa điểm</a></li>
+                        <li><a href="/Guide">Cẩm nang du lịch</a></li>
+                        <li><a href="/Experience">Trải nghiệm</a></li>
+                        <li><a href="/Posts/Create">Đăng bài</a></li>
+                        <li><a href="/Contact">Liên hệ</a></li>
                     </ul>
                 </div>
 

@@ -21,10 +21,18 @@ namespace TourismWeb
         }
 
         // GET: api/TouristSpots
+        // [HttpGet]
+        // public async Task<ActionResult<IEnumerable<TouristSpot>>> GetTouristSpots()
+        // {
+        //     return await _context.TouristSpots.ToListAsync();
+        // }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TouristSpot>>> GetTouristSpots()
         {
-            return await _context.TouristSpots.ToListAsync();
+            return await _context.TouristSpots
+                .Include(t => t.Category)
+                .Include(t => t.CreatedBy) // nếu có navigation User
+                .ToListAsync();
         }
 
         // GET: api/TouristSpots/5
@@ -77,6 +85,7 @@ namespace TourismWeb
         [HttpPost]
         public async Task<ActionResult<TouristSpot>> PostTouristSpot(TouristSpot touristSpot)
         {
+            touristSpot.CreatedAt = DateTime.Now; // <--- Thêm dòng này
             _context.TouristSpots.Add(touristSpot);
             await _context.SaveChangesAsync();
 

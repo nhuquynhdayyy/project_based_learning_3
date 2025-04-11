@@ -13,27 +13,43 @@ namespace TourismWeb.Models
         [Required, MaxLength(100)]
         public string Name { get; set; }
 
-        [Required, MaxLength(255)]
+        [Required]
         public string Address { get; set; }
-        
-        [Required, MaxLength(50)]
-        public string Category { get; set; }
 
-        public string Description { get; set; }
-        public string ImageUrl { get; set; }
-        public string OpeningHours { get; set; }
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
+        public string Description { get; set; } = "";
+
+        public string ImageUrl { get; set; } = "";
+
+        public string VideoUrl { get; set; } = "";
+
+        public double Latitude { get; set; } = 0.0;
+
+        public double Longitude { get; set; } = 0.0;
+
+        public string OpeningHours { get; set; } = "";
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal? EntranceFee { get; set; }
-        public string Services { get; set; }
 
+        public string Services { get; set; } = "";
+
+        [ForeignKey("User")]
         public int CreatedBy { get; set; }
+        public User User { get; set; }
 
-        [ForeignKey("CreatedBy")]
-        public User Creator { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        public DateTime CreatedAt { get; set; }
-
-        public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
-        // Thêm danh sách ảnh liên kết với TouristSpot
-        public List<Image> Images { get; set; } = new List<Image>();
+        public ICollection<Review> Reviews { get; set; } = new List<Review>();
+        public ICollection<SpotComment> Comments { get; set; } = new List<SpotComment>();
+        public ICollection<SpotFavorite> Favorites { get; set; } = new List<SpotFavorite>();
+        public ICollection<SpotShare> Shares { get; set; } = new List<SpotShare>();
+        public ICollection<SpotImage> Images { get; set; } = new List<SpotImage>();
+        public ICollection<SpotVideo> Videos { get; set; } = new List<SpotVideo>();
+        public ICollection<Post> Posts { get; set; } = new List<Post>();
+        public ICollection<SpotTag> SpotTags { get; set; } = new List<SpotTag>();
     }
 }

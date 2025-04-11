@@ -1,0 +1,410 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --accent-color: #e74c3c;
+    --light-bg: #f9f9f9;
+    --dark-text: #333;
+    --light-text: #777;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+    
+main {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
+.profile-container {
+    display: flex;
+    gap: 30px;
+    position: relative;
+}
+
+/* Sidebar Styles */
+.profile-sidebar {
+    width: 280px;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 25px;
+    text-align: center;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    transition: all 0.3s ease;
+}
+
+.profile-sidebar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover; /* Đảm bảo ảnh không bị méo */
+    border: 3px solid var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.profile-name {
+    color: var(--secondary-color);
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--light-text);
+}
+
+.profile-menu {
+    list-style: none;
+    text-align: left;
+}
+
+.profile-menu li {
+    margin-bottom: 10px;
+}
+
+.profile-menu a {
+    display: block;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--dark-text);
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.profile-menu a:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--primary-color);
+}
+
+/* Content Styles */
+.profile-content {
+    flex: 1;
+}
+
+.content-section {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 1.3rem;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+/* Photo Grid */
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.photo-item {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    aspect-ratio: 1/1; /* Giữ tỷ lệ khung hình là 1:1 */
+}
+
+.photo-item:hover {
+    transform: translateY(-5px);
+}
+
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Quan trọng: đảm bảo ảnh không bị méo */
+    display: block;
+}
+
+/* Travel Inspiration Cards */
+.travel-inspiration {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.inspiration-card {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    background-color: white;
+    transition: transform 0.3s ease;
+}
+
+.inspiration-card:hover {
+    transform: translateY(-5px);
+}
+
+.inspiration-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover; /* Quan trọng: đảm bảo ảnh không bị méo */
+    display: block;
+}
+
+.inspiration-content {
+    padding: 15px;
+}
+
+.inspiration-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+}
+
+.inspiration-description {
+    color: var(--light-text);
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.inspiration-meta {
+    display: flex;
+    justify-content: space-between;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+/* Blog List */
+.blog-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.blog-item {
+    display: flex;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.blog-item:hover {
+    transform: translateX(5px);
+}
+
+.blog-item img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover; /* Quan trọng: đảm bảo ảnh không bị méo */
+}
+
+.blog-content {
+    padding: 15px;
+    flex: 1;
+}
+
+.blog-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+}
+
+.blog-preview {
+    color: var(--light-text);
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.blog-meta {
+    display: flex;
+    justify-content: space-between;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+/* Favorite Posts */
+.favorite-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.favorite-post-card {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    background-color: white;
+    transition: transform 0.3s ease;
+}
+
+.favorite-post-card:hover {
+    transform: translateY(-5px);
+}
+
+.favorite-post-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover; /* Quan trọng: đảm bảo ảnh không bị méo */
+    display: block;
+}
+
+.favorite-post-content {
+    padding: 15px;
+}
+
+.favorite-post-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: var(--secondary-color);
+}
+
+.favorite-post-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.favorite-post-author img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover; /* Quan trọng: đảm bảo ảnh không bị méo */
+}
+
+.favorite-post-author-name {
+    font-size: 0.85rem;
+    color: var(--light-text);
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .profile-container {
+        flex-direction: column;
+    }
+
+    .profile-sidebar {
+        width: 100%;
+        position: relative;
+        top: 0;
+        margin-bottom: 20px;
+    }
+
+    .travel-inspiration {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-item {
+        flex-direction: column;
+    }
+
+    .blog-item img {
+        width: 100%;
+        height: 180px;
+    }
+
+    .favorite-posts {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* User table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: white;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.actions a {
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+.details-btn {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.actions a:hover {
+    opacity: 0.8;
+}
+
+.add-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+
+.add-button:hover {
+    background-color: #2980b9;
+}

@@ -17,105 +17,109 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TourismWeb
 build_property.RootNamespace = TourismWeb
-build_property.ProjectDir = C:\Users\Admin\Desktop\HK22425\PBL3\PBL3\
+build_property.ProjectDir = C:\Users\Admin\OneDrive - The University of Technology\Desktop\HK22425\PBL3\PBL3\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = true
-build_property.MSBuildProjectDirectory = C:\Users\Admin\Desktop\HK22425\PBL3\PBL3
+build_property.MSBuildProjectDirectory = C:\Users\Admin\OneDrive - The University of Technology\Desktop\HK22425\PBL3\PBL3
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Admin/Dashboard.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Admin/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Admin/Index.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Contact/Index.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Contact/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Experience/Index.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Experience/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZXJpZW5jZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Guide/Index.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Guide/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3VpZGVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Home/AccessDenied.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Home/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Home/Index.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Home/Privacy.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Home/_Carousel.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Home/_Carousel.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfQ2Fyb3VzZWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Home/_Review.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Home/_Review.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfUmV2aWV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Location/Index.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Location/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9jYXRpb25cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Posts/Create.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Posts/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Posts/Index.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Posts/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Shared/Error.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Shared/_AdminLayout.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Shared/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Shared/_Layout.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Users/Index.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Users/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Users/Login.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Users/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Users/Profile.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Users/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/Users/Register.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/Users/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/_ViewImports.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/Desktop/HK22425/PBL3/PBL3/Views/_ViewStart.cshtml]
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/HK22425/PBL3/PBL3/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

@@ -56,7 +56,8 @@ namespace TourismWeb.Controllers
             user.AvatarUrl = string.IsNullOrEmpty(user.AvatarUrl) ? "default-avatar.png" : user.AvatarUrl; // Avatar mặc định
             user.PhoneNumber = string.IsNullOrEmpty(user.PhoneNumber) ? "0000000000" : user.PhoneNumber; // Số điện thoại giả định
             user.TwoFaSecret = user.TwoFaSecret ?? ""; // Nếu không dùng 2FA, để trống
-            
+            user.CreatedAt = DateTime.Now;
+
             // Mã hóa mật khẩu trước khi lưu (Không dùng salt)
             user.PasswordHash = HashPassword(user.PasswordHash);
 
@@ -149,16 +150,19 @@ namespace TourismWeb.Controllers
             // await HttpContext.SignInAsync("CookieAuth", claimsPrincipal);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
-            Console.WriteLine("[DEBUG] Session:");
-            Console.WriteLine("UserId: " + HttpContext.Session.GetString("UserId"));
-            Console.WriteLine("Username: " + HttpContext.Session.GetString("Username"));
-            Console.WriteLine("UserRole: " + HttpContext.Session.GetString("UserRole"));
+            // Console.WriteLine("[DEBUG] Session:");
+            // Console.WriteLine("UserId: " + HttpContext.Session.GetString("UserId"));
+            // Console.WriteLine("Username: " + HttpContext.Session.GetString("Username"));
+            // Console.WriteLine("UserRole: " + HttpContext.Session.GetString("UserRole"));
 
-            Console.WriteLine("[DEBUG] Claims:");
-            foreach (var claim in claims)
-            {
-                Console.WriteLine($"Type: {claim.Type}, Value: {claim.Value}");
-            }
+            // Console.WriteLine("[DEBUG] Claims:");
+            // foreach (var claim in claims)
+            // {
+            //     Console.WriteLine($"Type: {claim.Type}, Value: {claim.Value}");
+            // }
+            user.LastLoginAt = DateTime.Now;
+            _context.Update(user);
+            await _context.SaveChangesAsync();
 
             // Kiểm tra xem có URL nào cần chuyển hướng không
             string redirectUrl = HttpContext.Session.GetString("RedirectAfterLogin");

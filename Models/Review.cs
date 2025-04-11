@@ -9,21 +9,22 @@ namespace TourismWeb.Models
         [Key]
         public int ReviewId { get; set; }
 
+        [Required]
         public int UserId { get; set; }
-        [ForeignKey("UserId")]
         public User User { get; set; }
 
-        public int? SpotId { get; set; }
-        [ForeignKey("SpotId")]
+        [Required]
+        public int SpotId { get; set; }
         public TouristSpot Spot { get; set; }
 
-        [Required]
+        [Range(1, 5)]
         public int Rating { get; set; }
 
-        public string Comment { get; set; }
+        public string Comment { get; set; } = "";
 
-        public string ImageUrl { get; set; }
-        public string Video_Url { get; set; }
+        public string ImageUrl { get; set; } = "";
+
+        public string VideoUrl { get; set; } = "";
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }

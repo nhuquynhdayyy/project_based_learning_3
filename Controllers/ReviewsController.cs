@@ -77,6 +77,15 @@ namespace TourismWeb
         [HttpPost]
         public async Task<ActionResult<Review>> PostReview(Review review)
         {
+            var userExists = await _context.Users.AnyAsync(u => u.UserId == review.UserId);
+            var spotExists = await _context.TouristSpots.AnyAsync(s => s.SpotId == review.SpotId);
+
+            if (!userExists || !spotExists)
+            {
+                return BadRequest("UserId hoặc SpotId không tồn tại.");
+            }
+
+            review.CreatedAt = DateTime.Now; // thêm dòng này
             _context.Reviews.Add(review);
             await _context.SaveChangesAsync();
 

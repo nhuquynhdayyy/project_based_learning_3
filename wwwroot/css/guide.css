@@ -30,7 +30,11 @@ body {
 
 .hero h1 {
     font-size: 25px;
+<<<<<<< HEAD
     margin-top: 60px; /* Đẩy chữ xuống một chút */
+=======
+    margin-top: 80px; /* Đẩy chữ xuống một chút */
+>>>>>>> 28b4ba92002a53cd0543731c314e9cfa9f8b1a9e
     color: #222;
     text-transform: uppercase;
     letter-spacing: 1px;

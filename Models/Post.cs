@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,26 +9,31 @@ namespace TourismWeb.Models
     {
         [Key]
         public int PostId { get; set; }
+
         [Required]
         public int UserId { get; set; }
-        // [Required]
-        // public int SpotId { get; set; }
-        // public int UserId { get; set; }
-        // [ForeignKey("UserId")]
-        // public User User { get; set; }
+        public User User { get; set; }
 
-        // public int? SpotId { get; set; }
-        // [ForeignKey("SpotId")]
-        // public TouristSpot Spot { get; set; }
-        // [ForeignKey("UserId")]
-        // public User User { get; set; }
-        public virtual User? User { get; set; }  // Đảm bảo nullable
-        [Required(ErrorMessage = "Tiêu đề không được để trống"), MaxLength(100)]
-        public string Title { get; set; } // Tiêu đề bài viết
+        [Required]
+        public int SpotId { get; set; }
+        public TouristSpot Spot { get; set; }
 
-        [Required(ErrorMessage = "Nội dung không được để trống")]
-        public string Content { get; set; } // Nội dung bài viết
+        [Required, MaxLength(50)]
+        public string TypeOfPost { get; set; } // VD: Địa điểm, Cẩm nang, Trải nghiệm
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now; // Ngày đăng bài
+        [Required, MaxLength(100)]
+        public string Title { get; set; }
+
+        [Required]
+        public string Content { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        public ICollection<PostImage> Images { get; set; } = new List<PostImage>();
+        public ICollection<PostVideo> Videos { get; set; } = new List<PostVideo>();
+        public ICollection<PostTag> PostTags { get; set; } = new List<PostTag>();
+        public ICollection<PostFavorite> PostFavorites { get; set; } = new List<PostFavorite>();
+        public ICollection<PostComment> Comments { get; set; } = new List<PostComment>();
+        public ICollection<PostShare> Shares { get; set; } = new List<PostShare>();
     }
 }

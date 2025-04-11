@@ -1,0 +1,50 @@
+@model TourismWeb.Models.Post
+@{
+    ViewData["Title"] = "Tạo bài viết";
+    var spots = ViewBag.Spots as List<TourismWeb.Models.TouristSpot>;
+}
+
+<h2>Tạo bài viết</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Title">Tiêu đề</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Content">Nội dung</label>
+        <textarea asp-for="Content" class="form-control"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SpotId">Chọn địa điểm</label>
+        <select asp-for="SpotId" class="form-control">
+            <option value="">-- Chọn địa điểm --</option>
+            @foreach (var spot in spots)
+            {
+                <option value="@spot.SpotId">@spot.Name</option>
+            }
+        </select>
+        <span asp-validation-for="SpotId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TypeOfPost">Loại bài viết</label>
+        <select asp-for="TypeOfPost" class="form-control">
+            <option value="">-- Chọn loại bài viết --</option>
+            <option value="Địa điểm">Địa điểm</option>
+            <option value="Cẩm nang">Cẩm nang</option>
+            <option value="Trải nghiệm">Trải nghiệm</option>
+        </select>
+        <span asp-validation-for="TypeOfPost" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Đăng bài</button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

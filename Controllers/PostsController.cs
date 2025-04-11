@@ -24,16 +24,22 @@ namespace TourismWeb.Controllers
             return View(posts);
         }
 
-        // Hiển thị form tạo bài viết
+        // // Hiển thị form tạo bài viết
+        // public IActionResult Create()
+        // {
+        //     return View();
+        // }
+        // Hiển thị form tạo bài viết + truyền danh sách địa điểm
         public IActionResult Create()
         {
+            ViewBag.Spots = _context.TouristSpots.ToList(); // dùng để tạo dropdown SpotId
             return View();
         }
-
         // Xử lý tạo bài viết
         [HttpPost]
         public async Task<IActionResult> Create(Post post)
         {
+            ViewBag.Spots = _context.TouristSpots.ToList(); // Nếu có lỗi thì load lại
             if (!ModelState.IsValid)
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
