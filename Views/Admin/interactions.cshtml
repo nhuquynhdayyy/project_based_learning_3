@@ -1,0 +1,368 @@
+@section Styles {
+    <link rel="stylesheet" href="~/cssadmin/interactions.css">
+
+    @* <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+}
+
+@{
+    ViewData["Title"] = "Tương Tác - Hệ Thống Quản Trị";
+}
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/js/jsadmin/interactions.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+}
+
+<div class="app-container">
+    <!-- Sidebar -->
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <main class="content-wrapper">
+            <div class="page-header">
+                <h1 class="page-title">Tương Tác</h1>
+                <div class="page-actions">
+                    <div class="filter-group">
+                        <label for="time-range">Thời gian:</label>
+                        <select id="time-range" class="select-control">
+                            <option value="7">7 ngày</option>
+                            <option value="30" selected>30 ngày</option>
+                            <option value="90">90 ngày</option>
+                            <option value="all">Tất cả</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Tổng lượt xem</p>
+                            <p class="stats-card-value">24,582</p>
+                        </div>
+                        <div class="stats-card-icon blue">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                    <div class="stats-card-footer">
+                        <span class="stats-trend positive">+15%</span> so với tuần trước
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Lượt thích</p>
+                            <p class="stats-card-value">1,248</p>
+                        </div>
+                        <div class="stats-card-icon red">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="stats-card-footer">
+                        <span class="stats-trend positive">+8%</span> so với tuần trước
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Lượt lưu</p>
+                            <p class="stats-card-value">856</p>
+                        </div>
+                        <div class="stats-card-icon amber">
+                            <i class="fas fa-bookmark"></i>
+                        </div>
+                    </div>
+                    <div class="stats-card-footer">
+                        <span class="stats-trend positive">+12%</span> so với tuần trước
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Lượt chia sẻ</p>
+                            <p class="stats-card-value">432</p>
+                        </div>
+                        <div class="stats-card-icon green">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                    </div>
+                    <div class="stats-card-footer">
+                        <span class="stats-trend positive">+5%</span> so với tuần trước
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-card large">
+                    <h2 class="chart-title">Tương tác theo thời gian</h2>
+                    <div class="chart-container">
+                        <canvas id="interactionsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h2 class="chart-title">Phân bố tương tác</h2>
+                    <div class="chart-container">
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Posts -->
+            <div class="table-card">
+                <div class="table-header">
+                    <h2 class="table-title">Bài viết có nhiều tương tác nhất</h2>
+                    <a href="posts.html" class="view-all">Xem tất cả</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tiêu đề</th>
+                                <th>Loại</th>
+                                <th>Lượt xem</th>
+                                <th>Lượt thích</th>
+                                <th>Lượt lưu</th>
+                                <th>Lượt chia sẻ</th>
+                                <th>Tổng tương tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Khám phá Đà Lạt mùa hoa</div>
+                                </td>
+                                <td>
+                                    <span class="badge blue">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Địa điểm
+                                    </span>
+                                </td>
+                                <td>4,582</td>
+                                <td>245</td>
+                                <td>178</td>
+                                <td>89</td>
+                                <td>
+                                    <span class="total-interactions">5,094</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Cẩm nang du lịch Hội An tự túc</div>
+                                </td>
+                                <td>
+                                    <span class="badge green">
+                                        <i class="fas fa-book"></i>
+                                        Cẩm nang
+                                    </span>
+                                </td>
+                                <td>3,845</td>
+                                <td>198</td>
+                                <td>156</td>
+                                <td>72</td>
+                                <td>
+                                    <span class="total-interactions">4,271</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Bãi biển đẹp nhất Phú Quốc</div>
+                                </td>
+                                <td>
+                                    <span class="badge blue">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Địa điểm
+                                    </span>
+                                </td>
+                                <td>3,621</td>
+                                <td>187</td>
+                                <td>142</td>
+                                <td>68</td>
+                                <td>
+                                    <span class="total-interactions">4,018</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Trải nghiệm leo núi Fansipan</div>
+                                </td>
+                                <td>
+                                    <span class="badge amber">
+                                        <i class="fas fa-star"></i>
+                                        Trải nghiệm
+                                    </span>
+                                </td>
+                                <td>2,987</td>
+                                <td>156</td>
+                                <td>98</td>
+                                <td>54</td>
+                                <td>
+                                    <span class="total-interactions">3,295</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Kinh nghiệm du lịch Sapa mùa đông</div>
+                                </td>
+                                <td>
+                                    <span class="badge green">
+                                        <i class="fas fa-book"></i>
+                                        Cẩm nang
+                                    </span>
+                                </td>
+                                <td>2,754</td>
+                                <td>132</td>
+                                <td>87</td>
+                                <td>45</td>
+                                <td>
+                                    <span class="total-interactions">3,018</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- User Interactions -->
+            <div class="table-card">
+                <div class="table-header">
+                    <h2 class="table-title">Người dùng tương tác nhiều nhất</h2>
+                    <a href="users.html" class="view-all">Xem tất cả</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Người dùng</th>
+                                <th>Lượt xem</th>
+                                <th>Lượt thích</th>
+                                <th>Lượt lưu</th>
+                                <th>Lượt chia sẻ</th>
+                                <th>Bình luận</th>
+                                <th>Tổng tương tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=1" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Nguyễn Văn A</div>
+                                            <div class="user-email">nguyenvana@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>245</td>
+                                <td>87</td>
+                                <td>42</td>
+                                <td>18</td>
+                                <td>24</td>
+                                <td>
+                                    <span class="total-interactions">416</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=2" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Trần Thị B</div>
+                                            <div class="user-email">tranthib@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>198</td>
+                                <td>76</td>
+                                <td>38</td>
+                                <td>15</td>
+                                <td>19</td>
+                                <td>
+                                    <span class="total-interactions">346</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=3" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Lê Văn C</div>
+                                            <div class="user-email">levanc@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>176</td>
+                                <td>65</td>
+                                <td>32</td>
+                                <td>12</td>
+                                <td>17</td>
+                                <td>
+                                    <span class="total-interactions">302</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=4" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Phạm Thị D</div>
+                                            <div class="user-email">phamthid@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>154</td>
+                                <td>58</td>
+                                <td>29</td>
+                                <td>10</td>
+                                <td>15</td>
+                                <td>
+                                    <span class="total-interactions">266</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=5" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Hoàng Văn E</div>
+                                            <div class="user-email">hoangvane@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>132</td>
+                                <td>48</td>
+                                <td>24</td>
+                                <td>8</td>
+                                <td>12</td>
+                                <td>
+                                    <span class="total-interactions">224</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

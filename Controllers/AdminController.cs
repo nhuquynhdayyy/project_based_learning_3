@@ -18,4 +18,32 @@ public class AdminController : Controller
     {
         return View();
     }
+    public IActionResult Posts()
+    {
+        return View();
+    }
+    public IActionResult Comments()
+    {
+        return View();
+    }
+    public IActionResult Interactions()
+    {
+        return View();
+    }
+    public IActionResult Reports()
+    {
+        return View();
+    }
+    public IActionResult Statistics()
+    {
+        return View();
+    }
+    public IActionResult Users()
+    {
+        return View();
+    }
+    public IActionResult Settings()
+    {
+        return View();
+    }
 }

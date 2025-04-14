@@ -122,7 +122,7 @@ namespace TourismWeb.Controllers
 
             // Hash mật khẩu nhập vào để so sánh với database
             string hashedInputPassword = HashPassword(Password);
-        
+
             if (user.PasswordHash != hashedInputPassword)
             {
                 ModelState.AddModelError("", "Mật khẩu không chính xác!");

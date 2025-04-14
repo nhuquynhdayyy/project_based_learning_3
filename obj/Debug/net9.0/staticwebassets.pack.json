@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "E:\\PBL3\\wwwroot\\components\\ui\\chart.js",
+      "PackagePath": "staticwebassets\\components\\ui\\chart.js"
+    },
+    {
       "Id": "E:\\PBL3\\wwwroot\\css\\contact.css",
       "PackagePath": "staticwebassets\\css\\contact.css"
     },
@@ -31,6 +35,50 @@
     {
       "Id": "E:\\PBL3\\wwwroot\\css\\userprofile.css",
       "PackagePath": "staticwebassets\\css\\userprofile.css"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\cssadmin\\comments.css",
+      "PackagePath": "staticwebassets\\cssadmin\\comments.css"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\cssadmin\\dark-mode.css",
+      "PackagePath": "staticwebassets\\cssadmin\\dark-mode.css"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\cssadmin\\interactions.css",
+      "PackagePath": "staticwebassets\\cssadmin\\interactions.css"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\cssadmin\\login.css",
+      "PackagePath": "staticwebassets\\cssadmin\\login.css"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\cssadmin\\posts.css",
+      "PackagePath": "staticwebassets\\cssadmin\\posts.css"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\cssadmin\\profile.css",
+      "PackagePath": "staticwebassets\\cssadmin\\profile.css"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\cssadmin\\reports.css",
+      "PackagePath": "staticwebassets\\cssadmin\\reports.css"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\cssadmin\\settings.css",
+      "PackagePath": "staticwebassets\\cssadmin\\settings.css"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\cssadmin\\statistics.css",
+      "PackagePath": "staticwebassets\\cssadmin\\statistics.css"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\cssadmin\\styles.css",
+      "PackagePath": "staticwebassets\\cssadmin\\styles.css"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\cssadmin\\users.css",
+      "PackagePath": "staticwebassets\\cssadmin\\users.css"
     },
     {
       "Id": "E:\\PBL3\\wwwroot\\favicon.ico",
@@ -303,6 +351,50 @@
     {
       "Id": "E:\\PBL3\\wwwroot\\images\\xinchao5.jpg",
       "PackagePath": "staticwebassets\\images\\xinchao5.jpg"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\js\\jsadmin\\comments.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\comments.js"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\js\\jsadmin\\common.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\common.js"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\js\\jsadmin\\dashboard.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\dashboard.js"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\js\\jsadmin\\interactions.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\interactions.js"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\js\\jsadmin\\login.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\login.js"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\js\\jsadmin\\posts.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\posts.js"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\js\\jsadmin\\profile.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\profile.js"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\js\\jsadmin\\reports.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\reports.js"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\js\\jsadmin\\settings.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\settings.js"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\js\\jsadmin\\statistics.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\statistics.js"
+    },
+    {
+      "Id": "E:\\PBL3\\wwwroot\\js\\jsadmin\\users.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\users.js"
     },
     {
       "Id": "E:\\PBL3\\wwwroot\\js\\script.js",
