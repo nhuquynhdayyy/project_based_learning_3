@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\components\\ui\\chart.js",
+      "PackagePath": "staticwebassets\\components\\ui\\chart.js"
+    },
+    {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\contact.css",
       "PackagePath": "staticwebassets\\css\\contact.css"
     },
@@ -31,6 +35,50 @@
     {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\css\\userprofile.css",
       "PackagePath": "staticwebassets\\css\\userprofile.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\cssadmin\\comments.css",
+      "PackagePath": "staticwebassets\\cssadmin\\comments.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\cssadmin\\dark-mode.css",
+      "PackagePath": "staticwebassets\\cssadmin\\dark-mode.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\cssadmin\\interactions.css",
+      "PackagePath": "staticwebassets\\cssadmin\\interactions.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\cssadmin\\login.css",
+      "PackagePath": "staticwebassets\\cssadmin\\login.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\cssadmin\\posts.css",
+      "PackagePath": "staticwebassets\\cssadmin\\posts.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\cssadmin\\profile.css",
+      "PackagePath": "staticwebassets\\cssadmin\\profile.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\cssadmin\\reports.css",
+      "PackagePath": "staticwebassets\\cssadmin\\reports.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\cssadmin\\settings.css",
+      "PackagePath": "staticwebassets\\cssadmin\\settings.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\cssadmin\\statistics.css",
+      "PackagePath": "staticwebassets\\cssadmin\\statistics.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\cssadmin\\styles.css",
+      "PackagePath": "staticwebassets\\cssadmin\\styles.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\cssadmin\\users.css",
+      "PackagePath": "staticwebassets\\cssadmin\\users.css"
     },
     {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\favicon.ico",
@@ -303,6 +351,50 @@
     {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\images\\xinchao5.jpg",
       "PackagePath": "staticwebassets\\images\\xinchao5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\jsadmin\\comments.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\comments.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\jsadmin\\common.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\common.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\jsadmin\\dashboard.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\dashboard.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\jsadmin\\interactions.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\interactions.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\jsadmin\\login.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\login.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\jsadmin\\posts.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\posts.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\jsadmin\\profile.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\profile.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\jsadmin\\reports.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\reports.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\jsadmin\\settings.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\settings.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\jsadmin\\statistics.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\statistics.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\jsadmin\\users.js",
+      "PackagePath": "staticwebassets\\js\\jsadmin\\users.js"
     },
     {
       "Id": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\wwwroot\\js\\script.js",

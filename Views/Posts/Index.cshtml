@@ -1,4 +1,4 @@
-@model IEnumerable<TourismWeb.Models.Post>
+@* @model IEnumerable<TourismWeb.Models.Post>
 
 
 <h2>Danh sách bài đăng</h2>
@@ -21,4 +21,79 @@
             </tr>
         }
     </tbody>
-</table>
+</table> *@
+@model IEnumerable<TourismWeb.Models.Post>
+
+@{
+    ViewData["Title"] = "Danh sách bài đăng";
+}
+<div class="page-content">
+<h2 class="title">📃 Danh sách Bài Đăng</h2>
+
+@if (!Model.Any())
+{
+    <p>Chưa có bài đăng nào.</p>
+}
+else
+{
+    <table class="post-table">
+        <thead>
+            <tr>
+                <th>Tiêu đề</th>
+                <th>Loại bài viết</th>
+                <th>Địa điểm</th>
+                <th>Nội dung</th>
+                <th>Ngày đăng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in Model)
+            {
+                <tr>
+                    <td>@post.Title</td>
+                    <td>@post.TypeOfPost</td>
+                    <td>@post.Spot?.Name</td>
+                    <td class="post-content">@post.Content</td>
+                    <td>@post.CreatedAt.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<style>
+.title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.post-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.post-table th, .post-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: top;
+}
+
+.post-table th {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.post-content {
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.page-content {
+    padding-top: 100px; /* chỉnh tùy theo chiều cao header, ví dụ 60px hay 80px */
+}
+</style>
+</div>
