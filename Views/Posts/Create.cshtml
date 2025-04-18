@@ -85,7 +85,7 @@ else
     }
 </style> *@
 
-@model TourismWeb.Models.Post
+@* @model TourismWeb.Models.Post
 
 <div class="post-container">
     <h2 class="post-title">Đăng Bài Viết Mới</h2>
@@ -116,6 +116,161 @@ else
         </form>
     }
 
+
+<style>
+    .post-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-title {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 28px;
+        font-weight: 600;
+    }
+
+    .success-message {
+        text-align: center;
+        padding: 20px;
+        background: #d4edda;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .success-message p {
+        color: #155724;
+        margin: 0 0 15px 0;
+        font-size: 16px;
+    }
+
+    .view-list-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+
+    .view-list-btn:hover {
+        background: #0056b3;
+    }
+
+    .post-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-label {
+        color: #34495e;
+        font-weight: 500;
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    .form-input, .form-textarea {
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    }
+
+    .form-textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .submit-btn {
+        padding: 12px 25px;
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+        align-self: flex-start;
+    }
+
+    .submit-btn:hover {
+        background: #218838;
+    }
+</style> *@
+@model TourismWeb.Models.Post
+
+<div class="post-container">
+    <h2 class="post-title">Đăng Bài Viết Mới</h2>
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <div class="success-message">
+            <p>@ViewBag.SuccessMessage</p>
+            <a href="/Posts/Index" class="view-list-btn">Xem danh sách bài viết</a>
+        </div>
+    }
+    else
+    {
+        <form asp-action="Create" method="post" class="post-form">
+            <div class="form-group">
+                <label asp-for="Title" class="form-label">Tiêu đề</label>
+                <input asp-for="Title" class="form-input" placeholder="Nhập tiêu đề bài viết" required />
+                <span asp-validation-for="Title" class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Content" class="form-label">Nội dung</label>
+                <textarea asp-for="Content" class="form-textarea" placeholder="Viết nội dung bài viết..." required></textarea>
+                <span asp-validation-for="Content" class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TypeOfPost" class="form-label">Loại bài viết</label>
+                <input asp-for="TypeOfPost" class="form-input" placeholder="VD: Địa điểm, Cẩm nang..." required />
+                <span asp-validation-for="TypeOfPost" class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SpotId" class="form-label">Chọn địa điểm</label>
+                <select asp-for="SpotId" asp-items="@(new SelectList(ViewBag.Spots, "SpotId", "Name"))" class="form-input" required>
+                    <option value="">-- Chọn địa điểm --</option>
+                </select>
+                <span asp-validation-for="SpotId" class="error-message"></span>
+            </div>
+
+            <button type="submit" class="submit-btn">Đăng bài</button>
+        </form>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
 <style>
     .post-container {

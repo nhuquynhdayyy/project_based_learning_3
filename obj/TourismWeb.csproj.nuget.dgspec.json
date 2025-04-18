@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\PBL3\\TourismWeb.csproj": {}
+    "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\TourismWeb.csproj": {}
   },
   "projects": {
-    "E:\\PBL3\\TourismWeb.csproj": {
+    "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\TourismWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\PBL3\\TourismWeb.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\TourismWeb.csproj",
         "projectName": "TourismWeb",
-        "projectPath": "E:\\PBL3\\TourismWeb.csproj",
-        "packagesPath": "C:\\Users\\KOANH\\.nuget\\packages\\",
-        "outputPath": "E:\\PBL3\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\TourismWeb.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\KOANH\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
