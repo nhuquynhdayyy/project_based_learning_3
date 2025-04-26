@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TourismWeb.Models;
 
@@ -11,9 +12,11 @@ using TourismWeb.Models;
 namespace TourismWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250426122407_UpdateTouristSpot")]
+    partial class UpdateTouristSpot
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -524,9 +527,14 @@ namespace TourismWeb.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("SpotId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("TouristSpots");
                 });
@@ -851,8 +859,12 @@ namespace TourismWeb.Migrations
                     b.HasOne("TourismWeb.Models.Category", "Category")
                         .WithMany("TouristSpots")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("TourismWeb.Models.User", null)
+                        .WithMany("TouristSpots")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Category");
                 });
@@ -922,6 +934,8 @@ namespace TourismWeb.Migrations
                     b.Navigation("SpotImages");
 
                     b.Navigation("SpotShares");
+
+                    b.Navigation("TouristSpots");
                 });
 #pragma warning restore 612, 618
         }

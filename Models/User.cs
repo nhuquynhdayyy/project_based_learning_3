@@ -38,7 +38,6 @@ namespace TourismWeb.Models
 
         public DateTime? LastLoginAt { get; set; }
 
-        public ICollection<TouristSpot> TouristSpots { get; set; } = new List<TouristSpot>();
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
         public ICollection<Post> Posts { get; set; } = new List<Post>();
         public ICollection<SpotComment> SpotComments { get; set; } = new List<SpotComment>();
@@ -48,8 +47,6 @@ namespace TourismWeb.Models
         public ICollection<SpotShare> SpotShares { get; set; } = new List<SpotShare>();
         public ICollection<PostShare> PostShares { get; set; } = new List<PostShare>();
         public ICollection<SpotImage> SpotImages { get; set; } = new List<SpotImage>();
-        public ICollection<SpotVideo> SpotVideos { get; set; } = new List<SpotVideo>();
         public ICollection<PostImage> PostImages { get; set; } = new List<PostImage>();
-        public ICollection<PostVideo> PostVideos { get; set; } = new List<PostVideo>();
     }
 }

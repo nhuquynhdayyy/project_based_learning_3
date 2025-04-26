@@ -21,7 +21,7 @@ namespace TourismWeb.Controllers
         // GET: TouristSpots
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.TouristSpots.Include(t => t.Category).Include(t => t.User);
+            var applicationDbContext = _context.TouristSpots.Include(t => t.Category);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,7 +35,6 @@ namespace TourismWeb.Controllers
 
             var touristSpot = await _context.TouristSpots
                 .Include(t => t.Category)
-                .Include(t => t.User)
                 .FirstOrDefaultAsync(m => m.SpotId == id);
             if (touristSpot == null)
             {
@@ -48,8 +47,7 @@ namespace TourismWeb.Controllers
         // GET: TouristSpots/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name");
-            ViewData["CreatedBy"] = new SelectList(_context.Users, "UserId", "Email");
+            ViewBag.CategoryList = new SelectList(_context.Categories, "CategoryId", "Name");
             return View();
         }
 
@@ -58,16 +56,24 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SpotId,Name,Address,CategoryId,Description,ImageUrl,VideoUrl,Latitude,Longitude,OpeningHours,EntranceFee,Services,CreatedBy,CreatedAt")] TouristSpot touristSpot)
+        public async Task<IActionResult> Create([Bind("SpotId,Name,Address,CategoryId,Description,ImageUrl,CreatedAt")] TouristSpot touristSpot)
         {
+            Console.WriteLine("CategoryId nhận được: " + touristSpot.CategoryId);
             if (ModelState.IsValid)
             {
                 _context.Add(touristSpot);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
-            ViewData["CreatedBy"] = new SelectList(_context.Users, "UserId", "Email", touristSpot.CreatedBy);
+            else
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
+            }
+            ViewBag.CategoryList = new SelectList(_context.Categories, "CategoryId", "Name");
             return View(touristSpot);
         }
 
@@ -85,7 +91,6 @@ namespace TourismWeb.Controllers
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
-            ViewData["CreatedBy"] = new SelectList(_context.Users, "UserId", "Email", touristSpot.CreatedBy);
             return View(touristSpot);
         }
 
@@ -94,7 +99,7 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SpotId,Name,Address,CategoryId,Description,ImageUrl,VideoUrl,Latitude,Longitude,OpeningHours,EntranceFee,Services,CreatedBy,CreatedAt")] TouristSpot touristSpot)
+        public async Task<IActionResult> Edit(int id, [Bind("SpotId,Name,Address,CategoryId,Description,ImageUrl,CreatedAt")] TouristSpot touristSpot)
         {
             if (id != touristSpot.SpotId)
             {
@@ -122,7 +127,6 @@ namespace TourismWeb.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
-            ViewData["CreatedBy"] = new SelectList(_context.Users, "UserId", "Email", touristSpot.CreatedBy);
             return View(touristSpot);
         }
 
@@ -136,7 +140,6 @@ namespace TourismWeb.Controllers
 
             var touristSpot = await _context.TouristSpots
                 .Include(t => t.Category)
-                .Include(t => t.User)
                 .FirstOrDefaultAsync(m => m.SpotId == id);
             if (touristSpot == null)
             {

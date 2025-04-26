@@ -1363,9 +1363,9 @@ C:\Users\Admin\OneDrive - The University of Technology\Desktop\HK22425\PBL3\PBL3
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\HK22425\PBL3\PBL3\obj\Debug\net9.0\compressed\0ms5h4vd6a-z5iyphqp29.gz
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\HK22425\PBL3\PBL3\obj\Debug\net9.0\compressed\dlrq1vl3ui-emii7rk1j1.gz
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\bin\Debug\net9.0\appsettings.Development.json
-C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\bin\Debug\net9.0\appsettings.json
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\bin\Debug\net9.0\TourismWeb.staticwebassets.runtime.json
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\bin\Debug\net9.0\TourismWeb.staticwebassets.endpoints.json
+C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\bin\Debug\net9.0\appsettings.json
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\bin\Debug\net9.0\TourismWeb.exe
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\bin\Debug\net9.0\TourismWeb.deps.json
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\bin\Debug\net9.0\TourismWeb.runtimeconfig.json
@@ -1943,6 +1943,7 @@ C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\obj\Deb
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\obj\Debug\net9.0\compressed\tk080zu9jp-eh962obovj.gz
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\obj\Debug\net9.0\compressed\3zhvn2qyo5-fj1yrfhw2n.gz
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\obj\Debug\net9.0\compressed\jiphz1fxu8-oxu4evx4ew.gz
+C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\obj\Debug\net9.0\compressed\e1nq74b8jn-ztp6s5t2cx.gz
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\obj\Debug\net9.0\compressed\0ms5h4vd6a-z5iyphqp29.gz
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\obj\Debug\net9.0\compressed\4yfxfhdncb-61n19gt1b8.gz
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\obj\Debug\net9.0\compressed\offfdvndc2-6wzwx3p2r6.gz
@@ -2032,4 +2033,3 @@ C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\obj\Deb
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\obj\Debug\net9.0\TourismWeb.pdb
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\obj\Debug\net9.0\TourismWeb.genruntimeconfig.cache
 C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\obj\Debug\net9.0\ref\TourismWeb.dll
-C:\Users\Admin\OneDrive - The University of Technology\Desktop\PBL3\PBL3\obj\Debug\net9.0\compressed\e1nq74b8jn-ztp6s5t2cx.gz

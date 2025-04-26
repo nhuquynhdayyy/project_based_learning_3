@@ -62,17 +62,11 @@ namespace TourismWeb.Models
                 .Property(ts => ts.CreatedAt)
                 .HasDefaultValueSql("GETDATE()");
 
-            modelBuilder.Entity<TouristSpot>()
-                .HasOne(ts => ts.Category)
-                .WithMany(c => c.TouristSpots)
-                .HasForeignKey(ts => ts.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<TouristSpot>()
-                .HasOne(ts => ts.User)
-                .WithMany(u => u.TouristSpots)
-                .HasForeignKey(ts => ts.CreatedBy)
-                .OnDelete(DeleteBehavior.Restrict);
+            // modelBuilder.Entity<TouristSpot>()
+            //     .HasOne(ts => ts.Category)
+            //     .WithMany(c => c.TouristSpots)
+            //     .HasForeignKey(ts => ts.CategoryId)
+            //     .OnDelete(DeleteBehavior.Restrict);
 
             // Quan hệ Post
             modelBuilder.Entity<Post>()
@@ -253,17 +247,6 @@ namespace TourismWeb.Models
                 .Property(sv => sv.UploadedAt)
                 .HasDefaultValueSql("GETDATE()");
 
-            modelBuilder.Entity<SpotVideo>()
-                .HasOne(sv => sv.Spot)
-                .WithMany(s => s.Videos)
-                .HasForeignKey(sv => sv.SpotId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<SpotVideo>()
-                .HasOne(sv => sv.User)
-                .WithMany(u => u.SpotVideos)
-                .HasForeignKey(sv => sv.UploadedBy)
-                .OnDelete(DeleteBehavior.Restrict);
 
             // Quan hệ SpotTag
             modelBuilder.Entity<SpotTag>()
