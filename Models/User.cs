@@ -8,31 +8,35 @@ namespace TourismWeb.Models
     {
         [Key]
         public int UserId { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string FullName { get; set; }
 
-        [Required, MaxLength(50)]
-        public string Username { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DateOfBirth { get; set; }
 
-        [Required, MaxLength(100)]
+        [Phone]
+        public string PhoneNumber { get; set; }
+
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
-        public string PasswordHash { get; set; }
+        [StringLength(50)]
+        public string Username { get; set; }
 
-        [MaxLength(20)]
-        public string PhoneNumber { get; set; } = "0000000000";
+        [Required]
+        [StringLength(100)]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
 
-        public string AvatarUrl { get; set; } = "default-avatar.png";
+        public string AvatarUrl { get; set; } = "/images/default-avatar.png";
 
-        [MaxLength(20)]
         public string Role { get; set; } = "User";
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime? LastLoginAt { get; set; }
-
-        public bool TwoFaEnabled { get; set; } = false;
-
-        public string TwoFaSecret { get; set; } = "";
 
         public ICollection<TouristSpot> TouristSpots { get; set; } = new List<TouristSpot>();
         public ICollection<Review> Reviews { get; set; } = new List<Review>();

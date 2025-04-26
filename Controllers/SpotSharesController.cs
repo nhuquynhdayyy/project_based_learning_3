@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
 
 namespace TourismWeb.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class SpotSharesController : ControllerBase
+    public class SpotSharesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -19,89 +18,147 @@ namespace TourismWeb.Controllers
             _context = context;
         }
 
-        // GET: api/SpotShares
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<SpotShare>>> GetSpotShares()
+        // GET: SpotShares
+        public async Task<IActionResult> Index()
         {
-            return await _context.SpotShares
-                .Include(s => s.User)
-                .Include(s => s.Spot)
-                .ToListAsync();
+            var applicationDbContext = _context.SpotShares.Include(s => s.Spot).Include(s => s.User);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: api/SpotShares/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<SpotShare>> GetSpotShare(int id)
+        // GET: SpotShares/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var spotShare = await _context.SpotShares
-                .Include(s => s.User)
-                .Include(s => s.Spot)
-                .FirstOrDefaultAsync(s => s.ShareId == id);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var spotShare = await _context.SpotShares
+                .Include(s => s.Spot)
+                .Include(s => s.User)
+                .FirstOrDefaultAsync(m => m.ShareId == id);
             if (spotShare == null)
             {
                 return NotFound();
             }
 
-            return spotShare;
+            return View(spotShare);
         }
 
-        // POST: api/SpotShares
+        // GET: SpotShares/Create
+        public IActionResult Create()
+        {
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
+            return View();
+        }
+
+        // POST: SpotShares/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<ActionResult<SpotShare>> PostSpotShare(SpotShare spotShare)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ShareId,UserId,SpotId,SharedOn,SharedAt")] SpotShare spotShare)
         {
-            spotShare.SharedAt = DateTime.UtcNow;
-
-            _context.SpotShares.Add(spotShare);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetSpotShare), new { id = spotShare.ShareId }, spotShare);
-        }
-
-        // PUT: api/SpotShares/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSpotShare(int id, SpotShare spotShare)
-        {
-            if (id != spotShare.ShareId)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            _context.Entry(spotShare).State = EntityState.Modified;
-
-            try
-            {
+                _context.Add(spotShare);
                 await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SpotShareExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotShare.SpotId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", spotShare.UserId);
+            return View(spotShare);
         }
 
-        // DELETE: api/SpotShares/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSpotShare(int id)
+        // GET: SpotShares/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             var spotShare = await _context.SpotShares.FindAsync(id);
             if (spotShare == null)
             {
                 return NotFound();
             }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotShare.SpotId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", spotShare.UserId);
+            return View(spotShare);
+        }
 
-            _context.SpotShares.Remove(spotShare);
+        // POST: SpotShares/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ShareId,UserId,SpotId,SharedOn,SharedAt")] SpotShare spotShare)
+        {
+            if (id != spotShare.ShareId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(spotShare);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!SpotShareExists(spotShare.ShareId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotShare.SpotId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", spotShare.UserId);
+            return View(spotShare);
+        }
+
+        // GET: SpotShares/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var spotShare = await _context.SpotShares
+                .Include(s => s.Spot)
+                .Include(s => s.User)
+                .FirstOrDefaultAsync(m => m.ShareId == id);
+            if (spotShare == null)
+            {
+                return NotFound();
+            }
+
+            return View(spotShare);
+        }
+
+        // POST: SpotShares/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var spotShare = await _context.SpotShares.FindAsync(id);
+            if (spotShare != null)
+            {
+                _context.SpotShares.Remove(spotShare);
+            }
+
             await _context.SaveChangesAsync();
-
-            return NoContent();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool SpotShareExists(int id)

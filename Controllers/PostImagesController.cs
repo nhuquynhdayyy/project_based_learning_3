@@ -1,15 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
 
 namespace TourismWeb.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PostImagesController : ControllerBase
+    public class PostImagesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -18,81 +18,141 @@ namespace TourismWeb.Controllers
             _context = context;
         }
 
-        // GET: api/PostImages
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<PostImage>>> GetPostImages()
+        // GET: PostImages
+        public async Task<IActionResult> Index()
         {
-            return await _context.PostImages.ToListAsync();
+            var applicationDbContext = _context.PostImages.Include(p => p.Post);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: api/PostImages/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PostImage>> GetPostImage(int id)
+        // GET: PostImages/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var postImage = await _context.PostImages.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var postImage = await _context.PostImages
+                .Include(p => p.Post)
+                .FirstOrDefaultAsync(m => m.PostImageId == id);
             if (postImage == null)
             {
                 return NotFound();
             }
 
-            return postImage;
+            return View(postImage);
         }
 
-        // PUT: api/PostImages/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPostImage(int id, PostImage postImage)
+        // GET: PostImages/Create
+        public IActionResult Create()
+        {
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content");
+            return View();
+        }
+
+        // POST: PostImages/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("PostImageId,PostId,ImageUrl")] PostImage postImage)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(postImage);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postImage.PostId);
+            return View(postImage);
+        }
+
+        // GET: PostImages/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var postImage = await _context.PostImages.FindAsync(id);
+            if (postImage == null)
+            {
+                return NotFound();
+            }
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postImage.PostId);
+            return View(postImage);
+        }
+
+        // POST: PostImages/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("PostImageId,PostId,ImageUrl")] PostImage postImage)
         {
             if (id != postImage.PostImageId)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(postImage).State = EntityState.Modified;
-
-            try
+            if (ModelState.IsValid)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PostImageExists(id))
+                try
                 {
-                    return NotFound();
+                    _context.Update(postImage);
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!PostImageExists(postImage.PostImageId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+                return RedirectToAction(nameof(Index));
             }
-
-            return NoContent();
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postImage.PostId);
+            return View(postImage);
         }
 
-        // POST: api/PostImages
-        [HttpPost]
-        public async Task<ActionResult<PostImage>> PostPostImage(PostImage postImage)
+        // GET: PostImages/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            _context.PostImages.Add(postImage);
-            await _context.SaveChangesAsync();
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            return CreatedAtAction("GetPostImage", new { id = postImage.PostImageId }, postImage);
-        }
-
-        // DELETE: api/PostImages/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePostImage(int id)
-        {
-            var postImage = await _context.PostImages.FindAsync(id);
+            var postImage = await _context.PostImages
+                .Include(p => p.Post)
+                .FirstOrDefaultAsync(m => m.PostImageId == id);
             if (postImage == null)
             {
                 return NotFound();
             }
 
-            _context.PostImages.Remove(postImage);
-            await _context.SaveChangesAsync();
+            return View(postImage);
+        }
 
-            return NoContent();
+        // POST: PostImages/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var postImage = await _context.PostImages.FindAsync(id);
+            if (postImage != null)
+            {
+                _context.PostImages.Remove(postImage);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool PostImageExists(int id)

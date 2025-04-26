@@ -1,31 +1,89 @@
-@model IEnumerable<TourismWeb.Models.User> 
+@model IEnumerable<TourismWeb.Models.User>
 
-<h1>Danh sách Người Dùng</h1>
+@{
+    ViewData["Title"] = "Index";
+}
 
-<table border="1" cellpadding="5" cellspacing="0">
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Tên Người Dùng</th>
-            <th>Email</th>
-            <th>Hành động</th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.AvatarUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastLoginAt)
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model)  // Lặp qua danh sách User
-        {
-            <tr>
-                <td>@user.UserId</td>
-                <td>@user.Username</td>
-                <td>@user.Email</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@user.UserId">Chỉnh sửa</a> | 
-                    <a asp-action="Details" asp-route-id="@user.UserId">Chi tiết</a> | 
-                    <a asp-action="Delete" asp-route-id="@user.UserId">Xóa</a>
-                </td>
-            </tr>
-        }
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            @* <td>
+                @Html.DisplayFor(modelItem => item.AvatarUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
+            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastLoginAt)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UserId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UserId">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>
-
-<a asp-action="Create">Thêm Người Dùng</a> <!-- Nút thêm người dùng -->

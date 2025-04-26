@@ -1,0 +1,270 @@
+:root {
+    --primary-color: #0056b3;
+    --secondary-color: #004494;
+    --accent-color: #ff6600;
+    --text-color: #333;
+    --light-text: #666;
+    --border-color: #ddd;
+    --light-bg: #f8f9fa;
+    --white: #fff;
+}
+
+/* Guide Header */
+.guide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    /* position: sticky; */
+    top: 0;  /* Đảm bảo navbar luôn ở trên cùng */
+    z-index: 10;  /* Đảm bảo navbar không bị chồng lên các phần khác */
+    margin-block: 10px;
+    
+}
+
+.guide-title h1 {
+    font-size: 28px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    padding-top: 20px;
+}
+
+.guide-meta {
+    display: flex;
+    align-items: center;
+    color: var(--light-text);
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.category {
+    margin-right: 15px;
+}
+
+.guide-actions {
+    display: flex;
+}
+
+.btn {
+    padding: 8px 15px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.btn i {
+    margin-right: 5px;
+}
+
+.favorite {
+    background-color: #f8f9fa;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.share {
+    background-color: #f8f9fa;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    position: relative;
+}
+
+.share-options {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--white);
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 150px;
+    display: none;
+    z-index: 10;
+}
+
+.share-options a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.share-options a:hover {
+    background-color: var(--light-bg);
+}
+
+/* Guide Content */
+.guide-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.guide-info {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.guide-banner {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+.guide-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.guide-banner-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: white;
+    padding: 20px;
+}
+
+.guide-section {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.guide-section:last-child {
+    border-bottom: none;
+}
+
+.guide-section h2 {
+    font-size: 22px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.guide-section h2 i {
+    margin-right: 10px;
+    color: var(--accent-color);
+}
+
+.guide-section p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+.guide-section ul {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.guide-section li {
+    margin-bottom: 10px;
+}
+
+/* Sidebar */
+.guide-sidebar {
+    align-self: start;
+}
+
+.sidebar-widget {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.sidebar-widget h3 {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    margin: 0;
+}
+
+.sidebar-widget-content {
+    padding: 15px;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.author-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.guide-toc ul {
+    list-style: none;
+    padding: 0;
+}
+
+.guide-toc li {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.guide-toc a {
+    color: var(--primary-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.guide-toc a i {
+    margin-right: 10px;
+    color: var(--accent-color);
+}
+
+.download-guide {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 4px;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+/* Responsive */
+ @media (max-width: 992px) {
+    .guide-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .guide-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+   
+    .guide-actions {
+        margin-top: 15px;
+    }
+    body {
+        padding-top: 100px; /* Điều chỉnh padding cho phù hợp trên màn hình nhỏ */
+    }
+}
+.breadcrumb {
+    display: none !important;
+}

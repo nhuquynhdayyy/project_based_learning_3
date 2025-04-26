@@ -224,35 +224,41 @@
             </div>
         </div>
         <div class="guide-container">
-            <div class="card">
-                <img src="~/images/danang2.webp" class="card-img-top" alt="Đà Nẵng">
-                <div class="card-body">
-                    <h5 class="card-title"><b>Đà Nẵng - Thành phố đáng sống với những bãi biển tuyệt đẹp</b>
-                    </h5>
-                    <p class="guide-date">31 tháng Mười Hai, 2024</p>
-                    <p class="card-text">Giới thiệu sơ lược về đảo Bình Ba...</p>
+            <a asp-controller="Guide" asp-action="DaNang" class="destination-card text-decoration-none text-dark">
+                <div class="card">
+                    <img src="~/images/danang2.webp" class="card-img-top" alt="Đà Nẵng">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Đà Nẵng - Thành phố đáng sống với những bãi biển tuyệt đẹp</b></h5>
+                        <p class="guide-date">31 tháng Mười Hai, 2024</p>
+                        <p class="card-text">Giới thiệu sơ lược về đảo Bình Ba...</p>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <img src="~/images/hue.jpg" class="card-img-top" alt="Huế ">
-                <div class="card-body">
-                    <h5 class="card-title"><b>Khám phá vẻ đẹp cổ kính của Đại Nội Huế - Kinh đô của triều
-                            Nguyễn</b>
-                    </h5>
-                    <p class="guide-date">31 tháng Mười Hai, 2024</p>
-                    <p class="card-text">Khung cảnh tuyệt đẹp, văn hóa đặc sắc...</p>
+            </a>
+
+            <a asp-controller="Guide" asp-action="Hue" class="destination-card text-decoration-none text-dark">
+                <div class="card">
+                    <img src="~/images/hue.jpg" class="card-img-top" alt="Huế">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Khám phá vẻ đẹp cổ kính của Đại Nội Huế - Kinh đô của triều Nguyễn</b>
+                        </h5>
+                        <p class="guide-date">31 tháng Mười Hai, 2024</p>
+                        <p class="card-text">Khung cảnh tuyệt đẹp, văn hóa đặc sắc...</p>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <img src="~/images/hoian.jpg" class="card-img-top" alt="Hội An">
-                <div class="card-body">
-                    <h5 class="card-title"><b>Phố cổ Hội An: Bước chân vào ký ức thương cảng sầm uất một
-                            thời</b>
-                    </h5>
-                    <p class="guide-date">31 tháng Mười Hai, 2024</p>
-                    <p class="card-text">Khám phá những điểm đến đẹp nhất...</p>
+            </a>
+
+            <a asp-controller="Guide" asp-action="Hoian" class="destination-card text-decoration-none text-dark">
+                <div class="card">
+                    <img src="~/images/hoian.jpg" class="card-img-top" alt="Hội An">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Phố cổ Hội An: Bước chân vào ký ức thương cảng sầm uất một thời</b>
+                        </h5>
+                        <p class="guide-date">31 tháng Mười Hai, 2024</p>
+                        <p class="card-text">Khám phá những điểm đến đẹp nhất...</p>
+                    </div>
                 </div>
-            </div>
+            </a>
+
         </div>
 
     </section>

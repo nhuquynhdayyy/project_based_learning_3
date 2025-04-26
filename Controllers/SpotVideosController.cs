@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
 
 namespace TourismWeb.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class SpotVideosController : ControllerBase
+    public class SpotVideosController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -19,89 +18,147 @@ namespace TourismWeb.Controllers
             _context = context;
         }
 
-        // GET: api/SpotVideos
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<SpotVideo>>> GetSpotVideos()
+        // GET: SpotVideos
+        public async Task<IActionResult> Index()
         {
-            return await _context.SpotVideos
-                .Include(v => v.Spot)
-                .Include(v => v.UploadedBy)
-                .ToListAsync();
+            var applicationDbContext = _context.SpotVideos.Include(s => s.Spot).Include(s => s.User);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: api/SpotVideos/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<SpotVideo>> GetSpotVideo(int id)
+        // GET: SpotVideos/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var spotVideo = await _context.SpotVideos
-                .Include(v => v.Spot)
-                .Include(v => v.UploadedBy)
-                .FirstOrDefaultAsync(v => v.VideoId == id);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var spotVideo = await _context.SpotVideos
+                .Include(s => s.Spot)
+                .Include(s => s.User)
+                .FirstOrDefaultAsync(m => m.VideoId == id);
             if (spotVideo == null)
             {
                 return NotFound();
             }
 
-            return spotVideo;
+            return View(spotVideo);
         }
 
-        // PUT: api/SpotVideos/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSpotVideo(int id, SpotVideo spotVideo)
+        // GET: SpotVideos/Create
+        public IActionResult Create()
         {
-            if (id != spotVideo.VideoId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(spotVideo).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SpotVideoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address");
+            ViewData["UploadedBy"] = new SelectList(_context.Users, "UserId", "Email");
+            return View();
         }
 
-        // POST: api/SpotVideos
+        // POST: SpotVideos/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<ActionResult<SpotVideo>> PostSpotVideo(SpotVideo spotVideo)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("VideoId,SpotId,VideoUrl,UploadedBy,UploadedAt")] SpotVideo spotVideo)
         {
-            spotVideo.UploadedAt = DateTime.UtcNow;
-
-            _context.SpotVideos.Add(spotVideo);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetSpotVideo), new { id = spotVideo.VideoId }, spotVideo);
+            if (ModelState.IsValid)
+            {
+                _context.Add(spotVideo);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotVideo.SpotId);
+            ViewData["UploadedBy"] = new SelectList(_context.Users, "UserId", "Email", spotVideo.UploadedBy);
+            return View(spotVideo);
         }
 
-        // DELETE: api/SpotVideos/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSpotVideo(int id)
+        // GET: SpotVideos/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             var spotVideo = await _context.SpotVideos.FindAsync(id);
             if (spotVideo == null)
             {
                 return NotFound();
             }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotVideo.SpotId);
+            ViewData["UploadedBy"] = new SelectList(_context.Users, "UserId", "Email", spotVideo.UploadedBy);
+            return View(spotVideo);
+        }
 
-            _context.SpotVideos.Remove(spotVideo);
+        // POST: SpotVideos/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("VideoId,SpotId,VideoUrl,UploadedBy,UploadedAt")] SpotVideo spotVideo)
+        {
+            if (id != spotVideo.VideoId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(spotVideo);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!SpotVideoExists(spotVideo.VideoId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotVideo.SpotId);
+            ViewData["UploadedBy"] = new SelectList(_context.Users, "UserId", "Email", spotVideo.UploadedBy);
+            return View(spotVideo);
+        }
+
+        // GET: SpotVideos/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var spotVideo = await _context.SpotVideos
+                .Include(s => s.Spot)
+                .Include(s => s.User)
+                .FirstOrDefaultAsync(m => m.VideoId == id);
+            if (spotVideo == null)
+            {
+                return NotFound();
+            }
+
+            return View(spotVideo);
+        }
+
+        // POST: SpotVideos/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var spotVideo = await _context.SpotVideos.FindAsync(id);
+            if (spotVideo != null)
+            {
+                _context.SpotVideos.Remove(spotVideo);
+            }
+
             await _context.SaveChangesAsync();
-
-            return NoContent();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool SpotVideoExists(int id)

@@ -1,99 +1,65 @@
-@* @model IEnumerable<TourismWeb.Models.Post>
-
-
-<h2>Danh sách bài đăng</h2>
-
-<table>
-    <thead>
-        <tr>
-            <th>Tiêu đề</th>
-            <th>Nội dung</th>
-            <th>Ngày đăng</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var post in Model)
-        {
-            <tr>
-                <td>@post.Title</td>
-                <td>@post.Content</td>
-                <td>@post.CreatedAt.ToString("dd/MM/yyyy")</td>
-            </tr>
-        }
-    </tbody>
-</table> *@
 @model IEnumerable<TourismWeb.Models.Post>
 
 @{
-    ViewData["Title"] = "Danh sách bài đăng";
-}
-<div class="page-content">
-<h2 class="title">📃 Danh sách Bài Đăng</h2>
-
-@if (!Model.Any())
-{
-    <p>Chưa có bài đăng nào.</p>
-}
-else
-{
-    <table class="post-table">
-        <thead>
-            <tr>
-                <th>Tiêu đề</th>
-                <th>Loại bài viết</th>
-                <th>Địa điểm</th>
-                <th>Nội dung</th>
-                <th>Ngày đăng</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var post in Model)
-            {
-                <tr>
-                    <td>@post.Title</td>
-                    <td>@post.TypeOfPost</td>
-                    <td>@post.Spot?.Name</td>
-                    <td class="post-content">@post.Content</td>
-                    <td>@post.CreatedAt.ToString("dd/MM/yyyy")</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-<style>
-.title {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #2c3e50;
+    ViewData["Title"] = "Index";
 }
 
-.post-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 16px;
-    margin-top: 10px;
-}
+<h1>Index</h1>
 
-.post-table th, .post-table td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    text-align: left;
-    vertical-align: top;
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Spot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeOfPost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Spot.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfPost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PostId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
+            </td>
+        </tr>
 }
-
-.post-table th {
-    background-color: #f5f5f5;
-    color: #333;
-}
-
-.post-content {
-    max-width: 400px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.page-content {
-    padding-top: 100px; /* chỉnh tùy theo chiều cao header, ví dụ 60px hay 80px */
-}
-</style>
-</div>
+    </tbody>
+</table>

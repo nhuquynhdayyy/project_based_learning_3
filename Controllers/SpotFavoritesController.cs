@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
 
 namespace TourismWeb.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class SpotFavoritesController : ControllerBase
+    public class SpotFavoritesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -19,69 +18,147 @@ namespace TourismWeb.Controllers
             _context = context;
         }
 
-        // GET: api/SpotFavorites
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<SpotFavorite>>> GetSpotFavorites()
+        // GET: SpotFavorites
+        public async Task<IActionResult> Index()
         {
-            return await _context.SpotFavorites
-                .Include(f => f.User)
-                .Include(f => f.Spot)
-                .ToListAsync();
+            var applicationDbContext = _context.SpotFavorites.Include(s => s.Spot).Include(s => s.User);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: api/SpotFavorites/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<SpotFavorite>> GetSpotFavorite(int id)
+        // GET: SpotFavorites/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var favorite = await _context.SpotFavorites
-                .Include(f => f.User)
-                .Include(f => f.Spot)
-                .FirstOrDefaultAsync(f => f.FavoriteId == id);
-
-            if (favorite == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            return favorite;
+            var spotFavorite = await _context.SpotFavorites
+                .Include(s => s.Spot)
+                .Include(s => s.User)
+                .FirstOrDefaultAsync(m => m.FavoriteId == id);
+            if (spotFavorite == null)
+            {
+                return NotFound();
+            }
+
+            return View(spotFavorite);
         }
 
-        // GET: api/SpotFavorites/by-user/3
-        [HttpGet("by-user/{userId}")]
-        public async Task<ActionResult<IEnumerable<SpotFavorite>>> GetFavoritesByUser(int userId)
+        // GET: SpotFavorites/Create
+        public IActionResult Create()
         {
-            return await _context.SpotFavorites
-                .Where(f => f.UserId == userId)
-                .Include(f => f.Spot)
-                .ToListAsync();
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
+            return View();
         }
 
-        // POST: api/SpotFavorites
+        // POST: SpotFavorites/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<ActionResult<SpotFavorite>> PostSpotFavorite(SpotFavorite favorite)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("FavoriteId,UserId,SpotId,CreatedAt")] SpotFavorite spotFavorite)
         {
-            favorite.CreatedAt = DateTime.UtcNow;
-
-            _context.SpotFavorites.Add(favorite);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetSpotFavorite), new { id = favorite.FavoriteId }, favorite);
+            if (ModelState.IsValid)
+            {
+                _context.Add(spotFavorite);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotFavorite.SpotId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", spotFavorite.UserId);
+            return View(spotFavorite);
         }
 
-        // DELETE: api/SpotFavorites/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSpotFavorite(int id)
+        // GET: SpotFavorites/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
-            var favorite = await _context.SpotFavorites.FindAsync(id);
-            if (favorite == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            _context.SpotFavorites.Remove(favorite);
-            await _context.SaveChangesAsync();
+            var spotFavorite = await _context.SpotFavorites.FindAsync(id);
+            if (spotFavorite == null)
+            {
+                return NotFound();
+            }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotFavorite.SpotId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", spotFavorite.UserId);
+            return View(spotFavorite);
+        }
 
-            return NoContent();
+        // POST: SpotFavorites/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("FavoriteId,UserId,SpotId,CreatedAt")] SpotFavorite spotFavorite)
+        {
+            if (id != spotFavorite.FavoriteId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(spotFavorite);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!SpotFavoriteExists(spotFavorite.FavoriteId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotFavorite.SpotId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", spotFavorite.UserId);
+            return View(spotFavorite);
+        }
+
+        // GET: SpotFavorites/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var spotFavorite = await _context.SpotFavorites
+                .Include(s => s.Spot)
+                .Include(s => s.User)
+                .FirstOrDefaultAsync(m => m.FavoriteId == id);
+            if (spotFavorite == null)
+            {
+                return NotFound();
+            }
+
+            return View(spotFavorite);
+        }
+
+        // POST: SpotFavorites/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var spotFavorite = await _context.SpotFavorites.FindAsync(id);
+            if (spotFavorite != null)
+            {
+                _context.SpotFavorites.Remove(spotFavorite);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool SpotFavoriteExists(int id)

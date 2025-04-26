@@ -1,11 +1,12 @@
-using Microsoft.AspNetCore.Mvc;
-using TourismWeb.Models;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using System.Security.Cryptography;
-using Microsoft.EntityFrameworkCore; 
-using Microsoft.AspNetCore.Http; 
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using TourismWeb.Models;
+
 namespace TourismWeb.Controllers
 {
     public class PostsController : Controller
@@ -17,127 +18,152 @@ namespace TourismWeb.Controllers
             _context = context;
         }
 
-        // Hiển thị danh sách bài viết
-        // public IActionResult Index()
-        // {
-        //     var posts = _context.Posts.ToList();
-        //     return View(posts);
-        // }
-    
+        // GET: Posts
         public async Task<IActionResult> Index()
         {
-            var posts = _context.Posts
-                .Include(p => p.Spot) // Lấy thêm dữ liệu từ bảng TouristSpots
-                .OrderByDescending(p => p.CreatedAt) // Sắp xếp bài đăng mới nhất lên trước
-                .ToList();
-
-            return View(posts);
+            var applicationDbContext = _context.Posts.Include(p => p.Spot).Include(p => p.User);
+            return View(await applicationDbContext.ToListAsync());
         }
 
+        // GET: Posts/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        // // Hiển thị form tạo bài viết
-        // public IActionResult Create()
-        // {
-        //     return View();
-        // }
-        // Hiển thị form tạo bài viết + truyền danh sách địa điểm
+            var post = await _context.Posts
+                .Include(p => p.Spot)
+                .Include(p => p.User)
+                .FirstOrDefaultAsync(m => m.PostId == id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return View(post);
+        }
+
+        // GET: Posts/Create
         public IActionResult Create()
         {
-            ViewBag.Spots = _context.TouristSpots.ToList(); // dùng để tạo dropdown SpotId
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
             return View();
         }
-        // Xử lý tạo bài viết
-        // [HttpPost]
-        // public async Task<IActionResult> Create(Post post)
-        // {
-        //     ViewBag.Spots = _context.TouristSpots.ToList(); // Nếu có lỗi thì load lại
-        //     if (!ModelState.IsValid)
-        //     {
-        //         var errors = ModelState.Values.SelectMany(v => v.Errors);
-        //         foreach (var error in errors)
-        //         {
-        //             Console.WriteLine(error.ErrorMessage); // In lỗi ra console
-        //         }
-        //         return View(post);
-        //     }
 
-        //     var userId = HttpContext.Session.GetString("UserId");
-        //     if (string.IsNullOrEmpty(userId))
-        //     {
-        //         ModelState.AddModelError("", "Bạn cần đăng nhập để đăng bài!");
-        //         return View(post);
-        //     }
-        //     post.UserId = int.Parse(userId);
-        //     post.CreatedAt = DateTime.Now;
-        //     ModelState.Remove("User");
-        //     if (!ModelState.IsValid)
-        //     {
-        //         return View(post);
-        //     }
-
-
-        //     Console.WriteLine($"DEBUG: Title = {post.Title}, Content = {post.Content}, UserId = {post.UserId}");
-
-        //     try
-        //     {
-        //         _context.Posts.Add(post);
-        //         await _context.SaveChangesAsync();
-        //         Console.WriteLine("DEBUG: Bài viết đã được lưu thành công.");
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         Console.WriteLine($"LỖI: {ex.Message}");
-        //         ModelState.AddModelError("", "Có lỗi xảy ra khi lưu bài viết: " + ex.Message);
-        //         return View(post);
-        //     }
-
-        //     return RedirectToAction("Index","Home");
-        // }
-        // POST: Create Post
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Post post)
-    {
-        ViewBag.Spots = _context.TouristSpots.ToList(); // Load lại nếu có lỗi
-
-        // Lấy userId từ session
-        var userIdStr = HttpContext.Session.GetString("UserId");
-        if (string.IsNullOrEmpty(userIdStr))
+        // POST: Posts/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("PostId,UserId,SpotId,TypeOfPost,Title,Content,CreatedAt")] Post post)
         {
-            ModelState.AddModelError("", "Bạn cần đăng nhập để đăng bài!");
-            return View(post);
-        }
-
-        post.UserId = int.Parse(userIdStr);
-        post.CreatedAt = DateTime.Now;
-
-        // Xóa model navigation nếu có để tránh lỗi Entity Framework
-        ModelState.Remove("User");
-        ModelState.Remove("Spot");
-
-        if (!ModelState.IsValid)
-        {
-            var errors = ModelState.Values.SelectMany(v => v.Errors);
-            foreach (var error in errors)
+            if (ModelState.IsValid)
             {
-                Console.WriteLine("Validation Error: " + error.ErrorMessage);
+                _context.Add(post);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", post.SpotId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", post.UserId);
             return View(post);
         }
 
-        try
+        // GET: Posts/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
-            _context.Posts.Add(post);
-            await _context.SaveChangesAsync();
-            ViewBag.SuccessMessage = "Đăng bài viết thành công!";
-            return View(); // Quay lại view để hiển thị success
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error saving post: " + ex.Message);
-            ModelState.AddModelError("", "Có lỗi xảy ra khi lưu bài viết.");
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var post = await _context.Posts.FindAsync(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", post.SpotId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", post.UserId);
             return View(post);
         }
-    }
+
+        // POST: Posts/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("PostId,UserId,SpotId,TypeOfPost,Title,Content,CreatedAt")] Post post)
+        {
+            if (id != post.PostId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(post);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PostExists(post.PostId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", post.SpotId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", post.UserId);
+            return View(post);
+        }
+
+        // GET: Posts/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var post = await _context.Posts
+                .Include(p => p.Spot)
+                .Include(p => p.User)
+                .FirstOrDefaultAsync(m => m.PostId == id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return View(post);
+        }
+
+        // POST: Posts/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var post = await _context.Posts.FindAsync(id);
+            if (post != null)
+            {
+                _context.Posts.Remove(post);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool PostExists(int id)
+        {
+            return _context.Posts.Any(e => e.PostId == id);
+        }
     }
 }

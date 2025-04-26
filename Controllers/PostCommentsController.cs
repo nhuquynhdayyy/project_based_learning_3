@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
 
 namespace TourismWeb.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PostCommentsController : ControllerBase
+    public class PostCommentsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -19,102 +18,150 @@ namespace TourismWeb.Controllers
             _context = context;
         }
 
-        // GET: api/PostComments
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<PostComment>>> GetPostComments()
+        // GET: PostComments
+        public async Task<IActionResult> Index()
         {
-            return await _context.PostComments
-                .Include(c => c.User)
-                .Include(c => c.Post)
-                .ToListAsync();
+            var applicationDbContext = _context.PostComments.Include(p => p.Post).Include(p => p.User);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: api/PostComments/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PostComment>> GetPostComment(int id)
+        // GET: PostComments/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var comment = await _context.PostComments
-                .Include(c => c.User)
-                .Include(c => c.Post)
-                .FirstOrDefaultAsync(c => c.CommentId == id);
-
-            if (comment == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            return comment;
+            var postComment = await _context.PostComments
+                .Include(p => p.Post)
+                .Include(p => p.User)
+                .FirstOrDefaultAsync(m => m.CommentId == id);
+            if (postComment == null)
+            {
+                return NotFound();
+            }
+
+            return View(postComment);
         }
 
-        // GET: api/PostComments/by-post/3
-        [HttpGet("by-post/{postId}")]
-        public async Task<ActionResult<IEnumerable<PostComment>>> GetCommentsByPost(int postId)
+        // GET: PostComments/Create
+        public IActionResult Create()
         {
-            return await _context.PostComments
-                .Where(c => c.PostId == postId)
-                .Include(c => c.User)
-                .ToListAsync();
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
+            return View();
         }
 
-        // PUT: api/PostComments/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPostComment(int id, PostComment comment)
-        {
-            if (id != comment.CommentId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(comment).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/PostComments
+        // POST: PostComments/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<ActionResult<PostComment>> PostPostComment(PostComment comment)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("CommentId,UserId,PostId,Content,ImageUrl,VideoUrl,CreatedAt")] PostComment postComment)
         {
-            comment.CreatedAt = DateTime.UtcNow;
-
-            _context.PostComments.Add(comment);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetPostComment), new { id = comment.CommentId }, comment);
+            if (ModelState.IsValid)
+            {
+                _context.Add(postComment);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postComment.PostId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", postComment.UserId);
+            return View(postComment);
         }
 
-        // DELETE: api/PostComments/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePostComment(int id)
+        // GET: PostComments/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
-            var comment = await _context.PostComments.FindAsync(id);
-            if (comment == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            _context.PostComments.Remove(comment);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            var postComment = await _context.PostComments.FindAsync(id);
+            if (postComment == null)
+            {
+                return NotFound();
+            }
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postComment.PostId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", postComment.UserId);
+            return View(postComment);
         }
 
-        private bool CommentExists(int id)
+        // POST: PostComments/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("CommentId,UserId,PostId,Content,ImageUrl,VideoUrl,CreatedAt")] PostComment postComment)
+        {
+            if (id != postComment.CommentId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(postComment);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PostCommentExists(postComment.CommentId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postComment.PostId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", postComment.UserId);
+            return View(postComment);
+        }
+
+        // GET: PostComments/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var postComment = await _context.PostComments
+                .Include(p => p.Post)
+                .Include(p => p.User)
+                .FirstOrDefaultAsync(m => m.CommentId == id);
+            if (postComment == null)
+            {
+                return NotFound();
+            }
+
+            return View(postComment);
+        }
+
+        // POST: PostComments/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var postComment = await _context.PostComments.FindAsync(id);
+            if (postComment != null)
+            {
+                _context.PostComments.Remove(postComment);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool PostCommentExists(int id)
         {
             return _context.PostComments.Any(e => e.CommentId == id);
         }

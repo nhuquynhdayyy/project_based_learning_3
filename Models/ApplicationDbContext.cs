@@ -57,10 +57,6 @@ namespace TourismWeb.Models
                 .Property(u => u.PhoneNumber)
                 .HasDefaultValue("0000000000");
 
-            modelBuilder.Entity<User>()
-                .Property(u => u.TwoFaSecret)
-                .HasDefaultValue("");
-
             // Quan hệ TouristSpot
             modelBuilder.Entity<TouristSpot>()
                 .Property(ts => ts.CreatedAt)

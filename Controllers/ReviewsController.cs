@@ -2,16 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
 
-namespace TourismWeb
+namespace TourismWeb.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ReviewsController : ControllerBase
+    public class ReviewsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -20,92 +18,147 @@ namespace TourismWeb
             _context = context;
         }
 
-        // GET: api/Reviews
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
+        // GET: Reviews
+        public async Task<IActionResult> Index()
         {
-            return await _context.Reviews.ToListAsync();
+            var applicationDbContext = _context.Reviews.Include(r => r.Spot).Include(r => r.User);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: api/Reviews/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Review>> GetReview(int id)
+        // GET: Reviews/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var review = await _context.Reviews.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var review = await _context.Reviews
+                .Include(r => r.Spot)
+                .Include(r => r.User)
+                .FirstOrDefaultAsync(m => m.ReviewId == id);
             if (review == null)
             {
                 return NotFound();
             }
 
-            return review;
+            return View(review);
         }
 
-        // PUT: api/Reviews/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutReview(int id, Review review)
+        // GET: Reviews/Create
+        public IActionResult Create()
+        {
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
+            return View();
+        }
+
+        // POST: Reviews/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ReviewId,UserId,SpotId,Rating,Comment,ImageUrl,VideoUrl,CreatedAt")] Review review)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(review);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", review.SpotId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", review.UserId);
+            return View(review);
+        }
+
+        // GET: Reviews/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var review = await _context.Reviews.FindAsync(id);
+            if (review == null)
+            {
+                return NotFound();
+            }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", review.SpotId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", review.UserId);
+            return View(review);
+        }
+
+        // POST: Reviews/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ReviewId,UserId,SpotId,Rating,Comment,ImageUrl,VideoUrl,CreatedAt")] Review review)
         {
             if (id != review.ReviewId)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(review).State = EntityState.Modified;
-
-            try
+            if (ModelState.IsValid)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ReviewExists(id))
+                try
                 {
-                    return NotFound();
+                    _context.Update(review);
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!ReviewExists(review.ReviewId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+                return RedirectToAction(nameof(Index));
             }
-
-            return NoContent();
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", review.SpotId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", review.UserId);
+            return View(review);
         }
 
-        // POST: api/Reviews
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Review>> PostReview(Review review)
+        // GET: Reviews/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            var userExists = await _context.Users.AnyAsync(u => u.UserId == review.UserId);
-            var spotExists = await _context.TouristSpots.AnyAsync(s => s.SpotId == review.SpotId);
-
-            if (!userExists || !spotExists)
+            if (id == null)
             {
-                return BadRequest("UserId hoặc SpotId không tồn tại.");
+                return NotFound();
             }
 
-            review.CreatedAt = DateTime.Now; // thêm dòng này
-            _context.Reviews.Add(review);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetReview", new { id = review.ReviewId }, review);
-        }
-
-        // DELETE: api/Reviews/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteReview(int id)
-        {
-            var review = await _context.Reviews.FindAsync(id);
+            var review = await _context.Reviews
+                .Include(r => r.Spot)
+                .Include(r => r.User)
+                .FirstOrDefaultAsync(m => m.ReviewId == id);
             if (review == null)
             {
                 return NotFound();
             }
 
-            _context.Reviews.Remove(review);
-            await _context.SaveChangesAsync();
+            return View(review);
+        }
 
-            return NoContent();
+        // POST: Reviews/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var review = await _context.Reviews.FindAsync(id);
+            if (review != null)
+            {
+                _context.Reviews.Remove(review);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool ReviewExists(int id)

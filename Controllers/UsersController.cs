@@ -1,16 +1,11 @@
-using Microsoft.AspNetCore.Mvc;
-using TourismWeb.Models;
-using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using System.Security.Cryptography;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Globalization;
+using TourismWeb.Models;
 
 namespace TourismWeb.Controllers
 {
@@ -23,188 +18,147 @@ namespace TourismWeb.Controllers
             _context = context;
         }
 
-        // Hiển thị form đăng ký
-        public IActionResult Register()
+        // GET: Users
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Users.ToListAsync());
+        }
+
+        // GET: Users/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.UserId == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        // GET: Users/Create
+        public IActionResult Create()
         {
             return View();
         }
 
-        // Xử lý đăng ký
+        // POST: Users/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Register(User user)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("UserId,FullName,DateOfBirth,PhoneNumber,Email,Username,Password,CreatedAt,LastLoginAt")] User user)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
+            {
+                _context.Add(user);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            else
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
                 foreach (var error in errors)
                 {
-                    Console.WriteLine(error.ErrorMessage); // In lỗi ra console
+                    Console.WriteLine(error.ErrorMessage);
                 }
-                return View(user);
             }
-
-            // Kiểm tra tài khoản đã tồn tại chưa
-            var existingUser = _context.Users.FirstOrDefault(u => u.Email == user.Email);
-            if (existingUser != null)
-            {
-                ModelState.AddModelError("Email", "Email này đã được sử dụng!");
-                return View(user);
-            }
-
-            // Gán giá trị mặc định nếu chưa có
-            user.Role = user.Role ?? "User";  // Mặc định là User
-            user.AvatarUrl = string.IsNullOrEmpty(user.AvatarUrl) ? "default-avatar.png" : user.AvatarUrl; // Avatar mặc định
-            user.PhoneNumber = string.IsNullOrEmpty(user.PhoneNumber) ? "0000000000" : user.PhoneNumber; // Số điện thoại giả định
-            user.TwoFaSecret = user.TwoFaSecret ?? ""; // Nếu không dùng 2FA, để trống
-            user.CreatedAt = DateTime.Now;
-
-            // Mã hóa mật khẩu trước khi lưu (Không dùng salt)
-            user.PasswordHash = HashPassword(user.PasswordHash);
-
-            try
-            {
-                // Thêm user vào database
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
-
-                // Gửi thông báo đăng ký thành công
-                ViewBag.SuccessMessage = "Đăng ký thành công! Bạn có thể đăng nhập ngay.";
-
-                // Hiển thị lại form nhưng có nút đăng nhập
-                return View();
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "Có lỗi xảy ra: " + ex.Message);
-                return View(user);
-            }
+            return View(user);
         }
 
-        // Mã hóa mật khẩu (Không dùng salt)
-        private string HashPassword(string password)
+        // GET: Users/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
-            return Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: password,
-                salt: new byte[16], // Không dùng salt
-                prf: KeyDerivationPrf.HMACSHA256,
-                iterationCount: 10000,
-                numBytesRequested: 256 / 8));
-        }
-
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(string UsernameOrEmail, string Password)
-        {
-            // Kiểm tra nếu Session đã sẵn sàng
-            if (HttpContext.Session == null)
+            if (id == null)
             {
-                return BadRequest("Session chưa được cấu hình. Hãy kiểm tra cấu hình Startup.cs hoặc Program.cs.");
+                return NotFound();
             }
 
-            // Tìm người dùng theo email hoặc username
-            var user = _context.Users.FirstOrDefault(u => u.Email == UsernameOrEmail || u.Username == UsernameOrEmail);
-
+            var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
-                ModelState.AddModelError("", "Tài khoản không tồn tại!");
-                return View();
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        // POST: Users/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,FullName,DateOfBirth,PhoneNumber,Email,Username,Password,AvatarUrl,Role,CreatedAt,LastLoginAt")] User user)
+        {
+            if (id != user.UserId)
+            {
+                return NotFound();
             }
 
-            if (string.IsNullOrEmpty(Password))
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("Password", "Mật khẩu không được để trống.");
-                return View();
+                try
+                {
+                    _context.Update(user);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UserExists(user.UserId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(user);
+        }
+
+        // GET: Users/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
             }
 
-            // Hash mật khẩu nhập vào để so sánh với database
-            string hashedInputPassword = HashPassword(Password);
-
-            if (user.PasswordHash != hashedInputPassword)
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.UserId == id);
+            if (user == null)
             {
-                ModelState.AddModelError("", "Mật khẩu không chính xác!");
-                return View();
+                return NotFound();
             }
 
-            // Lưu session
-            HttpContext.Session.SetString("UserId", user.UserId.ToString());
-            HttpContext.Session.SetString("Username", user.Username);
-            HttpContext.Session.SetString("UserRole", user.Role); // Lưu vai trò vào session
+            return View(user);
+        }
 
-            // 🔹 Lưu Authentication Cookie (NẾU DÙNG AUTHENTICATION)
-            var claims = new List<Claim>
+        // POST: Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user != null)
             {
-                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, CultureInfo.CurrentCulture.TextInfo.ToTitleCase(user.Role.ToLower()))
+                _context.Users.Remove(user);
+            }
 
-            };
-
-            // var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
-            // await HttpContext.SignInAsync("CookieAuth", claimsPrincipal);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-
-            // Console.WriteLine("[DEBUG] Session:");
-            // Console.WriteLine("UserId: " + HttpContext.Session.GetString("UserId"));
-            // Console.WriteLine("Username: " + HttpContext.Session.GetString("Username"));
-            // Console.WriteLine("UserRole: " + HttpContext.Session.GetString("UserRole"));
-
-            // Console.WriteLine("[DEBUG] Claims:");
-            // foreach (var claim in claims)
-            // {
-            //     Console.WriteLine($"Type: {claim.Type}, Value: {claim.Value}");
-            // }
-            user.LastLoginAt = DateTime.Now;
-            _context.Update(user);
             await _context.SaveChangesAsync();
-
-            // Kiểm tra xem có URL nào cần chuyển hướng không
-            string redirectUrl = HttpContext.Session.GetString("RedirectAfterLogin");
-            if (!string.IsNullOrEmpty(redirectUrl))
-            {
-                HttpContext.Session.Remove("RedirectAfterLogin"); // Xóa sau khi sử dụng
-                return Redirect(redirectUrl);
-            }
-
-            if (user.Role == "admin")
-                return RedirectToAction("Index", "Admin");
-            else
-                return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult TestSession()
+        private bool UserExists(int id)
         {
-            HttpContext.Session.SetString("TestKey", "Session is working!");
-            string value = HttpContext.Session.GetString("TestKey");
-
-            return Content(value ?? "Session is NOT working!");
+            return _context.Users.Any(e => e.UserId == id);
         }
-
-        public async Task<IActionResult> Logout()
-        {
-            // await HttpContext.SignOutAsync("CookieAuth"); // Sử dụng đúng scheme đã đăng ký
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Session.Clear(); // Xóa session
-            return RedirectToAction("Index", "Home");
-        }
-
-        [HttpGet("Profile")]
-        public IActionResult Profile()
-        {
-            return View();
-        }
-
-        // [Authorize(Roles = "Admin")]
-        // public IActionResult Dashboard()
-        // {
-        //     return View();
-        // }
-
     }
 }

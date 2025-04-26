@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
 
 namespace TourismWeb.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class SpotImagesController : ControllerBase
+    public class SpotImagesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -19,89 +18,147 @@ namespace TourismWeb.Controllers
             _context = context;
         }
 
-        // GET: api/SpotImages
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<SpotImage>>> GetSpotImages()
+        // GET: SpotImages
+        public async Task<IActionResult> Index()
         {
-            return await _context.SpotImages
-                .Include(i => i.Spot)
-                .Include(i => i.UploadedBy)
-                .ToListAsync();
+            var applicationDbContext = _context.SpotImages.Include(s => s.Spot).Include(s => s.User);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: api/SpotImages/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<SpotImage>> GetSpotImage(int id)
+        // GET: SpotImages/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var spotImage = await _context.SpotImages
-                .Include(i => i.Spot)
-                .Include(i => i.UploadedBy)
-                .FirstOrDefaultAsync(i => i.ImageId == id);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var spotImage = await _context.SpotImages
+                .Include(s => s.Spot)
+                .Include(s => s.User)
+                .FirstOrDefaultAsync(m => m.ImageId == id);
             if (spotImage == null)
             {
                 return NotFound();
             }
 
-            return spotImage;
+            return View(spotImage);
         }
 
-        // PUT: api/SpotImages/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSpotImage(int id, SpotImage spotImage)
+        // GET: SpotImages/Create
+        public IActionResult Create()
         {
-            if (id != spotImage.ImageId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(spotImage).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SpotImageExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address");
+            ViewData["UploadedBy"] = new SelectList(_context.Users, "UserId", "Email");
+            return View();
         }
 
-        // POST: api/SpotImages
+        // POST: SpotImages/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<ActionResult<SpotImage>> PostSpotImage(SpotImage spotImage)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ImageId,SpotId,ImageUrl,UploadedBy,UploadedAt")] SpotImage spotImage)
         {
-            spotImage.UploadedAt = DateTime.UtcNow;
-
-            _context.SpotImages.Add(spotImage);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetSpotImage), new { id = spotImage.ImageId }, spotImage);
+            if (ModelState.IsValid)
+            {
+                _context.Add(spotImage);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotImage.SpotId);
+            ViewData["UploadedBy"] = new SelectList(_context.Users, "UserId", "Email", spotImage.UploadedBy);
+            return View(spotImage);
         }
 
-        // DELETE: api/SpotImages/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSpotImage(int id)
+        // GET: SpotImages/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             var spotImage = await _context.SpotImages.FindAsync(id);
             if (spotImage == null)
             {
                 return NotFound();
             }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotImage.SpotId);
+            ViewData["UploadedBy"] = new SelectList(_context.Users, "UserId", "Email", spotImage.UploadedBy);
+            return View(spotImage);
+        }
 
-            _context.SpotImages.Remove(spotImage);
+        // POST: SpotImages/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ImageId,SpotId,ImageUrl,UploadedBy,UploadedAt")] SpotImage spotImage)
+        {
+            if (id != spotImage.ImageId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(spotImage);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!SpotImageExists(spotImage.ImageId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotImage.SpotId);
+            ViewData["UploadedBy"] = new SelectList(_context.Users, "UserId", "Email", spotImage.UploadedBy);
+            return View(spotImage);
+        }
+
+        // GET: SpotImages/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var spotImage = await _context.SpotImages
+                .Include(s => s.Spot)
+                .Include(s => s.User)
+                .FirstOrDefaultAsync(m => m.ImageId == id);
+            if (spotImage == null)
+            {
+                return NotFound();
+            }
+
+            return View(spotImage);
+        }
+
+        // POST: SpotImages/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var spotImage = await _context.SpotImages.FindAsync(id);
+            if (spotImage != null)
+            {
+                _context.SpotImages.Remove(spotImage);
+            }
+
             await _context.SaveChangesAsync();
-
-            return NoContent();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool SpotImageExists(int id)

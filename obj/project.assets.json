@@ -8188,11 +8188,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\TourismWeb.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\TourismWeb.csproj",
       "projectName": "TourismWeb",
-      "projectPath": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\TourismWeb.csproj",
+      "projectPath": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\TourismWeb.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\HK22425\\PBL3\\PBL3\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\OneDrive - The University of Technology\\Desktop\\PBL3\\PBL3\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
