@@ -20,11 +20,9 @@ namespace TourismWeb.Models
         [Range(1, 5)]
         public int Rating { get; set; }
 
-        public string Comment { get; set; } = "";
+        public string Comment { get; set; } // = "";
 
-        public string ImageUrl { get; set; } = "";
-
-        public string VideoUrl { get; set; } = "";
+        public string ImageUrl { get; set; } = "/images/default-review.png";
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }

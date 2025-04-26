@@ -101,13 +101,13 @@
                             else
                             {
                                 <li>
-                                    <a class="dropdown-item" asp-controller="Users" asp-action="Profile">
+                                    <a class="dropdown-item" asp-controller="Accounts" asp-action="Profile">
                                         <i class="fas fa-user-circle me-2"></i>Trang cá nhân
                                     </a>
                                 </li>
                             }
                             <li>
-                                <a class="dropdown-item" asp-controller="Users" asp-action="Logout">
+                                <a class="dropdown-item" asp-controller="Accounts" asp-action="Logout">
                                     <i class="fas fa-sign-out-alt me-2"></i>Đăng xuất
                                 </a>
                             </li>
@@ -115,12 +115,12 @@
                         else
                         {
                             <li>
-                                <a class="dropdown-item" asp-controller="Users" asp-action="Login">
+                                <a class="dropdown-item" asp-controller="Accounts" asp-action="Login">
                                     <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" asp-controller="Users" asp-action="Register">
+                                <a class="dropdown-item" asp-controller="Accounts" asp-action="Register">
                                     <i class="fas fa-user-plus me-2"></i>Đăng ký
                                 </a>
                             </li>
@@ -151,8 +151,8 @@
                 <div class="modal-body">
                     <p>Bạn cần đăng nhập để đăng bài.</p>
                     <div class="text-center">
-                        <a href="/Account/Login" class="btn btn-primary">Đăng nhập</a>
-                        <a href="/Account/Register" class="btn btn-success">Đăng ký</a>
+                        <a href="/Accounts/Login" class="btn btn-primary">Đăng nhập</a>
+                        <a href="/Accounts/Register" class="btn btn-success">Đăng ký</a>
                     </div>
                 </div>
             </div>

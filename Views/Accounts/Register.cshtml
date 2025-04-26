@@ -1,0 +1,99 @@
+@model TourismWeb.Models.User
+
+@{
+    ViewData["Title"] = "Đăng Ký";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<body>
+    <div class="register-card">
+        <h2>Đăng Ký</h2>
+
+        @if (ViewBag.SuccessMessage != null)
+        {
+            <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+            <a href="/Accounts/Login" class="btn btn-success w-100">Đăng nhập ngay</a>
+        }
+        else
+        {
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+            }
+
+            <form asp-action="Register" method="post">
+                @Html.AntiForgeryToken()
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    <input asp-for="FullName" class="form-control" placeholder="Họ và Tên" required>
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    <input asp-for="Email" class="form-control" placeholder="Email" required>
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="fas fa-user-circle"></i></span>
+                    <input asp-for="Username" class="form-control" placeholder="Tên đăng nhập" required>
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input asp-for="Password" type="password" id="password" class="form-control" placeholder="Mật khẩu" required>
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" name="ConfirmPassword" id="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Đăng Ký</button>
+            </form>
+
+        }
+
+        <div class="text-center mt-3">
+            <a href="/Accounts/Login">Đã có tài khoản? Đăng nhập</a>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector("form").addEventListener("submit", function (e) {
+            let pass = document.getElementById("password").value;
+            let confirmPass = document.getElementById("confirmPassword").value;
+            if (pass !== confirmPass) {
+                alert("Mật khẩu nhập lại không trùng khớp!");
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .register-card {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group {
+        margin-bottom: 15px;
+    }
+
+    .input-group-text {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
