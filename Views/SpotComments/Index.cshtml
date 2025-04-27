@@ -25,9 +25,6 @@
                 @Html.DisplayNameFor(model => model.ImageUrl)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VideoUrl)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.CreatedAt)
             </th>
             <th></th>
@@ -37,19 +34,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Email)
+                @Html.DisplayFor(modelItem => item.User.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Spot.Address)
+                @Html.DisplayFor(modelItem => item.Spot.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VideoUrl)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedAt)

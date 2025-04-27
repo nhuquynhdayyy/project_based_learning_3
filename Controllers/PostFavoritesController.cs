@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
+using System.Security.Claims;
 
 namespace TourismWeb.Controllers
 {
@@ -48,8 +49,7 @@ namespace TourismWeb.Controllers
         // GET: PostFavorites/Create
         public IActionResult Create()
         {
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title");
             return View();
         }
 
@@ -58,16 +58,24 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FavoriteId,UserId,PostId,CreatedAt")] PostFavorite postFavorite)
+        public async Task<IActionResult> Create([Bind("FavoriteId,PostId,CreatedAt")] PostFavorite postFavorite)
         {
             if (ModelState.IsValid)
             {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null)
+                {
+                    return Unauthorized();
+                }
+
+                postFavorite.UserId = int.Parse(userIdClaim.Value);
+                postFavorite.CreatedAt = DateTime.Now;
+
                 _context.Add(postFavorite);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postFavorite.PostId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", postFavorite.UserId);
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title", postFavorite.PostId);
             return View(postFavorite);
         }
 
@@ -84,8 +92,7 @@ namespace TourismWeb.Controllers
             {
                 return NotFound();
             }
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postFavorite.PostId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", postFavorite.UserId);
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title", postFavorite.PostId);
             return View(postFavorite);
         }
 
@@ -94,13 +101,24 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FavoriteId,UserId,PostId,CreatedAt")] PostFavorite postFavorite)
+        public async Task<IActionResult> Edit(int id, [Bind("FavoriteId,PostId,CreatedAt")] PostFavorite postFavorite)
         {
             if (id != postFavorite.FavoriteId)
             {
                 return NotFound();
             }
+            // Gán lại UserId từ Claims
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized(); // người dùng chưa đăng nhập
+            postFavorite.UserId = int.Parse(userIdClaim.Value); // Gán lại UserId từ Claims
 
+            // Kiểm tra xem UserId có tồn tại trong bảng Users không
+            var userExists = await _context.Users.AnyAsync(u => u.UserId == postFavorite.UserId);
+            if (!userExists)
+            {
+                return NotFound("User does not exist.");
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -121,8 +139,7 @@ namespace TourismWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postFavorite.PostId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", postFavorite.UserId);
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title", postFavorite.PostId);
             return View(postFavorite);
         }
 

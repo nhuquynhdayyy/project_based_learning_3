@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
+using System.Security.Claims;
 
 namespace TourismWeb.Controllers
 {
@@ -48,8 +49,7 @@ namespace TourismWeb.Controllers
         // GET: SpotComments/Create
         public IActionResult Create()
         {
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name");
             return View();
         }
 
@@ -58,16 +58,28 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CommentId,UserId,SpotId,Content,ImageUrl,VideoUrl,CreatedAt")] SpotComment spotComment)
+        public async Task<IActionResult> Create([Bind("CommentId,SpotId,Content,ImageUrl,CreatedAt")] SpotComment spotComment)
         {
             if (ModelState.IsValid)
             {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null)
+                {
+                    return Unauthorized();
+                }
+
+                spotComment.UserId = int.Parse(userIdClaim.Value);
+                spotComment.CreatedAt = DateTime.Now;
+
+                if (string.IsNullOrEmpty(spotComment.ImageUrl))
+                {
+                    spotComment.ImageUrl = "/images/default-postImage.png";
+                }
                 _context.Add(spotComment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotComment.SpotId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", spotComment.UserId);
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", spotComment.SpotId);
             return View(spotComment);
         }
 
@@ -84,8 +96,8 @@ namespace TourismWeb.Controllers
             {
                 return NotFound();
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotComment.SpotId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", spotComment.UserId);
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", spotComment.SpotId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "FullName", spotComment.UserId);
             return View(spotComment);
         }
 
@@ -94,7 +106,7 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CommentId,UserId,SpotId,Content,ImageUrl,VideoUrl,CreatedAt")] SpotComment spotComment)
+        public async Task<IActionResult> Edit(int id, [Bind("CommentId,UserId,SpotId,Content,ImageUrl,CreatedAt")] SpotComment spotComment)
         {
             if (id != spotComment.CommentId)
             {
@@ -121,8 +133,8 @@ namespace TourismWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotComment.SpotId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", spotComment.UserId);
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", spotComment.SpotId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "FullName", spotComment.UserId);
             return View(spotComment);
         }
 

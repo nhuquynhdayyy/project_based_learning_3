@@ -49,7 +49,7 @@ namespace TourismWeb.Controllers
         public IActionResult Create()
         {
             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "FullName");
             return View();
         }
 
@@ -67,7 +67,7 @@ namespace TourismWeb.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotFavorite.SpotId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", spotFavorite.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "FullName", spotFavorite.UserId);
             return View(spotFavorite);
         }
 
@@ -85,7 +85,7 @@ namespace TourismWeb.Controllers
                 return NotFound();
             }
             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotFavorite.SpotId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", spotFavorite.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "FullName", spotFavorite.UserId);
             return View(spotFavorite);
         }
 
@@ -122,7 +122,7 @@ namespace TourismWeb.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotFavorite.SpotId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", spotFavorite.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "FullName", spotFavorite.UserId);
             return View(spotFavorite);
         }
 

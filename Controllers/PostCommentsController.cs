@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
+using System.Security.Claims;
 
 namespace TourismWeb.Controllers
 {
@@ -48,8 +49,7 @@ namespace TourismWeb.Controllers
         // GET: PostComments/Create
         public IActionResult Create()
         {
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title");
             return View();
         }
 
@@ -58,16 +58,28 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CommentId,UserId,PostId,Content,ImageUrl,VideoUrl,CreatedAt")] PostComment postComment)
+        public async Task<IActionResult> Create([Bind("CommentId,PostId,Content,ImageUrl,CreatedAt")] PostComment postComment)
         {
             if (ModelState.IsValid)
             {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null)
+                {
+                    return Unauthorized();
+                }
+
+                postComment.UserId = int.Parse(userIdClaim.Value);
+                postComment.CreatedAt = DateTime.Now;
+
+                if (string.IsNullOrEmpty(postComment.ImageUrl))
+                {
+                    postComment.ImageUrl = "/images/default-postImage.png";
+                }
                 _context.Add(postComment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postComment.PostId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", postComment.UserId);
             return View(postComment);
         }
 
@@ -85,7 +97,7 @@ namespace TourismWeb.Controllers
                 return NotFound();
             }
             ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postComment.PostId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", postComment.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "FullName", postComment.UserId);
             return View(postComment);
         }
 
@@ -94,7 +106,7 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CommentId,UserId,PostId,Content,ImageUrl,VideoUrl,CreatedAt")] PostComment postComment)
+        public async Task<IActionResult> Edit(int id, [Bind("CommentId,UserId,PostId,Content,ImageUrl,CreatedAt")] PostComment postComment)
         {
             if (id != postComment.CommentId)
             {
@@ -122,11 +134,12 @@ namespace TourismWeb.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postComment.PostId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", postComment.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "FullName", postComment.UserId);
             return View(postComment);
         }
 
         // GET: PostComments/Delete/5
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
