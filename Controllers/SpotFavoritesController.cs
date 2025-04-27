@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
+using System.Security.Claims;
 
 namespace TourismWeb.Controllers
 {
@@ -48,8 +49,7 @@ namespace TourismWeb.Controllers
         // GET: SpotFavorites/Create
         public IActionResult Create()
         {
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "FullName");
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name");
             return View();
         }
 
@@ -58,16 +58,24 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FavoriteId,UserId,SpotId,CreatedAt")] SpotFavorite spotFavorite)
+        public async Task<IActionResult> Create([Bind("FavoriteId,SpotId,CreatedAt")] SpotFavorite spotFavorite)
         {
             if (ModelState.IsValid)
             {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null)
+                {
+                    return Unauthorized();
+                }
+
+                spotFavorite.UserId = int.Parse(userIdClaim.Value);
+                spotFavorite.CreatedAt = DateTime.Now;
+
                 _context.Add(spotFavorite);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotFavorite.SpotId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "FullName", spotFavorite.UserId);
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", spotFavorite.SpotId);
             return View(spotFavorite);
         }
 
@@ -84,8 +92,7 @@ namespace TourismWeb.Controllers
             {
                 return NotFound();
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotFavorite.SpotId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "FullName", spotFavorite.UserId);
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", spotFavorite.SpotId);
             return View(spotFavorite);
         }
 
@@ -94,13 +101,24 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FavoriteId,UserId,SpotId,CreatedAt")] SpotFavorite spotFavorite)
+        public async Task<IActionResult> Edit(int id, [Bind("FavoriteId,SpotId,CreatedAt")] SpotFavorite spotFavorite)
         {
             if (id != spotFavorite.FavoriteId)
             {
                 return NotFound();
             }
+            // Gán lại UserId từ Claims
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized(); // người dùng chưa đăng nhập
+            spotFavorite.UserId = int.Parse(userIdClaim.Value); // Gán lại UserId từ Claims
 
+            // Kiểm tra xem UserId có tồn tại trong bảng Users không
+            var userExists = await _context.Users.AnyAsync(u => u.UserId == spotFavorite.UserId);
+            if (!userExists)
+            {
+                return NotFound("User does not exist.");
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -121,8 +139,7 @@ namespace TourismWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotFavorite.SpotId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "FullName", spotFavorite.UserId);
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", spotFavorite.SpotId);
             return View(spotFavorite);
         }
 
