@@ -84,7 +84,11 @@ namespace TourismWeb.Controllers
                 return NotFound();
             }
 
-            var postTag = await _context.PostTags.FindAsync(postId, tagId);
+            // var postTag = await _context.PostTags.FindAsync(postId, tagId);
+            var postTag = await _context.PostTags
+                .Include(p => p.Post)
+                .Include(p => p.Tag)
+                .FirstOrDefaultAsync(m => m.PostId == postId && m.TagId == tagId);
             if (postTag == null)
             {
                 return NotFound();
@@ -98,8 +102,8 @@ namespace TourismWeb.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Route("PostTags/Edit/{postId}/{tagId}")]
         [ValidateAntiForgeryToken]
+        [Route("PostTags/Edit/{postId}/{tagId}")]
         public async Task<IActionResult> Edit(int postId, int tagId, [Bind("PostId,TagId")] PostTag postTag)
         {
             if (postId != postTag.PostId || tagId != postTag.TagId)
@@ -107,26 +111,16 @@ namespace TourismWeb.Controllers
                 return NotFound();
             }
 
-            // Check if the postTag exists in the database
-            var existingPostTag = await _context.PostTags.FindAsync(postId, tagId);
-            if (existingPostTag == null)
-            {
-                return NotFound();
-            }
-
-            // Update the properties of the existing postTag
-            existingPostTag.TagId = postTag.TagId;
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(existingPostTag);
+                    _context.Update(postTag);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PostTagExists(postTag.PostId))
+                    if (!PostTagExists(postTag.PostId, postTag.TagId))
                     {
                         return NotFound();
                     }
@@ -137,9 +131,18 @@ namespace TourismWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title", postTag.PostId);
             ViewData["TagId"] = new SelectList(_context.Tags, "TagId", "Name", postTag.TagId);
+            // Cần nạp lại thông tin Post và Tag cho Model để View hiển thị đúng
+            postTag.Post = await _context.Posts.FindAsync(postTag.PostId);
+            postTag.Tag = await _context.Tags.FindAsync(postTag.TagId);
+
             return View(postTag);
+        }
+        private bool PostTagExists(int postId, int tagId)
+        {
+            return _context.PostTags.Any(e => e.PostId == postId && e.TagId == tagId);
         }
         
 
@@ -178,12 +181,6 @@ namespace TourismWeb.Controllers
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
-        }
-
-
-        private bool PostTagExists(int id)
-        {
-            return _context.PostTags.Any(e => e.PostId == id);
         }
     }
 }

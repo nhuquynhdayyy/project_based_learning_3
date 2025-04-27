@@ -25,6 +25,6 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { }) |
+    @Html.ActionLink("Edit", "Edit", new { postId = Model.PostId, tagId = Model.TagId }) |
     <a asp-action="Index">Back to List</a>
 </div>
