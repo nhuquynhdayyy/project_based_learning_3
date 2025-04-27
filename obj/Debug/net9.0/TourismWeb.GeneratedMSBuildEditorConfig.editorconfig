@@ -32,6 +32,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/Accounts/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/Accounts/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -196,26 +200,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFRhZ3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/PostVideos/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFZpZGVvc1xDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/PostVideos/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFZpZGVvc1xEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/PostVideos/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFZpZGVvc1xEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/PostVideos/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFZpZGVvc1xFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/PostVideos/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFZpZGVvc1xJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/Reviews/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3c1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -350,26 +334,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/SpotTags/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvdFRhZ3NcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/SpotVideos/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvdFZpZGVvc1xDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/SpotVideos/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvdFZpZGVvc1xEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/SpotVideos/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvdFZpZGVvc1xEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/SpotVideos/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvdFZpZGVvc1xFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/SpotVideos/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvdFZpZGVvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/OneDrive - The University of Technology/Desktop/PBL3/PBL3/Views/Tags/Create.cshtml]

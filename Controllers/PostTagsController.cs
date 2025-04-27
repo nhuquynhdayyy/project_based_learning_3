@@ -26,9 +26,11 @@ namespace TourismWeb.Controllers
         }
 
         // GET: PostTags/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet]
+        [Route("PostTags/Details/{postId}/{tagId}")]
+        public async Task<IActionResult> Details(int? postId, int? tagId)
         {
-            if (id == null)
+            if (postId == null || tagId == null)
             {
                 return NotFound();
             }
@@ -36,7 +38,8 @@ namespace TourismWeb.Controllers
             var postTag = await _context.PostTags
                 .Include(p => p.Post)
                 .Include(p => p.Tag)
-                .FirstOrDefaultAsync(m => m.PostId == id);
+                .FirstOrDefaultAsync(m => m.PostId == postId && m.TagId == tagId);
+
             if (postTag == null)
             {
                 return NotFound();
@@ -48,7 +51,7 @@ namespace TourismWeb.Controllers
         // GET: PostTags/Create
         public IActionResult Create()
         {
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content");
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title");
             ViewData["TagId"] = new SelectList(_context.Tags, "TagId", "Name");
             return View();
         }
@@ -66,25 +69,27 @@ namespace TourismWeb.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postTag.PostId);
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title", postTag.PostId);
             ViewData["TagId"] = new SelectList(_context.Tags, "TagId", "Name", postTag.TagId);
             return View(postTag);
         }
 
         // GET: PostTags/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpGet]
+        [Route("PostTags/Edit/{postId}/{tagId}")]
+        public async Task<IActionResult> Edit(int? postId, int? tagId)
         {
-            if (id == null)
+            if (postId == null || tagId == null)
             {
                 return NotFound();
             }
 
-            var postTag = await _context.PostTags.FindAsync(id);
+            var postTag = await _context.PostTags.FindAsync(postId, tagId);
             if (postTag == null)
             {
                 return NotFound();
             }
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postTag.PostId);
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title", postTag.PostId);
             ViewData["TagId"] = new SelectList(_context.Tags, "TagId", "Name", postTag.TagId);
             return View(postTag);
         }
@@ -93,19 +98,30 @@ namespace TourismWeb.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Route("PostTags/Edit/{postId}/{tagId}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PostId,TagId")] PostTag postTag)
+        public async Task<IActionResult> Edit(int postId, int tagId, [Bind("PostId,TagId")] PostTag postTag)
         {
-            if (id != postTag.PostId)
+            if (postId != postTag.PostId || tagId != postTag.TagId)
             {
                 return NotFound();
             }
+
+            // Check if the postTag exists in the database
+            var existingPostTag = await _context.PostTags.FindAsync(postId, tagId);
+            if (existingPostTag == null)
+            {
+                return NotFound();
+            }
+
+            // Update the properties of the existing postTag
+            existingPostTag.TagId = postTag.TagId;
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(postTag);
+                    _context.Update(existingPostTag);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -121,15 +137,18 @@ namespace TourismWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postTag.PostId);
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title", postTag.PostId);
             ViewData["TagId"] = new SelectList(_context.Tags, "TagId", "Name", postTag.TagId);
             return View(postTag);
         }
+        
 
-        // GET: PostTags/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: PostTags/Delete/{postId}/{tagId}
+        [HttpGet]
+        [Route("PostTags/Delete/{postId}/{tagId}")]
+        public async Task<IActionResult> Delete(int? postId, int? tagId)
         {
-            if (id == null)
+            if (postId == null || tagId == null)
             {
                 return NotFound();
             }
@@ -137,7 +156,7 @@ namespace TourismWeb.Controllers
             var postTag = await _context.PostTags
                 .Include(p => p.Post)
                 .Include(p => p.Tag)
-                .FirstOrDefaultAsync(m => m.PostId == id);
+                .FirstOrDefaultAsync(m => m.PostId == postId && m.TagId == tagId);
             if (postTag == null)
             {
                 return NotFound();
@@ -146,20 +165,21 @@ namespace TourismWeb.Controllers
             return View(postTag);
         }
 
-        // POST: PostTags/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: PostTags/DeleteConfirmed/{postId}/{tagId}
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [Route("PostTags/DeleteConfirmed/{postId}/{tagId}")]
+        public async Task<IActionResult> DeleteConfirmed(int postId, int tagId)
         {
-            var postTag = await _context.PostTags.FindAsync(id);
+            var postTag = await _context.PostTags.FindAsync(postId, tagId);
             if (postTag != null)
             {
                 _context.PostTags.Remove(postTag);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool PostTagExists(int id)
         {

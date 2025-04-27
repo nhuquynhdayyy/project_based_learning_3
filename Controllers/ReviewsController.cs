@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
+using System.Security.Claims;
 
 namespace TourismWeb.Controllers
 {
@@ -48,8 +49,7 @@ namespace TourismWeb.Controllers
         // GET: Reviews/Create
         public IActionResult Create()
         {
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name");
             return View();
         }
 
@@ -58,16 +58,28 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReviewId,UserId,SpotId,Rating,Comment,ImageUrl,VideoUrl,CreatedAt")] Review review)
+        public async Task<IActionResult> Create([Bind("ReviewId,SpotId,Rating,Comment,ImageUrl,CreatedAt")] Review review)
         {
             if (ModelState.IsValid)
             {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null)
+                {                    
+                    return Unauthorized();
+                }
+
+                review.UserId = int.Parse(userIdClaim.Value);
+                review.CreatedAt = DateTime.Now;
+
+                if (string.IsNullOrEmpty(review.ImageUrl))
+                {
+                    review.ImageUrl = "/images/default-postImage.png";
+                }
                 _context.Add(review);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", review.SpotId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", review.UserId);
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", review.SpotId);
             return View(review);
         }
 
@@ -84,8 +96,7 @@ namespace TourismWeb.Controllers
             {
                 return NotFound();
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", review.SpotId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", review.UserId);
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", review.SpotId);
             return View(review);
         }
 
@@ -94,7 +105,7 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ReviewId,UserId,SpotId,Rating,Comment,ImageUrl,VideoUrl,CreatedAt")] Review review)
+        public async Task<IActionResult> Edit(int id, [Bind("ReviewId,SpotId,Rating,Comment,ImageUrl,CreatedAt")] Review review)
         {
             if (id != review.ReviewId)
             {
@@ -105,8 +116,34 @@ namespace TourismWeb.Controllers
             {
                 try
                 {
-                    _context.Update(review);
+                    var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                    if (userIdClaim == null)
+                    {
+                        return Unauthorized();
+                    }
+
+                    var existingReview = await _context.Reviews.FirstOrDefaultAsync(p => p.ReviewId == id);
+                    if (existingReview == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Kiểm tra người dùng có quyền sửa bài viết này không
+                    if (existingReview.UserId != int.Parse(userIdClaim.Value))
+                    {
+                        return Unauthorized();
+                    }
+
+                    // Cập nhật từng field cho existingPost
+                    existingReview.SpotId = review.SpotId;
+                    existingReview.Rating = review.Rating;
+                    existingReview.Comment = review.Comment;
+                    existingReview.ImageUrl = string.IsNullOrEmpty(review.ImageUrl) 
+                        ? existingReview.ImageUrl ?? "/images/default-postImage.png" 
+                        : review.ImageUrl;
+
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -119,10 +156,8 @@ namespace TourismWeb.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", review.SpotId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email", review.UserId);
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", review.SpotId);
             return View(review);
         }
 

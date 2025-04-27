@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Spot)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Spot.Address)
+            @Html.DisplayFor(model => model.Spot.Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Tag)
@@ -25,10 +25,12 @@
         </dd>
     </dl>
     
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="SpotId" />
-        <input type="hidden" asp-for="TagId" />
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" name="spotId" value="@Model.SpotId" />
+        <input type="hidden" name="tagId" value="@Model.TagId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>
+
+
 </div>

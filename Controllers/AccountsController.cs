@@ -26,50 +26,50 @@ namespace TourismWeb.Controllers
 
         // POST: Accounts/Register
         [HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> Register(User model, string ConfirmPassword)
-{
-    if (ModelState.IsValid)
-    {
-        if (model.Password != ConfirmPassword)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(User model, string ConfirmPassword)
         {
-            ViewBag.ErrorMessage = "Mật khẩu xác nhận không khớp!";
+            if (ModelState.IsValid)
+            {
+                if (model.Password != ConfirmPassword)
+                {
+                    ViewBag.ErrorMessage = "Mật khẩu xác nhận không khớp!";
+                    return View(model);
+                }
+
+                // Check if Username or Email already exists
+                if (_context.Users.Any(u => u.Username == model.Username || u.Email == model.Email))
+                {
+                    ViewBag.ErrorMessage = "Tên đăng nhập hoặc Email đã tồn tại!";
+                    return View(model);
+                }
+
+                model.CreatedAt = DateTime.Now;
+                model.Role = "User"; // mặc định user thường
+
+                try
+                {
+                    _context.Users.Add(model);
+                    await _context.SaveChangesAsync();
+
+                    ViewBag.SuccessMessage = "Đăng ký thành công!";
+                    return View();
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.ErrorMessage = "Lỗi lưu dữ liệu: " + ex.Message;
+                    return View(model);
+                }
+            }
+
+            // Nếu ModelState không valid, xuất lỗi chi tiết
+            var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                        .Select(e => e.ErrorMessage)
+                                        .ToList();
+            ViewBag.ErrorMessage = string.Join("<br>", errors);
+
             return View(model);
         }
-
-        // Check if Username or Email already exists
-        if (_context.Users.Any(u => u.Username == model.Username || u.Email == model.Email))
-        {
-            ViewBag.ErrorMessage = "Tên đăng nhập hoặc Email đã tồn tại!";
-            return View(model);
-        }
-
-        model.CreatedAt = DateTime.Now;
-        model.Role = "User"; // mặc định user thường
-
-        try
-        {
-            _context.Users.Add(model);
-            await _context.SaveChangesAsync();
-
-            ViewBag.SuccessMessage = "Đăng ký thành công!";
-            return View();
-        }
-        catch (Exception ex)
-        {
-            ViewBag.ErrorMessage = "Lỗi lưu dữ liệu: " + ex.Message;
-            return View(model);
-        }
-    }
-
-    // Nếu ModelState không valid, xuất lỗi chi tiết
-    var errors = ModelState.Values.SelectMany(v => v.Errors)
-                                   .Select(e => e.ErrorMessage)
-                                   .ToList();
-    ViewBag.ErrorMessage = string.Join("<br>", errors);
-
-    return View(model);
-}
 
 
         // GET: Accounts/Login

@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Post)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Post.Content)
+            @Html.DisplayFor(model => model.Post.Title)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Tag)
@@ -24,11 +24,10 @@
             @Html.DisplayFor(model => model.Tag.Name)
         </dd>
     </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="PostId" />
-        <input type="hidden" asp-for="TagId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <form asp-action="DeleteConfirmed" method="post" asp-route-postId="@Model.PostId" asp-route-tagId="@Model.TagId">
+    @Html.AntiForgeryToken()
+    <input type="submit" value="Delete" class="btn btn-danger" /> |
+    <a asp-action="Index">Back to List</a>
+</form>
+
 </div>

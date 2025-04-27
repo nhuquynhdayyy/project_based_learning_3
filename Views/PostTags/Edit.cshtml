@@ -6,14 +6,26 @@
 
 <h1>Edit</h1>
 
-<h4>PostTag</h4>
+<h4>SpotTag</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <div class="col-md-6">
+        <form asp-action="Edit" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <input type="hidden" asp-for="PostId" />
             <input type="hidden" asp-for="TagId" />
+
+            <div class="form-group">
+                <label asp-for="Post.Title" class="control-label">Post</label>
+                <input class="form-control" value="@Model.Post.Title" disabled />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Tag.Name" class="control-label">Tag</label>
+                <input class="form-control" value="@Model.Tag.Name" disabled />
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

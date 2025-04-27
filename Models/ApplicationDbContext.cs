@@ -15,7 +15,6 @@ namespace TourismWeb.Models
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostImage> PostImages { get; set; }
-        public DbSet<PostVideo> PostVideos { get; set; }
         public DbSet<SpotComment> SpotComments { get; set; }
         public DbSet<PostComment> PostComments { get; set; }
         public DbSet<SpotFavorite> SpotFavorites { get; set; }
@@ -23,7 +22,6 @@ namespace TourismWeb.Models
         public DbSet<SpotShare> SpotShares { get; set; }
         public DbSet<PostShare> PostShares { get; set; }
         public DbSet<SpotImage> SpotImages { get; set; }
-        public DbSet<SpotVideo> SpotVideos { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<SpotTag> SpotTags { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
@@ -107,13 +105,6 @@ namespace TourismWeb.Models
                 .HasOne(pi => pi.Post)
                 .WithMany(p => p.Images)
                 .HasForeignKey(pi => pi.PostId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            // Quan hệ PostVideo
-            modelBuilder.Entity<PostVideo>()
-                .HasOne(pv => pv.Post)
-                .WithMany(p => p.Videos)
-                .HasForeignKey(pv => pv.PostId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Quan hệ SpotComment
@@ -241,12 +232,6 @@ namespace TourismWeb.Models
                 .WithMany(u => u.SpotImages)
                 .HasForeignKey(si => si.UploadedBy)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            // Quan hệ SpotVideo
-            modelBuilder.Entity<SpotVideo>()
-                .Property(sv => sv.UploadedAt)
-                .HasDefaultValueSql("GETDATE()");
-
 
             // Quan hệ SpotTag
             modelBuilder.Entity<SpotTag>()

@@ -26,9 +26,10 @@ namespace TourismWeb.Controllers
         }
 
         // GET: SpotTags/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Details(int? spotId, int? tagId)
         {
-            if (id == null)
+            if (spotId == null || tagId == null)
             {
                 return NotFound();
             }
@@ -36,7 +37,8 @@ namespace TourismWeb.Controllers
             var spotTag = await _context.SpotTags
                 .Include(s => s.Spot)
                 .Include(s => s.Tag)
-                .FirstOrDefaultAsync(m => m.SpotId == id);
+                .FirstOrDefaultAsync(m => m.SpotId == spotId && m.TagId == tagId);
+
             if (spotTag == null)
             {
                 return NotFound();
@@ -45,10 +47,11 @@ namespace TourismWeb.Controllers
             return View(spotTag);
         }
 
+
         // GET: SpotTags/Create
         public IActionResult Create()
         {
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address");
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name");
             ViewData["TagId"] = new SelectList(_context.Tags, "TagId", "Name");
             return View();
         }
@@ -66,37 +69,48 @@ namespace TourismWeb.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotTag.SpotId);
+            else {
+                ModelState.AddModelError("", "Invalid data. Please check your input.");
+                
+            }
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", spotTag.SpotId);
             ViewData["TagId"] = new SelectList(_context.Tags, "TagId", "Name", spotTag.TagId);
             return View(spotTag);
         }
 
         // GET: SpotTags/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: SpotTags/Edit/spotId/tagId
+        [HttpGet("SpotTags/Edit/{spotId}/{tagId}")]
+        public async Task<IActionResult> Edit(int? spotId, int? tagId)
         {
-            if (id == null)
+            if (spotId == null || tagId == null)
             {
                 return NotFound();
             }
 
-            var spotTag = await _context.SpotTags.FindAsync(id);
+            var spotTag = await _context.SpotTags
+                .Include(s => s.Spot)
+                .Include(s => s.Tag)
+                .FirstOrDefaultAsync(m => m.SpotId == spotId && m.TagId == tagId);
+
             if (spotTag == null)
             {
                 return NotFound();
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotTag.SpotId);
+
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", spotTag.SpotId);
             ViewData["TagId"] = new SelectList(_context.Tags, "TagId", "Name", spotTag.TagId);
+
             return View(spotTag);
         }
 
-        // POST: SpotTags/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: SpotTags/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SpotId,TagId")] SpotTag spotTag)
+        [Route("SpotTags/Edit/{spotId}/{tagId}")]
+        public async Task<IActionResult> Edit(int spotId, int tagId, [Bind("SpotId,TagId")] SpotTag spotTag)
         {
-            if (id != spotTag.SpotId)
+            if (spotId != spotTag.SpotId || tagId != spotTag.TagId)
             {
                 return NotFound();
             }
@@ -110,7 +124,7 @@ namespace TourismWeb.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SpotTagExists(spotTag.SpotId))
+                    if (!SpotTagExists(spotTag.SpotId, spotTag.TagId))
                     {
                         return NotFound();
                     }
@@ -121,15 +135,25 @@ namespace TourismWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotTag.SpotId);
+
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", spotTag.SpotId);
             ViewData["TagId"] = new SelectList(_context.Tags, "TagId", "Name", spotTag.TagId);
+
             return View(spotTag);
         }
 
-        // GET: SpotTags/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        private bool SpotTagExists(int spotId, int tagId)
         {
-            if (id == null)
+            return _context.SpotTags.Any(e => e.SpotId == spotId && e.TagId == tagId);
+        }
+
+
+        // GET: SpotTags/Delete
+        // GET: SpotTags/Delete
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? spotId, int? tagId)
+        {
+            if (spotId == null || tagId == null)
             {
                 return NotFound();
             }
@@ -137,7 +161,8 @@ namespace TourismWeb.Controllers
             var spotTag = await _context.SpotTags
                 .Include(s => s.Spot)
                 .Include(s => s.Tag)
-                .FirstOrDefaultAsync(m => m.SpotId == id);
+                .FirstOrDefaultAsync(m => m.SpotId == spotId && m.TagId == tagId);
+
             if (spotTag == null)
             {
                 return NotFound();
@@ -146,24 +171,18 @@ namespace TourismWeb.Controllers
             return View(spotTag);
         }
 
-        // POST: SpotTags/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: SpotTags/DeleteConfirmed
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int spotId, int tagId)
         {
-            var spotTag = await _context.SpotTags.FindAsync(id);
+            var spotTag = await _context.SpotTags.FindAsync(spotId, tagId);
             if (spotTag != null)
             {
                 _context.SpotTags.Remove(spotTag);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool SpotTagExists(int id)
-        {
-            return _context.SpotTags.Any(e => e.SpotId == id);
         }
     }
 }

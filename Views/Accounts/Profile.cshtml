@@ -1,0 +1,432 @@
+@section Styles {
+    <link rel="stylesheet" href="~/css/userprofile.css" asp-append-version="true" />
+
+}
+@{
+    ViewData["Title"] = "Trang cá nhân user";
+}
+<main>
+    <div class="profile-container">
+        <div class="profile-sidebar">
+            <img src="/images/avatar1.png" alt="Nguyễn Văn A">
+            <h2 class="profile-name">Nguyễn Văn A</h2>
+
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <div class="stat-number">23</div>
+                    <div class="stat-label">Bài viết</div>
+                </div>
+            </div>
+
+            <ul class="profile-menu">
+                <li><a href="#thongtin-tai-khoan">Hồ sơ</a></li>
+                <li><a href="#bo-suu-tap">Bộ sưu tập ảnh</a></li>
+                <li><a href="#dia-diem-yeu-thich">Địa điểm yêu thích</a></li>
+                <li><a href="#danh-gia">Đánh giá của tôi</a></li>
+                <li><a href="#bai-viet-yeu-thich">Bài viết yêu thích</a></li>
+            </ul>
+        </div>
+
+        <div class="profile-content">
+
+            <div class="profile-tabs">
+                <div class="tab active" data-tab="account">Thông tin tài khoản</div>
+                <div class="tab" data-tab="security">Mật khẩu & Bảo mật</div>
+            </div>
+
+            <div id="account-tab" class="tab-content active">
+                <div class="content-section" id="thongtin-tai-khoan">
+                    <h3 class="section-title">Dữ liệu cá nhân</h3>
+
+                    <div class="form-group">
+                        <label class="form-label">Tên đầy đủ</label>
+                        <input type="text" class="form-input" value="Nguyễn Văn A">
+                        <p class="form-hint">Tên trong hồ sơ được rút ngắn từ họ tên của bạn.</p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Giới tính</label>
+                            <select class="form-select">
+                                <option value="female" selected>Female</option>
+                                <option value="male">Male</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Ngày sinh</label>
+                            <div class="date-selects">
+                                <select class="form-select">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3" selected>3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <!-- Thêm các ngày khác nếu cần -->
+                                </select>
+
+                                <select class="form-select">
+                                    <option value="Tháng Một">Tháng Một</option>
+                                    <option value="Tháng Hai">Tháng Hai</option>
+                                    <option value="Tháng Ba" selected>Tháng Ba</option>
+                                    <option value="Tháng Tư">Tháng Tư</option>
+                                    <option value="Tháng Năm">Tháng Năm</option>
+                                    <option value="Tháng Sáu">Tháng Sáu</option>
+                                    <option value="Tháng Bảy">Tháng Bảy</option>
+                                    <option value="Tháng Tám">Tháng Tám</option>
+                                    <option value="Tháng Chín">Tháng Chín</option>
+                                    <option value="Tháng Mười">Tháng Mười</option>
+                                    <option value="Tháng Mười Một">Tháng Mười Một</option>
+                                    <option value="Tháng Mười Hai">Tháng Mười Hai</option>
+                                </select>
+
+                                <select class="form-select">
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2005" selected>2005</option>
+                                    <option value="2000">2000</option>
+                                    <option value="1995">1995</option>
+                                    <option value="1990">1990</option>
+                                    <!-- Thêm các năm khác nếu cần -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Thành phố cư trú</label>
+                        <input type="text" class="form-input" placeholder="Thành phố cư trú">
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-outline">Có lẽ để sau</button>
+                        <button class="btn btn-primary">Lưu</button>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3 class="section-title">Email</h3>
+                    <p class="card-description">Chỉ có thể sử dụng tối đa 3 email</p>
+
+                    <div class="email-item">
+                        <div>
+                            <p class="email-title">1. nguyenvana@example.com</p>
+                        </div>
+                        <span class="notification-badge">Nơi nhận thông báo</span>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-outline">
+                            <i class="icon-plus"></i>
+                            Thêm email
+                        </button>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3 class="section-title">Số di động</h3>
+                    <p class="card-description">Chỉ có thể sử dụng tối đa 3 số di động</p>
+
+                    <div class="button-group">
+                        <button class="btn btn-outline">
+                            <i class="icon-plus"></i>
+                            Thêm số di động
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="security-tab" class="tab-content">
+                <div class="content-section" id="cai-dat">
+                    <h3 class="section-title">Mật khẩu & Bảo mật</h3>
+                    <p class="card-description">Quản lý mật khẩu và các tùy chọn bảo mật cho tài khoản của bạn</p>
+
+                    <div class="form-group">
+                        <label class="form-label">Mật khẩu hiện tại</label>
+                        <input type="password" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Mật khẩu mới</label>
+                        <input type="password" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Xác nhận mật khẩu mới</label>
+                        <input type="password" class="form-input">
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-primary">Cập nhật mật khẩu</button>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3 class="section-title">Xác thực hai yếu tố</h3>
+                    <p class="card-description">Tăng cường bảo mật cho tài khoản của bạn</p>
+
+                    <div class="toggle-item">
+                        <div>
+                            <p class="toggle-title">Xác thực qua SMS</p>
+                            <p class="toggle-description">Nhận mã xác thực qua tin nhắn SMS</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-item">
+                        <div>
+                            <p class="toggle-title">Xác thực qua ứng dụng</p>
+                            <p class="toggle-description">Sử dụng ứng dụng xác thực như Google Authenticator</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="bo-suu-tap">
+                <h3 class="section-title">Bộ sưu tập ảnh</h3>
+                <div class="photo-grid">
+                    <div class="photo-item">
+                        <img src="/images/nguhanhson.png" alt="Hình ảnh du lịch">
+                    </div>
+                    <div class="photo-item">
+                        <img src="/images/nhatrang.jpg" alt="Hình ảnh du lịch">
+                    </div>
+                    <div class="photo-item">
+                        <img src="/images/sanho.jpg" alt="Hình ảnh du lịch">
+                    </div>
+                    <div class="photo-item">
+                        <img src="/images/sontra.jpg" alt="Hình ảnh du lịch">
+                    </div>
+                    <div class="photo-item">
+                        <img src="/images/xinchao.jpg" alt="Hình ảnh du lịch">
+                    </div>
+                    <div class="photo-item">
+                        <img src="/images/xinchao1.jpg" alt="Hình ảnh du lịch">
+                    </div>
+                    <div class="photo-item">
+                        <img src="/images/xinchao3.jpg" alt="Hình ảnh du lịch">
+                    </div>
+                    <div class="photo-item">
+                        <img src="/images/xinchao5.jpg" alt="Hình ảnh du lịch">
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="dia-diem-yeu-thich">
+                <h3 class="section-title">Địa điểm yêu thích</h3>
+                <div class="travel-inspiration">
+                    <div class="inspiration-card">
+                        <img src="/images/hue.jpg" alt="Huế, Thừa Thiên Huế">
+                        <div class="inspiration-content">
+                            <div class="inspiration-title">Huế, Thừa Thiên Huế</div>
+                            <div class="inspiration-description">Cố đô với hệ thống di tích lăng tẩm, hoàng thành và
+                                ẩm thực cung đình độc đáo.</div>
+                            <div class="inspiration-meta">
+                                <span>Thời gian tốt nhất: Tháng 3-8</span>
+                                <span>Đã lưu</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inspiration-card">
+                        <img src="/images/danang3.jpg" alt="Đà Nẵng">
+                        <div class="inspiration-content">
+                            <div class="inspiration-title">Đà Nẵng</div>
+                            <div class="inspiration-description">Thành phố biển hiện đại với Bà Nà Hills, Ngũ Hành
+                                Sơn và bãi biển Mỹ Khê tuyệt đẹp.</div>
+                            <div class="inspiration-meta">
+                                <span>Thời gian tốt nhất: Tháng 2-8</span>
+                                <span>Đã lưu</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inspiration-card">
+                        <img src="/images/phongnha.jpg" alt="Phong Nha, Quảng Bình">
+                        <div class="inspiration-content">
+                            <div class="inspiration-title">Phong Nha, Quảng Bình</div>
+                            <div class="inspiration-description">Vườn quốc gia với hệ thống hang động kỳ vĩ bậc nhất
+                                thế giới và cảnh quan thiên nhiên hoang sơ.</div>
+                            <div class="inspiration-meta">
+                                <span>Thời gian tốt nhất: Tháng 3-8</span>
+                                <span>Đã lưu</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="danh-gia">
+                <h3 class="section-title">Đánh giá của tôi</h3>
+                <div class="blog-list">
+                    <div class="blog-item">
+                        <img src="/images/hoian.jpg" alt="Ẩm thực Hội An">
+                        <div class="blog-content">
+                            <div class="blog-title">Top 10 món ăn nhất định phải thử khi đến Hội An</div>
+                            <div class="blog-preview">Từ Cao lầu đến Bánh mì Phượng, hãy cùng khám phá những món ăn
+                                tuyệt vời nhất của phố cổ...</div>
+                            <div class="blog-meta">
+                                <span>Đăng ngày: 15/12/2024</span>
+                                <span>325 lượt xem</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="blog-item">
+                        <img src="/images/lyson.jpg" alt="Du lịch Lý Sơn">
+                        <div class="blog-content">
+                            <div class="blog-title">Bí quyết du lịch tiết kiệm cho người lần đầu đến Lý Sơn, Quảng
+                                Ngãi</div>
+                            <div class="blog-preview">Kinh nghiệm tiết kiệm chi phí khi du lịch Lý Sơn từ chỗ ở, đi
+                                lại, ăn uống...</div>
+                            <div class="blog-meta">
+                                <span>Đăng ngày: 07/02/2025</span>
+                                <span>412 lượt xem</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="blog-item">
+                        <img src="/images/phuyen.jpg" alt="Trekking Bạch Mã">
+                        <div class="blog-content">
+                            <div class="blog-title">Trải nghiệm trekking Bạch Mã: Hướng dẫn chi tiết cho người mới
+                                bắt đầu</div>
+                            <div class="blog-preview">Chuẩn bị gì, đi như thế nào và những lưu ý quan trọng khi
+                                trekking ở Vườn Quốc gia Bạch Mã...</div>
+                            <div class="blog-meta">
+                                <span>Đăng ngày: 25/03/2025</span>
+                                <span>189 lượt xem</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="bai-viet-yeu-thich">
+                <h3 class="section-title">Bài viết yêu thích</h3>
+                <div class="favorite-posts">
+                    <div class="favorite-post-card">
+                        <img src="/images/hoian2.jpg" alt="Điểm tham quan Hội An">
+                        <div class="favorite-post-content">
+                            <div class="favorite-post-title">Top 10 điểm tham quan không thể bỏ lỡ ở Hội An</div>
+                            <div class="favorite-post-author">
+                                <img src="/images/avatar3.png" alt="Lê Thị B">
+                                <div class="favorite-post-author-name">Lê Thị B • 18/01/2025</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="favorite-post-card">
+                        <img src="/images/haunuong.jpg" alt="Ẩm thực đường phố miền Trung">
+                        <div class="favorite-post-content">
+                            <div class="favorite-post-title">Ẩm thực đường phố miền Trung: Hành trình khám phá hương
+                                vị cay nồng</div>
+                            <div class="favorite-post-author">
+                                <img src="/images/avatar3.png" alt="Trần Văn C">
+                                <div class="favorite-post-author-name">Trần Văn C • 05/03/2025</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="favorite-post-card">
+                        <img src="/images/danangg.jpg" alt="Khám phá miền Trung">
+                        <div class="favorite-post-content">
+                            <div class="favorite-post-title">Khám phá miền Trung trong 14 ngày với ngân sách hạn chế
+                            </div>
+                            <div class="favorite-post-author">
+                                <img src="/images/avatar3.png" alt="Phạm Thị D">
+                                <div class="favorite-post-author-name">Phạm Thị D • 22/02/2025</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="favorite-post-card">
+                        <img src="/images/ganhdadia.jpg" alt="Phượt miền Trung">
+                        <div class="favorite-post-content">
+                            <div class="favorite-post-title">Kinh nghiệm phượt dọc miền Trung bằng xe máy an toàn
+                            </div>
+                            <div class="favorite-post-author">
+                                <img src="/images/avatar3.png" alt="Hoàng Văn E">
+                                <div class="favorite-post-author-name">Hoàng Văn E • 10/01/2025</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@* <script>
+    // JavaScript để xử lý cuộn trang và hiệu ứng mượt mà
+    document.addEventListener('DOMContentLoaded', function () {
+        // Không cần thêm JS phức tạp vì đã xử lý bằng position: sticky trong CSS
+
+        // Thêm hiệu ứng active cho menu
+        const menuItems = document.querySelectorAll('.profile-menu a');
+        menuItems.forEach(item => {
+            item.addEventListener('click', function (e) {
+                menuItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    });
+</script> *@
+
+<script>
+    // JavaScript để xử lý cuộn trang và hiệu ứng mượt mà
+    document.addEventListener('DOMContentLoaded', function () {
+        // Thêm hiệu ứng cuộn mượt mà cho các liên kết trong menu
+        const menuItems = document.querySelectorAll('.profile-menu a');
+        menuItems.forEach(item => {
+            item.addEventListener('click', function (e) {
+                // Ngừng hành động mặc định để ngăn trang tự động cuộn
+                e.preventDefault();
+
+                // Lấy mục tiêu cuộn và cuộn đến đó
+                const targetId = this.getAttribute('href').substring(1); // Loại bỏ dấu # từ href
+                const targetElement = document.getElementById(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 50, // Để cho phần trên của mục cuộn cách một chút
+                    behavior: 'smooth'
+                });
+
+                // Thêm hiệu ứng active cho menu
+                menuItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Thêm hiệu ứng active cho các tab
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Xóa lớp 'active' khỏi tất cả các tab và tab content
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Thêm lớp 'active' vào tab đã nhấn và phần nội dung tương ứng
+                tab.classList.add('active');
+                const activeTab = tab.getAttribute('data-tab');
+                document.getElementById(`${activeTab}-tab`).classList.add('active');
+            });
+        });
+    });
+</script>
