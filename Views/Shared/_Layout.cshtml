@@ -44,7 +44,7 @@
                             <i class="fas fa-map-marker-alt"></i> Địa điểm
                         </a>
                     </li>
-                    <li class="nav-item">
+                    @* <li class="nav-item">
                         <a class="nav-link" asp-controller="Guide" asp-action="Index">
                             <i class="fas fa-book"></i> Cẩm nang du lịch
                         </a>
@@ -52,6 +52,23 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Experience" asp-action="Index">
                             <i class="fas fa-walking"></i> Trải nghiệm
+                        </a>
+                    </li> *@
+                    <li class="nav-item"></li>
+                        <a class="nav-link" asp-controller="Posts" asp-action="Category" asp-route-type="Cẩm nang">
+                            <i class="fas fa-book"></i> Cẩm nang du lịch
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Posts" asp-action="Category" asp-route-type="Địa điểm">
+                            <i class="fas fa-map-marker-alt"></i> Địa điểm
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Posts" asp-action="Category" asp-route-type="Trải nghiệm">
+                            <i class="fas fa-compass"></i> Trải nghiệm
                         </a>
                     </li>
 
@@ -207,8 +224,11 @@
                     <ul>
                         <li><a href="/">Trang chủ</a></li>
                         <li><a href="/TouristSpots">Địa điểm</a></li>
-                        <li><a href="/Guide">Cẩm nang du lịch</a></li>
-                        <li><a href="/Experience">Trải nghiệm</a></li>
+                        <li><a href="/Posts/Category?type=Cẩm nang">Cẩm nang du lịch</a></li>
+                        <li><a href="/Posts/Category?type=Địa điểm">Địa điểm</a></li>
+                        <li><a href="/Posts/Category?type=Trải nghiệm">Trải nghiệm</a></li>
+                        @* <li><a href="/Guide">Cẩm nang du lịch</a></li>
+                        <li><a href="/Experience">Trải nghiệm</a></li> *@
                         <li><a href="/Posts/Create">Đăng bài</a></li>
                         <li><a href="/Contact">Liên hệ</a></li>
                     </ul>

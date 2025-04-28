@@ -208,5 +208,23 @@ namespace TourismWeb.Controllers
         {
             return _context.Posts.Any(e => e.PostId == id);
         }
+
+        // GET: Posts/Category
+        public async Task<IActionResult> Category(string type)
+        {
+            if (string.IsNullOrEmpty(type))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var posts = await _context.Posts
+                .Include(p => p.Spot)
+                .Include(p => p.User)
+                .Where(p => p.TypeOfPost == type)
+                .ToListAsync();
+
+            ViewBag.TypeOfPost = type; // Gửi loại bài viết để hiện lên tiêu đề nếu cần
+            return View("Index", posts); // Xài lại view Index.cshtml
+        }
     }
 }
