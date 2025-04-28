@@ -12,8 +12,8 @@ using TourismWeb.Models;
 namespace TourismWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250426163847_UpdateUserDateOfBirthNullable")]
-    partial class UpdateUserDateOfBirthNullable
+    [Migration("20250427173749_update")]
+    partial class update
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,10 @@ namespace TourismWeb.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SpotId")
                         .HasColumnType("int");
@@ -112,10 +116,6 @@ namespace TourismWeb.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("VideoUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("CommentId");
 
                     b.HasIndex("PostId");
@@ -168,14 +168,17 @@ namespace TourismWeb.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UploadedBy")
                         .HasColumnType("int");
 
                     b.HasKey("PostImageId");
 
                     b.HasIndex("PostId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UploadedBy");
 
                     b.ToTable("PostImages");
                 });
@@ -226,28 +229,6 @@ namespace TourismWeb.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("PostTags");
-                });
-
-            modelBuilder.Entity("TourismWeb.Models.PostVideo", b =>
-                {
-                    b.Property<int>("PostVideoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostVideoId"));
-
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("VideoUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PostVideoId");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("PostVideos");
                 });
 
             modelBuilder.Entity("TourismWeb.Models.Review", b =>
@@ -315,10 +296,6 @@ namespace TourismWeb.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("VideoUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CommentId");
 
@@ -437,41 +414,6 @@ namespace TourismWeb.Migrations
                     b.ToTable("SpotTags");
                 });
 
-            modelBuilder.Entity("TourismWeb.Models.SpotVideo", b =>
-                {
-                    b.Property<int>("VideoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VideoId"));
-
-                    b.Property<int>("SpotId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UploadedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<int>("UploadedBy")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("VideoUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("VideoId");
-
-                    b.HasIndex("SpotId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("SpotVideos");
-                });
-
             modelBuilder.Entity("TourismWeb.Models.Tag", b =>
                 {
                     b.Property<int>("TagId")
@@ -549,7 +491,7 @@ namespace TourismWeb.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -570,7 +512,6 @@ namespace TourismWeb.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
                         .HasDefaultValue("0000000000");
@@ -656,11 +597,15 @@ namespace TourismWeb.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TourismWeb.Models.User", null)
+                    b.HasOne("TourismWeb.Models.User", "User")
                         .WithMany("PostImages")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UploadedBy")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Post");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TourismWeb.Models.PostShare", b =>
@@ -699,17 +644,6 @@ namespace TourismWeb.Migrations
                     b.Navigation("Post");
 
                     b.Navigation("Tag");
-                });
-
-            modelBuilder.Entity("TourismWeb.Models.PostVideo", b =>
-                {
-                    b.HasOne("TourismWeb.Models.Post", "Post")
-                        .WithMany("Videos")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("TourismWeb.Models.Review", b =>
@@ -826,25 +760,6 @@ namespace TourismWeb.Migrations
                     b.Navigation("Tag");
                 });
 
-            modelBuilder.Entity("TourismWeb.Models.SpotVideo", b =>
-                {
-                    b.HasOne("TourismWeb.Models.TouristSpot", "Spot")
-                        .WithMany()
-                        .HasForeignKey("SpotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TourismWeb.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Spot");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("TourismWeb.Models.TouristSpot", b =>
                 {
                     b.HasOne("TourismWeb.Models.Category", "Category")
@@ -872,8 +787,6 @@ namespace TourismWeb.Migrations
                     b.Navigation("PostTags");
 
                     b.Navigation("Shares");
-
-                    b.Navigation("Videos");
                 });
 
             modelBuilder.Entity("TourismWeb.Models.Tag", b =>

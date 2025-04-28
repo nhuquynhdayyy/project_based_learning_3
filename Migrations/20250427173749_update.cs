@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TourismWeb.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class update : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -43,16 +43,16 @@ namespace TourismWeb.Migrations
                 {
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true, defaultValue: "0000000000"),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, defaultValue: "0000000000"),
+                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "default-avatar.png"),
-                    Role = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, defaultValue: "User"),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "User"),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    LastLoginAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    TwoFaEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFaSecret = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "")
+                    LastLoginAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,13 +70,6 @@ namespace TourismWeb.Migrations
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Latitude = table.Column<double>(type: "float", nullable: false),
-                    Longitude = table.Column<double>(type: "float", nullable: false),
-                    OpeningHours = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EntranceFee = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Services = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
@@ -87,13 +80,7 @@ namespace TourismWeb.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TouristSpots_Users_CreatedBy",
-                        column: x => x.CreatedBy,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,6 +94,7 @@ namespace TourismWeb.Migrations
                     TypeOfPost = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
@@ -137,7 +125,6 @@ namespace TourismWeb.Migrations
                     Rating = table.Column<int>(type: "int", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
@@ -167,7 +154,6 @@ namespace TourismWeb.Migrations
                     SpotId = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
@@ -295,34 +281,6 @@ namespace TourismWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SpotVideos",
-                columns: table => new
-                {
-                    VideoId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SpotId = table.Column<int>(type: "int", nullable: false),
-                    VideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UploadedBy = table.Column<int>(type: "int", nullable: false),
-                    UploadedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SpotVideos", x => x.VideoId);
-                    table.ForeignKey(
-                        name: "FK_SpotVideos_TouristSpots_SpotId",
-                        column: x => x.SpotId,
-                        principalTable: "TouristSpots",
-                        principalColumn: "SpotId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SpotVideos_Users_UploadedBy",
-                        column: x => x.UploadedBy,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PostComments",
                 columns: table => new
                 {
@@ -332,7 +290,6 @@ namespace TourismWeb.Migrations
                     PostId = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
@@ -386,7 +343,8 @@ namespace TourismWeb.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PostId = table.Column<int>(type: "int", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    UploadedBy = table.Column<int>(type: "int", nullable: false),
+                    UploadedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -398,8 +356,8 @@ namespace TourismWeb.Migrations
                         principalColumn: "PostId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PostImages_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_PostImages_Users_UploadedBy",
+                        column: x => x.UploadedBy,
                         principalTable: "Users",
                         principalColumn: "UserId");
                 });
@@ -456,32 +414,6 @@ namespace TourismWeb.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "PostVideos",
-                columns: table => new
-                {
-                    PostVideoId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PostId = table.Column<int>(type: "int", nullable: false),
-                    VideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PostVideos", x => x.PostVideoId);
-                    table.ForeignKey(
-                        name: "FK_PostVideos_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
-                        principalColumn: "PostId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PostVideos_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId");
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_PostComments_PostId",
                 table: "PostComments",
@@ -508,9 +440,9 @@ namespace TourismWeb.Migrations
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PostImages_UserId",
+                name: "IX_PostImages_UploadedBy",
                 table: "PostImages",
-                column: "UserId");
+                column: "UploadedBy");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_SpotId",
@@ -536,16 +468,6 @@ namespace TourismWeb.Migrations
                 name: "IX_PostTags_TagId",
                 table: "PostTags",
                 column: "TagId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PostVideos_PostId",
-                table: "PostVideos",
-                column: "PostId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PostVideos_UserId",
-                table: "PostVideos",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_SpotId",
@@ -603,24 +525,9 @@ namespace TourismWeb.Migrations
                 column: "TagId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SpotVideos_SpotId",
-                table: "SpotVideos",
-                column: "SpotId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SpotVideos_UploadedBy",
-                table: "SpotVideos",
-                column: "UploadedBy");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TouristSpots_CategoryId",
                 table: "TouristSpots",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TouristSpots_CreatedBy",
-                table: "TouristSpots",
-                column: "CreatedBy");
         }
 
         /// <inheritdoc />
@@ -642,9 +549,6 @@ namespace TourismWeb.Migrations
                 name: "PostTags");
 
             migrationBuilder.DropTable(
-                name: "PostVideos");
-
-            migrationBuilder.DropTable(
                 name: "Reviews");
 
             migrationBuilder.DropTable(
@@ -663,9 +567,6 @@ namespace TourismWeb.Migrations
                 name: "SpotTags");
 
             migrationBuilder.DropTable(
-                name: "SpotVideos");
-
-            migrationBuilder.DropTable(
                 name: "Posts");
 
             migrationBuilder.DropTable(
@@ -675,10 +576,10 @@ namespace TourismWeb.Migrations
                 name: "TouristSpots");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Categories");
         }
     }
 }

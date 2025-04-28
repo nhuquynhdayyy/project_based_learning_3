@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
+using System.Security.Claims;
 
 namespace TourismWeb.Controllers
 {
@@ -48,8 +49,7 @@ namespace TourismWeb.Controllers
         // GET: SpotImages/Create
         public IActionResult Create()
         {
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address");
-            ViewData["UploadedBy"] = new SelectList(_context.Users, "UserId", "Email");
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name");
             return View();
         }
 
@@ -58,16 +58,28 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ImageId,SpotId,ImageUrl,UploadedBy,UploadedAt")] SpotImage spotImage)
+        public async Task<IActionResult> Create([Bind("ImageId,SpotId,ImageUrl,UploadedAt")] SpotImage spotImage)
         {
             if (ModelState.IsValid)
             {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null)
+                {
+                    return Unauthorized();
+                }
+
+                spotImage.UploadedBy = int.Parse(userIdClaim.Value);
+                spotImage.UploadedAt = DateTime.Now;
+
+                if (string.IsNullOrEmpty(spotImage.ImageUrl))
+                {
+                    spotImage.ImageUrl = "/images/default-postImage.png";
+                }
                 _context.Add(spotImage);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotImage.SpotId);
-            ViewData["UploadedBy"] = new SelectList(_context.Users, "UserId", "Email", spotImage.UploadedBy);
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", spotImage.SpotId);
             return View(spotImage);
         }
 
@@ -84,8 +96,7 @@ namespace TourismWeb.Controllers
             {
                 return NotFound();
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotImage.SpotId);
-            ViewData["UploadedBy"] = new SelectList(_context.Users, "UserId", "Email", spotImage.UploadedBy);
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", spotImage.SpotId);
             return View(spotImage);
         }
 
@@ -94,13 +105,24 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ImageId,SpotId,ImageUrl,UploadedBy,UploadedAt")] SpotImage spotImage)
+        public async Task<IActionResult> Edit(int id, [Bind("ImageId,SpotId,ImageUrl,UploadedAt")] SpotImage spotImage)
         {
             if (id != spotImage.ImageId)
             {
                 return NotFound();
             }
+            // Gán lại UserId từ Claims
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized(); // người dùng chưa đăng nhập
+            spotImage.UploadedBy = int.Parse(userIdClaim.Value); // Gán lại UserId từ Claims
 
+            // Kiểm tra xem UserId có tồn tại trong bảng Users không
+            var userExists = await _context.Users.AnyAsync(u => u.UserId == spotImage.UploadedBy);
+            if (!userExists)
+            {
+                return NotFound("User does not exist.");
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -121,8 +143,7 @@ namespace TourismWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Address", spotImage.SpotId);
-            ViewData["UploadedBy"] = new SelectList(_context.Users, "UserId", "Email", spotImage.UploadedBy);
+            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", spotImage.SpotId);
             return View(spotImage);
         }
 

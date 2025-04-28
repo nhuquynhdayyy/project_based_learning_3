@@ -232,6 +232,12 @@ namespace TourismWeb.Models
                 .WithMany(u => u.SpotImages)
                 .HasForeignKey(si => si.UploadedBy)
                 .OnDelete(DeleteBehavior.Restrict);
+            
+            modelBuilder.Entity<PostImage>()
+                .HasOne(si => si.User)
+                .WithMany(u => u.PostImages)
+                .HasForeignKey(si => si.UploadedBy)
+                .OnDelete(DeleteBehavior.NoAction); // Không xóa PostImages khi User bị xóa
 
             // Quan hệ SpotTag
             modelBuilder.Entity<SpotTag>()

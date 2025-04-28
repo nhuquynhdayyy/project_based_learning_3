@@ -18,6 +18,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.ImageUrl)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UploadedAt)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -25,10 +31,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Post.Content)
+                @Html.DisplayFor(modelItem => item.Post.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ImageUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadedAt)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PostImageId">Edit</a> |

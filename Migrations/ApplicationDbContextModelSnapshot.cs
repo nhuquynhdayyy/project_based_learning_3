@@ -165,14 +165,17 @@ namespace TourismWeb.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UploadedBy")
                         .HasColumnType("int");
 
                     b.HasKey("PostImageId");
 
                     b.HasIndex("PostId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UploadedBy");
 
                     b.ToTable("PostImages");
                 });
@@ -591,11 +594,15 @@ namespace TourismWeb.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TourismWeb.Models.User", null)
+                    b.HasOne("TourismWeb.Models.User", "User")
                         .WithMany("PostImages")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UploadedBy")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Post");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TourismWeb.Models.PostShare", b =>

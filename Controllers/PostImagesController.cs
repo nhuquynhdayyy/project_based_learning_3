@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
+using System.Security.Claims;
 
 namespace TourismWeb.Controllers
 {
@@ -21,7 +22,7 @@ namespace TourismWeb.Controllers
         // GET: PostImages
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.PostImages.Include(p => p.Post);
+            var applicationDbContext = _context.PostImages.Include(p => p.Post).Include(p => p.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,6 +36,7 @@ namespace TourismWeb.Controllers
 
             var postImage = await _context.PostImages
                 .Include(p => p.Post)
+                .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.PostImageId == id);
             if (postImage == null)
             {
@@ -47,7 +49,7 @@ namespace TourismWeb.Controllers
         // GET: PostImages/Create
         public IActionResult Create()
         {
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content");
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title");
             return View();
         }
 
@@ -56,15 +58,28 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostImageId,PostId,ImageUrl")] PostImage postImage)
+        public async Task<IActionResult> Create([Bind("PostImageId,PostId,ImageUrl,UploadedBy,UploadedAt")] PostImage postImage)
         {
             if (ModelState.IsValid)
             {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null)
+                {
+                    return Unauthorized();
+                }
+
+                postImage.UploadedBy = int.Parse(userIdClaim.Value);
+                postImage.UploadedAt = DateTime.Now;
+
+                if (string.IsNullOrEmpty(postImage.ImageUrl))
+                {
+                    postImage.ImageUrl = "/images/default-postImage.png";
+                }
                 _context.Add(postImage);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postImage.PostId);
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title", postImage.PostId);
             return View(postImage);
         }
 
@@ -81,7 +96,7 @@ namespace TourismWeb.Controllers
             {
                 return NotFound();
             }
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postImage.PostId);
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title", postImage.PostId);
             return View(postImage);
         }
 
@@ -90,13 +105,24 @@ namespace TourismWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PostImageId,PostId,ImageUrl")] PostImage postImage)
+        public async Task<IActionResult> Edit(int id, [Bind("PostImageId,PostId,ImageUrl,UploadedAt")] PostImage postImage)
         {
             if (id != postImage.PostImageId)
             {
                 return NotFound();
             }
+            // Gán lại UserId từ Claims
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized(); // người dùng chưa đăng nhập
+            postImage.UploadedBy = int.Parse(userIdClaim.Value); // Gán lại UserId từ Claims
 
+            // Kiểm tra xem UserId có tồn tại trong bảng Users không
+            var userExists = await _context.Users.AnyAsync(u => u.UserId == postImage.UploadedBy);
+            if (!userExists)
+            {
+                return NotFound("User does not exist.");
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -117,11 +143,12 @@ namespace TourismWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Content", postImage.PostId);
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Title", postImage.PostId);
             return View(postImage);
         }
 
         // GET: PostImages/Delete/5
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -131,6 +158,7 @@ namespace TourismWeb.Controllers
 
             var postImage = await _context.PostImages
                 .Include(p => p.Post)
+                .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.PostImageId == id);
             if (postImage == null)
             {
