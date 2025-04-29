@@ -130,5 +130,6 @@ namespace TourismWeb.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Accounts");
         }
+
     }
 }

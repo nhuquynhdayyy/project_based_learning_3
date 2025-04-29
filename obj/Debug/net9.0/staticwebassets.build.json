@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cYPJHAeoUYKZKTbHQydllLAm/TDr0732CCUWpE5viMQ=",
+  "Hash": "0p5p8i4Yhwc+WoYrsUtQH3FaWVPraEblfqilrrRQh6A=",
   "Source": "TourismWeb",
   "BasePath": "_content/TourismWeb",
   "Mode": "Default",
@@ -1991,27 +1991,6 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "D:\\PBL3\\PBL3\\wwwroot\\images\\avatar1.png",
-      "SourceId": "TourismWeb",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\PBL3\\PBL3\\wwwroot\\",
-      "BasePath": "_content/TourismWeb",
-      "RelativePath": "images/avatar1#[.{fingerprint}]?.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "dqo7ospjf6",
-      "Integrity": "9dC0zimMNklvf9YPI92Xkk9t00eDPHEBHCKT2NtOS7g=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\avatar1.png"
-    },
-    {
       "Identity": "D:\\PBL3\\PBL3\\wwwroot\\images\\avatar2.jpg",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
@@ -2472,6 +2451,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\dananggg.jpg"
+    },
+    {
+      "Identity": "D:\\PBL3\\PBL3\\wwwroot\\images\\default-avatar.png",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/default-avatar#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "dqo7ospjf6",
+      "Integrity": "9dC0zimMNklvf9YPI92Xkk9t00eDPHEBHCKT2NtOS7g=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\default-avatar.png"
     },
     {
       "Identity": "D:\\PBL3\\PBL3\\wwwroot\\images\\desktop.ini",
@@ -8211,88 +8211,6 @@
       ]
     },
     {
-      "Route": "images/avatar1.dqo7ospjf6.png",
-      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\avatar1.png",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "682514"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/png"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"9dC0zimMNklvf9YPI92Xkk9t00eDPHEBHCKT2NtOS7g=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 18 Apr 2025 03:32:53 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "dqo7ospjf6"
-        },
-        {
-          "Name": "label",
-          "Value": "images/avatar1.png"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-9dC0zimMNklvf9YPI92Xkk9t00eDPHEBHCKT2NtOS7g="
-        }
-      ]
-    },
-    {
-      "Route": "images/avatar1.png",
-      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\avatar1.png",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "682514"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/png"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"9dC0zimMNklvf9YPI92Xkk9t00eDPHEBHCKT2NtOS7g=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 18 Apr 2025 03:32:53 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-9dC0zimMNklvf9YPI92Xkk9t00eDPHEBHCKT2NtOS7g="
-        }
-      ]
-    },
-    {
       "Route": "images/avatar2.20ifr52pg6.jpg",
       "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\avatar2.jpg",
       "Selectors": [],
@@ -10093,6 +10011,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-1TSYKaGL8baNwBY55jDKgEh0TJaeNwPKImuJcpM+g7I="
+        }
+      ]
+    },
+    {
+      "Route": "images/default-avatar.dqo7ospjf6.png",
+      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\default-avatar.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "682514"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9dC0zimMNklvf9YPI92Xkk9t00eDPHEBHCKT2NtOS7g=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 18 Apr 2025 03:32:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "dqo7ospjf6"
+        },
+        {
+          "Name": "label",
+          "Value": "images/default-avatar.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-9dC0zimMNklvf9YPI92Xkk9t00eDPHEBHCKT2NtOS7g="
+        }
+      ]
+    },
+    {
+      "Route": "images/default-avatar.png",
+      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\default-avatar.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "682514"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9dC0zimMNklvf9YPI92Xkk9t00eDPHEBHCKT2NtOS7g=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 18 Apr 2025 03:32:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-9dC0zimMNklvf9YPI92Xkk9t00eDPHEBHCKT2NtOS7g="
         }
       ]
     },

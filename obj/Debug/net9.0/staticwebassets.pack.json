@@ -45,10 +45,6 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\avatar1.png",
-      "PackagePath": "staticwebassets\\images\\avatar1.png"
-    },
-    {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\avatar2.jpg",
       "PackagePath": "staticwebassets\\images\\avatar2.jpg"
     },
@@ -135,6 +131,10 @@
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\dananggg.jpg",
       "PackagePath": "staticwebassets\\images\\dananggg.jpg"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\default-avatar.png",
+      "PackagePath": "staticwebassets\\images\\default-avatar.png"
     },
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\desktop.ini",

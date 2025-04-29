@@ -1,4 +1,4 @@
-@section Styles {
+@* @section Styles {
     <link rel="stylesheet" href="~/css/userprofile.css" asp-append-version="true" />
 
 }
@@ -8,7 +8,7 @@
 <main>
     <div class="profile-container">
         <div class="profile-sidebar">
-            <img src="/images/avatar1.png" alt="Nguyễn Văn A">
+            <img src="/images/default-avatar.png" alt="Nguyễn Văn A">
             <h2 class="profile-name">Nguyễn Văn A</h2>
 
             <div class="profile-stats">
@@ -373,21 +373,398 @@
     </div>
 </main>
 
-@* <script>
+<script>
     // JavaScript để xử lý cuộn trang và hiệu ứng mượt mà
     document.addEventListener('DOMContentLoaded', function () {
-        // Không cần thêm JS phức tạp vì đã xử lý bằng position: sticky trong CSS
-
-        // Thêm hiệu ứng active cho menu
+        // Thêm hiệu ứng cuộn mượt mà cho các liên kết trong menu
         const menuItems = document.querySelectorAll('.profile-menu a');
         menuItems.forEach(item => {
             item.addEventListener('click', function (e) {
+                // Ngừng hành động mặc định để ngăn trang tự động cuộn
+                e.preventDefault();
+
+                // Lấy mục tiêu cuộn và cuộn đến đó
+                const targetId = this.getAttribute('href').substring(1); // Loại bỏ dấu # từ href
+                const targetElement = document.getElementById(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 50, // Để cho phần trên của mục cuộn cách một chút
+                    behavior: 'smooth'
+                });
+
+                // Thêm hiệu ứng active cho menu
                 menuItems.forEach(i => i.classList.remove('active'));
                 this.classList.add('active');
             });
         });
+
+        // Thêm hiệu ứng active cho các tab
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Xóa lớp 'active' khỏi tất cả các tab và tab content
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Thêm lớp 'active' vào tab đã nhấn và phần nội dung tương ứng
+                tab.classList.add('active');
+                const activeTab = tab.getAttribute('data-tab');
+                document.getElementById(`${activeTab}-tab`).classList.add('active');
+            });
+        });
     });
 </script> *@
+@model TourismWeb.Models.User
+@section Styles {
+    <link rel="stylesheet" href="~/css/userprofile.css" asp-append-version="true" />
+}
+
+@{
+    ViewData["Title"] = "Trang cá nhân user";
+}
+
+<main>
+    <div class="profile-container">
+        <div class="profile-sidebar">
+            <img src="@Model.AvatarUrl" alt="@Model.FullName">
+            <h2 class="profile-name">@Model.FullName</h2>
+
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <div class="stat-number">@Model.Posts.Count</div>
+                    <div class="stat-label">Bài viết</div>
+                </div>
+            </div>
+
+            <ul class="profile-menu">
+                <li><a href="#thongtin-tai-khoan">Hồ sơ</a></li>
+                <li><a href="#bo-suu-tap">Bộ sưu tập ảnh</a></li>
+                <li><a href="#dia-diem-yeu-thich">Địa điểm yêu thích</a></li>
+                <li><a href="#danh-gia">Đánh giá của tôi</a></li>
+                <li><a href="#bai-viet-yeu-thich">Bài viết yêu thích</a></li>
+            </ul>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-tabs">
+                <div class="tab active" data-tab="account">Thông tin tài khoản</div>
+                <div class="tab" data-tab="security">Mật khẩu & Bảo mật</div>
+            </div>
+
+            <div id="account-tab" class="tab-content active">
+                <div class="content-section" id="thongtin-tai-khoan">
+                    <h3 class="section-title">Dữ liệu cá nhân</h3>
+
+                    <div class="form-group">
+                        <label class="form-label">Tên đầy đủ</label>
+                        <input type="text" class="form-input" value="@Model.FullName">
+                        <p class="form-hint">Tên trong hồ sơ được rút ngắn từ họ tên của bạn.</p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Giới tính</label>
+                            <select class="form-select">
+                                <option value="female" selected>Female</option>
+                                <option value="male">Male</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Ngày sinh</label>
+                            <div class="date-selects">
+                                @{
+                                    var birthDate = Model.DateOfBirth.HasValue ? Model.DateOfBirth.Value : DateTime.Now;
+                                    var day = birthDate.Day;
+                                    var month = birthDate.Month;
+                                    var year = birthDate.Year;
+                                }
+                                <select class="form-select">
+                                    @for (int i = 1; i <= 31; i++)
+                                    {
+                                        <option value="@i" selected="@(day == i)">@i</option>
+                                    }
+                                </select>
+
+                                <select class="form-select">
+                                    @for (int i = 1; i <= 12; i++)
+                                    {
+                                        <option value="@i" selected="@(month == i)">Tháng @i</option>
+                                    }
+                                </select>
+                                <select class="form-select">
+                                    @{
+                                        int currentYear = DateTime.Now.Year;
+                                        for (int i = currentYear; i >= currentYear - 100; i--)
+                                        {
+                                            <option value="@i" selected="@(year == i)">@i</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Thành phố cư trú</label>
+                        <input type="text" class="form-input" placeholder="Thành phố cư trú">
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-outline">Có lẽ để sau</button>
+                        <button class="btn btn-primary">Lưu</button>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3 class="section-title">Email</h3>
+                    <p class="card-description">Chỉ có thể sử dụng tối đa 3 email</p>
+
+                    <div class="email-item">
+                        <div>
+                            <p class="email-title">1. @Model.Email</p>
+                        </div>
+                        <span class="notification-badge">Nơi nhận thông báo</span>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-outline">
+                            <i class="icon-plus"></i>
+                            Thêm email
+                        </button>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3 class="section-title">Số di động</h3>
+                    <p class="card-description">Chỉ có thể sử dụng tối đa 3 số di động</p>
+
+                    @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+                    {
+                        <div class="email-item">
+                            <div>
+                                <p class="email-title">1. @Model.PhoneNumber</p>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="button-group">
+                        <button class="btn btn-outline">
+                            <i class="icon-plus"></i>
+                            Thêm số di động
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="security-tab" class="tab-content">
+                <div class="content-section" id="cai-dat">
+                    <h3 class="section-title">Mật khẩu & Bảo mật</h3>
+                    <p class="card-description">Quản lý mật khẩu và các tùy chọn bảo mật cho tài khoản của bạn</p>
+
+                    <div class="form-group">
+                        <label class="form-label">Mật khẩu hiện tại</label>
+                        <input type="password" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Mật khẩu mới</label>
+                        <input type="password" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Xác nhận mật khẩu mới</label>
+                        <input type="password" class="form-input">
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-primary">Cập nhật mật khẩu</button>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h3 class="section-title">Xác thực hai yếu tố</h3>
+                    <p class="card-description">Tăng cường bảo mật cho tài khoản của bạn</p>
+
+                    <div class="toggle-item">
+                        <div>
+                            <p class="toggle-title">Xác thực qua SMS</p>
+                            <p class="toggle-description">Nhận mã xác thực qua tin nhắn SMS</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-item">
+                        <div>
+                            <p class="toggle-title">Xác thực qua ứng dụng</p>
+                            <p class="toggle-description">Sử dụng ứng dụng xác thực như Google Authenticator</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="bo-suu-tap">
+                <h3 class="section-title">Bộ sưu tập ảnh</h3>
+                <div class="photo-grid">
+                    @foreach (var image in Model.SpotImages.Take(8))
+                    {
+                        <div class="photo-item">
+                            <img src="@image.ImageUrl" alt="Hình ảnh du lịch">
+                        </div>
+                    }
+                    @if (Model.SpotImages.Count == 0)
+                    {
+                        <div class="photo-item">
+                            <img src="/images/nguhanhson.png" alt="Hình ảnh du lịch">
+                        </div>
+                        <div class="photo-item">
+                            <img src="/images/nhatrang.jpg" alt="Hình ảnh du lịch">
+                        </div>
+                        <div class="photo-item">
+                            <img src="/images/sanho.jpg" alt="Hình ảnh du lịch">
+                        </div>
+                        <div class="photo-item">
+                            <img src="/images/sontra.jpg" alt="Hình ảnh du lịch">
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="content-section" id="dia-diem-yeu-thich">
+                <h3 class="section-title">Địa điểm yêu thích</h3>
+                <div class="travel-inspiration">
+                    @foreach (var favorite in Model.SpotFavorites.Take(3))
+                    {
+                        <div class="inspiration-card">
+                            <img src="@favorite.Spot.ImageUrl" alt="@favorite.Spot.Name">
+                            <div class="inspiration-content">
+                                <div class="inspiration-title">@favorite.Spot.Name</div>
+                                <div class="inspiration-description">@favorite.Spot.Description</div>
+                                <div class="inspiration-meta">
+                                    @* <span>Thời gian tốt nhất: @favorite.Spot.BestTimeToVisit</span> *@
+                                    <span>Đã lưu</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.SpotFavorites.Count == 0)
+                    {
+                        <div class="inspiration-card">
+                            <img src="/images/hue.jpg" alt="Huế, Thừa Thiên Huế">
+                            <div class="inspiration-content">
+                                <div class="inspiration-title">Huế, Thừa Thiên Huế</div>
+                                <div class="inspiration-description">Cố đô với hệ thống di tích lăng tẩm, hoàng thành và
+                                    ẩm thực cung đình độc đáo.</div>
+                                <div class="inspiration-meta">
+                                    <span>Thời gian tốt nhất: Tháng 3-8</span>
+                                    <span>Đã lưu</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inspiration-card">
+                            <img src="/images/danang3.jpg" alt="Đà Nẵng">
+                            <div class="inspiration-content">
+                                <div class="inspiration-title">Đà Nẵng</div>
+                                <div class="inspiration-description">Thành phố biển hiện đại với Bà Nà Hills, Ngũ Hành
+                                    Sơn và bãi biển Mỹ Khê tuyệt đẹp.</div>
+                                <div class="inspiration-meta">
+                                    <span>Thời gian tốt nhất: Tháng 2-8</span>
+                                    <span>Đã lưu</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="content-section" id="danh-gia">
+                <h3 class="section-title">Đánh giá của tôi</h3>
+                <div class="blog-list">
+                    @foreach (var review in Model.Reviews.Take(3))
+                    {
+                        <div class="blog-item">
+                            <img src="@review.Spot.ImageUrl" alt="@review.Spot.Name">
+                            <div class="blog-content">
+                                <div class="blog-title">@review.Rating</div>
+                                <div class="blog-preview">@review.Comment.Substring(0, Math.Min(review.Comment.Length, 100))...</div>
+                                <div class="blog-meta">
+                                    <span>Đăng ngày: @review.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                    @* <span>@review.ViewCount lượt xem</span> *@
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.Reviews.Count == 0)
+                    {
+                        <div class="blog-item">
+                            <img src="/images/hoian.jpg" alt="Ẩm thực Hội An">
+                            <div class="blog-content">
+                                <div class="blog-title">Top 10 món ăn nhất định phải thử khi đến Hội An</div>
+                                <div class="blog-preview">Từ Cao lầu đến Bánh mì Phượng, hãy cùng khám phá những món ăn
+                                    tuyệt vời nhất của phố cổ...</div>
+                                <div class="blog-meta">
+                                    <span>Đăng ngày: 15/12/2024</span>
+                                    <span>325 lượt xem</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="content-section" id="bai-viet-yeu-thich">
+                <h3 class="section-title">Bài viết yêu thích</h3>
+                <div class="favorite-posts">
+                    @foreach (var favorite in Model.PostFavorites.Take(4))
+                    {
+                        <div class="favorite-post-card">
+                            <img src="@favorite.Post.ImageUrl" alt="@favorite.Post.Title">
+                            <div class="favorite-post-content">
+                                <div class="favorite-post-title">@favorite.Post.Title</div>
+                                <div class="favorite-post-author">
+                                    <img src="@favorite.Post.User.AvatarUrl" alt="@favorite.Post.User.FullName">
+                                    <div class="favorite-post-author-name">@favorite.Post.User.FullName • @favorite.Post.CreatedAt.ToString("dd/MM/yyyy")</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.PostFavorites.Count == 0)
+                    {
+                        <div class="favorite-post-card">
+                            <img src="/images/hoian2.jpg" alt="Điểm tham quan Hội An">
+                            <div class="favorite-post-content">
+                                <div class="favorite-post-title">Top 10 điểm tham quan không thể bỏ lỡ ở Hội An</div>
+                                <div class="favorite-post-author">
+                                    <img src="/images/avatar3.png" alt="Lê Thị B">
+                                    <div class="favorite-post-author-name">Lê Thị B • 18/01/2025</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="favorite-post-card">
+                            <img src="/images/haunuong.jpg" alt="Ẩm thực đường phố miền Trung">
+                            <div class="favorite-post-content">
+                                <div class="favorite-post-title">Ẩm thực đường phố miền Trung: Hành trình khám phá hương
+                                    vị cay nồng</div>
+                                <div class="favorite-post-author">
+                                    <img src="/images/avatar3.png" alt="Trần Văn C">
+                                    <div class="favorite-post-author-name">Trần Văn C • 05/03/2025</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 
 <script>
     // JavaScript để xử lý cuộn trang và hiệu ứng mượt mà
