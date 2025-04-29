@@ -1,0 +1,105 @@
+@section Styles {
+    <link rel="stylesheet" href="~/css/contact.css" asp-append-version="true" />
+
+}
+@{
+    ViewData["HideNavbar"] = true;
+}
+
+
+@{
+    ViewData["Title"] = "Liên Hệ";
+}
+
+<header class="header">
+    <div class="header-content">
+        <h1>Liên Hệ</h1>
+        <p>Gửi phản hồi và liên hệ với chúng tôi để cùng chia sẻ những địa điểm du lịch tuyệt vời!</p>
+    </div>
+    <div class="wave"></div>
+</header>
+
+<section class="contact-section">
+
+    <div class="contact_container">
+        <div class="card contact">
+            <h2>Liên Hệ Với Chúng Tôi ✉️</h2>
+            <input type="text" placeholder="Họ và tên">
+            <input type="email" placeholder="Email">
+            <input type="text" placeholder="Chủ đề">
+            <textarea placeholder="Nội dung"></textarea>
+            <button>Gửi Tin Nhắn</button>
+        </div>
+
+        <div class="card feedback">
+            <h2>Góp Ý & Phản Hồi 💡</h2>
+            <input type="text" placeholder="Họ và tên">
+            <input type="email" placeholder="Email">
+            <input type="text" placeholder="Loại phản hồi">
+            <textarea placeholder="Nội dung phản hồi"></textarea>
+            <button>Gửi Phản Hồi</button>
+        </div>
+    </div>
+    
+    @* <div class="login-prompt">
+        <h3>Bạn muốn chia sẻ địa điểm du lịch?</h3>
+        <p>Hãy đăng nhập hoặc tạo tài khoản để chia sẻ những địa điểm thú vị</p>
+
+        <div class="login-buttons">
+            <a class="btn btn-primary" asp-controller="Users" asp-action="Login">Đăng Nhập</a>
+            <a class="btn btn-secondary" asp-controller="Users" asp-action="Register">Đăng Ký</a>
+        </div>
+
+    </div> *@
+    @using System.Security.Claims
+
+    @{
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+    }
+
+    @if (userIdClaim == null)
+    {
+        <div class="login-prompt">
+            <h3>Bạn muốn chia sẻ địa điểm du lịch?</h3>
+            <p>Hãy đăng nhập hoặc tạo tài khoản để chia sẻ những địa điểm thú vị</p>
+
+            <div class="login-buttons">
+                <a class="btn btn-primary" asp-controller="Accounts" asp-action="Login">Đăng Nhập</a>
+                <a class="btn btn-secondary" asp-controller="Accounts" asp-action="Register">Đăng Ký</a>
+            </div>
+        </div>
+    }
+
+
+    <h2 class="section-title">Cách Khác Để Kết Nối</h2>
+    <p class="section-subtitle">Chúng tôi luôn sẵn sàng hỗ trợ bạn qua nhiều kênh khác nhau</p>
+
+    <div class="info-cards">
+        <div class="info-card">
+            <span class="icon">📱</span>
+            <h3>Liên Hệ Trực Tiếp</h3>
+            <p>+84 (028) 1234 5678</p>
+        </div>
+        <div class="info-card">
+            <span class="icon">🏢</span>
+            <h3>Văn Phòng</h3>
+            <p>TP. Đà Nẵng</p>
+        </div>
+        <div class="info-card">
+            <span class="icon">📲</span>
+            <h3>Mạng Xã Hội</h3>
+            <p>Kết nối với cộng đồng</p>
+        </div>
+        <div class="info-card">
+            <span class="icon">📝</span>
+            <h3>Đăng Ký Nhận Tin</h3>
+            <p>Nhận thông tin mới</p>
+        </div>
+    </div>
+
+    @* <footer>
+        <div class="map">
+            <p>Bản đồ vị trí văn phòng</p>
+        </div>
+    </footer> *@
+</section>
