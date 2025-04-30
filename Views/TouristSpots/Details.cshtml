@@ -1,60 +1,6 @@
 @* @model TourismWeb.Models.TouristSpot
 
 @{
-    ViewData["Title"] = "Details";
-}
-
-<h1>Details</h1>
-
-<div>
-    <h4>TouristSpot</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.SpotId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div> *@
-@model TourismWeb.Models.TouristSpot
-
-@{
     ViewData["Title"] = Model.Name;
 }
 
@@ -241,7 +187,661 @@
     <!-- Thêm lightbox cho gallery nếu cần -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
-    @* <script>
-        // Có thể thêm script cho lightbox hoặc các tính năng tương tác khác ở đây
-    </script> *@
+} *@
+@model TourismWeb.Models.TouristSpot
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/spotLayout.css" asp-append-version="true" />
+}
+
+<div class="breadcrumb container">
+    <a asp-controller="Home" asp-action="Index">Trang chủ</a> &gt;
+    <a asp-action="Index">Địa điểm du lịch</a> &gt;
+    <span>@Model.Name</span>
+</div>
+
+<!-- Main Content -->
+<main class="container">
+    <!-- Spot Header -->
+    <section class="spot-header">
+        <div class="spot-title">
+            <h1>@Model.Name</h1>
+            <div class="spot-meta">
+                <span class="category"><i class="fas fa-tag"></i> @Model.Category.Name</span>
+                <span class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>4.8/5</span> (@(Model.Reviews?.Count ?? 0) đánh giá)
+                </span>
+            </div>
+        </div>
+        <div class="spot-actions">
+            <button class="btn favorite" id="favoriteBtn"><i class="far fa-heart"></i> Yêu thích</button>
+            <div class="share-dropdown">
+                <button class="btn share"><i class="fas fa-share-alt"></i> Chia sẻ</button>
+                <div class="share-options">
+                    <a href="#" class="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="#" class="twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="#" class="zalo"><i class="fas fa-comment"></i> Zalo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spot Gallery -->
+    <section class="spot-gallery">
+        <div class="main-image">
+            <img src="@Model.ImageUrl" alt="@Model.Name">
+        </div>
+        <div class="thumbnail-container">
+            <div class="thumbnails">
+                @if (Model.Images != null && Model.Images.Any())
+                {
+                    foreach (var image in Model.Images.Take(6))
+                    {
+                        <img src="@image.ImageUrl" alt="@Model.Name" onclick="changeMainImage(this.src)">
+                    }
+                }
+                else
+                {
+                    <img src="@Model.ImageUrl" alt="@Model.Name" onclick="changeMainImage(this.src)">
+                }
+            </div>
+            <button class="gallery-btn" id="viewAllPhotos">
+                <i class="fas fa-images"></i> Xem tất cả ảnh (@(Model.Images?.Count ?? 1))
+            </button>
+        </div>
+    </section>
+
+    <!-- Spot Details -->
+    <div class="spot-content">
+        <div class="spot-info">
+            <section class="spot-description">
+                <h2>Giới thiệu</h2>
+                <p>@Model.Description</p>
+            </section>
+
+            <section class="spot-details-info">
+                <h2>Thông tin chi tiết</h2>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Địa chỉ</h3>
+                            <p>@Model.Address</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>Thời gian tham quan lý tưởng</h3>
+                            <p>Tháng 2 - Tháng 5 và Tháng 9 - Tháng 10</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-calendar"></i>
+                        <div>
+                            <h3>Ngày tạo</h3>
+                            <p>@Model.CreatedAt.ToString("dd/MM/yyyy")</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-concierge-bell"></i>
+                        <div>
+                            <h3>Dịch vụ</h3>
+                            <p>Resort, Khách sạn, Nhà hàng, Tour du lịch, Thể thao biển, Mua sắm</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="spot-map">
+                <h2>Bản đồ</h2>
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.0966890206833!2d105.78273807596354!3d21.02880648062325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab4cd0c66f05%3A0xea31563511af2e54!2zSMOyIFTDonkgKEhvw6BuIEtp4bq_bSk!5e0!3m2!1svi!2s!4v1682956590065!5m2!1svi!2s" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </section>
+
+            @if (Model.Images != null && Model.Images.Count > 6)
+            {
+                <section class="spot-gallery-extended">
+                    <h2>Bộ sưu tập hình ảnh</h2>
+                    <div class="gallery-grid">
+                        @foreach (var image in Model.Images.Skip(6))
+                        {
+                            <div class="gallery-item">
+                                <img src="@image.ImageUrl" alt="@Model.Name" onclick="openLightbox(this.src)">
+                            </div>
+                        }
+                    </div>
+                </section>
+            }
+
+            <section class="spot-videos">
+                <h2>Video</h2>
+                <div class="videos-container">
+                    <div class="video-item">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/l2KxczkJdn8"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                        <p>Khám phá vẻ đẹp @Model.Name từ trên cao</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <aside class="spot-sidebar">
+            <div class="sidebar-widget weather-widget">
+                <h3><i class="fas fa-cloud-sun"></i> Thời tiết</h3>
+                <div class="weather-info">
+                    <div class="current-weather">
+                        <i class="fas fa-sun"></i>
+                        <div>
+                            <span class="temperature">30°C</span>
+                            <span class="condition">Nắng</span>
+                        </div>
+                    </div>
+                    <div class="forecast">
+                        <div class="forecast-day">
+                            <span>T2</span>
+                            <i class="fas fa-cloud-sun"></i>
+                            <span>29°C</span>
+                        </div>
+                        <div class="forecast-day">
+                            <span>T3</span>
+                            <i class="fas fa-cloud"></i>
+                            <span>28°C</span>
+                        </div>
+                        <div class="forecast-day">
+                            <span>T4</span>
+                            <i class="fas fa-sun"></i>
+                            <span>31°C</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-calendar-alt"></i> Thời điểm tốt nhất để đến</h3>
+                <p>Tháng 2 đến tháng 5 và tháng 9 đến tháng 10 là thời điểm lý tưởng để thăm @Model.Name với thời tiết
+                    dễ chịu, ít mưa.</p>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-info-circle"></i> Mẹo du lịch</h3>
+                <ul class="tips-list">
+                    <li>Thuê xe máy là cách thuận tiện để khám phá khu vực</li>
+                    <li>Mang theo kem chống nắng và nón khi đi tham quan</li>
+                    <li>Thử các món đặc sản địa phương</li>
+                    <li>Tham khảo thời tiết trước khi đến</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-map-signs"></i> Địa điểm lân cận</h3>
+                <ul class="nearby-places">
+                    @{
+                        // Giả định rằng bạn có thể truy cập danh sách địa điểm lân cận từ ViewBag hoặc một nguồn khác
+                        var nearbySpots = ViewBag.NearbySpots as List<TourismWeb.Models.TouristSpot> ?? new List<TourismWeb.Models.TouristSpot>();
+                        
+                        if (nearbySpots.Any())
+                        {
+                            foreach (var spot in nearbySpots)
+                            {
+                                <li class="nearby-places-item">
+                                    <img src="@spot.ImageUrl" alt="@spot.Name">
+                                    <div>
+                                        <h4>@spot.Name</h4>
+                                        @* <p>Cách @spot.Distance km</p> *@
+                                        <p>Cách spot.Distance km</p>
+                                    </div>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="nearby-places-item">
+                                <img src="/images/phocohoian.jpg" alt="Địa điểm lân cận">
+                                <div>
+                                    <h4>Địa điểm lân cận</h4>
+                                    <p>Cách 30km</p>
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-book-open"></i> Cẩm nang du lịch</h3>
+                <ul class="travel-guide-list">
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Hướng dẫn du lịch @Model.Name từ A-Z</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-utensils"></i>
+                            <span>Top 10 món ăn phải thử ở @Model.Name</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-route"></i>
+                            <span>Lịch trình 3 ngày khám phá @Model.Name</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-hiking"></i> Trải nghiệm</h3>
+                <div class="experiences-list">
+                    @{
+                        // Giả định rằng bạn có thể truy cập danh sách trải nghiệm từ ViewBag hoặc một nguồn khác
+                        var experiences = ViewBag.Experiences as List<dynamic> ?? new List<dynamic>();
+                        
+                        if (experiences.Any())
+                        {
+                            foreach (var exp in experiences)
+                            {
+                                <div class="experience-item">
+                                    <img src="@exp.ImageUrl" alt="@exp.Title">
+                                    <div class="experience-info">
+                                        <h4>@exp.Title</h4>
+                                        <div class="experience-meta">
+                                            <span><i class="fas fa-star"></i> @exp.Rating</span>
+                                            <span><i class="fas fa-clock"></i> @exp.Duration</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="experience-item">
+                                <img src="/images/bana.jpg" alt="Trải nghiệm">
+                                <div class="experience-info">
+                                    <h4>Khám phá @Model.Name</h4>
+                                    <div class="experience-meta">
+                                        <span><i class="fas fa-star"></i> 4.8</span>
+                                        <span><i class="fas fa-clock"></i> 1 ngày</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <div class="section-header">
+            <h2>Đánh giá (@(Model.Reviews?.Count ?? 0))</h2>
+            <div class="rating-summary">
+                <div class="average-rating">
+                    <span class="big-rating">4.8</span>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span>@(Model.Reviews?.Count ?? 0) đánh giá</span>
+                </div>
+                <div class="rating-bars">
+                    <div class="rating-bar">
+                        <span>5 sao</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 80%"></div>
+                        </div>
+                        <span>125</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span>4 sao</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 15%"></div>
+                        </div>
+                        <span>23</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span>3 sao</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 4%"></div>
+                        </div>
+                        <span>6</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span>2 sao</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 1%"></div>
+                        </div>
+                        <span>2</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span>1 sao</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 0%"></div>
+                        </div>
+                        <span>0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-actions-bar">
+            <button class="btn primary" id="writeReviewBtn"><i class="fas fa-pen"></i> Viết đánh giá</button>
+
+            <div class="review-filters">
+                <select id="sortReviews">
+                    <option value="newest">Mới nhất</option>
+                    <option value="oldest">Cũ nhất</option>
+                    <option value="highest">Điểm cao nhất</option>
+                    <option value="lowest">Điểm thấp nhất</option>
+                </select>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Tất cả</button>
+                    <button class="filter-btn" data-filter="5">5 sao</button>
+                    <button class="filter-btn" data-filter="4">4 sao</button>
+                    <button class="filter-btn" data-filter="3">3 sao</button>
+                    <button class="filter-btn" data-filter="2">2 sao</button>
+                    <button class="filter-btn" data-filter="1">1 sao</button>
+                    <button class="filter-btn" data-filter="with-photos"><i class="fas fa-image"></i> Có hình ảnh</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-list">
+            @if (Model.Reviews != null && Model.Reviews.Any())
+            {
+                foreach (var review in Model.Reviews.Take(3))
+                {
+                    <div class="review-item">
+                        <div class="review-user">
+                            <img src="@review.User.AvatarUrl" alt="@review.User.FullName" class="user-avatar">
+                            <div class="user-info">
+                                <h4>@review.User.FullName</h4>
+                                <p class="review-date">Đã đánh giá vào @review.CreatedAt.ToString("dd/MM/yyyy")</p>
+                            </div>
+                        </div>
+                        <div class="review-content">
+                            <div class="review-rating">
+                                <div class="stars">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        if (i <= review.Rating)
+                                        {
+                                            <i class="fas fa-star"></i>
+                                        }
+                                        else if (i - 0.5 <= review.Rating)
+                                        {
+                                            <i class="fas fa-star-half-alt"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="far fa-star"></i>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <p class="review-text">@review.Comment</p>
+                            @if (review.ImageUrl != null && review.ImageUrl.Any())
+                            {
+                                <div class="review-photos">
+                                    @foreach (var image in review.ImageUrl)
+                                    {
+                                        <img src="@image" alt="Ảnh đánh giá" onclick="openLightbox(this.src)">
+                                    }
+                                </div>
+                            }
+                            <div class="review-actions">
+                                <button class="like-btn"><i class="far fa-thumbs-up"></i> Hữu ích (review.LikeCount)</button>
+                                <button class="reply-btn"><i class="far fa-comment"></i> Phản hồi</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Sample review if no real reviews exist -->
+                <div class="review-item">
+                    <div class="review-user">
+                        <img src="https://randomuser.me/api/portraits/women/42.jpg" alt="Người dùng mẫu" class="user-avatar">
+                        <div class="user-info">
+                            <h4>Người dùng mẫu</h4>
+                            <p class="review-date">Đã đánh giá vào 05/03/2023</p>
+                        </div>
+                    </div>
+                    <div class="review-content">
+                        <div class="review-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="review-text">@Model.Name thực sự là một địa điểm tuyệt vời! Tôi đã có trải nghiệm tuyệt vời và sẽ quay lại trong tương lai.</p>
+                        <div class="review-photos">
+                            <img src="@Model.ImageUrl" alt="@Model.Name" onclick="openLightbox(this.src)">
+                        </div>
+                        <div class="review-actions">
+                            <button class="like-btn"><i class="far fa-thumbs-up"></i> Hữu ích (15)</button>
+                            <button class="reply-btn"><i class="far fa-comment"></i> Phản hồi</button>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if ((Model.Reviews?.Count ?? 0) > 3)
+            {
+                <div class="load-more">
+                    <button class="btn secondary" id="loadMoreReviews">Xem thêm đánh giá</button>
+                </div>
+            }
+        </div>
+    </section>
+
+    <!-- Comments Section -->
+    <section class="comments-section">
+        <div class="section-header">
+            <h2>Bình luận (@(Model.Comments?.Count ?? 0))</h2>
+        </div>
+
+        <div class="add-comment">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Your Avatar" class="user-avatar">
+            <div class="comment-input-container">
+                <textarea placeholder="Viết bình luận của bạn..." id="commentInput"></textarea>
+                <div class="comment-actions">
+                    <button class="attach-btn"><i class="fas fa-image"></i></button>
+                    <button class="attach-btn"><i class="fas fa-video"></i></button>
+                    <button class="btn primary" id="postCommentBtn">Đăng</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="comments-list">
+            @if (Model.Comments != null && Model.Comments.Any())
+            {
+                foreach (var comment in Model.Comments.Take(3))
+                {
+                    <div class="comment-item">
+                        <img src="@comment.User.AvatarUrl" alt="@comment.User.FullName" class="user-avatar">
+                        <div class="comment-content">
+                            <div class="comment-header">
+                                <h4>@comment.User.FullName</h4>
+                                <span class="comment-date">@GetTimeAgo(comment.CreatedAt)</span>
+                            </div>
+                            <p>@comment.Content</p>
+                            @if (!string.IsNullOrEmpty(comment.ImageUrl))
+                            {
+                                <div class="comment-media">
+                                    <img src="@comment.ImageUrl" alt="Hình ảnh bình luận" onclick="openLightbox(this.src)">
+                                </div>
+                            }
+                            <div class="comment-actions">
+                                <button class="like-btn"><i class="far fa-thumbs-up"></i> Thích (comment.LikeCount)</button>
+                                <button class="reply-btn"><i class="far fa-comment"></i> Phản hồi</button>
+                            </div>
+
+                            <!-- Replies -->
+                            @* @if (comment.Replies != null && comment.Replies.Any())
+                            {
+                                <div class="comment-replies">
+                                    @foreach (var reply in comment.Replies)
+                                    {
+                                        <div class="comment-item reply">
+                                            <img src="@reply.User.AvatarUrl" alt="@reply.User.FullName" class="user-avatar">
+                                            <div class="comment-content">
+                                                <div class="comment-header">
+                                                    <h4>@reply.User.FullName</h4>
+                                                    <span class="comment-date">@GetTimeAgo(reply.CreatedAt)</span>
+                                                </div>
+                                                <p>@reply.Content</p>
+                                                <div class="comment-actions">
+                                                    <button class="like-btn"><i class="far fa-thumbs-up"></i> Thích (@reply.LikeCount)</button>
+                                                    <button class="reply-btn"><i class="far fa-comment"></i> Phản hồi</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            } *@
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Sample comment if no real comments exist -->
+                <div class="comment-item">
+                    <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Người dùng mẫu" class="user-avatar">
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <h4>Người dùng mẫu</h4>
+                            <span class="comment-date">3 ngày trước</span>
+                        </div>
+                        <p>Có ai biết thời điểm nào tốt nhất để đến thăm @Model.Name không ạ?</p>
+                        <div class="comment-actions">
+                            <button class="like-btn"><i class="far fa-thumbs-up"></i> Thích (5)</button>
+                            <button class="reply-btn"><i class="far fa-comment"></i> Phản hồi</button>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if ((Model.Comments?.Count ?? 0) > 3)
+            {
+                <div class="load-more">
+                    <button class="btn secondary" id="loadMoreComments">Xem thêm bình luận</button>
+                </div>
+            }
+        </div>
+    </section>
+
+    <!-- Action buttons -->
+    <div class="action-buttons">
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Quay lại danh sách
+        </a>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model?.SpotId" class="btn btn-primary">
+                <i class="fas fa-edit"></i> Chỉnh sửa
+            </a>
+            <a asp-action="Delete" asp-route-id="@Model?.SpotId" class="btn btn-danger">
+                <i class="fas fa-trash-alt"></i> Xóa
+            </a>
+        </div>
+    </div>
+</main>
+
+<!-- Lightbox for images -->
+<div id="lightbox" class="lightbox">
+    <span class="close-lightbox">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+    <div class="lightbox-caption"></div>
+</div>
+
+@section Scripts {
+    <script>
+        // Helper function for time ago display
+        @functions {
+            public string GetTimeAgo(DateTime dateTime)
+            {
+                TimeSpan timeDiff = DateTime.Now - dateTime;
+                
+                if (timeDiff.TotalDays > 30)
+                    return dateTime.ToString("dd/MM/yyyy");
+                if (timeDiff.TotalDays > 1)
+                    return $"{(int)timeDiff.TotalDays} ngày trước";
+                if (timeDiff.TotalHours > 1)
+                    return $"{(int)timeDiff.TotalHours} giờ trước";
+                if (timeDiff.TotalMinutes > 1)
+                    return $"{(int)timeDiff.TotalMinutes} phút trước";
+                
+                return "Vừa xong";
+            }
+        }
+
+        // Change main image when clicking on thumbnail
+        function changeMainImage(src) {
+            document.querySelector('.main-image img').src = src;
+        }
+
+        // Open lightbox when clicking on image
+        function openLightbox(src) {
+            document.getElementById('lightbox').style.display = 'flex';
+            document.getElementById('lightbox-img').src = src;
+        }
+
+        // Close lightbox when clicking on X
+        document.querySelector('.close-lightbox').addEventListener('click', function() {
+            document.getElementById('lightbox').style.display = 'none';
+        });
+
+        // Toggle favorite button
+        document.getElementById('favoriteBtn').addEventListener('click', function() {
+            this.classList.toggle('active');
+            if (this.classList.contains('active')) {
+                this.innerHTML = '<i class="fas fa-heart"></i> Đã yêu thích';
+            } else {
+                this.innerHTML = '<i class="far fa-heart"></i> Yêu thích';
+            }
+        });
+
+        // Show/hide share options
+        document.querySelector('.share').addEventListener('click', function() {
+            document.querySelector('.share-options').classList.toggle('show');
+        });
+
+        // Filter reviews
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                // Add filter logic here
+            });
+        });
+    </script>
 }

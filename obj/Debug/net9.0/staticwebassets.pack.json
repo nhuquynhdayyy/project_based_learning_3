@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\css\\layout.css"
     },
     {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\css\\location.css",
+      "PackagePath": "staticwebassets\\css\\location.css"
+    },
+    {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\css\\locationlayout.css",
       "PackagePath": "staticwebassets\\css\\locationlayout.css"
     },
@@ -39,6 +43,10 @@
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\css\\spot.css",
       "PackagePath": "staticwebassets\\css\\spot.css"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\css\\spotLayout.css",
+      "PackagePath": "staticwebassets\\css\\spotLayout.css"
     },
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\css\\userprofile.css",
@@ -99,6 +107,14 @@
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\5fbf85b3-dd7f-43af-a118-a69fa663b0c8.jpg",
       "PackagePath": "staticwebassets\\images\\5fbf85b3-dd7f-43af-a118-a69fa663b0c8.jpg"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\80aac28c-cd20-4a75-a843-fcde6852a78a.jpg",
+      "PackagePath": "staticwebassets\\images\\80aac28c-cd20-4a75-a843-fcde6852a78a.jpg"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\af5fea27-dd19-4166-a351-2644d8ea80a2.jpg",
+      "PackagePath": "staticwebassets\\images\\af5fea27-dd19-4166-a351-2644d8ea80a2.jpg"
     },
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\avatar2.jpg",

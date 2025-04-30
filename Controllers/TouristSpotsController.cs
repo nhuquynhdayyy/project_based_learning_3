@@ -22,17 +22,6 @@ namespace TourismWeb.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        // public TouristSpotsController(ApplicationDbContext context)
-        // {
-        //     _context = context;
-        // }
-
-        // GET: TouristSpots
-        // public async Task<IActionResult> Index()
-        // {
-        //     var applicationDbContext = _context.TouristSpots.Include(t => t.Category);
-        //     return View(await applicationDbContext.ToListAsync());
-        // }
         // GET: TouristSpots
         public async Task<IActionResult> Index()
         {
@@ -85,31 +74,6 @@ namespace TourismWeb.Controllers
             return View();
         }
 
-        // POST: TouristSpots/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> Create([Bind("SpotId,Name,Address,CategoryId,Description,ImageUrl,CreatedAt")] TouristSpot touristSpot)
-        // {
-        //     Console.WriteLine("CategoryId nhận được: " + touristSpot.CategoryId);
-        //     if (ModelState.IsValid)
-        //     {
-        //         _context.Add(touristSpot);
-        //         await _context.SaveChangesAsync();
-        //         return RedirectToAction(nameof(Index));
-        //     }
-        //     else
-        //     {
-        //         var errors = ModelState.Values.SelectMany(v => v.Errors);
-        //         foreach (var error in errors)
-        //         {
-        //             Console.WriteLine(error.ErrorMessage);
-        //         }
-        //     }
-        //     ViewBag.CategoryList = new SelectList(_context.Categories, "CategoryId", "Name");
-        //     return View(touristSpot);
-        // }
         // POST: TouristSpots/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
