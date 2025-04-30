@@ -210,8 +210,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>p4ujekaf00</Fingerprint>
-      <Integrity>SR1WZV9Baxp8XaeRAGgOCOfALG7vqsaZgiEOXfAt7Hc=</Integrity>
+      <Fingerprint>qyi0subut2</Fingerprint>
+      <Integrity>AmQD45tFroI/jwf2QMFIei3ynk8gaNVnX+QUgC+wtYA=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\spotLayout.css'))</OriginalItemSpec>
