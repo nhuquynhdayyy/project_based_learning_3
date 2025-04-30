@@ -78,6 +78,13 @@ namespace TourismWeb.Controllers
 
                 _context.Add(post);
                 await _context.SaveChangesAsync();
+                
+                // Redirect to appropriate category page based on post type
+                if (!string.IsNullOrEmpty(post.TypeOfPost))
+                {
+                    return RedirectToAction(nameof(Category), new { type = post.TypeOfPost });
+                }
+                
                 return RedirectToAction(nameof(Index));
             }
 
@@ -85,9 +92,7 @@ namespace TourismWeb.Controllers
             return View(post);
         }
 
-
         // GET: Posts/Edit/5
-        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -103,7 +108,6 @@ namespace TourismWeb.Controllers
             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", post.SpotId);
             return View(post);
         }
-
 
         // POST: Posts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -149,6 +153,13 @@ namespace TourismWeb.Controllers
                         : post.ImageUrl;
                         
                     await _context.SaveChangesAsync();
+                    
+                    // Redirect to appropriate category page based on post type
+                    if (!string.IsNullOrEmpty(existingPost.TypeOfPost))
+                    {
+                        return RedirectToAction(nameof(Category), new { type = existingPost.TypeOfPost });
+                    }
+                    
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
@@ -166,7 +177,6 @@ namespace TourismWeb.Controllers
             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", post.SpotId);
             return View(post);
         }
-
 
         // GET: Posts/Delete/5
         [HttpGet]
@@ -195,12 +205,22 @@ namespace TourismWeb.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var post = await _context.Posts.FindAsync(id);
+            string postType = null;
+            
             if (post != null)
             {
+                postType = post.TypeOfPost;
                 _context.Posts.Remove(post);
             }
 
             await _context.SaveChangesAsync();
+            
+            // Redirect to appropriate category page if we know the post type
+            if (!string.IsNullOrEmpty(postType))
+            {
+                return RedirectToAction(nameof(Category), new { type = postType });
+            }
+            
             return RedirectToAction(nameof(Index));
         }
 
@@ -223,8 +243,20 @@ namespace TourismWeb.Controllers
                 .Where(p => p.TypeOfPost == type)
                 .ToListAsync();
 
-            ViewBag.TypeOfPost = type; // Gửi loại bài viết để hiện lên tiêu đề nếu cần
-            return View("Index", posts); // Xài lại view Index.cshtml
+            ViewBag.TypeOfPost = type;
+            
+            // Use different views based on category type
+            switch (type)
+            {
+                case "Cẩm nang":
+                    return View("Guidebook", posts);
+                case "Trải nghiệm":
+                    return View("Experience", posts);
+                case "Địa điểm":
+                    return View("Location", posts);
+                default:
+                    return View("Index", posts);
+            }
         }
     }
 }
