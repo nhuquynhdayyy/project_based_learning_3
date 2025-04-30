@@ -169,9 +169,42 @@ namespace TourismWeb.Controllers
         // POST: TouristSpots/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public async Task<IActionResult> Edit(int id, [Bind("SpotId,Name,Address,CategoryId,Description,ImageUrl,CreatedAt")] TouristSpot touristSpot)
+        // {
+        //     if (id != touristSpot.SpotId)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     if (ModelState.IsValid)
+        //     {
+        //         try
+        //         {
+        //             _context.Update(touristSpot);
+        //             await _context.SaveChangesAsync();
+        //         }
+        //         catch (DbUpdateConcurrencyException)
+        //         {
+        //             if (!TouristSpotExists(touristSpot.SpotId))
+        //             {
+        //                 return NotFound();
+        //             }
+        //             else
+        //             {
+        //                 throw;
+        //             }
+        //         }
+        //         return RedirectToAction(nameof(Index));
+        //     }
+        //     ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
+        //     return View(touristSpot);
+        // }
+        // POST: TouristSpots/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SpotId,Name,Address,CategoryId,Description,ImageUrl,CreatedAt")] TouristSpot touristSpot)
+        public async Task<IActionResult> Edit(int id, [Bind("SpotId,Name,Address,CategoryId,Description,ImageUrl,CreatedAt")] TouristSpot touristSpot, IFormFile imageFile)
         {
             if (id != touristSpot.SpotId)
             {
@@ -182,8 +215,65 @@ namespace TourismWeb.Controllers
             {
                 try
                 {
+                    // Xử lý tải lên hình ảnh mới nếu có
+                    if (imageFile != null && imageFile.Length > 0)
+                    {
+                        // Kiểm tra kích thước file (ví dụ: tối đa 5MB)
+                        if (imageFile.Length > 5 * 1024 * 1024)
+                        {
+                            ModelState.AddModelError("ImageFile", "Kích thước file không được vượt quá 5MB");
+                            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
+                            return View(touristSpot);
+                        }
+
+                        // Kiểm tra loại file
+                        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                        var extension = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
+                        if (!allowedExtensions.Contains(extension))
+                        {
+                            ModelState.AddModelError("ImageFile", "Chỉ chấp nhận file ảnh có định dạng: .jpg, .jpeg, .png, .gif");
+                            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
+                            return View(touristSpot);
+                        }
+                        
+                        // Tạo tên file duy nhất để tránh trùng lặp
+                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+                        
+                        // Đường dẫn lưu file (trong thư mục wwwroot/images)
+                        string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                        
+                        // Đảm bảo thư mục tồn tại
+                        if (!Directory.Exists(uploadsFolder))
+                        {
+                            Directory.CreateDirectory(uploadsFolder);
+                        }
+                        
+                        string filePath = Path.Combine(uploadsFolder, fileName);
+                        
+                        // Lưu file vào thư mục
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await imageFile.CopyToAsync(fileStream);
+                        }
+                        
+                        // Xóa ảnh cũ nếu không phải ảnh mặc định
+                        var oldImagePath = touristSpot.ImageUrl;
+                        if (!string.IsNullOrEmpty(oldImagePath) && !oldImagePath.Contains("default-spotImage.png"))
+                        {
+                            var oldFilePath = Path.Combine(_webHostEnvironment.WebRootPath, oldImagePath.TrimStart('/'));
+                            if (System.IO.File.Exists(oldFilePath))
+                            {
+                                System.IO.File.Delete(oldFilePath);
+                            }
+                        }
+                        
+                        // Cập nhật đường dẫn ảnh mới trong model
+                        touristSpot.ImageUrl = "/images/" + fileName;
+                    }
+                    
                     _context.Update(touristSpot);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -196,7 +286,6 @@ namespace TourismWeb.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
             return View(touristSpot);

@@ -1,6 +1,4 @@
 
-
- 
 body {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.911), rgb(248, 250, 251)) !important;
     margin: 0;
@@ -481,4 +479,8 @@ footer {
 }
 .footer-content {
     margin-top: 20px;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
 }
