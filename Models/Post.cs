@@ -37,10 +37,21 @@ namespace TourismWeb.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+        // Add status field for approval workflow
+        [Display(Name = "Status")]
+        public PostStatus Status { get; set; } = PostStatus.Pending;
+
         public ICollection<PostImage> Images { get; set; } = new List<PostImage>();
         public ICollection<PostTag> PostTags { get; set; } = new List<PostTag>();
         public ICollection<PostFavorite> PostFavorites { get; set; } = new List<PostFavorite>();
         public ICollection<PostComment> Comments { get; set; } = new List<PostComment>();
         public ICollection<PostShare> Shares { get; set; } = new List<PostShare>();
+    }
+    // Enum for post status
+    public enum PostStatus
+    {
+        Pending,
+        Approved,
+        Rejected
     }
 }

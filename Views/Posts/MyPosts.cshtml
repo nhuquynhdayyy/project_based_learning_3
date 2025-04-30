@@ -1,0 +1,61 @@
+@model IEnumerable<TourismWeb.Models.Post>
+
+@{
+    ViewData["Title"] = "Bài Viết Của Tôi";
+}
+
+<h1>Bài Viết Của Tôi</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Tạo Bài Viết Mới</a>
+</p>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        Bạn chưa có bài viết nào. Hãy tạo bài viết mới!
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>@item.Title</span>
+                        <span class="badge @(item.Status == TourismWeb.Models.PostStatus.Approved ? "bg-success" : 
+                                                            item.Status == TourismWeb.Models.PostStatus.Pending ? "bg-warning" : "bg-danger")">
+                            @(item.Status == TourismWeb.Models.PostStatus.Approved ? "Đã duyệt" :
+                                                item.Status == TourismWeb.Models.PostStatus.Pending ? "Đang chờ duyệt" : "Đã từ chối")
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="@item.ImageUrl" alt="@item.Title" class="img-fluid rounded mb-2"
+                            style="max-height: 150px; object-fit: cover;" />
+                    </div>
+                    <div class="col-md-8">
+                        <p class="card-text small">
+                            <strong>Địa điểm:</strong> @item.Spot.Name<br />
+                            <strong>Loại bài viết:</strong> @item.TypeOfPost<br />
+                            <strong>Ngày tạo:</strong> @item.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                        </p>
+                        <p class="card-text small">
+                            @(item.Content?.Length > 100 ? item.Content.Substring(0, 100) + "..." : item.Content)
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a asp-action="Details" asp-route-id="@item.PostId" class="btn btn-sm btn-info">Chi tiết</a>
+                <a asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-sm btn-primary">Chỉnh sửa</a>
+                <a asp-action="Delete" asp-route-id="@item.PostId" class="btn btn-sm btn-danger">Xóa</a>
+            </div>
+        </div>
+    </div>
+        }
+    </div>
+}

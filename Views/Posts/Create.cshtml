@@ -1,4 +1,4 @@
-@model TourismWeb.Models.Post
+@* @model TourismWeb.Models.Post
 
 @{
     ViewData["Title"] = "Create";
@@ -36,11 +36,11 @@
                 <input asp-for="Content" class="form-control" />
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
-            @* <div class="form-group">
+            <div class="form-group">
                 <label asp-for="ImageUrl" class="control-label"></label>
                 <input asp-for="ImageUrl" class="form-control" />
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div> *@
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -54,4 +54,68 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@
+@model TourismWeb.Models.Post
+
+@{
+    ViewData["Title"] = "Tạo Bài Viết";
+}
+
+<h1>Tạo Bài Viết</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="SpotId" class="control-label">Địa Điểm Du Lịch</label>
+                <select asp-for="SpotId" class="form-control" asp-items="ViewBag.SpotId"></select>
+                <span asp-validation-for="SpotId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TypeOfPost" class="control-label">Loại Bài Viết</label>
+                <select asp-for="TypeOfPost" class="form-control">
+                    <option value="Địa điểm">Địa Điểm</option>
+                    <option value="Cẩm nang">Cẩm nang</option>
+                    <option value="Trải nghiệm">Trải nghiệm</option>
+                </select>
+                <span asp-validation-for="TypeOfPost" class="text-danger"></span>
+                <small class="form-text text-danger">Loại bài viết chỉ được chọn: Địa điểm, Cẩm nang hoặc Trải
+                    nghiệm.</small>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Tiêu Đề</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label">Đường Dẫn Hình Ảnh</label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <small class="form-text text-muted">Nhập URL cho hình ảnh bài viết, hoặc để trống để sử dụng hình ảnh
+                    mặc định.</small>
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Content" class="control-label">Nội Dung</label>
+                <textarea asp-for="Content" class="form-control" rows="10"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Tạo" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Quay Lại Danh Sách</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

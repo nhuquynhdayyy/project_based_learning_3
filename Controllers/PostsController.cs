@@ -1,3 +1,233 @@
+// using System;
+// using System.Collections.Generic;
+// using System.Linq;
+// using System.Threading.Tasks;
+// using Microsoft.AspNetCore.Mvc;
+// using Microsoft.AspNetCore.Mvc.Rendering;
+// using Microsoft.EntityFrameworkCore;
+// using TourismWeb.Models;
+// using System.Security.Claims;
+
+// namespace TourismWeb.Controllers
+// {
+//     public class PostsController : Controller
+//     {
+//         private readonly ApplicationDbContext _context;
+
+//         public PostsController(ApplicationDbContext context)
+//         {
+//             _context = context;
+//         }
+
+//         // GET: Posts
+//         public async Task<IActionResult> Index()
+//         {
+//             var applicationDbContext = _context.Posts.Include(p => p.Spot).Include(p => p.User);
+//             return View(await applicationDbContext.ToListAsync());
+//         }
+
+//         // GET: Posts/Details/5
+//         public async Task<IActionResult> Details(int? id)
+//         {
+//             if (id == null)
+//             {
+//                 return NotFound();
+//             }
+
+//             var post = await _context.Posts
+//                 .Include(p => p.Spot)
+//                 .Include(p => p.User)
+//                 .FirstOrDefaultAsync(m => m.PostId == id);
+//             if (post == null)
+//             {
+//                 return NotFound();
+//             }
+
+//             return View(post);
+//         }
+
+//         // GET: Posts/Create
+//         public IActionResult Create()
+//         {
+//             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name");
+//             return View();
+//         }
+
+//         // POST: Posts/Create
+//         // To protect from overposting attacks, enable the specific properties you want to bind to.
+//         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+//         [HttpPost]
+//         [ValidateAntiForgeryToken]
+//         public async Task<IActionResult> Create([Bind("SpotId,TypeOfPost,Title,ImageUrl,Content")] Post post)
+//         {
+//             if (ModelState.IsValid)
+//             {
+//                 var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+//                 if (userIdClaim == null)
+//                 {
+//                     return Unauthorized();
+//                 }
+
+//                 post.UserId = int.Parse(userIdClaim.Value);
+//                 post.CreatedAt = DateTime.Now;
+
+//                 if (string.IsNullOrEmpty(post.ImageUrl))
+//                 {
+//                     post.ImageUrl = "/images/default-postImage.png";
+//                 }
+
+//                 _context.Add(post);
+//                 await _context.SaveChangesAsync();
+//                 return RedirectToAction(nameof(Index));
+//             }
+
+//             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", post.SpotId);
+//             return View(post);
+//         }
+
+
+//         // GET: Posts/Edit/5
+        
+//         public async Task<IActionResult> Edit(int? id)
+//         {
+//             if (id == null)
+//             {
+//                 return NotFound();
+//             }
+
+//             var post = await _context.Posts.FindAsync(id);
+//             if (post == null)
+//             {
+//                 return NotFound();
+//             }
+//             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", post.SpotId);
+//             return View(post);
+//         }
+
+
+//         // POST: Posts/Edit/5
+//         // To protect from overposting attacks, enable the specific properties you want to bind to.
+//         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+//         [HttpPost]
+//         [ValidateAntiForgeryToken]
+//         public async Task<IActionResult> Edit(int id, [Bind("PostId,SpotId,TypeOfPost,Title,Content,ImageUrl")] Post post)
+//         {
+//             if (id != post.PostId)
+//             {
+//                 return NotFound();
+//             }
+
+//             if (ModelState.IsValid)
+//             {
+//                 try
+//                 {
+//                     var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+//                     if (userIdClaim == null)
+//                     {
+//                         return Unauthorized();
+//                     }
+
+//                     var existingPost = await _context.Posts.FirstOrDefaultAsync(p => p.PostId == id);
+//                     if (existingPost == null)
+//                     {
+//                         return NotFound();
+//                     }
+
+//                     // Kiểm tra người dùng có quyền sửa bài viết này không
+//                     if (existingPost.UserId != int.Parse(userIdClaim.Value))
+//                     {
+//                         return Unauthorized();
+//                     }
+
+//                     // Cập nhật từng field cho existingPost
+//                     existingPost.SpotId = post.SpotId;
+//                     existingPost.TypeOfPost = post.TypeOfPost;
+//                     existingPost.Title = post.Title;
+//                     existingPost.Content = post.Content;
+//                     existingPost.ImageUrl = string.IsNullOrEmpty(post.ImageUrl) 
+//                         ? existingPost.ImageUrl ?? "/images/default-postImage.png" 
+//                         : post.ImageUrl;
+                        
+//                     await _context.SaveChangesAsync();
+//                     return RedirectToAction(nameof(Index));
+//                 }
+//                 catch (DbUpdateConcurrencyException)
+//                 {
+//                     if (!PostExists(post.PostId))
+//                     {
+//                         return NotFound();
+//                     }
+//                     else
+//                     {
+//                         throw;
+//                     }
+//                 }
+//             }
+//             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", post.SpotId);
+//             return View(post);
+//         }
+
+
+//         // GET: Posts/Delete/5
+//         [HttpGet]
+//         public async Task<IActionResult> Delete(int? id)
+//         {
+//             if (id == null)
+//             {
+//                 return NotFound();
+//             }
+
+//             var post = await _context.Posts
+//                 .Include(p => p.Spot)
+//                 .Include(p => p.User)
+//                 .FirstOrDefaultAsync(m => m.PostId == id);
+//             if (post == null)
+//             {
+//                 return NotFound();
+//             }
+
+//             return View(post);
+//         }
+
+//         // POST: Posts/Delete/5
+//         [HttpPost, ActionName("Delete")]
+//         [ValidateAntiForgeryToken]
+//         public async Task<IActionResult> DeleteConfirmed(int id)
+//         {
+//             var post = await _context.Posts.FindAsync(id);
+//             if (post != null)
+//             {
+//                 _context.Posts.Remove(post);
+//             }
+
+//             await _context.SaveChangesAsync();
+//             return RedirectToAction(nameof(Index));
+//         }
+
+//         private bool PostExists(int id)
+//         {
+//             return _context.Posts.Any(e => e.PostId == id);
+//         }
+
+//         // GET: Posts/Category
+//         public async Task<IActionResult> Category(string type)
+//         {
+//             if (string.IsNullOrEmpty(type))
+//             {
+//                 return RedirectToAction(nameof(Index));
+//             }
+
+//             var posts = await _context.Posts
+//                 .Include(p => p.Spot)
+//                 .Include(p => p.User)
+//                 .Where(p => p.TypeOfPost == type)
+//                 .ToListAsync();
+
+//             ViewBag.TypeOfPost = type; // Gửi loại bài viết để hiện lên tiêu đề nếu cần
+//             return View("Index", posts); // Xài lại view Index.cshtml
+//         }
+//     }
+// }
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +237,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TourismWeb.Controllers
 {
@@ -19,10 +250,13 @@ namespace TourismWeb.Controllers
             _context = context;
         }
 
-        // GET: Posts
+        // GET: Posts - Show only approved posts for regular view
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Posts.Include(p => p.Spot).Include(p => p.User);
+            var applicationDbContext = _context.Posts
+                .Include(p => p.Spot)
+                .Include(p => p.User)
+                .Where(p => p.Status == PostStatus.Approved);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -38,26 +272,40 @@ namespace TourismWeb.Controllers
                 .Include(p => p.Spot)
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.PostId == id);
+
             if (post == null)
             {
                 return NotFound();
+            }
+
+            // Check if the user is the author or an admin if the post is not approved
+            if (post.Status != PostStatus.Approved)
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                bool isAdmin = User.IsInRole("Admin");
+
+                if (userIdClaim == null ||
+                    (!isAdmin && post.UserId != int.Parse(userIdClaim.Value)))
+                {
+                    return NotFound(); // Hide pending/rejected posts from other users
+                }
             }
 
             return View(post);
         }
 
         // GET: Posts/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name");
-            return View();
+            return View(new Post()); // Trả về một đối tượng Post mới
         }
 
         // POST: Posts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("SpotId,TypeOfPost,Title,ImageUrl,Content")] Post post)
         {
             if (ModelState.IsValid)
@@ -76,18 +324,30 @@ namespace TourismWeb.Controllers
                     post.ImageUrl = "/images/default-postImage.png";
                 }
 
+                // Set status based on role
+                bool isAdmin = User.IsInRole("Admin");
+                post.Status = isAdmin ? PostStatus.Approved : PostStatus.Pending;
+
                 _context.Add(post);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                if (isAdmin)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    // Redirect to "MyPosts" for regular users to see their pending posts
+                    return RedirectToAction(nameof(MyPosts));
+                }
             }
 
             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", post.SpotId);
             return View(post);
         }
 
-
         // GET: Posts/Edit/5
-        
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -100,17 +360,26 @@ namespace TourismWeb.Controllers
             {
                 return NotFound();
             }
+
+            // Check if user is authorized to edit this post
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            bool isAdmin = User.IsInRole("Admin");
+
+            if (userIdClaim == null ||
+                (!isAdmin && post.UserId != int.Parse(userIdClaim.Value)))
+            {
+                return Unauthorized();
+            }
+
             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", post.SpotId);
             return View(post);
         }
 
-
         // POST: Posts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PostId,SpotId,TypeOfPost,Title,Content,ImageUrl")] Post post)
+        [Authorize]
+        public async Task<IActionResult> Edit(int id, [Bind("PostId,SpotId,TypeOfPost,Title,Content,ImageUrl,Status")] Post post)
         {
             if (id != post.PostId)
             {
@@ -133,23 +402,44 @@ namespace TourismWeb.Controllers
                         return NotFound();
                     }
 
-                    // Kiểm tra người dùng có quyền sửa bài viết này không
-                    if (existingPost.UserId != int.Parse(userIdClaim.Value))
+                    bool isAdmin = User.IsInRole("Admin");
+
+                    // Check if user has permission to edit this post
+                    if (!isAdmin && existingPost.UserId != int.Parse(userIdClaim.Value))
                     {
                         return Unauthorized();
                     }
 
-                    // Cập nhật từng field cho existingPost
+                    // Update basic fields
                     existingPost.SpotId = post.SpotId;
                     existingPost.TypeOfPost = post.TypeOfPost;
                     existingPost.Title = post.Title;
                     existingPost.Content = post.Content;
-                    existingPost.ImageUrl = string.IsNullOrEmpty(post.ImageUrl) 
-                        ? existingPost.ImageUrl ?? "/images/default-postImage.png" 
+                    existingPost.ImageUrl = string.IsNullOrEmpty(post.ImageUrl)
+                        ? existingPost.ImageUrl ?? "/images/default-postImage.png"
                         : post.ImageUrl;
-                        
+
+                    // Only admin can directly change status from the edit form
+                    if (isAdmin && post.Status != existingPost.Status)
+                    {
+                        existingPost.Status = post.Status;
+                    }
+                    // For regular users editing their posts, reset to pending if already approved
+                    else if (!isAdmin && existingPost.Status == PostStatus.Approved)
+                    {
+                        existingPost.Status = PostStatus.Pending;
+                    }
+
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+
+                    if (isAdmin)
+                    {
+                        return RedirectToAction(nameof(Moderate));
+                    }
+                    else
+                    {
+                        return RedirectToAction(nameof(MyPosts));
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -167,9 +457,8 @@ namespace TourismWeb.Controllers
             return View(post);
         }
 
-
         // GET: Posts/Delete/5
-        [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -181,9 +470,20 @@ namespace TourismWeb.Controllers
                 .Include(p => p.Spot)
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.PostId == id);
+
             if (post == null)
             {
                 return NotFound();
+            }
+
+            // Check if user is authorized to delete this post
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            bool isAdmin = User.IsInRole("Admin");
+
+            if (userIdClaim == null ||
+                (!isAdmin && post.UserId != int.Parse(userIdClaim.Value)))
+            {
+                return Unauthorized();
             }
 
             return View(post);
@@ -192,21 +492,36 @@ namespace TourismWeb.Controllers
         // POST: Posts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var post = await _context.Posts.FindAsync(id);
-            if (post != null)
+            if (post == null)
             {
-                _context.Posts.Remove(post);
+                return NotFound();
             }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            // Check if user is authorized to delete this post
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            bool isAdmin = User.IsInRole("Admin");
 
-        private bool PostExists(int id)
-        {
-            return _context.Posts.Any(e => e.PostId == id);
+            if (userIdClaim == null ||
+                (!isAdmin && post.UserId != int.Parse(userIdClaim.Value)))
+            {
+                return Unauthorized();
+            }
+
+            _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
+
+            if (isAdmin)
+            {
+                return RedirectToAction(nameof(Moderate));
+            }
+            else
+            {
+                return RedirectToAction(nameof(MyPosts));
+            }
         }
 
         // GET: Posts/Category
@@ -220,11 +535,87 @@ namespace TourismWeb.Controllers
             var posts = await _context.Posts
                 .Include(p => p.Spot)
                 .Include(p => p.User)
-                .Where(p => p.TypeOfPost == type)
+                .Where(p => p.TypeOfPost == type && p.Status == PostStatus.Approved)
                 .ToListAsync();
 
-            ViewBag.TypeOfPost = type; // Gửi loại bài viết để hiện lên tiêu đề nếu cần
-            return View("Index", posts); // Xài lại view Index.cshtml
+            ViewBag.TypeOfPost = type;
+            return View("Index", posts);
+        }
+
+        // GET: Posts/MyPosts - For users to see their own posts with any status
+        [Authorize]
+        public async Task<IActionResult> MyPosts()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            var posts = await _context.Posts
+                .Include(p => p.Spot)
+                .Include(p => p.User)
+                .Where(p => p.UserId == userId)
+                .ToListAsync();
+
+            return View(posts);
+        }
+
+        // GET: Posts/Moderate - Admin only page to manage all posts
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Moderate()
+        {
+            var posts = await _context.Posts
+                .Include(p => p.Spot)
+                .Include(p => p.User)
+                .OrderBy(p => p.Status)
+                .ThenByDescending(p => p.CreatedAt)
+                .ToListAsync();
+
+            return View(posts);
+        }
+
+        // POST: Posts/Approve/5 - Admin action to approve a post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Approve(int id)
+        {
+            var post = await _context.Posts.FindAsync(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            post.Status = PostStatus.Approved;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Moderate));
+        }
+
+        // POST: Posts/Reject/5 - Admin action to reject a post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Reject(int id)
+        {
+            var post = await _context.Posts.FindAsync(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            post.Status = PostStatus.Rejected;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Moderate));
+        }
+
+        private bool PostExists(int id)
+        {
+            return _context.Posts.Any(e => e.PostId == id);
         }
     }
 }

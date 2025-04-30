@@ -264,6 +264,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/PBL3/PBL3/Views/Posts/Moderate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcTW9kZXJhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PBL3/PBL3/Views/Posts/MyPosts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcTXlQb3N0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/PBL3/PBL3/Views/PostTags/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFRhZ3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
