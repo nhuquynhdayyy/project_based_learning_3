@@ -23,29 +23,188 @@ namespace TourismWeb.Controllers
         }
 
         // GET: TouristSpots
-        public async Task<IActionResult> Index()
+        // public async Task<IActionResult> Index()
+        // {
+        //     var touristSpots = await _context.TouristSpots
+        //         .Include(t => t.Category)
+        //         .Include(t => t.Favorites)
+        //         .Include(t => t.Comments)
+        //         .Include(t => t.SpotTags)
+        //             .ThenInclude(st => st.Tag)
+        //         .ToListAsync();
+            
+        //     // Truyền danh sách danh mục cho sidebar
+        //     ViewBag.Categories = await _context.Categories
+        //         .Include(c => c.TouristSpots)
+        //         .ToListAsync();
+            
+        //     // Truyền danh sách bài viết gần đây cho sidebar
+        //     ViewBag.RecentPosts = await _context.Posts
+        //         .OrderByDescending(p => p.CreatedAt)
+        //         .Take(3)
+        //         .ToListAsync();
+            
+        //     return View(touristSpots);
+        // }
+        // GET: TouristSpots
+public async Task<IActionResult> Index(int? categoryId, int? tagId, string sortBy = "default")
+{
+    // Bắt đầu với truy vấn cơ bản
+    var query = _context.TouristSpots
+        .Include(t => t.Category)
+        .Include(t => t.Favorites)
+        .Include(t => t.Comments)
+        .Include(t => t.SpotTags)
+            .ThenInclude(st => st.Tag)
+        .AsQueryable();
+    
+    // Lọc theo danh mục nếu có
+    if (categoryId.HasValue)
+    {
+        query = query.Where(t => t.CategoryId == categoryId.Value);
+    }
+    
+    // Lọc theo tag nếu có
+    if (tagId.HasValue)
+    {
+        query = query.Where(t => t.SpotTags.Any(st => st.TagId == tagId.Value));
+    }
+    
+    // Sắp xếp theo tiêu chí được chọn
+    switch (sortBy)
+    {
+        case "latest":
+            query = query.OrderByDescending(t => t.CreatedAt);
+            break;
+        case "mostLiked":
+            query = query.OrderByDescending(t => t.Favorites.Count);
+            break;
+        case "popular":
+            query = query.OrderByDescending(t => t.Comments.Count + t.Favorites.Count);
+            break;
+        default:
+            query = query.OrderBy(t => t.Name);
+            break;
+    }
+    
+    var touristSpots = await query.ToListAsync();
+    
+    // Kiểm tra xem người dùng hiện tại đã thích địa điểm nào
+    // Giả sử bạn có một phương thức để lấy ID người dùng hiện tại
+    // var currentUserId = GetCurrentUserId();
+    // if (currentUserId != null)
+    // {
+    //     foreach (var spot in touristSpots)
+    //     {
+    //         spot.IsLikedByCurrentUser = spot.Favorites?.Any(f => f.UserId == currentUserId) ?? false;
+    //     }
+    // }
+    var currentUserIdStr = GetCurrentUserId();
+if (int.TryParse(currentUserIdStr, out int currentUserId))
+{
+    foreach (var spot in touristSpots)
+    {
+        spot.IsLikedByCurrentUser = spot.Favorites?.Any(f => f.UserId == currentUserId) ?? false;
+    }
+}
+
+// Lấy tổng số địa điểm không phân loại
+    var allTouristSpotsCount = await _context.TouristSpots.CountAsync(); // Số lượng tất cả địa điểm
+
+    // Truyền tổng số địa điểm vào ViewBag
+    ViewBag.AllTouristSpotsCount = allTouristSpotsCount;
+    
+    // Truyền danh sách danh mục cho sidebar
+    ViewBag.Categories = await _context.Categories
+        .Include(c => c.TouristSpots)
+        .ToListAsync();
+    
+    // Truyền danh sách địa điểm phổ biến cho sidebar (xử lý ở Controller thay vì View)
+    ViewBag.PopularSpots = await _context.TouristSpots
+        .Include(t => t.Favorites)
+        .OrderByDescending(t => t.Favorites.Count)
+        .Take(3)
+        .ToListAsync();
+    
+    // Truyền danh sách bài viết gần đây cho sidebar
+    ViewBag.RecentPosts = await _context.Posts
+        .OrderByDescending(p => p.CreatedAt)
+        .Take(3)
+        .ToListAsync();
+    
+    return View(touristSpots);
+}
+
+// Phương thức giả định để lấy ID người dùng hiện tại
+private string GetCurrentUserId()
+{
+    // Thực hiện logic lấy ID người dùng hiện tại từ hệ thống xác thực của bạn
+    // Ví dụ: return User.FindFirstValue(ClaimTypes.NameIdentifier);
+    return null; // Thay thế bằng logic thực tế của bạn
+}
+
+// POST: TouristSpots/ToggleLike/5
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> ToggleLike(int id)
+{
+    var touristSpot = await _context.TouristSpots
+        .Include(t => t.Favorites)
+        .FirstOrDefaultAsync(t => t.SpotId == id);
+    
+    if (touristSpot == null)
+    {
+        return NotFound();
+    }
+    
+    // Lấy ID người dùng hiện tại
+    // var currentUserId = GetCurrentUserId();
+    // if (currentUserId == null)
+    // {
+    //     return Unauthorized();
+    // }
+    // Lấy ID người dùng hiện tại
+var currentUserIdStr = GetCurrentUserId();
+if (string.IsNullOrEmpty(currentUserIdStr) || !int.TryParse(currentUserIdStr, out var currentUserId))
+{
+    return Unauthorized(); // Không hợp lệ hoặc không thể chuyển thành int
+}
+    
+    // Kiểm tra xem người dùng đã thích địa điểm này chưa
+    var existingFavorite = touristSpot.Favorites?.FirstOrDefault(f => f.UserId == currentUserId);
+    
+    if (existingFavorite != null)
+    {
+        // Nếu đã thích, hủy thích
+        _context.SpotFavorites.Remove(existingFavorite);
+    }
+    else
+    {
+        // Nếu chưa thích, thêm thích mới
+        var newFavorite = new SpotFavorite
         {
-            var touristSpots = await _context.TouristSpots
-                .Include(t => t.Category)
-                .Include(t => t.Favorites)
-                .Include(t => t.Comments)
-                .Include(t => t.SpotTags)
-                    .ThenInclude(st => st.Tag)
-                .ToListAsync();
-            
-            // Truyền danh sách danh mục cho sidebar
-            ViewBag.Categories = await _context.Categories
-                .Include(c => c.TouristSpots)
-                .ToListAsync();
-            
-            // Truyền danh sách bài viết gần đây cho sidebar
-            ViewBag.RecentPosts = await _context.Posts
-                .OrderByDescending(p => p.CreatedAt)
-                .Take(3)
-                .ToListAsync();
-            
-            return View(touristSpots);
-        }
+            SpotId = id,
+            UserId = currentUserId,
+            CreatedAt = DateTime.Now
+        };
+        _context.SpotFavorites.Add(newFavorite);
+    }
+    
+    await _context.SaveChangesAsync();
+    
+    // Trả về số lượt thích mới
+    var likeCount = touristSpot.Favorites?.Count ?? 0;
+    if (existingFavorite == null)
+    {
+        likeCount++; // Nếu vừa thêm thích mới
+    }
+    else
+    {
+        likeCount--; // Nếu vừa hủy thích
+    }
+    
+    return Json(new { success = true, likeCount = likeCount });
+}
 
         // GET: TouristSpots/Details/5
         public async Task<IActionResult> Details(int? id)

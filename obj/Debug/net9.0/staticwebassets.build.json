@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "anUQf+mUSHAiDPAqXb4C74dmwT9LmiP2x4W4P16JrK8=",
+  "Hash": "sp4XG3NZgjn6ohT2IzzOrKUYMsand9dK/egRPSdFpf4=",
   "Source": "TourismWeb",
   "BasePath": "_content/TourismWeb",
   "Mode": "Default",
@@ -1844,12 +1844,12 @@
       "OriginalItemSpec": "D:\\PBL3\\PBL3\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js"
     },
     {
-      "Identity": "D:\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\wn098pqtzw-dzo3ugnsgs.gz",
+      "Identity": "D:\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\wn098pqtzw-2wemt4i2iz.gz",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/TourismWeb",
-      "RelativePath": "css/spot#[.{fingerprint=dzo3ugnsgs}]?.css.gz",
+      "RelativePath": "css/spot#[.{fingerprint=2wemt4i2iz}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -1858,8 +1858,8 @@
       "RelatedAsset": "D:\\PBL3\\PBL3\\wwwroot\\css\\spot.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "hltgnvhkju",
-      "Integrity": "K6PEdxLY9hCeD9yjcSaeI3E71fgz7g1402yjY1Crc2k=",
+      "Fingerprint": "uee5v4nu2c",
+      "Integrity": "Ntewcmlgtiotv7H80E04cwskrlfctrd36AvnMAGH9ZM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\PBL3\\PBL3\\wwwroot\\css\\spot.css"
@@ -2299,8 +2299,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "dzo3ugnsgs",
-      "Integrity": "x9BI1aFeBsv4qQmWYAHqEvslb2yhOsUbWLsG8LZoR4c=",
+      "Fingerprint": "2wemt4i2iz",
+      "Integrity": "Hp60gCQ2uY7fulc4mJTShpLpPUH9kL84MfsAcYUen4I=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\spot.css"
@@ -8627,13 +8627,13 @@
       ]
     },
     {
-      "Route": "css/spot.css",
-      "AssetFile": "D:\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\wn098pqtzw-dzo3ugnsgs.gz",
+      "Route": "css/spot.2wemt4i2iz.css",
+      "AssetFile": "D:\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\wn098pqtzw-2wemt4i2iz.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000595592615"
+          "Quality": "0.000511508951"
         }
       ],
       "ResponseHeaders": [
@@ -8643,19 +8643,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1678"
+          "Value": "1954"
         },
         {
           "Name": "ETag",
-          "Value": "\"K6PEdxLY9hCeD9yjcSaeI3E71fgz7g1402yjY1Crc2k=\""
+          "Value": "\"Ntewcmlgtiotv7H80E04cwskrlfctrd36AvnMAGH9ZM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 30 Apr 2025 02:32:57 GMT"
+          "Value": "Wed, 30 Apr 2025 08:00:14 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "no-cache"
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Encoding",
@@ -8671,18 +8671,26 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"x9BI1aFeBsv4qQmWYAHqEvslb2yhOsUbWLsG8LZoR4c=\""
+          "Value": "W/\"Hp60gCQ2uY7fulc4mJTShpLpPUH9kL84MfsAcYUen4I=\""
         }
       ],
       "EndpointProperties": [
         {
+          "Name": "fingerprint",
+          "Value": "2wemt4i2iz"
+        },
+        {
+          "Name": "label",
+          "Value": "css/spot.css"
+        },
+        {
           "Name": "integrity",
-          "Value": "sha256-x9BI1aFeBsv4qQmWYAHqEvslb2yhOsUbWLsG8LZoR4c="
+          "Value": "sha256-Hp60gCQ2uY7fulc4mJTShpLpPUH9kL84MfsAcYUen4I="
         }
       ]
     },
     {
-      "Route": "css/spot.css",
+      "Route": "css/spot.2wemt4i2iz.css",
       "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\css\\spot.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -8692,7 +8700,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7241"
+          "Value": "8882"
         },
         {
           "Name": "Content-Type",
@@ -8700,121 +8708,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"x9BI1aFeBsv4qQmWYAHqEvslb2yhOsUbWLsG8LZoR4c=\""
+          "Value": "\"Hp60gCQ2uY7fulc4mJTShpLpPUH9kL84MfsAcYUen4I=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 30 Apr 2025 02:32:57 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-x9BI1aFeBsv4qQmWYAHqEvslb2yhOsUbWLsG8LZoR4c="
-        }
-      ]
-    },
-    {
-      "Route": "css/spot.css.gz",
-      "AssetFile": "D:\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\wn098pqtzw-dzo3ugnsgs.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1678"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"K6PEdxLY9hCeD9yjcSaeI3E71fgz7g1402yjY1Crc2k=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 30 Apr 2025 02:32:57 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-K6PEdxLY9hCeD9yjcSaeI3E71fgz7g1402yjY1Crc2k="
-        }
-      ]
-    },
-    {
-      "Route": "css/spot.dzo3ugnsgs.css",
-      "AssetFile": "D:\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\wn098pqtzw-dzo3ugnsgs.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000595592615"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1678"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"K6PEdxLY9hCeD9yjcSaeI3E71fgz7g1402yjY1Crc2k=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 30 Apr 2025 02:32:57 GMT"
+          "Value": "Wed, 30 Apr 2025 08:00:14 GMT"
         },
         {
           "Name": "Cache-Control",
           "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"x9BI1aFeBsv4qQmWYAHqEvslb2yhOsUbWLsG8LZoR4c=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "dzo3ugnsgs"
+          "Value": "2wemt4i2iz"
         },
         {
           "Name": "label",
@@ -8822,13 +8730,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-x9BI1aFeBsv4qQmWYAHqEvslb2yhOsUbWLsG8LZoR4c="
+          "Value": "sha256-Hp60gCQ2uY7fulc4mJTShpLpPUH9kL84MfsAcYUen4I="
         }
       ]
     },
     {
-      "Route": "css/spot.dzo3ugnsgs.css",
-      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\css\\spot.css",
+      "Route": "css/spot.2wemt4i2iz.css.gz",
+      "AssetFile": "D:\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\wn098pqtzw-2wemt4i2iz.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -8837,7 +8745,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7241"
+          "Value": "1954"
         },
         {
           "Name": "Content-Type",
@@ -8845,56 +8753,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"x9BI1aFeBsv4qQmWYAHqEvslb2yhOsUbWLsG8LZoR4c=\""
+          "Value": "\"Ntewcmlgtiotv7H80E04cwskrlfctrd36AvnMAGH9ZM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 30 Apr 2025 02:32:57 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "dzo3ugnsgs"
-        },
-        {
-          "Name": "label",
-          "Value": "css/spot.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-x9BI1aFeBsv4qQmWYAHqEvslb2yhOsUbWLsG8LZoR4c="
-        }
-      ]
-    },
-    {
-      "Route": "css/spot.dzo3ugnsgs.css.gz",
-      "AssetFile": "D:\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\wn098pqtzw-dzo3ugnsgs.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1678"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"K6PEdxLY9hCeD9yjcSaeI3E71fgz7g1402yjY1Crc2k=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Wed, 30 Apr 2025 02:32:57 GMT"
+          "Value": "Wed, 30 Apr 2025 08:00:14 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8912,7 +8775,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "dzo3ugnsgs"
+          "Value": "2wemt4i2iz"
         },
         {
           "Name": "label",
@@ -8920,7 +8783,144 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-K6PEdxLY9hCeD9yjcSaeI3E71fgz7g1402yjY1Crc2k="
+          "Value": "sha256-Ntewcmlgtiotv7H80E04cwskrlfctrd36AvnMAGH9ZM="
+        }
+      ]
+    },
+    {
+      "Route": "css/spot.css",
+      "AssetFile": "D:\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\wn098pqtzw-2wemt4i2iz.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000511508951"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1954"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ntewcmlgtiotv7H80E04cwskrlfctrd36AvnMAGH9ZM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Apr 2025 08:00:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"Hp60gCQ2uY7fulc4mJTShpLpPUH9kL84MfsAcYUen4I=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Hp60gCQ2uY7fulc4mJTShpLpPUH9kL84MfsAcYUen4I="
+        }
+      ]
+    },
+    {
+      "Route": "css/spot.css",
+      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\css\\spot.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "8882"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Hp60gCQ2uY7fulc4mJTShpLpPUH9kL84MfsAcYUen4I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Apr 2025 08:00:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Hp60gCQ2uY7fulc4mJTShpLpPUH9kL84MfsAcYUen4I="
+        }
+      ]
+    },
+    {
+      "Route": "css/spot.css.gz",
+      "AssetFile": "D:\\PBL3\\PBL3\\obj\\Debug\\net9.0\\compressed\\wn098pqtzw-2wemt4i2iz.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1954"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ntewcmlgtiotv7H80E04cwskrlfctrd36AvnMAGH9ZM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Apr 2025 08:00:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ntewcmlgtiotv7H80E04cwskrlfctrd36AvnMAGH9ZM="
         }
       ]
     },
