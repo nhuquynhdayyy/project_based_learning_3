@@ -1,0 +1,450 @@
+@section Styles {
+    <link rel="stylesheet" href="~/cssadmin/users.css">
+
+    <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+}
+
+@{
+    ViewData["Title"] = "Quản Lý Người Dùng - Hệ Thống Quản Trị";
+}
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/js/jsadmin/users.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+}
+
+<div class="app-container">
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <main class="content-wrapper">
+            <div class="page-header">
+                <h1 class="page-title">Quản Lý Người Dùng</h1>
+                <div class="page-actions">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i>
+                        Thêm người dùng
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-card">
+                <div class="filter-grid">
+                    <div class="filter-item">
+                        <div class="search-input">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Tìm kiếm người dùng...">
+                        </div>
+                    </div>
+                    <div class="filter-item">
+                        <select class="select-control">
+                            <option value="all">Tất cả vai trò</option>
+                            <option value="admin">Quản trị viên</option>
+                            <option value="editor">Biên tập viên</option>
+                            <option value="author">Tác giả</option>
+                            <option value="user">Người dùng</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <select class="select-control">
+                            <option value="all">Tất cả trạng thái</option>
+                            <option value="active">Hoạt động</option>
+                            <option value="inactive">Không hoạt động</option>
+                            <option value="banned">Bị cấm</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <button class="btn btn-filter">
+                            <i class="fas fa-filter"></i>
+                            Lọc
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="table-card">
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" id="select-all">
+                                        <label for="select-all"></label>
+                                    </div>
+                                </th>
+                                <th>Người dùng</th>
+                                <th>Email</th>
+                                <th>Vai trò</th>
+                                <th>Bài viết</th>
+                                <th>Ngày tham gia</th>
+                                <th>Trạng thái</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" id="user-1">
+                                        <label for="user-1"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=1" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Nguyễn Văn A</div>
+                                            <div class="user-username">@@nguyenvana</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>nguyenvana@example.com</td>
+                                <td>
+                                    <span class="badge purple">Quản trị viên</span>
+                                </td>
+                                <td>15</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-calendar"></i>
+                                        01/01/2025
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge green">Hoạt động</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" id="user-2">
+                                        <label for="user-2"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=2" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Trần Thị B</div>
+                                            <div class="user-username">@@tranthib</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>tranthib@example.com</td>
+                                <td>
+                                    <span class="badge blue">Biên tập viên</span>
+                                </td>
+                                <td>8</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-calendar"></i>
+                                        15/02/2025
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge green">Hoạt động</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" id="user-3">
+                                        <label for="user-3"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=3" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Lê Văn C</div>
+                                            <div class="user-username">@@levanc</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>levanc@example.com</td>
+                                <td>
+                                    <span class="badge green">Tác giả</span>
+                                </td>
+                                <td>12</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-calendar"></i>
+                                        10/03/2025
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge green">Hoạt động</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" id="user-4">
+                                        <label for="user-4"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=4" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Phạm Thị D</div>
+                                            <div class="user-username">@@phamthid</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>phamthid@example.com</td>
+                                <td>
+                                    <span class="badge amber">Người dùng</span>
+                                </td>
+                                <td>0</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-calendar"></i>
+                                        05/04/2025
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge yellow">Không hoạt động</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" id="user-5">
+                                        <label for="user-5"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=5" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Hoàng Văn E</div>
+                                            <div class="user-username">@@hoangvane</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>hoangvane@example.com</td>
+                                <td>
+                                    <span class="badge amber">Người dùng</span>
+                                </td>
+                                <td>0</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-calendar"></i>
+                                        20/04/2025
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge red">Bị cấm</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        <span>Hiển thị
+                            <select class="select-sm">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                            </select>
+                            trên tổng số 25 người dùng
+                        </span>
+                    </div>
+                    <div class="pagination">
+                        <button class="pagination-btn" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="pagination-text">Trang 1 / 5</span>
+                        <button class="pagination-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="bulk-actions">
+                        <select class="select-control">
+                            <option value="">Hành động hàng loạt</option>
+                            <option value="activate">Kích hoạt</option>
+                            <option value="deactivate">Vô hiệu hóa</option>
+                            <option value="ban">Cấm</option>
+                            <option value="delete">Xóa</option>
+                        </select>
+                        <button class="btn btn-secondary">Áp dụng</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- User Modal -->
+<div class="modal" id="userModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Thêm người dùng mới</h2>
+            <button class="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="userForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fullname">Họ và tên <span class="required">*</span></label>
+                        <input type="text" id="fullname" name="fullname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Tên đăng nhập <span class="required">*</span></label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Vai trò <span class="required">*</span></label>
+                        <select id="role" name="role" required>
+                            <option value="user">Người dùng</option>
+                            <option value="user">Người dùng</option>
+                            <option value="user">Người dùng</option>
+                            <option value="user" selected>Người dùng</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Trạng thái</label>
+                        <select id="status" name="status">
+                            <option value="active" selected>Hoạt động</option>
+                            <option value="inactive">Không hoạt động</option>
+                            <option value="banned">Bị cấm</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mật khẩu <span class="required">*</span></label>
+                        <div class="input-with-icon">
+                            <input type="password" id="password" name="password" required>
+                            <button type="button" class="toggle-password" title="Hiện/ẩn mật khẩu">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Xác nhận mật khẩu <span class="required">*</span></label>
+                        <div class="input-with-icon">
+                            <input type="password" id="confirm-password" name="confirm-password" required>
+                            <button type="button" class="toggle-password" title="Hiện/ẩn mật khẩu">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="bio">Giới thiệu</label>
+                    <textarea id="bio" name="bio" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelUser">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal" id="deleteModal">
+    <div class="modal-content modal-sm">
+        <div class="modal-header">
+            <h2 class="modal-title">Xác nhận xóa người dùng</h2>
+            <button class="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Bạn có chắc chắn muốn xóa người dùng "<span id="deleteUserName"></span>"?</p>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="cancelDelete">Hủy</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,292 @@
+@section Styles {
+    <link rel="stylesheet" href="~/cssadmin/statistics.css">
+
+    <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+}
+
+@{
+    ViewData["Title"] = "Quản Lý Bài Viết - Hệ Thống Thống kê";
+}
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/js/jsadmin/statistics.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+}
+<div class="app-container">
+    <!-- Sidebar -->
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <main class="content-wrapper">
+            <div class="page-header">
+                <h1 class="page-title">Thống Kê</h1>
+                <div class="page-actions">
+                    <div class="filter-group">
+                        <label for="time-range">Thời gian:</label>
+                        <select id="time-range" class="select-control">
+                            <option value="7">7 ngày</option>
+                            <option value="30" selected>30 ngày</option>
+                            <option value="90">90 ngày</option>
+                            <option value="365">365 ngày</option>
+                            <option value="all">Tất cả</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        Xuất báo cáo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Tổng lượt truy cập</p>
+                            <p class="stats-card-value">82</p>
+                        </div>
+                        <div class="stats-card-icon blue">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="stats-card-footer">
+                        <span class="stats-trend positive">+12%</span> so với tháng trước
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Người dùng mới</p>
+                            <p class="stats-card-value">8</p>
+                        </div>
+                        <div class="stats-card-icon green">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                    </div>
+                    <div class="stats-card-footer">
+                        <span class="stats-trend positive">+8%</span> so với tháng trước
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Tỷ lệ tương tác</p>
+                            <p class="stats-card-value">24.8%</p>
+                        </div>
+                        <div class="stats-card-icon amber">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="stats-card-footer">
+                        <span class="stats-trend positive">+2.5%</span> so với tháng trước
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Thời gian trung bình</p>
+                            <p class="stats-card-value">3:24</p>
+                        </div>
+                        <div class="stats-card-icon purple">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="stats-card-footer">
+                        <span class="stats-trend positive">+0:18</span> so với tháng trước
+                    </div>
+                </div>
+            </div>
+
+            <!-- Traffic Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2 class="chart-title">Lượng truy cập theo thời gian</h2>
+                    <div class="chart-actions">
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color: #3b82f6;"></span>
+                                <span class="legend-label">Lượt truy cập</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color: #10b981;"></span>
+                                <span class="legend-label">Người dùng mới</span>
+                            </div>
+                        </div>
+                        <select id="traffic-interval" class="select-control">
+                            <option value="day">Theo ngày</option>
+                            <option value="week">Theo tuần</option>
+                            <option value="month">Theo tháng</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trafficChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h2 class="chart-title">Tỷ lệ phân bố bài viết</h2>
+                    <div class="chart-container">
+                        <canvas id="sourceChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h2 class="chart-title">Tương tác người dùng theo thời gian</h2>
+                    <div class="chart-container">
+                        <canvas id="interactionsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h2 class="chart-title">Top 5 bài viết được xem nhiều nhất</h2>
+                <div class="chart-container">
+                    <canvas id="deviceChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h2 class="chart-title">Phân bố bài viết theo địa điểm</h2>
+                <div class="chart-container">
+                    <canvas id="ageChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Popular Content -->
+            <div class="table-card">
+                <div class="table-header">
+                    <h2 class="table-title">Nội dung phổ biến</h2>
+                    <a href="posts.html" class="view-all">Xem tất cả</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tiêu đề</th>
+                                <th>Loại</th>
+                                <th>Lượt xem</th>
+                                <th>Tỷ lệ thoát</th>
+                                <th>Thời gian trung bình</th>
+                                <th>Tỷ lệ chuyển đổi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Khám phá Đà Lạt mùa hoa</div>
+                                </td>
+                                <td>
+                                    <span class="badge blue">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Địa điểm
+                                    </span>
+                                </td>
+                                <td>82</td>
+                                <td>24.5%</td>
+                                <td>4:12</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 65%;"></div>
+                                        <span>65%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Cẩm nang du lịch Hội An tự túc</div>
+                                </td>
+                                <td>
+                                    <span class="badge green">
+                                        <i class="fas fa-book"></i>
+                                        Cẩm nang
+                                    </span>
+                                </td>
+                                <td>45</td>
+                                <td>28.2%</td>
+                                <td>5:34</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 58%;"></div>
+                                        <span>58%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Bãi biển đẹp nhất Phú Quốc</div>
+                                </td>
+                                <td>
+                                    <span class="badge blue">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Địa điểm
+                                    </span>
+                                </td>
+                                <td>21</td>
+                                <td>32.1%</td>
+                                <td>3:48</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 52%;"></div>
+                                        <span>52%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Trải nghiệm leo núi Fansipan</div>
+                                </td>
+                                <td>
+                                    <span class="badge amber">
+                                        <i class="fas fa-star"></i>
+                                        Trải nghiệm
+                                    </span>
+                                </td>
+                                <td>87</td>
+                                <td>29.8%</td>
+                                <td>4:56</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 48%;"></div>
+                                        <span>48%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Kinh nghiệm du lịch Sapa mùa đông</div>
+                                </td>
+                                <td>
+                                    <span class="badge green">
+                                        <i class="fas fa-book"></i>
+                                        Cẩm nang
+                                    </span>
+                                </td>
+                                <td>54</td>
+                                <td>35.2%</td>
+                                <td>3:22</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 42%;"></div>
+                                        <span>42%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

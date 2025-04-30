@@ -1,0 +1,711 @@
+@{
+    ViewData["Title"] = "Hướng dẫn du lịch Huế từ A-Z";
+    Layout = "_Layout";
+}
+
+<h2>Cẩm nang về Huế</h2>
+<p>Đây là trang cẩm nang về địa điểm Huế.</p>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/guidelayout.css" asp-append-version="true" />
+}
+<script src="~/js/script.js"></script>
+
+
+<!-- Breadcrumb -->
+
+<body>
+    <div class="breadcrumb container">
+        <a asp-controller="Home" asp-action="Index">Trang chủ</a> &gt;
+        <a asp-controller="Guide" asp-action="Index">Cẩm nang du lịch</a> &gt;
+        <span>Hướng dẫn du lịch Huế từ A-Z</span>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Guide Header -->
+        <section class="guide-header">
+            <div class="guide-title">
+                <h1>Hướng dẫn du lịch Huế từ A-Z</h1>
+                <div class="guide-meta">
+                    <span class="category"><i class="fas fa-tag"></i> Cẩm nang du lịch</span>
+                    <span class="date"><i class="far fa-calendar-alt"></i> Cập nhật: 15/04/2023</span>
+                </div>
+            </div>
+            <div class="guide-actions">
+                <button class="btn favorite" id="favoriteBtn"><i class="far fa-heart"></i> Yêu thích</button>
+                <div class="share-dropdown">
+                    <button class="btn share"><i class="fas fa-share-alt"></i> Chia sẻ</button>
+                    <div class="share-options">
+                        <a href="#" class="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                        <a href="#" class="twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                        <a href="#" class="zalo"><i class="fas fa-comment"></i> Zalo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guide Content -->
+        <div class="guide-content">
+            <div class="guide-info">
+                <!-- Banner -->
+                <div class="guide-banner">
+                    <img src="/images/huebig.jpg" alt="Cầu Rồng Đà Nẵng">
+                    <div class="guide-banner-overlay">
+                        <h2>Khám phá vẻ đẹp cổ kính của cố đô Huế</h2>
+                        <p>Hướng dẫn chi tiết để có chuyến du lịch hoàn hảo tại Huế</p>
+                    </div>
+                </div>
+
+                <!-- Introduction -->
+                <section class="guide-section" id="gioi-thieu">
+                    <h2><i class="fas fa-info-circle"></i> Giới thiệu về Huế</h2>
+                    <p>Huế là cố đô của Việt Nam, từng là kinh đô của triều đại nhà Nguyễn (1802-1945), nằm bên bờ sông
+                        Hương thơ mộng. Thành phố này được UNESCO công nhận là Di sản Văn hóa Thế giới vào năm 1993, với
+                        hệ thống di tích lịch sử và kiến trúc cung đình độc đáo.</p>
+
+                    <p>Huế nổi tiếng với quần thể di tích Hoàng thành, các lăng tẩm vua chúa tinh xảo, chùa Thiên Mụ cổ
+                        kính, cùng nền ẩm thực hoàng cung tinh tế đã tạo nên bản sắc riêng cho vùng đất này. Dòng sông
+                        Hương uốn lượn qua thành phố như một dải lụa xanh, tô điểm thêm vẻ đẹp trầm mặc của xứ Huế.</p>
+
+                    <p>Bài viết này sẽ cung cấp cho bạn mọi thông tin cần thiết để có một chuyến du lịch Huế trọn vẹn,
+                        từ cách di chuyển, nơi ở, địa điểm tham quan đến ẩm thực và các lưu ý quan trọng.</p>
+                </section>
+
+                <!-- When to Visit -->
+                <section class="guide-section" id="thoi-diem">
+                    <h2><i class="fas fa-calendar-alt"></i> Thời điểm lý tưởng để đến Huế</h2>
+                    <p>Huế có khí hậu nhiệt đới gió mùa, với 4 mùa tương đối rõ rệt. Thời tiết Huế thường được chia
+                        thành hai mùa chính: mùa khô (từ tháng 3 đến tháng 8) và mùa mưa (từ tháng 9 đến tháng 2 năm
+                        sau).</p>
+
+                    <p><strong>Thời điểm lý tưởng nhất để du lịch Huế:</strong></p>
+                    <ul>
+                        <li><strong>Tháng 1 - Tháng 4:</strong> Thời tiết mát mẻ, ít mưa, nhiệt độ dao động từ 20-28°C,
+                            rất thích hợp để tham quan các di tích.</li>
+                        <li><strong>Tháng 9 - Tháng 11:</strong> Thời tiết dễ chịu, mặc dù có thể có mưa nhẹ, nhưng cảnh
+                            sắc thiên nhiên rất đẹp.</li>
+                    </ul>
+
+                    <p><strong>Thời điểm nên tránh:</strong></p>
+                    <ul>
+                        <li><strong>Tháng 5 - Tháng 8:</strong> Thời tiết nóng bức, nhiệt độ có thể lên đến 38-40°C,
+                            không thuận lợi cho việc tham quan ngoài trời.</li>
+                        <li><strong>Tháng 10 - Tháng 12:</strong> Mùa mưa cao điểm, có thể gặp mưa lớn và ngập lụt.</li>
+                    </ul>
+
+                    <p><strong>Các sự kiện đặc biệt:</strong></p>
+                    <ul>
+                        <li><strong>Festival Huế:</strong> Diễn ra 2 năm một lần vào tháng 4 hoặc tháng 6, là dịp để
+                            trải nghiệm các hoạt động văn hóa nghệ thuật đặc sắc.</li>
+                        <li><strong>Tết Nguyên Đán:</strong> Thường rơi vào tháng 1 hoặc tháng 2, là dịp để trải nghiệm
+                            không khí Tết cổ truyền tại cố đô.</li>
+                    </ul>
+                </section>
+
+                <!-- How to Get There -->
+                <section class="guide-section" id="di-chuyen">
+                    <h2><i class="fas fa-plane"></i> Cách di chuyển đến Huế</h2>
+
+                    <p><strong>Bằng máy bay:</strong></p>
+                    <p>Sân bay Phú Bài cách trung tâm thành phố Huế khoảng 15km. Có các chuyến bay thẳng từ Hà Nội và
+                        TP.HCM đến Huế của Vietnam Airlines, Vietjet Air và Bamboo Airways.</p>
+                    <ul>
+                        <li>Từ sân bay về trung tâm: Taxi (khoảng 300.000 VNĐ), xe buýt (khoảng 50.000 VNĐ)</li>
+                    </ul>
+
+                    <p><strong>Bằng tàu hỏa:</strong></p>
+                    <p>Ga Huế nằm ở trung tâm thành phố, thuận tiện cho việc di chuyển. Có các chuyến tàu từ Hà Nội và
+                        TP.HCM đến Huế hàng ngày.</p>
+                    <ul>
+                        <li>Từ Hà Nội: 12-14 giờ, giá từ 400.000 - 1.200.000 VNĐ tùy loại vé</li>
+                        <li>Từ TP.HCM: 20-22 giờ, giá từ 600.000 - 1.500.000 VNĐ tùy loại vé</li>
+                    </ul>
+
+                    <p><strong>Bằng xe khách:</strong></p>
+                    <p>Có nhiều nhà xe chất lượng cao chạy tuyến Hà Nội - Huế và TP.HCM - Huế.</p>
+                    <ul>
+                        <li>Từ Hà Nội: 12-14 giờ, giá từ 350.000 - 500.000 VNĐ</li>
+                        <li>Từ Đà Nẵng: 3-4 giờ, giá từ 100.000 - 150.000 VNĐ</li>
+                    </ul>
+
+                    <p><strong>Bằng ô tô riêng/thuê xe:</strong></p>
+                    <p>Nếu đi từ Đà Nẵng, bạn có thể thuê xe và đi qua đèo Hải Vân, một trong những cung đường đẹp nhất
+                        Việt Nam.</p>
+                    <ul>
+                        <li>Thuê xe từ Đà Nẵng đi Huế: Khoảng 700.000 - 1.200.000 VNĐ/ngày tùy loại xe</li>
+                        <li>Quãng đường: Khoảng 100km, thời gian di chuyển 2-3 giờ</li>
+                    </ul>
+                </section>
+
+                <!-- Accommodation -->
+                <section class="guide-section" id="luu-tru">
+                    <h2><i class="fas fa-bed"></i> Nơi lưu trú</h2>
+
+                    <p>Huế có nhiều lựa chọn lưu trú phù hợp với mọi ngân sách, từ khách sạn 5 sao đến nhà nghỉ bình
+                        dân.</p>
+
+                    <p><strong>Khu vực nên ở:</strong></p>
+                    <ul>
+                        <li><strong>Khu vực trung tâm (gần sông Hương):</strong> Thuận tiện di chuyển, gần các điểm tham
+                            quan và nhà hàng.</li>
+                        <li><strong>Khu vực Đại Nội:</strong> Gần các di tích lịch sử, không khí yên tĩnh.</li>
+                        <li><strong>Khu vực Thủy Biều:</strong> Cảnh quan đẹp, phù hợp cho những ai thích không gian yên
+                            bình.</li>
+                    </ul>
+
+                    <p><strong>Các khách sạn đề xuất:</strong></p>
+                    <table>
+                        <tr>
+                            <th>Loại hình</th>
+                            <th>Tên khách sạn</th>
+                            <th>Giá tham khảo</th>
+                        </tr>
+                        <tr>
+                            <td>Cao cấp (5 sao)</td>
+                            <td>Azerai La Residence Hue, Imperial Hotel</td>
+                            <td>2.500.000 - 5.000.000 VNĐ/đêm</td>
+                        </tr>
+                        <tr>
+                            <td>Trung cấp (3-4 sao)</td>
+                            <td>Moonlight Hotel, Eldora Hotel, Century Riverside</td>
+                            <td>800.000 - 1.500.000 VNĐ/đêm</td>
+                        </tr>
+                        <tr>
+                            <td>Bình dân (1-2 sao)</td>
+                            <td>Hue Nino Hotel, Hue Serene Palace, Why Not</td>
+                            <td>300.000 - 600.000 VNĐ/đêm</td>
+                        </tr>
+                        <tr>
+                            <td>Homestay</td>
+                            <td>Tam Family Homestay, Hue Happy Homestay</td>
+                            <td>250.000 - 500.000 VNĐ/đêm</td>
+                        </tr>
+                    </table>
+
+                    <p><strong>Lưu ý khi đặt phòng:</strong></p>
+                    <ul>
+                        <li>Nên đặt phòng trước 1-2 tháng nếu đi vào mùa cao điểm hoặc dịp lễ, Tết.</li>
+                        <li>Kiểm tra vị trí khách sạn trên bản đồ để đảm bảo thuận tiện cho việc di chuyển.</li>
+                        <li>Nhiều khách sạn ở Huế cung cấp dịch vụ thuê xe máy, xe đạp và tour du lịch.</li>
+                    </ul>
+                </section>
+
+                <!-- Must-Visit Places -->
+                <section class="guide-section" id="dia-diem">
+                    <h2><i class="fas fa-map-marked-alt"></i> Những địa điểm không thể bỏ qua</h2>
+
+                    <p><strong>1. Đại Nội (Hoàng Thành Huế)</strong></p>
+                    <p>Quần thể kiến trúc hoàng gia được UNESCO công nhận là Di sản Văn hóa Thế giới, nơi sinh sống và
+                        làm việc của 13 vị vua triều Nguyễn.</p>
+                    <ul>
+                        <li>Giá vé: 200.000 VNĐ/người</li>
+                        <li>Giờ mở cửa: 7:00 - 17:30</li>
+                        <li>Thời gian tham quan: 2-3 giờ</li>
+                        <li>Điểm nổi bật: Ngọ Môn, Điện Thái Hòa, Tử Cấm Thành, Thế Miếu</li>
+                    </ul>
+
+                    <p><strong>2. Chùa Thiên Mụ</strong></p>
+                    <p>Ngôi chùa cổ nhất Huế, biểu tượng của thành phố với tháp Phước Duyên 7 tầng nổi tiếng.</p>
+                    <ul>
+                        <li>Giá vé: Miễn phí</li>
+                        <li>Giờ mở cửa: 7:30 - 17:30</li>
+                        <li>Thời gian tham quan: 1 giờ</li>
+                        <li>Điểm nổi bật: Tháp Phước Duyên, chuông đồng, xe Austin của Thích Quảng Đức</li>
+                    </ul>
+
+                    <p><strong>3. Lăng Tự Đức</strong></p>
+                    <p>Một trong những lăng tẩm đẹp nhất của các vua triều Nguyễn, được xây dựng trong khu vườn rộng lớn
+                        với hồ nước, đình tạ.</p>
+                    <ul>
+                        <li>Giá vé: 150.000 VNĐ/người</li>
+                        <li>Giờ mở cửa: 7:00 - 17:30</li>
+                        <li>Thời gian tham quan: 1-1.5 giờ</li>
+                        <li>Điểm nổi bật: Hồ Lưu Khiêm, điện Hòa Khiêm, cảnh quan thiên nhiên</li>
+                    </ul>
+
+                    <p><strong>4. Lăng Khải Định</strong></p>
+                    <p>Lăng tẩm có kiến trúc độc đáo, kết hợp giữa phong cách phương Đông và phương Tây.</p>
+                    <ul>
+                        <li>Giá vé: 150.000 VNĐ/người</li>
+                        <li>Giờ mở cửa: 7:00 - 17:30</li>
+                        <li>Thời gian tham quan: 1 giờ</li>
+                        <li>Điểm nổi bật: Kiến trúc độc đáo, trang trí cầu kỳ, điện Thiên Định</li>
+                    </ul>
+
+                    <p><strong>5. Sông Hương và cầu Trường Tiền</strong></p>
+                    <p>Dòng sông thơ mộng chảy qua thành phố Huế, là biểu tượng của vẻ đẹp trầm mặc xứ Huế.</p>
+                    <ul>
+                        <li>Hoạt động: Đi thuyền nghe ca Huế, dạo bộ dọc bờ sông, ngắm hoàng hôn</li>
+                        <li>Giá vé thuyền: 300.000 - 500.000 VNĐ/thuyền (1-2 giờ)</li>
+                    </ul>
+
+                    <p><strong>6. Chợ Đông Ba</strong></p>
+                    <p>Khu chợ truyền thống lớn nhất Huế, nơi bán đủ loại hàng hóa từ đồ lưu niệm đến ẩm thực địa
+                        phương.</p>
+                    <ul>
+                        <li>Giờ mở cửa: 6:00 - 19:00</li>
+                        <li>Thời gian tham quan: 1-2 giờ</li>
+                        <li>Đặc sản: Nón lá, áo dài, tranh thêu, đồ thủ công mỹ nghệ</li>
+                    </ul>
+                </section>
+
+                <!-- Itinerary -->
+                <section class="guide-section" id="lich-trinh">
+                    <h2><i class="fas fa-route"></i> Lịch trình tham quan gợi ý</h2>
+
+                    <p>Dưới đây là lịch trình gợi ý cho chuyến du lịch Huế trong 2 ngày:</p>
+
+                    <div class="itinerary-day">
+                        <div class="day-header">
+                            <h3>Ngày 1: Khám phá trung tâm Huế</h3>
+                        </div>
+                        <div class="itinerary-activities">
+                            <div class="activity">
+                                <div class="activity-time">7:00 - 8:00</div>
+                                <div class="activity-content">
+                                    <strong>Ăn sáng:</strong> Thưởng thức bún bò Huế tại một quán địa phương.
+                                </div>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-time">8:30 - 11:30</div>
+                                <div class="activity-content">
+                                    <strong>Tham quan Đại Nội:</strong> Khám phá quần thể di tích hoàng cung, bao gồm
+                                    Ngọ Môn, Điện Thái Hòa, Tử Cấm Thành.
+                                </div>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-time">12:00 - 13:30</div>
+                                <div class="activity-content">
+                                    <strong>Ăn trưa:</strong> Thưởng thức cơm hến hoặc bánh khoái tại khu vực gần Đại
+                                    Nội.
+                                </div>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-time">14:00 - 15:30</div>
+                                <div class="activity-content">
+                                    <strong>Tham quan Chùa Thiên Mụ:</strong> Chiêm ngưỡng tháp Phước Duyên và cảnh quan
+                                    sông Hương.
+                                </div>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-time">16:00 - 17:30</div>
+                                <div class="activity-content">
+                                    <strong>Chợ Đông Ba:</strong> Mua sắm đồ lưu niệm và khám phá ẩm thực địa phương.
+                                </div>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-time">18:30 - 20:30</div>
+                                <div class="activity-content">
+                                    <strong>Thuyền trên sông Hương:</strong> Nghe ca Huế và ngắm cảnh thành phố về đêm.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-day">
+                        <div class="day-header">
+                            <h3>Ngày 2: Khám phá các lăng tẩm</h3>
+                        </div>
+                        <div class="itinerary-activities">
+                            <div class="activity">
+                                <div class="activity-time">7:00 - 8:00</div>
+                                <div class="activity-content">
+                                    <strong>Ăn sáng:</strong> Thưởng thức bánh bèo, bánh nậm, bánh lọc tại quán bánh
+                                    Huế.
+                                </div>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-time">8:30 - 10:00</div>
+                                <div class="activity-content">
+                                    <strong>Tham quan Lăng Tự Đức:</strong> Khám phá khu lăng mộ với kiến trúc tinh tế
+                                    và cảnh quan thiên nhiên đẹp.
+                                </div>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-time">10:30 - 12:00</div>
+                                <div class="activity-content">
+                                    <strong>Tham quan Lăng Khải Định:</strong> Chiêm ngưỡng kiến trúc độc đáo kết hợp
+                                    Đông - Tây.
+                                </div>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-time">12:30 - 14:00</div>
+                                <div class="activity-content">
+                                    <strong>Ăn trưa:</strong> Thưởng thức các món ăn cung đình Huế tại nhà hàng địa
+                                    phương.
+                                </div>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-time">14:30 - 16:00</div>
+                                <div class="activity-content">
+                                    <strong>Tham quan Lăng Minh Mạng:</strong> Khám phá khu lăng mộ rộng lớn với kiến
+                                    trúc đối xứng hoàn hảo.
+                                </div>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-time">16:30 - 18:00</div>
+                                <div class="activity-content">
+                                    <strong>Dạo quanh Đồi Vọng Cảnh:</strong> Ngắm toàn cảnh sông Hương và thành phố
+                                    Huế.
+                                </div>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-time">19:00 - 21:00</div>
+                                <div class="activity-content">
+                                    <strong>Ăn tối:</strong> Thưởng thức bữa tối với các món đặc sản Huế tại khu vực phố
+                                    đi bộ Nguyễn Đình Chiểu.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Local Cuisine -->
+                <section class="guide-section" id="am-thuc">
+                    <h2><i class="fas fa-utensils"></i> Ẩm thực Huế</h2>
+
+                    <p>Huế nổi tiếng với nền ẩm thực phong phú, tinh tế, mang đậm dấu ấn cung đình. Dưới đây là những
+                        món ăn không thể bỏ qua khi đến Huế:</p>
+
+                    <p><strong>Các món chính:</strong></p>
+                    <ul>
+                        <li><strong>Bún bò Huế:</strong> Món bún nổi tiếng với nước dùng đậm đà, thơm mùi sả và mắm
+                            ruốc, ăn kèm với thịt bò, giò heo, rau sống.</li>
+                        <li><strong>Cơm hến:</strong> Món ăn bình dân nhưng đặc trưng của Huế, gồm cơm trộn với hến, rau
+                            thơm, đậu phộng, tóp mỡ.</li>
+                        <li><strong>Bánh khoái:</strong> Bánh chiên giòn nhân tôm, thịt, giá, trứng, ăn kèm với rau sống
+                            và nước chấm đặc biệt.</li>
+                    </ul>
+
+                    <p><strong>Các loại bánh:</strong></p>
+                    <ul>
+                        <li><strong>Bánh bèo:</strong> Bánh nhỏ làm từ bột gạo, ăn kèm với tôm khô, mỡ hành, nước mắm
+                            chua ngọt.</li>
+                        <li><strong>Bánh nậm:</strong> Bánh gói trong lá chuối, nhân tôm thịt băm nhỏ.</li>
+                        <li><strong>Bánh lọc:</strong> Bánh trong suốt làm từ bột sắn, nhân tôm thịt, gói trong lá
+                            chuối.</li>
+                        <li><strong>Bánh ít trần:</strong> Bánh làm từ bột gạo, nhân đậu xanh hoặc tôm thịt.</li>
+                    </ul>
+
+                    <p><strong>Chè Huế:</strong></p>
+                    <ul>
+                        <li><strong>Chè khoai tím:</strong> Chè làm từ khoai tím, đậu xanh, nước cốt dừa.</li>
+                        <li><strong>Chè bắp:</strong> Chè ngọt từ bắp non, thơm mùi nước cốt dừa.</li>
+                        <li><strong>Chè sen:</strong> Chè thanh mát với hạt sen, đậm đà hương vị.</li>
+                    </ul>
+
+                    <p><strong>Địa chỉ ăn uống gợi ý:</strong></p>
+                    <ul>
+                        <li><strong>Bún bò Huế:</strong> Bún bò Mụ Rơi (11 Lý Thường Kiệt), Bún bò Huế Thái (11 Trương
+                            Định)</li>
+                        <li><strong>Cơm hến:</strong> Cơm hến Hoa Đông (64 Kiệt 7 Ưng Bình)</li>
+                        <li><strong>Bánh khoái:</strong> Bánh khoái Lạc Thiện (6 Đinh Tiên Hoàng)</li>
+                        <li><strong>Các loại bánh:</strong> Quán Hạnh (11 Phó Đức Chính), Bánh bèo Nậm Lọc Bà Đỏ (8
+                            Nguyễn Bỉnh Khiêm)</li>
+                        <li><strong>Chè Huế:</strong> Chè Hẻm (29/30 Hùng Vương), Chè Sao (35 Hùng Vương)</li>
+                    </ul>
+                </section>
+
+                <!-- Travel Tips -->
+                <section class="guide-section" id="meo-du-lich">
+                    <h2><i class="fas fa-lightbulb"></i> Mẹo du lịch hữu ích</h2>
+
+                    <p><strong>Di chuyển trong thành phố:</strong></p>
+                    <ul>
+                        <li>Thuê xe máy: 100.000 - 150.000 VNĐ/ngày, phương tiện linh hoạt nhất để khám phá Huế.</li>
+                        <li>Thuê xe đạp: 30.000 - 50.000 VNĐ/ngày, phù hợp để dạo quanh khu vực trung tâm.</li>
+                        <li>Taxi: Có nhiều hãng taxi uy tín như Mai Linh, Vinasun.</li>
+                        <li>Grab: Dịch vụ đặt xe qua ứng dụng, giá cả hợp lý.</li>
+                    </ul>
+
+                    <p><strong>Vé tham quan:</strong></p>
+                    <ul>
+                        <li>Mua vé trọn gói tham quan các điểm di tích (580.000 VNĐ) sẽ tiết kiệm hơn mua lẻ.</li>
+                        <li>Vé có giá trị trong 2 ngày, đủ thời gian để tham quan tất cả các điểm.</li>
+                    </ul>
+
+                    <p><strong>Trang phục:</strong></p>
+                    <ul>
+                        <li>Mặc trang phục lịch sự khi vào các đền, chùa, lăng tẩm (tránh quần áo quá ngắn).</li>
+                        <li>Mang theo nón, kem chống nắng, áo mưa (đặc biệt trong mùa mưa).</li>
+                        <li>Đi giày dép thoải mái vì sẽ phải đi bộ nhiều.</li>
+                    </ul>
+
+                    <p><strong>An toàn:</strong></p>
+                    <ul>
+                        <li>Huế là thành phố khá an toàn, nhưng vẫn nên cẩn thận với đồ đạc cá nhân.</li>
+                        <li>Mang theo bản sao giấy tờ tùy thân, để bản gốc ở khách sạn.</li>
+                        <li>Lưu số điện thoại khách sạn và số khẩn cấp (113: Công an, 115: Cấp cứu).</li>
+                    </ul>
+
+                    <p><strong>Mua sắm:</strong></p>
+                    <ul>
+                        <li>Mặc cả là bình thường ở các chợ và cửa hàng nhỏ, thường có thể giảm 20-30% giá ban đầu.</li>
+                        <li>Đặc sản để mua về: nón lá, áo dài, tranh thêu, mè xửng, ô mai, trà sen.</li>
+                    </ul>
+
+                    <p><strong>Khác:</strong></p>
+                    <ul>
+                        <li>Thuê hướng dẫn viên địa phương để hiểu rõ hơn về lịch sử và văn hóa Huế.</li>
+                        <li>Đặt tour thuyền trên sông Hương vào buổi tối để nghe ca Huế.</li>
+                        <li>Tránh đi vào giờ cao điểm (11:00-14:00) tại các điểm tham quan để tránh đông đúc.</li>
+                    </ul>
+                </section>
+
+                <!-- Budget -->
+                <section class="guide-section" id="chi-phi">
+                    <h2><i class="fas fa-money-bill-wave"></i> Chi phí du lịch Huế</h2>
+
+                    <p>Dưới đây là ước tính chi phí cho chuyến du lịch Huế 2 ngày 1 đêm (tính cho 1 người):</p>
+
+                    <table>
+                        <tr>
+                            <th>Hạng mục</th>
+                            <th>Chi phí thấp</th>
+                            <th>Chi phí trung bình</th>
+                            <th>Chi phí cao</th>
+                        </tr>
+                        <tr>
+                            <td>Khách sạn (1 đêm)</td>
+                            <td>250.000 VNĐ</td>
+                            <td>800.000 VNĐ</td>
+                            <td>2.500.000 VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td>Ăn uống (2 ngày)</td>
+                            <td>300.000 VNĐ</td>
+                            <td>600.000 VNĐ</td>
+                            <td>1.200.000 VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td>Vé tham quan</td>
+                            <td>580.000 VNĐ</td>
+                            <td>580.000 VNĐ</td>
+                            <td>580.000 VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td>Di chuyển nội thành</td>
+                            <td>100.000 VNĐ</td>
+                            <td>300.000 VNĐ</td>
+                            <td>500.000 VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td>Thuyền sông Hương</td>
+                            <td>100.000 VNĐ</td>
+                            <td>200.000 VNĐ</td>
+                            <td>400.000 VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td>Mua sắm</td>
+                            <td>200.000 VNĐ</td>
+                            <td>500.000 VNĐ</td>
+                            <td>1.000.000 VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tổng cộng</strong></td>
+                            <td><strong>1.530.000 VNĐ</strong></td>
+                            <td><strong>2.980.000 VNĐ</strong></td>
+                            <td><strong>6.180.000 VNĐ</strong></td>
+                        </tr>
+                    </table>
+
+                    <p><strong>Lưu ý:</strong></p>
+                    <ul>
+                        <li>Chi phí trên chưa bao gồm vé máy bay/tàu xe đến Huế.</li>
+                        <li>Có thể tiết kiệm chi phí bằng cách ăn tại các quán bình dân, ở homestay, đi xe buýt.</li>
+                        <li>Nên chuẩn bị thêm khoảng 10-20% cho các chi phí phát sinh.</li>
+                    </ul>
+                </section>
+
+                <!-- Conclusion -->
+                <section class="guide-section" id="ket-luan">
+                    <h2><i class="fas fa-flag-checkered"></i> Kết luận</h2>
+
+                    <p>Huế là điểm đến lý tưởng cho những ai yêu thích lịch sử, văn hóa và ẩm thực tinh tế. Với quần thể
+                        di tích đồ sộ, cảnh quan thiên nhiên thơ mộng và nền ẩm thực đặc sắc, Huế sẽ mang đến cho bạn
+                        những trải nghiệm khó quên.</p>
+
+                    <p>Hãy dành ít nhất 2 ngày để khám phá cố đô, và đừng quên thưởng thức đầy đủ các món ăn đặc trưng
+                        của vùng đất này. Huế không chỉ là nơi để tham quan, mà còn là nơi để bạn cảm nhận nhịp sống
+                        chậm rãi, thanh bình và đắm mình trong không gian văn hóa đậm đà bản sắc dân tộc.</p>
+
+                    <p>Chúc bạn có chuyến du lịch Huế thật vui vẻ và trọn vẹn!</p>
+                </section>
+            </div>
+
+            <aside class="guide-sidebar">
+                <!-- Author Info -->
+                <div class="sidebar-widget">
+                    <h3><i class="fas fa-user-edit"></i> Tác giả</h3>
+                    <div class="sidebar-widget-content">
+                        <div class="author-info">
+                            <img src="~/images/avatar3.png" alt="Lê Nguyễn Châu Anh" class="author-avatar">
+                            <div class="author-details">
+                                <h4>Lê Nguyễn Châu Anh</h4>
+                                <p>Travel Blogger</p>
+                            </div>
+                        </div>
+                        <p>Người yêu du lịch với hơn 5 năm kinh nghiệm khám phá các điểm đến tại Việt Nam. Đặc biệt yêu
+                            thích miền Trung và các di sản văn hóa.</p>
+                    </div>
+                </div>
+
+                <!-- Table of Contents -->
+                <div class="sidebar-widget">
+                    <h3><i class="fas fa-list"></i> Mục lục</h3>
+                    <div class="sidebar-widget-content">
+                        <ul class="guide-toc">
+                            <li><a href="#gioi-thieu"><i class="fas fa-info-circle"></i> Giới thiệu về Huế</a></li>
+                            <li><a href="#thoi-diem"><i class="fas fa-calendar-alt"></i> Thời điểm lý tưởng để đến
+                                    Huế</a></li>
+                            <li><a href="#di-chuyen"><i class="fas fa-plane"></i> Cách di chuyển đến Huế</a></li>
+                            <li><a href="#luu-tru"><i class="fas fa-bed"></i> Nơi lưu trú</a></li>
+                            <li><a href="#dia-diem"><i class="fas fa-map-marked-alt"></i> Những địa điểm không thể bỏ
+                                    qua</a></li>
+                            <li><a href="#lich-trinh"><i class="fas fa-route"></i> Lịch trình tham quan gợi ý</a></li>
+                            <li><a href="#am-thuc"><i class="fas fa-utensils"></i> Ẩm thực Huế</a></li>
+                            <li><a href="#meo-du-lich"><i class="fas fa-lightbulb"></i> Mẹo du lịch hữu ích</a></li>
+                            <li><a href="#chi-phi"><i class="fas fa-money-bill-wave"></i> Chi phí du lịch Huế</a></li>
+                        </ul>
+                        <a href="@Url.Action("DownloadGuide", "TravelGuide", new { id = "hue" })"
+                            class="download-guide"><i class="fas fa-download"></i> Tải cẩm nang PDF</a>
+                    </div>
+                </div>
+
+                <!-- Weather Widget -->
+                <div class="sidebar-widget">
+                    <h3><i class="fas fa-cloud-sun"></i> Thời tiết Huế</h3>
+                    <div class="sidebar-widget-content">
+                        <div class="weather-info">
+                            <div class="current-weather">
+                                <i class="fas fa-cloud-sun-rain"></i>
+                                <div>
+                                    <span class="temperature">28°C</span>
+                                    <span class="condition">Mưa rào</span>
+                                </div>
+                            </div>
+                            <div class="forecast">
+                                <div class="forecast-day">
+                                    <span>T2</span>
+                                    <i class="fas fa-cloud-sun"></i>
+                                    <span>27°C</span>
+                                </div>
+                                <div class="forecast-day">
+                                    <span>T3</span>
+                                    <i class="fas fa-cloud-rain"></i>
+                                    <span>26°C</span>
+                                </div>
+                                <div class="forecast-day">
+                                    <span>T4</span>
+                                    <i class="fas fa-cloud-sun"></i>
+                                    <span>29°C</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Guides -->
+                <div class="sidebar-widget">
+                    <h3><i class="fas fa-book-open"></i> Cẩm nang liên quan</h3>
+                    <div class="sidebar-widget-content">
+                        <ul class="related-guides">
+                            <li class="related-guide-item">
+                                <img src="~/images/hue-food-guide.jpg" alt="Ẩm thực Huế" class="related-guide-img">
+                                <div class="related-guide-info">
+                                    <h4><a asp-controller="TravelGuide" asp-action="Detail" asp-route-id="hue-food">Top
+                                            10 món ăn không thể bỏ qua ở Huế</a></h4>
+                                    <div class="related-guide-meta">
+                                        <span><i class="far fa-calendar-alt"></i> 10/03/2023</span>
+                                        <span><i class="far fa-eye"></i> 1.2k</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="related-guide-item">
+                                <img src="~/images/hue-tombs.jpg" alt="Lăng tẩm Huế" class="related-guide-img">
+                                <div class="related-guide-info">
+                                    <h4><a asp-controller="TravelGuide" asp-action="Detail"
+                                            asp-route-id="hue-tombs">Khám phá 7 lăng tẩm nổi tiếng ở Huế</a></h4>
+                                    <div class="related-guide-meta">
+                                        <span><i class="far fa-calendar-alt"></i> 05/02/2023</span>
+                                        <span><i class="far fa-eye"></i> 980</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="related-guide-item">
+                                <img src="~/images/hue-festival.jpg" alt="Festival Huế" class="related-guide-img">
+                                <div class="related-guide-info">
+                                    <h4><a asp-controller="TravelGuide" asp-action="Detail"
+                                            asp-route-id="hue-festival">Lịch trình chi tiết Festival Huế 2023</a></h4>
+                                    <div class="related-guide-meta">
+                                        <span><i class="far fa-calendar-alt"></i> 20/04/2023</span>
+                                        <span><i class="far fa-eye"></i> 1.5k</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Travel Tips -->
+                <div class="sidebar-widget">
+                    <h3><i class="fas fa-info-circle"></i> Mẹo du lịch</h3>
+                    <div class="sidebar-widget-content">
+                        <ul class="tips-list">
+                            <li>Nên thuê xe đạp để khám phá thành phố một cách thanh bình</li>
+                            <li>Đặt vé xem ca Huế trên sông Hương vào buổi tối</li>
+                            <li>Thử các món đặc sản như Bún bò Huế, Cơm hến, Bánh bèo, Bánh khoái</li>
+                            <li>Mua vé trọn gói để tiết kiệm khi tham quan nhiều điểm di tích</li>
+                            <li>Mặc trang phục lịch sự khi vào tham quan các đền, chùa</li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                // Favorite button
+                $('#favoriteBtn').click(function () {
+                    const icon = $(this).find('i');
+                    if (icon.hasClass('far')) {
+                        icon.removeClass('far').addClass('fas');
+                        $(this).css('color', '#e74c3c');
+                    } else {
+                        icon.removeClass('fas').addClass('far');
+                        $(this).css('color', '');
+                    }
+                });
+
+                // Share dropdown
+                $('.share').click(function (e) {
+                    e.stopPropagation();
+                    $('.share-options').toggle();
+                });
+
+                $(document).click(function () {
+                    $('.share-options').hide();
+                });
+
+                // Smooth scroll for TOC links
+                $('.guide-toc a').click(function (e) {
+                    e.preventDefault();
+                    const targetId = $(this).attr('href');
+                    $('html, body').animate({
+                        scrollTop: $(targetId).offset().top - 100
+                    }, 800);
+                });
+
+                // Print functionality
+                $('.download-guide').click(function (e) {
+                    e.preventDefault();
+                    window.print();
+                });
+            });
+        </script>
+    }
+
+</body>

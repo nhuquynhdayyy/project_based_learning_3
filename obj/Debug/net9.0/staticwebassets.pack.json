@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\components\\ui\\chart.js",
+      "PackagePath": "staticwebassets\\components\\ui\\chart.js"
+    },
+    {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\css\\contact.css",
       "PackagePath": "staticwebassets\\css\\contact.css"
     },
@@ -25,10 +29,6 @@
       "PackagePath": "staticwebassets\\css\\layout.css"
     },
     {
-      "Id": "D:\\PBL3\\PBL3\\wwwroot\\css\\location.css",
-      "PackagePath": "staticwebassets\\css\\location.css"
-    },
-    {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\css\\locationlayout.css",
       "PackagePath": "staticwebassets\\css\\locationlayout.css"
     },
@@ -37,12 +37,68 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\css\\spot.css",
+      "PackagePath": "staticwebassets\\css\\spot.css"
+    },
+    {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\css\\userprofile.css",
       "PackagePath": "staticwebassets\\css\\userprofile.css"
     },
     {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\cssadmin\\comments.css",
+      "PackagePath": "staticwebassets\\cssadmin\\comments.css"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\cssadmin\\dark-mode.css",
+      "PackagePath": "staticwebassets\\cssadmin\\dark-mode.css"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\cssadmin\\interactions.css",
+      "PackagePath": "staticwebassets\\cssadmin\\interactions.css"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\cssadmin\\login.css",
+      "PackagePath": "staticwebassets\\cssadmin\\login.css"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\cssadmin\\posts.css",
+      "PackagePath": "staticwebassets\\cssadmin\\posts.css"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\cssadmin\\profile.css",
+      "PackagePath": "staticwebassets\\cssadmin\\profile.css"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\cssadmin\\reports.css",
+      "PackagePath": "staticwebassets\\cssadmin\\reports.css"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\cssadmin\\settings.css",
+      "PackagePath": "staticwebassets\\cssadmin\\settings.css"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\cssadmin\\site.css",
+      "PackagePath": "staticwebassets\\cssadmin\\site.css"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\cssadmin\\statistics.css",
+      "PackagePath": "staticwebassets\\cssadmin\\statistics.css"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\cssadmin\\styles.css",
+      "PackagePath": "staticwebassets\\cssadmin\\styles.css"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\cssadmin\\users.css",
+      "PackagePath": "staticwebassets\\cssadmin\\users.css"
+    },
+    {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\5fbf85b3-dd7f-43af-a118-a69fa663b0c8.jpg",
+      "PackagePath": "staticwebassets\\images\\5fbf85b3-dd7f-43af-a118-a69fa663b0c8.jpg"
     },
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\avatar2.jpg",
@@ -131,6 +187,10 @@
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\dananggg.jpg",
       "PackagePath": "staticwebassets\\images\\dananggg.jpg"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\dceb3ab4-f021-4789-9f22-b2771b52ab8e.jpg",
+      "PackagePath": "staticwebassets\\images\\dceb3ab4-f021-4789-9f22-b2771b52ab8e.jpg"
     },
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\default-avatar.png",

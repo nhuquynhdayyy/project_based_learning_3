@@ -1,0 +1,818 @@
+@{
+    ViewData["Title"] = "Phố cổ Hội An: Bước chân vào ký ức thương cảng sầm uất một thời";
+    Layout = "_Layout";
+}
+
+<h2>Cẩm nang về Hội An</h2>
+<p>Đây là trang cẩm nang về địa điểm Hội An.</p>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/guidelayout.css" asp-append-version="true" />
+}
+<script src="~/js/script.js"></script>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb container">
+    <a asp-controller="Home" asp-action="Index">Trang chủ</a> &gt;
+    <a asp-controller="Guide" asp-action="Index">Cẩm nang du lịch</a> &gt;
+    <span>Phố cổ Hội An: Bước chân vào ký ức thương cảng sầm uất một thời</span>
+</div>
+
+<!-- Main Content -->
+<main class="container">
+    <!-- Guide Header -->
+    <section class="guide-header">
+        <div class="guide-title">
+            <h1>Phố cổ Hội An: Bước chân vào ký ức thương cảng sầm uất một thời</h1>
+            <div class="guide-meta">
+                <span class="category"><i class="fas fa-tag"></i> Cẩm nang du lịch</span>
+                <span class="date"><i class="far fa-calendar-alt"></i> Cập nhật: 20/04/2023</span>
+            </div>
+        </div>
+        <div class="guide-actions">
+            <button class="btn favorite" id="favoriteBtn"><i class="far fa-heart"></i> Yêu thích</button>
+            <div class="share-dropdown">
+                <button class="btn share"><i class="fas fa-share-alt"></i> Chia sẻ</button>
+                <div class="share-options">
+                    <a href="#" class="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="#" class="twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="#" class="zalo"><i class="fas fa-comment"></i> Zalo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guide Content -->
+    <div class="guide-content">
+        <div class="guide-info">
+            <!-- Banner -->
+            <div class="guide-banner">
+                <img src="/images/hoian.jpg" alt="Phố cổ Hội An về đêm">
+                <div class="guide-banner-overlay">
+                    <h2>Khám phá vẻ đẹp cổ kính của phố cổ Hội An</h2>
+                    <p>Hướng dẫn chi tiết để có chuyến du lịch hoàn hảo tại Di sản Văn hóa Thế giới</p>
+                </div>
+            </div>
+
+            <!-- Introduction -->
+            <section class="guide-section" id="gioi-thieu">
+                <h2><i class="fas fa-info-circle"></i> Giới thiệu về Hội An</h2>
+                <p>Hội An là một thành phố cổ nằm bên bờ sông Thu Bồn thuộc tỉnh Quảng Nam, cách Đà Nẵng khoảng 30km về
+                    phía Nam. Từng là một thương cảng sầm uất từ thế kỷ 16 đến thế kỷ 19, Hội An ngày nay vẫn giữ nguyên
+                    vẹn vẻ đẹp kiến trúc cổ kính với hơn 1.000 di tích kiến trúc từ nhà cổ, hội quán, đình, chùa, miếu,
+                    giếng cổ đến các cây cầu.</p>
+
+                <p>Năm 1999, Phố cổ Hội An được UNESCO công nhận là Di sản Văn hóa Thế giới với những giá trị nổi bật về
+                    tính toàn vẹn và tính xác thực của một đô thị cổ được bảo tồn tốt nhất Đông Nam Á. Hội An là nơi
+                    giao thoa của nhiều nền văn hóa khác nhau như Việt Nam, Trung Hoa, Nhật Bản và phương Tây, tạo nên
+                    một bản sắc văn hóa độc đáo.</p>
+
+                <p>Đến với Hội An, du khách sẽ được đắm mình trong không gian cổ kính với những dãy phố đèn lồng rực rỡ,
+                    những ngôi nhà cổ mang đậm kiến trúc thời xưa, và thưởng thức những món ẩm thực đặc sắc như cao lầu,
+                    mì Quảng, bánh mì Phượng... Bài viết này sẽ cung cấp cho bạn mọi thông tin cần thiết để có một
+                    chuyến du lịch Hội An trọn vẹn.</p>
+            </section>
+
+            <!-- When to Visit -->
+            <section class="guide-section" id="thoi-diem">
+                <h2><i class="fas fa-calendar-alt"></i> Thời điểm lý tưởng để đến Hội An</h2>
+                <p>Hội An có khí hậu nhiệt đới gió mùa, với hai mùa rõ rệt: mùa khô (từ tháng 1 đến tháng 8) và mùa mưa
+                    (từ tháng 9 đến tháng 12).</p>
+
+                <p><strong>Thời điểm lý tưởng nhất để du lịch Hội An:</strong></p>
+                <ul>
+                    <li><strong>Tháng 2 - Tháng 4:</strong> Thời tiết mát mẻ, ít mưa, nhiệt độ dao động từ 22-28°C, rất
+                        thích hợp để tham quan phố cổ và các điểm du lịch xung quanh.</li>
+                    <li><strong>Tháng 5 - Tháng 7:</strong> Thời tiết nóng hơn nhưng khô ráo, nhiệt độ có thể lên đến
+                        35°C, thích hợp cho các hoạt động tắm biển tại An Bàng, Cửa Đại.</li>
+                </ul>
+
+                <p><strong>Thời điểm nên tránh:</strong></p>
+                <ul>
+                    <li><strong>Tháng 9 - Tháng 11:</strong> Mùa mưa cao điểm, có thể gặp mưa lớn và ngập lụt, đặc biệt
+                        là khu vực phố cổ.</li>
+                    <li><strong>Tháng 10:</strong> Thường có bão và áp thấp nhiệt đới, không thuận lợi cho du lịch.</li>
+                </ul>
+
+                <p><strong>Các sự kiện đặc biệt:</strong></p>
+                <ul>
+                    <li><strong>Tết Nguyên Đán (tháng 1-2):</strong> Hội An trang hoàng rực rỡ với đèn lồng và hoa, có
+                        nhiều hoạt động văn hóa truyền thống.</li>
+                    <li><strong>Lễ hội đèn lồng (ngày 14 âm lịch hàng tháng):</strong> Phố cổ tắt hết đèn điện, chỉ thắp
+                        đèn lồng, tạo nên khung cảnh huyền ảo, cổ kính.</li>
+                    <li><strong>Lễ hội Trung Thu (tháng 8 âm lịch):</strong> Nhiều hoạt động văn hóa đặc sắc, đặc biệt
+                        dành cho trẻ em.</li>
+                    <li><strong>Tết Trung Thu (tháng 8 âm lịch):</strong> Phố cổ tràn ngập đèn lồng và các hoạt động văn
+                        hóa truyền thống.</li>
+                </ul>
+            </section>
+
+            <!-- How to Get There -->
+            <section class="guide-section" id="di-chuyen">
+                <h2><i class="fas fa-plane"></i> Cách di chuyển đến Hội An</h2>
+
+                <p>Hội An không có sân bay riêng, du khách thường đến Đà Nẵng trước rồi di chuyển đến Hội An.</p>
+
+                <p><strong>Từ Đà Nẵng đến Hội An:</strong></p>
+                <ul>
+                    <li><strong>Taxi/Grab:</strong> Khoảng 30-40 phút, giá từ 300.000 - 400.000 VNĐ.</li>
+                    <li><strong>Xe buýt:</strong> Tuyến xe buýt số 1 (Đà Nẵng - Hội An), giá vé khoảng 20.000 - 30.000
+                        VNĐ, thời gian di chuyển khoảng 1 giờ.</li>
+                    <li><strong>Xe máy:</strong> Nếu bạn tự tin, có thể thuê xe máy ở Đà Nẵng và tự lái đến Hội An,
+                        quãng đường khoảng 30km.</li>
+                    <li><strong>Xe khách:</strong> Có nhiều nhà xe chạy tuyến Đà Nẵng - Hội An, giá vé từ 50.000 -
+                        80.000 VNĐ.</li>
+                </ul>
+
+                <p><strong>Từ các thành phố lớn đến Hội An:</strong></p>
+                <ul>
+                    <li><strong>Từ Hà Nội/TP.HCM:</strong> Bay đến sân bay quốc tế Đà Nẵng, sau đó di chuyển đến Hội An
+                        bằng các phương tiện trên.</li>
+                    <li><strong>Từ Huế:</strong> Xe khách (3-4 giờ), giá vé từ 100.000 - 150.000 VNĐ.</li>
+                    <li><strong>Từ Nha Trang:</strong> Xe khách (khoảng 10 giờ), giá vé từ 250.000 - 350.000 VNĐ.</li>
+                </ul>
+
+                <p><strong>Di chuyển trong Hội An:</strong></p>
+                <ul>
+                    <li><strong>Đi bộ:</strong> Phố cổ Hội An có diện tích nhỏ, rất thích hợp để khám phá bằng cách đi
+                        bộ.</li>
+                    <li><strong>Xe đạp:</strong> Phương tiện lý tưởng để khám phá Hội An và vùng ngoại ô, giá thuê
+                        khoảng 30.000 - 50.000 VNĐ/ngày.</li>
+                    <li><strong>Xe máy:</strong> Thuận tiện để đi đến các điểm xa hơn như bãi biển An Bàng, Cửa Đại,
+                        làng gốm Thanh Hà, giá thuê khoảng 100.000 - 150.000 VNĐ/ngày.</li>
+                    <li><strong>Xích lô:</strong> Phương tiện truyền thống, thích hợp cho việc tham quan phố cổ, giá
+                        khoảng 150.000 - 200.000 VNĐ/giờ.</li>
+                </ul>
+            </section>
+
+            <!-- Accommodation -->
+            <section class="guide-section" id="luu-tru">
+                <h2><i class="fas fa-bed"></i> Nơi lưu trú</h2>
+
+                <p>Hội An có nhiều lựa chọn lưu trú phù hợp với mọi ngân sách, từ homestay giá rẻ đến resort cao cấp.
+                </p>
+
+                <p><strong>Khu vực nên ở:</strong></p>
+                <ul>
+                    <li><strong>Khu phố cổ:</strong> Thuận tiện cho việc tham quan, nhiều nhà hàng, quán cà phê, nhưng
+                        giá cả thường cao hơn.</li>
+                    <li><strong>Khu vực Cẩm Châu, Cẩm Nam:</strong> Cách phố cổ không xa, yên tĩnh hơn và giá cả phải
+                        chăng hơn.</li>
+                    <li><strong>Khu vực biển An Bàng, Cửa Đại:</strong> Thích hợp cho những ai muốn kết hợp tham quan
+                        phố cổ và tắm biển.</li>
+                </ul>
+
+                <p><strong>Các khách sạn đề xuất:</strong></p>
+                <table>
+                    <tr>
+                        <th>Loại hình</th>
+                        <th>Tên khách sạn</th>
+                        <th>Giá tham khảo</th>
+                    </tr>
+                    <tr>
+                        <td>Cao cấp (5 sao)</td>
+                        <td>Four Seasons Resort The Nam Hai, Anantara Hoi An Resort, Victoria Hoi An Beach Resort & Spa
+                        </td>
+                        <td>3.000.000 - 10.000.000 VNĐ/đêm</td>
+                    </tr>
+                    <tr>
+                        <td>Trung cấp (3-4 sao)</td>
+                        <td>Hoi An Central Boutique Hotel & Spa, Vinh Hung Riverside Resort, Hoi An Historic Hotel</td>
+                        <td>800.000 - 2.500.000 VNĐ/đêm</td>
+                    </tr>
+                    <tr>
+                        <td>Bình dân (1-2 sao)</td>
+                        <td>Hoi An Odyssey Hotel, Hoi An Garden Palace, Thanh Van Hotel</td>
+                        <td>300.000 - 700.000 VNĐ/đêm</td>
+                    </tr>
+                    <tr>
+                        <td>Homestay</td>
+                        <td>Tribee Bana, Under The Coconut Tree Homestay, Hoi An Rustic Homestay</td>
+                        <td>200.000 - 500.000 VNĐ/đêm</td>
+                    </tr>
+                </table>
+
+                <p><strong>Lưu ý khi đặt phòng:</strong></p>
+                <ul>
+                    <li>Nên đặt phòng trước 1-2 tháng nếu đi vào mùa cao điểm (tháng 1-7) hoặc dịp lễ, Tết.</li>
+                    <li>Nhiều khách sạn trong phố cổ có kiến trúc cổ kính, mang đậm nét truyền thống, nhưng có thể không
+                        có thang máy.</li>
+                    <li>Các resort ven biển thường có dịch vụ đưa đón miễn phí đến phố cổ.</li>
+                    <li>Nếu ở homestay, bạn sẽ có cơ hội trải nghiệm cuộc sống của người dân địa phương.</li>
+                </ul>
+            </section>
+
+            <!-- Must-Visit Places -->
+            <section class="guide-section" id="dia-diem">
+                <h2><i class="fas fa-map-marked-alt"></i> Những địa điểm không thể bỏ qua</h2>
+
+                <p><strong>1. Khu phố cổ Hội An</strong></p>
+                <p>Trung tâm của Hội An với những con phố nhỏ, nhà cổ, đèn lồng rực rỡ và các cửa hàng thủ công mỹ nghệ.
+                </p>
+                <ul>
+                    <li>Giá vé: 120.000 VNĐ/người (bao gồm vé tham quan 5 điểm trong phố cổ)</li>
+                    <li>Giờ mở cửa: 7:00 - 21:30</li>
+                    <li>Thời gian tham quan: 3-4 giờ</li>
+                    <li>Điểm nổi bật: Chùa Cầu, nhà cổ Tấn Ký, hội quán Phúc Kiến, nhà cổ Phùng Hưng</li>
+                </ul>
+
+                <p><strong>2. Chùa Cầu (Cầu Nhật Bản)</strong></p>
+                <p>Biểu tượng của Hội An, cây cầu cổ được xây dựng từ thế kỷ 17 bởi thương nhân Nhật Bản.</p>
+                <ul>
+                    <li>Giá vé: Bao gồm trong vé tham quan phố cổ</li>
+                    <li>Giờ mở cửa: 7:00 - 21:30</li>
+                    <li>Thời gian tham quan: 30 phút</li>
+                    <li>Điểm nổi bật: Kiến trúc độc đáo kết hợp giữa phong cách Nhật Bản và Việt Nam</li>
+                </ul>
+
+                <p><strong>3. Các hội quán</strong></p>
+                <p>Nơi gặp gỡ của các thương nhân Trung Hoa thời xưa, với kiến trúc đặc sắc và nhiều hiện vật quý giá.
+                </p>
+                <ul>
+                    <li>Giá vé: Bao gồm trong vé tham quan phố cổ</li>
+                    <li>Giờ mở cửa: 7:00 - 21:30</li>
+                    <li>Thời gian tham quan: 1-2 giờ cho tất cả các hội quán</li>
+                    <li>Điểm nổi bật: Hội quán Phúc Kiến, Quảng Đông, Triều Châu, Hải Nam, Ngũ Bang</li>
+                </ul>
+
+                <p><strong>4. Làng gốm Thanh Hà</strong></p>
+                <p>Làng nghề truyền thống với lịch sử hơn 500 năm, nơi du khách có thể tìm hiểu và trải nghiệm nghề làm
+                    gốm.</p>
+                <ul>
+                    <li>Giá vé: 35.000 VNĐ/người</li>
+                    <li>Giờ mở cửa: 7:00 - 17:00</li>
+                    <li>Thời gian tham quan: 1-2 giờ</li>
+                    <li>Điểm nổi bật: Xem nghệ nhân làm gốm, tự tay làm sản phẩm gốm</li>
+                </ul>
+
+                <p><strong>5. Làng mộc Kim Bồng</strong></p>
+                <p>Làng nghề truyền thống chuyên về điêu khắc gỗ, đã tồn tại hơn 600 năm.</p>
+                <ul>
+                    <li>Giá vé: 30.000 VNĐ/người</li>
+                    <li>Giờ mở cửa: 7:00 - 17:00</li>
+                    <li>Thời gian tham quan: 1-2 giờ</li>
+                    <li>Điểm nổi bật: Xem nghệ nhân chạm khắc gỗ, mua sắm đồ thủ công mỹ nghệ</li>
+                </ul>
+
+                <p><strong>6. Bãi biển An Bàng</strong></p>
+                <p>Một trong những bãi biển đẹp nhất Việt Nam, với bờ cát trắng mịn và nước biển trong xanh.</p>
+                <ul>
+                    <li>Giá vé: Miễn phí</li>
+                    <li>Thời gian tham quan: Nửa ngày hoặc cả ngày</li>
+                    <li>Điểm nổi bật: Tắm biển, thưởng thức hải sản, ngắm hoàng hôn</li>
+                </ul>
+
+                <p><strong>7. Đảo Cù Lao Chàm</strong></p>
+                <p>Khu dự trữ sinh quyển thế giới UNESCO, nổi tiếng với biển xanh, cát trắng và rạn san hô đẹp.</p>
+                <ul>
+                    <li>Giá vé: 650.000 - 950.000 VNĐ/người (tour trọn gói)</li>
+                    <li>Thời gian tham quan: 1 ngày</li>
+                    <li>Điểm nổi bật: Lặn ngắm san hô, tắm biển, khám phá làng chài</li>
+                </ul>
+            </section>
+
+            <!-- Itinerary -->
+            <section class="guide-section" id="lich-trinh">
+                <h2><i class="fas fa-route"></i> Lịch trình tham quan gợi ý</h2>
+
+                <p>Dưới đây là lịch trình gợi ý cho chuyến du lịch Hội An trong 3 ngày:</p>
+
+                <div class="itinerary-day">
+                    <div class="day-header">
+                        <h3>Ngày 1: Khám phá phố cổ Hội An</h3>
+                    </div>
+                    <div class="itinerary-activities">
+                        <div class="activity">
+                            <div class="activity-time">7:00 - 8:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn sáng:</strong> Thưởng thức mì Quảng hoặc cao lầu tại một quán địa phương.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">8:30 - 11:30</div>
+                            <div class="activity-content">
+                                <strong>Tham quan phố cổ:</strong> Mua vé tham quan và khám phá các điểm như Chùa Cầu,
+                                nhà cổ Tấn Ký, hội quán Phúc Kiến.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">11:30 - 13:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn trưa:</strong> Thưởng thức bánh mì Phượng hoặc cơm gà Bà Buội.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">13:00 - 15:00</div>
+                            <div class="activity-content">
+                                <strong>Nghỉ ngơi tại khách sạn:</strong> Tránh thời điểm nắng nóng nhất trong ngày.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">15:00 - 17:30</div>
+                            <div class="activity-content">
+                                <strong>Tiếp tục tham quan phố cổ:</strong> Ghé thăm các cửa hàng thủ công mỹ nghệ, thử
+                                may đo quần áo tại các tiệm may nổi tiếng.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">17:30 - 19:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn tối:</strong> Thưởng thức các món ăn đặc sản Hội An tại nhà hàng Morning
+                                Glory hoặc Mermaid.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">19:00 - 21:00</div>
+                            <div class="activity-content">
+                                <strong>Dạo phố đêm:</strong> Ngắm phố cổ về đêm với đèn lồng rực rỡ, thả đèn hoa đăng
+                                trên sông Hoài.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="itinerary-day">
+                    <div class="day-header">
+                        <h3>Ngày 2: Khám phá làng nghề và bãi biển</h3>
+                    </div>
+                    <div class="itinerary-activities">
+                        <div class="activity">
+                            <div class="activity-time">7:00 - 8:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn sáng:</strong> Thưởng thức bánh vạc (White Rose) hoặc hoành thánh tại quán
+                                địa phương.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">8:30 - 10:30</div>
+                            <div class="activity-content">
+                                <strong>Tham quan làng gốm Thanh Hà:</strong> Tìm hiểu về nghề làm gốm truyền thống,
+                                trải nghiệm làm gốm.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">11:00 - 12:30</div>
+                            <div class="activity-content">
+                                <strong>Tham quan làng mộc Kim Bồng:</strong> Khám phá nghề chạm khắc gỗ truyền thống.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">12:30 - 14:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn trưa:</strong> Thưởng thức hải sản tại một nhà hàng ven sông.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">14:30 - 18:00</div>
+                            <div class="activity-content">
+                                <strong>Tắm biển An Bàng:</strong> Thư giãn, tắm biển và ngắm hoàng hôn tại một trong
+                                những bãi biển đẹp nhất Việt Nam.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">18:30 - 20:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn tối:</strong> Thưởng thức hải sản tươi sống tại các nhà hàng ven biển An
+                                Bàng.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="itinerary-day">
+                    <div class="day-header">
+                        <h3>Ngày 3: Khám phá Cù Lao Chàm</h3>
+                    </div>
+                    <div class="itinerary-activities">
+                        <div class="activity">
+                            <div class="activity-time">7:00 - 7:30</div>
+                            <div class="activity-content">
+                                <strong>Ăn sáng:</strong> Ăn sáng nhẹ tại khách sạn hoặc quán ăn địa phương.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">8:00 - 8:30</div>
+                            <div class="activity-content">
+                                <strong>Di chuyển đến cảng Cửa Đại:</strong> Bắt đầu tour Cù Lao Chàm.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">8:30 - 9:30</div>
+                            <div class="activity-content">
+                                <strong>Đi cano ra đảo:</strong> Ngắm cảnh biển đẹp trên đường đi.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">9:30 - 11:30</div>
+                            <div class="activity-content">
+                                <strong>Lặn ngắm san hô:</strong> Khám phá thế giới đại dương với rạn san hô đầy màu
+                                sắc.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">11:30 - 13:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn trưa:</strong> Thưởng thức hải sản tươi sống trên đảo.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">13:00 - 15:00</div>
+                            <div class="activity-content">
+                                <strong>Tham quan làng chài và chùa Hải Tạng:</strong> Tìm hiểu về cuộc sống của ngư dân
+                                trên đảo.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">15:00 - 16:00</div>
+                            <div class="activity-content">
+                                <strong>Trở về đất liền:</strong> Đi cano về lại cảng Cửa Đại.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">16:30 - 18:30</div>
+                            <div class="activity-content">
+                                <strong>Mua sắm tại phố cổ:</strong> Mua quà lưu niệm, đồ thủ công mỹ nghệ.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">19:00 - 21:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn tối và thưởng thức văn hóa:</strong> Tham gia một buổi biểu diễn ca nhạc
+                                truyền thống tại nhà cổ.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Local Cuisine -->
+            <section class="guide-section" id="am-thuc">
+                <h2><i class="fas fa-utensils"></i> Ẩm thực Hội An</h2>
+
+                <p>Hội An nổi tiếng với nền ẩm thực phong phú, kết hợp giữa hương vị truyền thống Việt Nam và ảnh hưởng
+                    từ các nền văn hóa Trung Hoa, Nhật Bản. Dưới đây là những món ăn không thể bỏ qua khi đến Hội An:
+                </p>
+
+                <p><strong>Các món đặc sản:</strong></p>
+                <ul>
+                    <li><strong>Cao lầu:</strong> Món mì đặc trưng của Hội An với sợi mì dày, thịt xá xíu, rau sống và
+                        bánh đa giòn, chỉ có thể tìm thấy ở Hội An.</li>
+                    <li><strong>Mì Quảng:</strong> Món mì với sợi mì dày, nước dùng ít, ăn kèm với thịt gà, tôm, trứng,
+                        đậu phộng và rau sống.</li>
+                    <li><strong>Bánh mì Phượng:</strong> Được Anthony Bourdain ca ngợi là "bánh mì ngon nhất thế giới",
+                        với nhân thịt, pate, rau và gia vị đặc biệt.</li>
+                    <li><strong>Bánh vạc (White Rose):</strong> Bánh bột gạo hấp nhân tôm, hình dáng như bông hoa hồng
+                        trắng.</li>
+                    <li><strong>Hoành thánh:</strong> Món súp với hoành thánh nhân thịt, nước dùng trong và ngọt.</li>
+                </ul>
+
+                <p><strong>Các món hải sản:</strong></p>
+                <ul>
+                    <li><strong>Cá nướng lá chuối:</strong> Cá tươi nướng trong lá chuối với các loại gia vị đặc trưng.
+                    </li>
+                    <li><strong>Tôm cuốn rau rừng:</strong> Tôm tươi cuốn với rau rừng, chấm với nước mắm chua ngọt.
+                    </li>
+                    <li><strong>Ốc hút:</strong> Các loại ốc biển hấp với sả, ăn kèm với nước chấm cay.</li>
+                </ul>
+
+                <p><strong>Món tráng miệng và đồ uống:</strong></p>
+                <ul>
+                    <li><strong>Chè bắp:</strong> Chè ngọt với ngô, đậu xanh và nước cốt dừa.</li>
+                    <li><strong>Cà phê muối:</strong> Đặc sản của Hội An, cà phê đen hoặc sữa với một chút muối.</li>
+                    <li><strong>Trà thảo mộc:</strong> Các loại trà thảo mộc truyền thống, tốt cho sức khỏe.</li>
+                </ul>
+
+                <p><strong>Địa chỉ ăn uống gợi ý:</strong></p>
+                <ul>
+                    <li><strong>Cao lầu:</strong> Quán Cao Lầu Bà Bé (Trần Phú), Quán Thanh (Thái Phiên)</li>
+                    <li><strong>Mì Quảng:</strong> Mì Quảng Bà Mua (Trần Hưng Đạo), Mì Quảng Ông Hai (Thái Phiên)</li>
+                    <li><strong>Bánh mì:</strong> Bánh Mì Phượng (2B Phan Châu Trinh), Bánh Mì Madam Khánh (115 Trần Cao
+                        Vân)</li>
+                    <li><strong>Bánh vạc và hoành thánh:</strong> Nhà hàng Bông Hồng Trắng (533 Hai Bà Trưng), Nhà hàng
+                        Mermaid (2 Trần Phú)</li>
+                    <li><strong>Hải sản:</strong> Nhà hàng Làng Rều (Cẩm An), Nhà hàng Sông Thu (Cửa Đại)</li>
+                </ul>
+            </section>
+
+            <!-- Travel Tips -->
+            <section class="guide-section" id="meo-du-lich">
+                <h2><i class="fas fa-lightbulb"></i> Mẹo du lịch hữu ích</h2>
+
+                <p><strong>Vé tham quan phố cổ:</strong></p>
+                <ul>
+                    <li>Vé tham quan phố cổ Hội An có giá 120.000 VNĐ/người, cho phép tham quan 5 điểm trong số các di
+                        tích, nhà cổ, hội quán, bảo tàng.</li>
+                    <li>Vé có hiệu lực trong 24 giờ, nên lên kế hoạch tham quan hợp lý.</li>
+                    <li>Một số điểm tham quan không yêu cầu vé nếu bạn chỉ muốn đi dạo hoặc mua sắm.</li>
+                </ul>
+
+                <p><strong>Thời gian tham quan:</strong></p>
+                <ul>
+                    <li>Nên tham quan phố cổ vào buổi sáng sớm (trước 9:00) hoặc chiều muộn (sau 16:00) để tránh nắng
+                        nóng và đông đúc.</li>
+                    <li>Phố cổ đẹp nhất vào buổi tối khi đèn lồng được thắp sáng (từ 18:00).</li>
+                    <li>Ngày 14 âm lịch hàng tháng là "Đêm Hội An", khi phố cổ tắt hết đèn điện, chỉ thắp đèn lồng, rất
+                        đáng để trải nghiệm.</li>
+                </ul>
+
+                <p><strong>Trang phục:</strong></p>
+                <ul>
+                    <li>Mặc trang phục thoáng mát, nhẹ nhàng vì Hội An khá nóng, đặc biệt vào mùa hè.</li>
+                    <li>Mang giày dép thoải mái vì bạn sẽ đi bộ nhiều.</li>
+                    <li>Mang theo nón, kính râm, kem chống nắng khi tham quan vào ban ngày.</li>
+                    <li>Chuẩn bị áo mưa hoặc ô nếu đi vào mùa mưa (tháng 9-12).</li>
+                </ul>
+
+                <p><strong>Mua sắm:</strong></p>
+                <ul>
+                    <li>Hội An nổi tiếng với các cửa hàng may đo quần áo, có thể đặt may trong 24-48 giờ.</li>
+                    <li>Mặc cả là điều bình thường khi mua sắm ở Hội An, nhưng hãy mặc cả một cách lịch sự.</li>
+                    <li>Các món đồ thủ công mỹ nghệ như đèn lồng, tranh thêu, đồ gốm là những món quà lưu niệm tuyệt
+                        vời.</li>
+                    <li>Chợ Hội An là nơi lý tưởng để mua đặc sản địa phương như trà, cà phê, gia vị.</li>
+                </ul>
+
+                <p><strong>An toàn:</strong></p>
+                <ul>
+                    <li>Hội An là một trong những thành phố an toàn nhất Việt Nam, nhưng vẫn nên cẩn thận với đồ đạc cá
+                        nhân ở nơi đông người.</li>
+                    <li>Cẩn thận khi đi bộ vào buổi tối vì một số con đường có thể không được chiếu sáng tốt.</li>
+                    <li>Mang theo bản sao giấy tờ tùy thân, để bản gốc ở khách sạn.</li>
+                    <li>Lưu số điện thoại khách sạn và số khẩn cấp (113: Công an, 115: Cấp cứu).</li>
+                </ul>
+
+                <p><strong>Khác:</strong></p>
+                <ul>
+                    <li>Nên kết hợp du lịch Hội An với Đà Nẵng và Huế do khoảng cách gần.</li>
+                    <li>Đặt tour Cù Lao Chàm trước 1-2 ngày, và kiểm tra dự báo thời tiết vì tour có thể bị hủy nếu biển
+                        động.</li>
+                    <li>Học một vài câu tiếng Việt cơ bản sẽ giúp bạn giao tiếp tốt hơn với người dân địa phương.</li>
+                    <li>Tôn trọng văn hóa và phong tục địa phương, đặc biệt khi vào các đền, chùa.</li>
+                </ul>
+            </section>
+
+            <!-- Budget -->
+            <section class="guide-section" id="chi-phi">
+                <h2><i class="fas fa-money-bill-wave"></i> Chi phí du lịch Hội An</h2>
+
+                <p>Dưới đây là ước tính chi phí cho chuyến du lịch Hội An 3 ngày 2 đêm (tính cho 1 người):</p>
+
+                <table>
+                    <tr>
+                        <th>Hạng mục</th>
+                        <th>Chi phí thấp</th>
+                        <th>Chi phí trung bình</th>
+                        <th>Chi phí cao</th>
+                    </tr>
+                    <tr>
+                        <td>Khách sạn (2 đêm)</td>
+                        <td>400.000 VNĐ</td>
+                        <td>1.600.000 VNĐ</td>
+                        <td>6.000.000 VNĐ</td>
+                    </tr>
+                    <tr>
+                        <td>Ăn uống (3 ngày)</td>
+                        <td>450.000 VNĐ</td>
+                        <td>900.000 VNĐ</td>
+                        <td>1.800.000 VNĐ</td>
+                    </tr>
+                    <tr>
+                        <td>Vé tham quan</td>
+                        <td>800.000 VNĐ</td>
+                        <td>800.000 VNĐ</td>
+                        <td>800.000 VNĐ</td>
+                    </tr>
+                    <tr>
+                        <td>Di chuyển nội thành</td>
+                        <td>150.000 VNĐ</td>
+                        <td>300.000 VNĐ</td>
+                        <td>600.000 VNĐ</td>
+                    </tr>
+                    <tr>
+                        <td>Mua sắm</td>
+                        <td>300.000 VNĐ</td>
+                        <td>700.000 VNĐ</td>
+                        <td>1.500.000 VNĐ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tổng cộng</strong></td>
+                        <td><strong>2.100.000 VNĐ</strong></td>
+                        <td><strong>4.300.000 VNĐ</strong></td>
+                        <td><strong>10.700.000 VNĐ</strong></td>
+                    </tr>
+                </table>
+
+                <p><strong>Chi tiết chi phí:</strong></p>
+                <ul>
+                    <li><strong>Vé tham quan:</strong> Phố cổ Hội An (120.000 VNĐ), tour Cù Lao Chàm (650.000 VNĐ), làng
+                        gốm Thanh Hà (35.000 VNĐ).</li>
+                    <li><strong>Ăn uống:</strong> Bữa sáng (30.000 - 50.000 VNĐ), bữa trưa/tối (70.000 - 200.000 VNĐ)
+                        tùy loại hình.</li>
+                    <li><strong>Di chuyển:</strong> Thuê xe đạp (30.000 - 50.000 VNĐ/ngày), thuê xe máy (100.000 -
+                        150.000 VNĐ/ngày).</li>
+                    <li><strong>Mua sắm:</strong> Đèn lồng (50.000 - 200.000 VNĐ), quần áo may đo (300.000 - 1.000.000
+                        VNĐ/bộ).</li>
+                </ul>
+
+                <p><strong>Lưu ý:</strong></p>
+                <ul>
+                    <li>Chi phí trên chưa bao gồm vé máy bay/tàu xe đến Đà Nẵng.</li>
+                    <li>Có thể tiết kiệm chi phí bằng cách ăn tại các quán bình dân, ở homestay, đi xe đạp.</li>
+                    <li>Nên chuẩn bị thêm khoảng 10-20% cho các chi phí phát sinh.</li>
+                    <li>Hầu hết các điểm tham quan ở Hội An đều có giá vé cố định, không có nhiều sự chênh lệch.</li>
+                </ul>
+            </section>
+
+            <!-- Conclusion -->
+            <section class="guide-section" id="ket-luan">
+                <h2><i class="fas fa-flag-checkered"></i> Kết luận</h2>
+
+                <p>Hội An là một điểm đến độc đáo, nơi thời gian như ngừng lại với những ngôi nhà cổ, những con phố đèn
+                    lồng rực rỡ và không khí yên bình. Đây là nơi lý tưởng để bạn chậm lại, thư giãn và đắm mình trong
+                    không gian văn hóa đặc sắc của một thương cảng cổ từng sầm uất một thời.</p>
+
+                <p>Với kiến trúc độc đáo kết hợp giữa Việt Nam, Trung Hoa, Nhật Bản và phương Tây, ẩm thực phong phú và
+                    đặc sắc, cùng với sự hiếu khách của người dân địa phương, Hội An chắc chắn sẽ để lại trong lòng du
+                    khách những kỷ niệm khó quên.</p>
+
+                <p>Hãy dành ít nhất 2-3 ngày để khám phá Hội An một cách trọn vẹn, từ phố cổ đến các làng nghề truyền
+                    thống, từ bãi biển đến đảo Cù Lao Chàm. Đừng quên thưởng thức đầy đủ các món ăn đặc trưng và mang về
+                    những món quà lưu niệm ý nghĩa.</p>
+
+                <p>Chúc bạn có chuyến du lịch Hội An thật vui vẻ và trọn vẹn!</p>
+            </section>
+        </div>
+
+        <aside class="guide-sidebar">
+            <!-- Author Info -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-user-edit"></i> Tác giả</h3>
+                <div class="sidebar-widget-content">
+                    <div class="author-info">
+                        <img src="~/images/avatar1.png" alt="Nguyễn Văn An" class="author-avatar">
+                        <div class="author-details">
+                            <h4>Nguyễn Văn An</h4>
+                            <p>Travel Blogger</p>
+                        </div>
+                    </div>
+                    <p>Người yêu du lịch với hơn 5 năm kinh nghiệm khám phá các điểm đến tại Việt Nam. Đặc biệt yêu
+                        thích miền Trung và các thành phố cổ.</p>
+                </div>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-list"></i> Mục lục</h3>
+                <div class="sidebar-widget-content">
+                    <ul class="guide-toc">
+                        <li><a href="#gioi-thieu"><i class="fas fa-info-circle"></i> Giới thiệu về Hội An</a></li>
+                        <li><a href="#thoi-diem"><i class="fas fa-calendar-alt"></i> Thời điểm lý tưởng để đến Hội
+                                An</a></li>
+                        <li><a href="#di-chuyen"><i class="fas fa-plane"></i> Cách di chuyển đến Hội An</a></li>
+                        <li><a href="#luu-tru"><i class="fas fa-bed"></i> Nơi lưu trú</a></li>
+                        <li><a href="#dia-diem"><i class="fas fa-map-marked-alt"></i> Những địa điểm không thể bỏ
+                                qua</a></li>
+                        <li><a href="#lich-trinh"><i class="fas fa-route"></i> Lịch trình tham quan gợi ý</a></li>
+                        <li><a href="#am-thuc"><i class="fas fa-utensils"></i> Ẩm thực Hội An</a></li>
+                        <li><a href="#meo-du-lich"><i class="fas fa-lightbulb"></i> Mẹo du lịch hữu ích</a></li>
+                        <li><a href="#chi-phi"><i class="fas fa-money-bill-wave"></i> Chi phí du lịch Hội An</a></li>
+                    </ul>
+                    <a href="@Url.Action("DownloadGuide", "TravelGuide", new { id = "hoian" })"
+                        class="download-guide"><i class="fas fa-download"></i> Tải cẩm nang PDF</a>
+                </div>
+            </div>
+
+            <!-- Weather Widget -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-cloud-sun"></i> Thời tiết Hội An</h3>
+                <div class="sidebar-widget-content">
+                    <div class="weather-info">
+                        <div class="current-weather">
+                            <i class="fas fa-sun"></i>
+                            <div>
+                                <span class="temperature">32°C</span>
+                                <span class="condition">Nắng, ít mây</span>
+                            </div>
+                        </div>
+                        <div class="forecast">
+                            <div class="forecast-day">
+                                <span>T2</span>
+                                <i class="fas fa-cloud-sun"></i>
+                                <span>31°C</span>
+                            </div>
+                            <div class="forecast-day">
+                                <span>T3</span>
+                                <i class="fas fa-sun"></i>
+                                <span>33°C</span>
+                            </div>
+                            <div class="forecast-day">
+                                <span>T4</span>
+                                <i class="fas fa-cloud-sun-rain"></i>
+                                <span>30°C</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Guides -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-book-open"></i> Cẩm nang liên quan</h3>
+                <div class="sidebar-widget-content">
+                    <ul class="related-guides">
+                        <li class="related-guide-item">
+                            <img src="~/images/hoian-food-guide.jpg" alt="Ẩm thực Hội An" class="related-guide-img">
+                            <div class="related-guide-info">
+                                <h4><a asp-controller="TravelGuide" asp-action="Detail" asp-route-id="hoian-food">Top 10
+                                        món ăn không thể bỏ qua ở Hội An</a></h4>
+                                <div class="related-guide-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 15/03/2023</span>
+                                    <span><i class="far fa-eye"></i> 2.1k</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="related-guide-item">
+                            <img src="~/images/culaocham.jpg" alt="Cù Lao Chàm" class="related-guide-img">
+                            <div class="related-guide-info">
+                                <h4><a asp-controller="TravelGuide" asp-action="Detail" asp-route-id="cu-lao-cham">Khám
+                                        phá Cù Lao Chàm - Thiên đường biển đảo</a></h4>
+                                <div class="related-guide-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 10/02/2023</span>
+                                    <span><i class="far fa-eye"></i> 1.8k</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="related-guide-item">
+                            <img src="~/images/danang-hoian.jpg" alt="Đà Nẵng - Hội An" class="related-guide-img">
+                            <div class="related-guide-info">
+                                <h4><a asp-controller="TravelGuide" asp-action="Detail" asp-route-id="danang-hoian">Lịch
+                                        trình 5 ngày khám phá Đà Nẵng - Hội An</a></h4>
+                                <div class="related-guide-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 25/04/2023</span>
+                                    <span><i class="far fa-eye"></i> 2.5k</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Travel Tips -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-info-circle"></i> Mẹo du lịch</h3>
+                <div class="sidebar-widget-content">
+                    <ul class="tips-list">
+                        <li>Tham quan phố cổ vào buổi sáng sớm hoặc chiều tối để tránh nắng nóng</li>
+                        <li>Đừng bỏ lỡ "Đêm Hội An" vào ngày 14 âm lịch hàng tháng</li>
+                        <li>Thuê xe đạp là cách tuyệt vời để khám phá Hội An và vùng ngoại ô</li>
+                        <li>Đặt may quần áo tại các tiệm may nổi tiếng như A Dong Silk, Yaly</li>
+                        <li>Thử các món đặc sản như cao lầu, mì Quảng, bánh vạc (White Rose)</li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+</main>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Favorite button
+            $('#favoriteBtn').click(function () {
+                const icon = $(this).find('i');
+                if (icon.hasClass('far')) {
+                    icon.removeClass('far').addClass('fas');
+                    $(this).css('color', '#e74c3c');
+                } else {
+                    icon.removeClass('fas').addClass('far');
+                    $(this).css('color', '');
+                }
+            });
+
+            // Share dropdown
+            $('.share').click(function (e) {
+                e.stopPropagation();
+                $('.share-options').toggle();
+            });
+
+            $(document).click(function () {
+                $('.share-options').hide();
+            });
+
+            // Smooth scroll for TOC links
+            $('.guide-toc a').click(function (e) {
+                e.preventDefault();
+                const targetId = $(this).attr('href');
+                $('html, body').animate({
+                    scrollTop: $(targetId).offset().top - 100
+                }, 800);
+            });
+
+            // Print functionality
+            $('.download-guide').click(function (e) {
+                e.preventDefault();
+                window.print();
+            });
+        });
+    </script>
+}
