@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SiX3BCN0Y8vanpVVGe1K+QWK4IZ7VPfW3jFzPjcs8k4=",
+  "Hash": "ct5BCTov/U2PYGHIs4xo56B8qS//jzAEjrt8qNz3Qrc=",
   "Source": "TourismWeb",
   "BasePath": "_content/TourismWeb",
   "Mode": "Default",
@@ -3837,6 +3837,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\quangngai.jpg"
+    },
+    {
+      "Identity": "D:\\PBL3\\PBL3\\wwwroot\\images\\reviews\\8a814a00-adf9-4ec1-8c4c-25f7c2ebd351.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/reviews/8a814a00-adf9-4ec1-8c4c-25f7c2ebd351#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "k7ih1r0b5g",
+      "Integrity": "kNx4sVX7xTGgWtfg95ag2lD8oKUSeCaFLirsj0fJMtg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\reviews\\8a814a00-adf9-4ec1-8c4c-25f7c2ebd351.jpg"
     },
     {
       "Identity": "D:\\PBL3\\PBL3\\wwwroot\\images\\sacmaudanang.webp",
@@ -18168,6 +18189,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-/43Llb3lxvnrnkgk5J283U7sB9F/ijBv4VbsQXApPMQ="
+        }
+      ]
+    },
+    {
+      "Route": "images/reviews/8a814a00-adf9-4ec1-8c4c-25f7c2ebd351.jpg",
+      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\reviews\\8a814a00-adf9-4ec1-8c4c-25f7c2ebd351.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "121066"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"kNx4sVX7xTGgWtfg95ag2lD8oKUSeCaFLirsj0fJMtg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 01 May 2025 08:41:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-kNx4sVX7xTGgWtfg95ag2lD8oKUSeCaFLirsj0fJMtg="
+        }
+      ]
+    },
+    {
+      "Route": "images/reviews/8a814a00-adf9-4ec1-8c4c-25f7c2ebd351.k7ih1r0b5g.jpg",
+      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\reviews\\8a814a00-adf9-4ec1-8c4c-25f7c2ebd351.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "121066"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"kNx4sVX7xTGgWtfg95ag2lD8oKUSeCaFLirsj0fJMtg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 01 May 2025 08:41:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "k7ih1r0b5g"
+        },
+        {
+          "Name": "label",
+          "Value": "images/reviews/8a814a00-adf9-4ec1-8c4c-25f7c2ebd351.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-kNx4sVX7xTGgWtfg95ag2lD8oKUSeCaFLirsj0fJMtg="
         }
       ]
     },

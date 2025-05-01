@@ -188,6 +188,38 @@ namespace TourismWeb.Controllers
                 return NotFound();
             }
 
+            // Tính toán điểm trung bình
+            var averageRating = touristSpot.Reviews.Any() 
+                                ? touristSpot.Reviews.Average(r => r.Rating) 
+                                : 0;
+
+            // Thêm thông tin điểm trung bình vào model
+            // ViewBag.AverageRating = averageRating;
+
+            // Tính số lượng đánh giá cho mỗi sao
+            var ratingCounts = new int[5]; // Để đếm số lượng mỗi sao (1 sao đến 5 sao)
+
+            foreach (var review in touristSpot.Reviews)
+            {
+                int ratingIndex = (int)review.Rating - 1; // Đánh giá từ 1 đến 5, do đó trừ 1
+                if (ratingIndex >= 0 && ratingIndex < 5)
+                {
+                    ratingCounts[ratingIndex]++;
+                }
+            }
+
+            // Tổng số lượng đánh giá
+            var totalReviews = touristSpot.Reviews.Count;
+
+            // Tính tỷ lệ phần trăm cho mỗi sao
+            var ratingPercentages = ratingCounts.Select(count => (totalReviews > 0 ? (double)count / totalReviews * 100 : 0)).ToArray();
+
+            // Thêm thông tin vào ViewBag để hiển thị
+            ViewBag.AverageRating = averageRating;
+            ViewBag.RatingCounts = ratingCounts;
+            ViewBag.RatingPercentages = ratingPercentages;
+            ViewBag.TotalReviews = totalReviews;
+
             return View(touristSpot);
         }
 
