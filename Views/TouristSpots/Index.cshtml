@@ -275,85 +275,26 @@
         </div>
     </div>
 </div>
-
+@* 
 @section Scripts {
-    <script>
-        @* function toggleLike(element, spotId) {
-            const heartIcon = element.querySelector('.heart-icon');
-            const likeCountElement = document.getElementById(`like-count-${spotId}`);
-            let likeCount = parseInt(likeCountElement.textContent);
-            
-            // Cập nhật UI trước để phản hồi nhanh với người dùng
-            if (heartIcon.textContent === '🤍') {
-                heartIcon.textContent = '❤️';
-                likeCountElement.textContent = likeCount + 1;
-            } else {
-                heartIcon.textContent = '🤍';
-                likeCountElement.textContent = likeCount - 1;
+<script>
+    function toggleLike(element, spotId) {
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+        fetch(`/SpotFavorites/ToggleFavorite/${spotId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': token
             }
-            
-            // Gửi yêu cầu Ajax để cập nhật trạng thái thích trên server
-            fetch(`/TouristSpots/ToggleLike/${spotId}`, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
-    },
-    credentials: 'same-origin'
-})
-
-            .then(response => {
-                if (!response.ok) {
-                    // Nếu có lỗi, hoàn tác thay đổi UI
-                    if (heartIcon.textContent === '❤️') {
-                        heartIcon.textContent = '🤍';
-                        likeCountElement.textContent = likeCount;
-                    } else {
-                        heartIcon.textContent = '❤️';
-                        likeCountElement.textContent = likeCount;
-                    }
-                    console.error('Có lỗi khi cập nhật trạng thái yêu thích');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Cập nhật UI với số lượt thích chính xác từ server
-                likeCountElement.textContent = data.likeCount;
-            })
-            .catch(error => {
-                console.error('Lỗi:', error);
-            });
-        } *@
-        function toggleLike(element, spotId) {
-    const heartIcon = element.querySelector('.heart-icon');
-    const likeCountElement = document.getElementById(`like-count-${spotId}`);
-    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
-
-    fetch(`/TouristSpots/ToggleLike/${spotId}`, {
-        method: 'POST',
-        headers: {
-            'RequestVerificationToken': token
-        },
-        credentials: 'same-origin'
-    })
-    .then(response => {
-        if (!response.ok) throw new Error('Yêu cầu lỗi');
-        return response.json();
-    })
-    .then(data => {
-        if (data.success) {
-            likeCountElement.textContent = data.likeCount;
-            heartIcon.textContent = data.isLiked ? '❤️' : '🤍';
-        } else {
-            alert('Không thể cập nhật lượt thích. Vui lòng thử lại.');
-        }
-    })
-    .catch(error => {
-        console.error('Lỗi:', error);
-        alert('Không thể cập nhật lượt thích. Vui lòng thử lại.');
-    });
-}
-
-
-    </script>
-}
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const heartSpan = element.querySelector('.heart-icon');
+                heartSpan.textContent = data.favorited ? '❤️' : '🤍';
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+} *@

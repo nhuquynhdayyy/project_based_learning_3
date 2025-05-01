@@ -12,6 +12,12 @@
     <link rel="stylesheet" href="~/css/spotLayout.css" asp-append-version="true" />
 }
 
+@{
+    var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+    var userId = userIdClaim != null ? int.Parse(userIdClaim.Value) : 0;
+    var isFavorited = Model.Favorites?.Any(f => f.UserId == userId) == true;
+}
+
 <div class="breadcrumb container">
     <a asp-controller="Home" asp-action="Index">Trang chủ</a> &gt;
     <a asp-action="Index">Địa điểm du lịch</a> &gt;
@@ -37,9 +43,9 @@
             </div>
         </div>
         <div class="spot-actions">
-            @* <button class="btn favorite" id="favoriteBtn"><i class="far fa-heart"></i> Yêu thích</button> *@
-            <button class="btn favorite" id="favoriteBtn" data-spot-id="@Model.SpotId">         
-                <i class="far fa-heart"></i> Yêu thích
+            <!-- Nút Yêu thích -->
+            <button class="btn favorite @(isFavorited ? "active" : "")" id="favoriteBtn" data-spot-id="@Model.SpotId">
+                <i class="@(isFavorited ? "fas" : "far") fa-heart"></i> @(isFavorited ? "Đã yêu thích" : "Yêu thích")
             </button>
             <div class="share-dropdown">
                 <button class="btn share"><i class="fas fa-share-alt"></i> Chia sẻ</button>
@@ -599,15 +605,6 @@
     <div class="lightbox-caption"></div>
 </div>
 
-@{
-    var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
-    var userId = userIdClaim != null ? int.Parse(userIdClaim.Value) : 0;
-    var isFavorited = Model.Favorites?.Any(f => f.UserId == userId) == true;
-}
-<button class="btn favorite @(isFavorited ? "active" : "")" id="favoriteBtn" data-spot-id="@Model.SpotId">
-    <i class="@(isFavorited ? "fas" : "far") fa-heart"></i> @(isFavorited ? "Đã yêu thích" : "Yêu thích")
-</button>
-
 <!-- Token để dùng trong AJAX -->
 <input type="hidden" name="__RequestVerificationToken" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
 
@@ -662,13 +659,12 @@
             const spotId = btn.dataset.spotId;
             const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
-            fetch('/SpotFavorites/ToggleFavorite', {
+            fetch('/SpotFavorites/ToggleFavorite/' + spotId, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'RequestVerificationToken': token
-                },
-                body: JSON.stringify({ spotId: parseInt(spotId) })
+                }
             })
             .then(response => {
                 if (!response.ok) throw new Error('Lỗi khi cập nhật yêu thích');

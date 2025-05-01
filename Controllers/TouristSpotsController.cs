@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using System.Security.Claims;
 
 namespace TourismWeb.Controllers
 {
@@ -119,69 +120,54 @@ namespace TourismWeb.Controllers
         }
 
         // POST: TouristSpots/ToggleLike/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ToggleLike([FromRoute] int id)
-        {
-            var touristSpot = await _context.TouristSpots
-                .Include(t => t.Favorites)
-                .FirstOrDefaultAsync(t => t.SpotId == id);
-            
-            if (touristSpot == null)
-            {
-                return NotFound();
-            }
-            
-            // Lấy ID người dùng hiện tại
-            // var currentUserId = GetCurrentUserId();
-            // if (currentUserId == null)
-            // {
-            //     return Unauthorized();
-            // }
-            // Lấy ID người dùng hiện tại
-            var currentUserIdStr = GetCurrentUserId();
-            if (string.IsNullOrEmpty(currentUserIdStr) || !int.TryParse(currentUserIdStr, out var currentUserId))
-            {
-                return Unauthorized(); // Không hợp lệ hoặc không thể chuyển thành int
-            }
-            
-            // Kiểm tra xem người dùng đã thích địa điểm này chưa
-            var existingFavorite = touristSpot.Favorites?.FirstOrDefault(f => f.UserId == currentUserId);
-            
-            if (existingFavorite != null)
-            {
-                // Nếu đã thích, hủy thích
-                _context.SpotFavorites.Remove(existingFavorite);
-            }
-            else
-            {
-                // Nếu chưa thích, thêm thích mới
-                var newFavorite = new SpotFavorite
-                {
-                    SpotId = id,
-                    UserId = currentUserId,
-                    CreatedAt = DateTime.Now
-                };
-                _context.SpotFavorites.Add(newFavorite);
-            }
-            
-            await _context.SaveChangesAsync();
-            
-            // Trả về số lượt thích mới
-            // var likeCount = touristSpot.Favorites?.Count ?? 0;
-            // if (existingFavorite == null)
-            // {
-            //     likeCount++; // Nếu vừa thêm thích mới
-            // }
-            // else
-            // {
-            //     likeCount--; // Nếu vừa hủy thích
-            // }
-            // Lấy lại số lượt thích thật từ database sau khi cập nhật
-            var likeCount = await _context.SpotFavorites.CountAsync(f => f.SpotId == id);
-            
-            return Json(new { success = true, likeCount = likeCount });
-        }
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // [Route("/SpotFavorites/ToggleFavorite/{id}")]
+        // public async Task<IActionResult> ToggleFavorite([FromRoute] int id)
+        // {
+        //     var touristSpot = await _context.TouristSpots
+        //         .Include(t => t.Favorites)
+        //         .FirstOrDefaultAsync(t => t.SpotId == id);
+
+        //     if (touristSpot == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        //     if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var currentUserId))
+        //     {
+        //         return Unauthorized();
+        //     }
+
+        //     var existingFavorite = touristSpot.Favorites?.FirstOrDefault(f => f.UserId == currentUserId);
+
+        //     if (existingFavorite != null)
+        //     {
+        //         _context.SpotFavorites.Remove(existingFavorite);
+        //     }
+        //     else
+        //     {
+        //         _context.SpotFavorites.Add(new SpotFavorite
+        //         {
+        //             SpotId = id,
+        //             UserId = currentUserId,
+        //             CreatedAt = DateTime.Now
+        //         });
+        //     }
+
+        //     await _context.SaveChangesAsync();
+
+        //     var likeCount = await _context.SpotFavorites.CountAsync(f => f.SpotId == id);
+
+        //     return Json(new
+        //     {
+        //         success = true,
+        //         favorited = existingFavorite == null,
+        //         likeCount = likeCount
+        //     });
+        // }
+
 
         // GET: TouristSpots/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -193,6 +179,7 @@ namespace TourismWeb.Controllers
 
             var touristSpot = await _context.TouristSpots
                 .Include(t => t.Category)
+                .Include(t => t.Favorites)
                 .FirstOrDefaultAsync(m => m.SpotId == id);
             if (touristSpot == null)
             {
