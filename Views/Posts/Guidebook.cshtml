@@ -20,7 +20,7 @@
     <div class="container mt-4">
         <!-- Navigation Buttons -->
         <div class="mb-4 d-flex justify-content-end">
-            <a asp-action="Create" class="btn btn-primary me-2">Thêm Cẩm Nang Mới</a>
+            <a asp-action="Create" class="btn create-btn me-2">Thêm Cẩm Nang Mới</a>
         </div>
 
         <!-- Main Content -->
@@ -61,7 +61,7 @@
                         <h5 class="card-title border-bottom pb-2">Tìm Kiếm</h5>
                         <form class="d-flex mt-3">
                             <input class="form-control me-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
-                            <button class="btn btn-primary" type="submit">
+                            <button class="btn create-btn" type="submit">
                                 <i class="bi bi-search"></i>
                             </button>
                         </form>
@@ -117,6 +117,12 @@
             margin: 4px 0;
         }
         
+        .create-btn {
+            background: linear-gradient(90deg, #ff6b6b, #ff9e7d);
+            color: white;
+            border: none;
+        }
+
         .dot {
             display: inline-block;
             width: 8px;
@@ -134,7 +140,7 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
         }
         .date-badge {
-            background-color: #135283;
+            background: linear-gradient(90deg, #ff6b6b, #ff9e7d);
             font-size: 0.85rem;
             font-weight: 600;
             z-index: 1;
