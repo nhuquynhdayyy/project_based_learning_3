@@ -8,7 +8,6 @@
 
 @await Html.PartialAsync("_Carousel")
 
-
 @* <p>Vai trò hiện tại: @User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</p> *@
 
 <section class="mt-4">
@@ -78,7 +77,6 @@
         </div>
     </div>
 
-
     <section>
         <div class="swiper-container">
             <h2 class="text-center">Bài viết gần đây</h2>
@@ -113,7 +111,6 @@
                     </div>
                 </div>
 
-
                 <div class="swiper-slide">
                     <div class="slider-card">
                         <div class="slider-image-wrapper">
@@ -143,7 +140,6 @@
                     </div>
                 </div>
 
-
                 <div class="swiper-slide">
                     <div class="slider-card">
                         <div class="slider-image-wrapper">
@@ -172,7 +168,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="swiper-slide">
                     <div class="slider-card">
@@ -207,59 +202,62 @@
             <!-- Chấm tròn pagination -->
             <div class="swiper-pagination"></div>
         </div>
-    </section>>
+    </section>
+    
     @await Html.PartialAsync("_Review")
+    
+
     <section class="guide-wrapper">
         <div class="guide-section">
-            <div class="container"></div>
-            <h2><b>Cẩm Nang Du Lịch Miền Trung từ A - Z</b></h2>
-            <div class="divider">
-                <hr>
-                <div class="dots">
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
+            <div class="container">
+                <div class="text-center mb-4">
+                    <h2><b>Cẩm Nang Du Lịch Miền Trung từ A - Z</b></h2>
+                    <div class="divider">
+                        <hr>
+                        <div class="dots">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                        <hr>
+                    </div>
                 </div>
-                <hr>
             </div>
         </div>
+        
         <div class="guide-container">
-            <a asp-controller="Guide" asp-action="DaNang" class="destination-card text-decoration-none text-dark">
-                <div class="card">
-                    <img src="~/images/danang2.webp" class="card-img-top" alt="Đà Nẵng">
-                    <div class="card-body">
-                        <h5 class="card-title"><b>Đà Nẵng - Thành phố đáng sống với những bãi biển tuyệt đẹp</b></h5>
-                        <p class="guide-date">31 tháng Mười Hai, 2024</p>
-                        <p class="card-text">Giới thiệu sơ lược về đảo Bình Ba...</p>
+            <div class="container">
+                
+                <div class="row">
+                    @if (ViewBag.GuidebookPosts != null && ViewBag.GuidebookPosts.Count > 0)
+                    {
+                        @foreach (var post in ViewBag.GuidebookPosts)
+                        {
+                            <div class="col-md-4 mb-4">
+                                <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.PostId" class="destination-card text-decoration-none text-dark">
+                                    <div class="card h-100">
+                                        <img src="@post.ImageUrl" class="card-img-top" alt="@post.Title">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><b>@post.Title</b></h5>
+                                            <p class="guide-date">@post.CreatedAt.ToString("dd MMMM, yyyy")</p>
+                                            <p class="card-text">@(post.Content.Length > 100 ? post.Content.Substring(0, 100) + "..." : post.Content)</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <p>Chưa có bài viết cẩm nang nào.</p>
+                        </div>
+                    }
+                    <div class="d-flex justify-content-end mb-3">
+                        <a asp-controller="Posts" asp-action="Category" asp-route-type="Cẩm nang" class="btn btn-outline-primary">Xem tất cả</a>
                     </div>
                 </div>
-            </a>
-
-            <a asp-controller="Guide" asp-action="Hue" class="destination-card text-decoration-none text-dark">
-                <div class="card">
-                    <img src="~/images/hue.jpg" class="card-img-top" alt="Huế">
-                    <div class="card-body">
-                        <h5 class="card-title"><b>Khám phá vẻ đẹp cổ kính của Đại Nội Huế - Kinh đô của triều Nguyễn</b>
-                        </h5>
-                        <p class="guide-date">31 tháng Mười Hai, 2024</p>
-                        <p class="card-text">Khung cảnh tuyệt đẹp, văn hóa đặc sắc...</p>
-                    </div>
-                </div>
-            </a>
-
-            <a asp-controller="Guide" asp-action="Hoian" class="destination-card text-decoration-none text-dark">
-                <div class="card">
-                    <img src="~/images/hoian.jpg" class="card-img-top" alt="Hội An">
-                    <div class="card-body">
-                        <h5 class="card-title"><b>Phố cổ Hội An: Bước chân vào ký ức thương cảng sầm uất một thời</b>
-                        </h5>
-                        <p class="guide-date">31 tháng Mười Hai, 2024</p>
-                        <p class="card-text">Khám phá những điểm đến đẹp nhất...</p>
-                    </div>
-                </div>
-            </a>
-
+            </div>
         </div>
-
     </section>
 </section>
