@@ -1,0 +1,66 @@
+@model IEnumerable<TourismWeb.Models.Post>
+
+@{
+    ViewData["Title"] = "Địa Điểm Du Lịch";
+}
+<link rel="stylesheet" href="~/css/location.css" />
+
+<div class="tourism-container">
+    <div class="tourism-header">
+        <div class="tourism-title">
+            <h1>Địa Điểm Du Lịch</h1>
+            <div class="tourism-divider"></div>
+        </div>
+        
+        <div class="tourism-actions">
+            <div class="search-box">
+                <input type="text" placeholder="Tìm kiếm địa điểm..." />
+                <i class="search-icon"></i>
+            </div>
+            <a asp-action="Create" class="btn-create">
+                <span>Thêm Địa Điểm Mới</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="tourism-grid">
+        @foreach (var item in Model)
+        {
+            <div class="tourism-card">
+                <div class="card-image-container">
+                    <img src="@item.ImageUrl" alt="@item.Title" class="card-image" />
+                    <div class="card-category">
+                        <span>@item.Spot.Name</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">@item.Title</h2>
+                    <div class="card-meta">
+                        <div class="meta-item">
+                            <i class="date-icon"></i>
+                            <span>@item.CreatedAt.ToString("dd/MM/yyyy")</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="user-icon"></i>
+                            <span>@item.User.FullName</span>
+                        </div>
+                    </div>
+                    <p class="card-description">@(item.Content.Length > 150 ? item.Content.Substring(0, 150) + "..." : item.Content)</p>
+                    <div class="card-actions">
+                        <a asp-action="Details" asp-route-id="@item.PostId" class="btn-details">
+                            <span>Xem Chi Tiết</span>
+                        </a>
+                        <div class="action-buttons">
+                            <a asp-action="Edit" asp-route-id="@item.PostId" class="btn-edit" title="Sửa">
+                                <i class="edit-icon"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.PostId" class="btn-delete" title="Xóa">
+                                <i class="delete-icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

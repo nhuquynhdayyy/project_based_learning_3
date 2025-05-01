@@ -337,6 +337,11 @@ namespace TourismWeb.Controllers
                 }
                 else
                 {
+                    // Redirect to appropriate category page based on post type
+                    if (!string.IsNullOrEmpty(post.TypeOfPost))
+                    {
+                        return RedirectToAction(nameof(Category), new { type = post.TypeOfPost });
+                    }
                     // Redirect to "MyPosts" for regular users to see their pending posts
                     return RedirectToAction(nameof(MyPosts));
                 }
@@ -438,6 +443,11 @@ namespace TourismWeb.Controllers
                     }
                     else
                     {
+                        // Redirect to appropriate category page based on post type
+                        if (!string.IsNullOrEmpty(existingPost.TypeOfPost))
+                        {
+                            return RedirectToAction(nameof(Category), new { type = existingPost.TypeOfPost });
+                        }
                         return RedirectToAction(nameof(MyPosts));
                     }
                 }
@@ -496,6 +506,7 @@ namespace TourismWeb.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var post = await _context.Posts.FindAsync(id);
+            string postType = null;
             if (post == null)
             {
                 return NotFound();
@@ -511,6 +522,7 @@ namespace TourismWeb.Controllers
                 return Unauthorized();
             }
 
+            postType = post.TypeOfPost; // Store the type of post for redirection   
             _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
 
@@ -520,6 +532,11 @@ namespace TourismWeb.Controllers
             }
             else
             {
+                // Redirect to appropriate category page if we know the post type
+                if (!string.IsNullOrEmpty(postType))
+                {
+                    return RedirectToAction(nameof(Category), new { type = postType });
+                }
                 return RedirectToAction(nameof(MyPosts));
             }
         }
@@ -539,7 +556,19 @@ namespace TourismWeb.Controllers
                 .ToListAsync();
 
             ViewBag.TypeOfPost = type;
-            return View("Index", posts);
+            // return View("Index", posts);
+            // Use different views based on category type
+            switch (type)
+            {
+                case "Cẩm nang":
+                    return View("Guidebook", posts);
+                case "Trải nghiệm":
+                    return View("Experience", posts);
+                case "Địa điểm":
+                    return View("Location", posts);
+                default:
+                    return View("Index", posts);
+            }
         }
 
         // GET: Posts/MyPosts - For users to see their own posts with any status
