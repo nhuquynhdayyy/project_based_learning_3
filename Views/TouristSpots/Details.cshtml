@@ -50,10 +50,24 @@
             <div class="share-dropdown">
                 <button class="btn share"><i class="fas fa-share-alt"></i> Chia sẻ</button>
                 <div class="share-options">
-                    <a href="#" class="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
-                    <a href="#" class="twitter"><i class="fab fa-twitter"></i> Twitter</a>
-                    <a href="#" class="zalo"><i class="fas fa-comment"></i> Zalo</a>
+                    <a href="#" class="share-btn" data-platform="Facebook" data-spot-id="@Model.SpotId">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </a>
+                    <a href="#" class="share-btn" data-platform="Twitter" data-spot-id="@Model.SpotId">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </a>
+                    @* <a href="#" class="share-btn" data-platform="Instagram" data-spot-id="@Model.SpotId">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a> *@
+                    <a href="#" class="share-btn" data-platform="Email" data-spot-id="@Model.SpotId">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                    <a href="#" class="copy-link">
+                        <i class="fas fa-link"></i> Sao chép liên kết
+                    </a>
                 </div>
+                <input type="hidden" name="__RequestVerificationToken" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
+
             </div>
         </div>
     </section>
@@ -696,4 +710,86 @@
             });
         });
     </script>
+    <script>
+        document.querySelectorAll('.share-btn').forEach(btn => {
+            btn.addEventListener('click', async function (e) {
+                e.preventDefault();
+
+                const platform = this.dataset.platform;
+                const spotId = this.dataset.spotId;
+                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                try {
+                    const response = await fetch('/SpotShares/CreateFromShare', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': token
+                        },
+                        body: JSON.stringify({ platform, spotId })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const urlToShare = data.url;
+
+                        // Mở popup share theo platform
+                        if (platform === "Facebook") {
+                            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlToShare)}`, '_blank');
+                            // Thông báo cảm ơn
+                            alert("Thanks for sharing! 🙌");    
+                        } else if (platform === "Twitter") {
+                            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(urlToShare)}&text=Check this out!`, '_blank');
+                            alert("Thanks for sharing! 🙌");
+                        } else if (platform === "Email") {
+                            window.open(`https://mail.google.com/mail/?view=cm&to=&su=Check this out&body=${encodeURIComponent(urlToShare)}`, '_blank');
+                            alert("Thanks for sharing! 🙌");
+                        } else {
+                            alert("This platform is not supported for direct sharing.");
+                        }
+                    } else {
+                        alert("Lỗi khi chia sẻ. Vui lòng thử lại.");
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert("Có lỗi xảy ra.");
+                }    
+            });
+        });
+    </script>
+    <script>
+        document.querySelector('.copy-link').addEventListener('click', function (e) {
+            e.preventDefault();
+            navigator.clipboard.writeText(window.location.href).then(function () {
+                // Hiển thị toast
+                const toast = document.getElementById('copy-toast');
+                toast.style.display = 'block';
+
+                // Ẩn sau 2.5 giây
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2500);
+
+                // Ghi nhận chia sẻ
+                createShare("CopyLink");
+            });
+        });
+    </script>
 }
+
+<div id="copy-toast" style="
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    font-weight: bold;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+">
+    🔗 Đã sao chép liên kết!
+</div>
