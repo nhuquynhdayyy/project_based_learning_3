@@ -4044,6 +4044,5 @@ E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\TourismWeb.pdb
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\TourismWeb.genruntimeconfig.cache
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\ref\TourismWeb.dll
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\3zhvn2qyo5-nh3peztrp1.gz
-E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\76qf4u4jzf-wf1mhlyab3.gz
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\yuz2a1cczz-yus26ym32d.gz
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\mmfoti1uct-0bhqbbqhrl.gz
