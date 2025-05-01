@@ -180,6 +180,8 @@ namespace TourismWeb.Controllers
             var touristSpot = await _context.TouristSpots
                 .Include(t => t.Category)
                 .Include(t => t.Favorites)
+                .Include(s => s.Reviews)
+                    .ThenInclude(r => r.User)
                 .FirstOrDefaultAsync(m => m.SpotId == id);
             if (touristSpot == null)
             {

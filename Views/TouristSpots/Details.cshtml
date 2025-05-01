@@ -386,6 +386,40 @@
 
         <div class="review-actions-bar">
             <button class="btn primary" id="writeReviewBtn"><i class="fas fa-pen"></i> Viết đánh giá</button>
+            <!-- Form đánh giá, mặc định ẩn -->
+    <div id="reviewForm" style="display:none;">
+        <h3>Viết đánh giá cho địa điểm</h3>
+
+        <form asp-action="Create" asp-controller="Reviews" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <!-- Điền SpotId vào form -->
+            <input type="hidden" name="SpotId" value="@Model.SpotId" />
+
+            <div class="form-group">
+                <label>Đánh giá</label>
+                <select name="Rating" class="form-control" required>
+                    @for (int i = 5; i >= 1; i--)
+                    {
+                        <option value="@i">@i sao</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Bình luận</label>
+                <textarea name="Comment" class="form-control" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Ảnh minh họa (tùy chọn)</label>
+                <input type="file" name="imageFile" class="form-control" accept=".jpg,.jpeg,.png,.gif" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+        </form>
+    </div>
+
 
             <div class="review-filters">
                 <select id="sortReviews">
@@ -443,10 +477,7 @@
                             @if (review.ImageUrl != null && review.ImageUrl.Any())
                             {
                                 <div class="review-photos">
-                                    @foreach (var image in review.ImageUrl)
-                                    {
-                                        <img src="@image" alt="Ảnh đánh giá" onclick="openLightbox(this.src)">
-                                    }
+                                    <img src="@review.ImageUrl" alt="Ảnh đánh giá" onclick="openLightbox(this.src)">
                                 </div>
                             }
                             <div class="review-actions">
@@ -660,14 +691,6 @@
         });
 
         // Toggle favorite button
-        @* document.getElementById('favoriteBtn').addEventListener('click', function() {
-            this.classList.toggle('active');
-            if (this.classList.contains('active')) {
-                this.innerHTML = '<i class="fas fa-heart"></i> Đã yêu thích';
-            } else {
-                this.innerHTML = '<i class="far fa-heart"></i> Yêu thích';
-            }
-        }); *@
         document.getElementById('favoriteBtn').addEventListener('click', function () {
             const btn = this;
             const spotId = btn.dataset.spotId;
@@ -773,6 +796,12 @@
                 // Ghi nhận chia sẻ
                 createShare("CopyLink");
             });
+        });
+    </script>
+    <script>
+        document.getElementById('writeReviewBtn').addEventListener('click', function() {
+            var reviewForm = document.getElementById('reviewForm');
+            reviewForm.style.display = (reviewForm.style.display === 'none' || reviewForm.style.display === '') ? 'block' : 'none';
         });
     </script>
 }
