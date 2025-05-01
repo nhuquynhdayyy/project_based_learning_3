@@ -79,6 +79,79 @@ namespace TourismWeb.Controllers
             return View(spotFavorite);
         }
 
+        [HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> CreateViaAjax([FromBody] SpotFavoriteAjaxModel model)
+{
+    var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+    if (userIdClaim == null) return Unauthorized();
+
+    var userId = int.Parse(userIdClaim.Value);
+
+    // Kiểm tra xem đã yêu thích chưa -> Nếu rồi thì xóa (toggle)
+    var existing = await _context.SpotFavorites
+        .FirstOrDefaultAsync(f => f.UserId == userId && f.SpotId == model.SpotId);
+
+    if (existing != null)
+    {
+        _context.SpotFavorites.Remove(existing);
+    }
+    else
+    {
+        var spotFavorite = new SpotFavorite
+        {
+            UserId = userId,
+            SpotId = model.SpotId,
+            CreatedAt = DateTime.Now
+        };
+        _context.SpotFavorites.Add(spotFavorite);
+    }
+
+    await _context.SaveChangesAsync();
+    return Json(new { success = true });
+}
+
+public class SpotFavoriteAjaxModel
+{
+    public int SpotId { get; set; }
+}
+
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> ToggleFavorite([FromBody] SpotFavoriteAjaxModel model)
+{
+    try {
+    var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+    if (userIdClaim == null) return Unauthorized();
+
+    var userId = int.Parse(userIdClaim.Value);
+    var existing = await _context.SpotFavorites
+        .FirstOrDefaultAsync(f => f.UserId == userId && f.SpotId == model.SpotId);
+
+    if (existing != null)
+    {
+        _context.SpotFavorites.Remove(existing);
+        await _context.SaveChangesAsync();
+        return Json(new { favorited = false });
+    }
+    else
+    {
+        var newFavorite = new SpotFavorite
+        {
+            SpotId = model.SpotId,
+            UserId = userId,
+            CreatedAt = DateTime.Now
+        };
+        _context.SpotFavorites.Add(newFavorite);
+        await _context.SaveChangesAsync();
+        return Json(new { favorited = true });
+    }
+    } catch (Exception ex)
+{
+    return StatusCode(500, new { error = ex.Message });
+}
+}
+
         // GET: SpotFavorites/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

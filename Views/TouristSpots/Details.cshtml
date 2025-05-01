@@ -1,4 +1,8 @@
 @model TourismWeb.Models.TouristSpot
+@using Microsoft.AspNetCore.Antiforgery
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@inject IAntiforgery AntiForgery
+@Html.AntiForgeryToken()
 
 @{
     ViewData["Title"] = Model.Name;
@@ -33,7 +37,10 @@
             </div>
         </div>
         <div class="spot-actions">
-            <button class="btn favorite" id="favoriteBtn"><i class="far fa-heart"></i> Yêu thích</button>
+            @* <button class="btn favorite" id="favoriteBtn"><i class="far fa-heart"></i> Yêu thích</button> *@
+            <button class="btn favorite" id="favoriteBtn" data-spot-id="@Model.SpotId">         
+                <i class="far fa-heart"></i> Yêu thích
+            </button>
             <div class="share-dropdown">
                 <button class="btn share"><i class="fas fa-share-alt"></i> Chia sẻ</button>
                 <div class="share-options">
@@ -592,6 +599,18 @@
     <div class="lightbox-caption"></div>
 </div>
 
+@{
+    var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+    var userId = userIdClaim != null ? int.Parse(userIdClaim.Value) : 0;
+    var isFavorited = Model.Favorites?.Any(f => f.UserId == userId) == true;
+}
+<button class="btn favorite @(isFavorited ? "active" : "")" id="favoriteBtn" data-spot-id="@Model.SpotId">
+    <i class="@(isFavorited ? "fas" : "far") fa-heart"></i> @(isFavorited ? "Đã yêu thích" : "Yêu thích")
+</button>
+
+<!-- Token để dùng trong AJAX -->
+<input type="hidden" name="__RequestVerificationToken" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
+
 @section Scripts {
     <script>
         // Helper function for time ago display
@@ -630,13 +649,41 @@
         });
 
         // Toggle favorite button
-        document.getElementById('favoriteBtn').addEventListener('click', function() {
+        @* document.getElementById('favoriteBtn').addEventListener('click', function() {
             this.classList.toggle('active');
             if (this.classList.contains('active')) {
                 this.innerHTML = '<i class="fas fa-heart"></i> Đã yêu thích';
             } else {
                 this.innerHTML = '<i class="far fa-heart"></i> Yêu thích';
             }
+        }); *@
+        document.getElementById('favoriteBtn').addEventListener('click', function () {
+            const btn = this;
+            const spotId = btn.dataset.spotId;
+            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+            fetch('/SpotFavorites/ToggleFavorite', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': token
+                },
+                body: JSON.stringify({ spotId: parseInt(spotId) })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Lỗi khi cập nhật yêu thích');
+                return response.json();
+            })
+            .then(data => {
+                if (data.favorited) {
+                    btn.classList.add('active');
+                    btn.innerHTML = '<i class="fas fa-heart"></i> Đã yêu thích';
+                } else {
+                    btn.classList.remove('active');
+                    btn.innerHTML = '<i class="far fa-heart"></i> Yêu thích';
+                }
+            })
+            .catch(err => alert(err));
         });
 
         // Show/hide share options
