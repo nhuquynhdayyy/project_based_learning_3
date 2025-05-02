@@ -392,6 +392,7 @@
     });
 </script> *@
 @model TourismWeb.Models.User
+@using TourismWeb.Models 
 @section Styles {
     <link rel="stylesheet" href="~/css/userprofile.css" asp-append-version="true" />
 }
@@ -645,7 +646,66 @@
                 </div>
             </div>
 
-
+            <div class="content-section" id="bai-viet"> @* ID khớp với href trong menu *@
+                <h3 class="section-title">Bài viết của tôi</h3>
+                <div class="my-posts"> 
+                    @if (Model.Posts == null || !Model.Posts.Any())
+                            {
+                                <div class="alert alert-info">
+                                    Bạn chưa có bài viết nào.
+                                    <a asp-controller="Posts" asp-action="Create" class="alert-link">Tạo bài viết mới ngay!</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row"> @* Use row/col for layout *@
+                                    @foreach (var item in Model.Posts.OrderByDescending(p => p.CreatedAt)) @* Order by newest first *@
+                                    {
+                                        <div class="col-md-6 mb-4">
+                                            <div class="card h-100 card-post-preview"> @* Added custom class for potential specific styling *@
+                                                <div class="card-header d-flex justify-content-between align-items-center">
+                                                    <span class="fw-bold">@item.Title</span>
+                                                    <span class="badge @(item.Status == PostStatus.Approved ? "bg-success" :
+                                                                                        item.Status == PostStatus.Pending ? "bg-warning text-dark" : "bg-danger")">
+                                                        @(item.Status == PostStatus.Approved ? "Đã duyệt" :
+                                                                            item.Status == PostStatus.Pending ? "Chờ duyệt" : "Từ chối")
+                                                    </span>
+                                                </div>
+                                                <div class="row g-0"> @* Use row g-0 inside card for image/text alignment *@
+                                                    <div class="col-md-4">
+                                                        <img src="@(item.ImageUrl ?? "/images/placeholder-post.png")" @* Fallback image *@
+                                                            alt="@item.Title"
+                                                            class="img-fluid rounded-start post-card-img w-100" /> @* Use rounded-start, w-100 *@
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            <p class="card-text small mb-1">
+                                                                <strong>Địa điểm:</strong> @(item.Spot?.Name ?? "N/A")<br /> @* Null check for Spot *@
+                                                                <strong>Loại:</strong> @item.TypeOfPost<br />
+                                                                <strong>Ngày tạo:</strong> @item.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                                                            </p>
+                                                            <p class="card-text small">
+                                                                @if (!string.IsNullOrEmpty(item.Content))
+                                                                {
+                                                                    @(item.Content.Length > 80 ? item.Content.Substring(0, 80) + "..." : item.Content) @* Shorter preview *@
+                                                                }
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer text-center">
+                                                    @* Update asp-controller if your posts controller is named differently *@
+                                                    <a asp-controller="Posts" asp-action="Details" asp-route-id="@item.PostId" class="btn btn-sm btn-outline-info">Chi tiết</a>
+                                                    <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-sm btn-outline-primary">Sửa</a>
+                                                    <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.PostId" class="btn btn-sm btn-outline-danger">Xóa</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
 
             <div class="content-section" id="danh-gia">
                 <h3 class="section-title">Đánh giá của tôi</h3>
