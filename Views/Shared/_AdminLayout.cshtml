@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Http
+@* @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
 
 @{
@@ -50,6 +50,120 @@
                         <a asp-controller="Admin" asp-action="Posts">
                             <i class="fas fa-file-alt"></i>
                             <span>Quản Lý Bài Viết</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Admin" asp-action="Comments">
+                            <i class="fas fa-comments"></i>
+                            <span>Đánh Giá & Bình Luận</span>
+                            <span class="badge">12</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Admin" asp-action="Interactions">
+                            <i class="fas fa-heart"></i>
+                            <span>Tương Tác</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Admin" asp-action="Reports">
+                            <i class="fas fa-flag"></i>
+                            <span>Báo Cáo</span>
+                            <span class="badge">5</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Admin" asp-action="Statistics">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Thống Kê</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Admin" asp-action="Users">
+                            <i class="fas fa-users"></i>
+                            <span>Người Dùng</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Admin" asp-action="Settings">
+                            <i class="fas fa-cog"></i>
+                            <span>Cài Đặt</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="sidebar-footer">
+                <form method="post" asp-controller="users" asp-action="Logout">
+                    <button type="submit" class="logout-button">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Đăng Xuất</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="main-content">
+            @RenderBody()
+        </div>
+    </div>
+
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html> *@
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-..." crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
+    <script src="~/js/jsadmin/dashboard.js"></script>
+    <script src="~/js/jsadmin/common.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @RenderSection("Styles", required: false)
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="sidebar-title">ADMIN DASHBOARD</h1>
+            </div>
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="active">
+                        <a href="/Admin/Index">
+                            <i class="fas fa-home"></i>
+                            <span>Tổng Quan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="TouristSpots" asp-action="Create">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Thêm địa điểm</span>
+                        </a>
+                    </li>
+                    <li class="@(ViewBag.CurrentPage == "PostReview" ? "active" : "")"> @* Thêm kiểm tra ViewBag nếu muốn highlight active menu *@
+                        <a asp-controller="Posts" asp-action="Moderate"> @* <<< SỬA Ở ĐÂY *@
+                            <i class="fas fa-file-signature"></i> @* Icon khác cho kiểm duyệt? *@
+                            <span>Kiểm Duyệt Bài Viết</span> @* Hoặc "Quản Lý Bài Viết" tùy bạn *@
                         </a>
                     </li>
                     <li>

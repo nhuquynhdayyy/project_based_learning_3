@@ -306,7 +306,7 @@ namespace TourismWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("SpotId,TypeOfPost,Title,ImageUrl,Content")] Post post)
+        public async Task<IActionResult> Create([Bind("SpotId,TypeOfPost,Title,ImageUrl,Content")] Post post, IFormFile imageFile)
         {
             if (ModelState.IsValid)
             {
@@ -319,7 +319,30 @@ namespace TourismWeb.Controllers
                 post.UserId = int.Parse(userIdClaim.Value);
                 post.CreatedAt = DateTime.Now;
 
-                if (string.IsNullOrEmpty(post.ImageUrl))
+                // if (string.IsNullOrEmpty(post.ImageUrl))
+                // {
+                //     post.ImageUrl = "/images/default-postImage.png";
+                // }
+                // Xử lý ảnh upload
+                if (imageFile != null && imageFile.Length > 0)
+                {
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder);
+                    }
+
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(imageFile.FileName);
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(fileStream);
+                    }
+
+                    post.ImageUrl = "/images/" + uniqueFileName;
+                }
+                else
                 {
                     post.ImageUrl = "/images/default-postImage.png";
                 }
