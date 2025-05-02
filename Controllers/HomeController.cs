@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
 
 namespace TourismWeb.Controllers;
@@ -7,14 +8,32 @@ namespace TourismWeb.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly ApplicationDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    // public HomeController(ILogger<HomeController> logger)
+    // {
+    //     _logger = logger;
+    // }
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
     {
         _logger = logger;
+        _context = context;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
+        // Lấy 3 bài viết cẩm nang mới nhất
+        var guidebookPosts = await _context.Posts
+            .Include(p => p.Spot)
+            .Include(p => p.User)
+            .Where(p => p.TypeOfPost == "Cẩm nang")
+            .OrderByDescending(p => p.CreatedAt)
+            .Take(3)
+            .ToListAsync();
+            
+        // Gửi dữ liệu đến view
+        ViewBag.GuidebookPosts = guidebookPosts;
+
         return View();
     }
 

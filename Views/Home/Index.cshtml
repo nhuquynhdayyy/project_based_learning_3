@@ -263,7 +263,38 @@
                     </div>
                 </div>
             </a>
-
+            <div class="container"></div>
+                
+                <div class="row">
+                    @if (ViewBag.GuidebookPosts != null && ViewBag.GuidebookPosts.Count > 0)
+                    {
+                        @foreach (var post in ViewBag.GuidebookPosts)
+                        {
+                            <div class="col-md-4 mb-4">
+                                <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.PostId" class="destination-card text-decoration-none text-dark">
+                                    <div class="card h-100">
+                                        <img src="@post.ImageUrl" class="card-img-top" alt="@post.Title">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><b>@post.Title</b></h5>
+                                            <p class="guide-date">@post.CreatedAt.ToString("dd MMMM, yyyy")</p>
+                                            <p class="card-text">@(post.Content.Length > 100 ? post.Content.Substring(0, 100) + "..." : post.Content)</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <p>Chưa có bài viết cẩm nang nào.</p>
+                        </div>
+                    }
+                    <div class="d-flex justify-content-end mb-3">
+                        <a asp-controller="Posts" asp-action="Category" asp-route-type="Cẩm nang" class="btn btn-outline-primary">Xem tất cả</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </section>
