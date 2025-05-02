@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -83,6 +82,11 @@ namespace TourismWeb.Controllers
             return View(postComment);
         }
 
+        private bool PostCommentExists(int id)
+        {
+            return _context.PostComments.Any(e => e.CommentId == id);
+        }
+
         // GET: PostComments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -151,9 +155,17 @@ namespace TourismWeb.Controllers
                 .Include(p => p.Post)
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.CommentId == id);
+                
             if (postComment == null)
             {
                 return NotFound();
+            }
+            
+            // Kiểm tra quyền xóa comment
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || postComment.UserId != int.Parse(userIdClaim.Value))
+            {
+                return Unauthorized();
             }
 
             return View(postComment);
@@ -165,18 +177,29 @@ namespace TourismWeb.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var postComment = await _context.PostComments.FindAsync(id);
+            int postId = 0;
+            
             if (postComment != null)
             {
-                _context.PostComments.Remove(postComment);
+                // Lưu lại PostId trước khi xóa comment
+                postId = postComment.PostId;
+                
+                // Kiểm tra quyền xóa comment
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim != null && postComment.UserId == int.Parse(userIdClaim.Value))
+                {
+                    _context.PostComments.Remove(postComment);
+                    await _context.SaveChangesAsync();
+                }
             }
 
-            await _context.SaveChangesAsync();
+            // Trở về trang chi tiết bài viết sau khi xóa comment
+            if (postId > 0)
+            {
+                return RedirectToAction("Details", "Posts", new { id = postId });
+            }
+            
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool PostCommentExists(int id)
-        {
-            return _context.PostComments.Any(e => e.CommentId == id);
         }
     }
 }
