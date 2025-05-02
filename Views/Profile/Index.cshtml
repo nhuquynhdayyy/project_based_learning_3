@@ -5,6 +5,9 @@
 
 @{
     ViewData["Title"] = "Trang cá nhân user";
+    var successMessage = TempData["SuccessMessage"] as string;
+    var errorMessage = TempData["ErrorMessage"] as string;
+
 }
 
 <main>
@@ -23,108 +26,125 @@
             <ul class="profile-menu">
                 <li><a href="#thongtin-tai-khoan">Hồ sơ</a></li>
                 <li><a href="#bo-suu-tap">Bộ sưu tập ảnh</a></li>
-                <li><a href="#dia-diem-yeu-thich">Địa điểm yêu thích</a></li>
+                <li><a href="#bai-viet">Bài viết của tôi</a></li>
                 <li><a href="#danh-gia">Đánh giá của tôi</a></li>
+                <li><a href="#dia-diem-yeu-thich">Địa điểm yêu thích</a></li>
                 <li><a href="#bai-viet-yeu-thich">Bài viết yêu thích</a></li>
             </ul>
         </div>
 
         <div class="profile-content">
+            @if (!string.IsNullOrEmpty(successMessage))
+             {
+                 <div class="alert alert-success" role="alert">@successMessage</div>
+             }
+             @if (!string.IsNullOrEmpty(errorMessage))
+             {
+                 <div class="alert alert-danger" role="alert">@errorMessage</div>
+             }
+             @* Hiển thị tóm tắt lỗi validation từ ModelState *@
+             <div asp-validation-summary="ModelOnly" class="text-danger alert alert-danger"></div>
             <div class="profile-tabs">
                 <div class="tab active" data-tab="account">Thông tin tài khoản</div>
                 <div class="tab" data-tab="security">Mật khẩu & Bảo mật</div>
             </div>
 
             <div id="account-tab" class="tab-content active">
-                <div class="content-section" id="thongtin-tai-khoan">
-                    <h3 class="section-title">Dữ liệu cá nhân</h3>
+    <form asp-controller="Profile" asp-action="UpdateProfile" method="post">
+        @Html.AntiForgeryToken()
 
-                    <div class="form-group">
-                        <label class="form-label">Tên đầy đủ</label>
-                        <input type="text" class="form-input" value="@Model.FullName">
-                        <p class="form-hint">Tên trong hồ sơ được rút ngắn từ họ tên của bạn.</p>
-                    </div>
+        <div class="content-section" id="thongtin-tai-khoan">
+            <h3 class="section-title">Dữ liệu cá nhân</h3>
+            <div class="form-group">
+                <label class="form-label" for="FullNameInput">Tên đầy đủ</label>
+                <input type="text" id="FullNameInput" name="FullName" class="form-input form-control" value="@Model.FullName">
+                <span class="text-danger">@Html.ValidationMessage("FullName")</span>
+            </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Giới tính</label>
-                            <select class="form-select">
-                                <option value="female" selected>Female</option>
-                                <option value="male">Male</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Ngày sinh</label>
+                    <div class="date-selects">
+                        @{
+                            var birthDate = Model.DateOfBirth;
+                            var day = birthDate?.Day ?? 0;
+                            var month = birthDate?.Month ?? 0;
+                            var year = birthDate?.Year ?? 0;
 
-                        <div class="form-group">
-                            <label class="form-label">Ngày sinh</label>
-                            <div class="date-selects">
-                                @{
-                                    var birthDate = Model.DateOfBirth.HasValue ? Model.DateOfBirth.Value : DateTime.Now;
-                                    var day = birthDate.Day;
-                                    var month = birthDate.Month;
-                                    var year = birthDate.Year;
+                            if (ViewData.ModelState.TryGetValue("BirthDay", out var dayState) && dayState.AttemptedValue != null)
+                                int.TryParse(dayState.AttemptedValue, out day);
+                            if (ViewData.ModelState.TryGetValue("BirthMonth", out var monthState) && monthState.AttemptedValue != null)
+                                int.TryParse(monthState.AttemptedValue, out month);
+                            if (ViewData.ModelState.TryGetValue("BirthYear", out var yearState) && yearState.AttemptedValue != null)
+                                int.TryParse(yearState.AttemptedValue, out year);
+                        }
+
+                        <select class="form-select" name="BirthDay">
+                            <option value="0" selected="@(day == 0)">Ngày</option>
+                            @for (int i = 1; i <= 31; i++)
+                            {
+                                <option value="@i" selected="@(day == i)">@i</option>
+                            }
+                        </select>
+                        <select class="form-select" name="BirthMonth">
+                            <option value="0" selected="@(month == 0)">Tháng</option>
+                            @for (int i = 1; i <= 12; i++)
+                            {
+                                <option value="@i" selected="@(month == i)">Tháng @i</option>
+                            }
+                        </select>
+                        <select class="form-select" name="BirthYear">
+                            <option value="0" selected="@(year == 0)">Năm</option>
+                            @{
+                                int currentYear = DateTime.Now.Year;
+                                for (int i = currentYear; i >= currentYear - 100; i--)
+                                {
+                                    <option value="@i" selected="@(year == i)">@i</option>
                                 }
-                                <select class="form-select">
-                                    @for (int i = 1; i <= 31; i++)
-                                    {
-                                        <option value="@i" selected="@(day == i)">@i</option>
-                                    }
-                                </select>
-
-                                <select class="form-select">
-                                    @for (int i = 1; i <= 12; i++)
-                                    {
-                                        <option value="@i" selected="@(month == i)">Tháng @i</option>
-                                    }
-                                </select>
-                                <select class="form-select">
-                                    @{
-                                        int currentYear = DateTime.Now.Year;
-                                        for (int i = currentYear; i >= currentYear - 100; i--)
-                                        {
-                                            <option value="@i" selected="@(year == i)">@i</option>
-                                        }
-                                    }
-                                </select>
-                            </div>
-                        </div>
+                            }
+                        </select>
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Thành phố cư trú</label>
-                        <input type="text" class="form-input" placeholder="Thành phố cư trú">
-                    </div>
-
-                    <div class="button-group">
-                        <button class="btn btn-outline">Có lẽ để sau</button>
-                        <button class="btn btn-primary">Lưu</button>
-                    </div>
+                    <span class="text-danger">@Html.ValidationMessage("DateOfBirth")</span>
                 </div>
+            </div>
 
-                <div class="content-section">
-                    <h3 class="section-title">Email</h3>
+            <div class="button-group mt-4">
+                <button type="reset" class="btn btn-outline">Hủy thay đổi</button>
+                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+            </div>
+        </div>
 
-                    <div class="email-item">
-                        <div>
-                            <p class="email-title">@Model.Email</p>
-                        </div>
-                        <span class="notification-badge">Nơi nhận thông báo</span>
-                    </div>
-                    @if (string.IsNullOrEmpty(Model.Email))
-                    {
-                        <div class="button-group">
-                            <button class="btn btn-outline">
-                                <i class="icon-plus"></i>
-                                Thêm email
-                            </button>
-                        </div>        
-                    }
+        <div class="content-section">
+            <h3 class="section-title">Email</h3>
+            <div class="email-item">
+                <p class="email-title">@Model.Email</p>
+                <span class="notification-badge">Nơi nhận thông báo</span>
+            </div>
+            @if (string.IsNullOrEmpty(Model.Email))
+            {
+                <div class="button-group">
+                    <button class="btn btn-outline"><i class="icon-plus"></i> Thêm email</button>
                 </div>
+            }
+        </div>
 
-                <div class="content-section">
-                    <h3 class="section-title">Số di động</h3>
+        <div class="content-section"> 
+                        <h3 class="section-title">Số di động</h3>
+                         <div class="form-group">
+                            <label class="form-label" for="PhoneNumberInput">Số di động</label>
+                            <input type="tel" id="PhoneNumberInput" name="PhoneNumber" class="form-input form-control" value="@Model.PhoneNumber">
+                            <span class="text-danger">@Html.ValidationMessage("PhoneNumber")</span>
+                            
+                            <div class="button-group mt-4"></div>
+                <button type="reset" class="btn btn-outline">Hủy thay đổi</button>
+                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+            </div>
+        </div>
+    </form>
+</div>
 
-                    @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+
+                    @* @if (!string.IsNullOrEmpty(Model.PhoneNumber))
                     {
                         <div class="email-item">
                             <div>
@@ -140,34 +160,44 @@
                         </button>
                     </div>
                 </div>
+            </div> *@
+
+            <div id="security-tab" class="tab-content @(ViewData["ActiveTab"] as string == "security" ? "active" : "")">
+                <form asp-controller="Profile" asp-action="UpdatePassword" method="post">
+                     @Html.AntiForgeryToken()
+
+                     <div class="content-section" id="cai-dat">
+                        <h3 class="section-title">Mật khẩu & Bảo mật</h3>
+                        <p class="card-description">Quản lý mật khẩu và các tùy chọn bảo mật cho tài khoản của bạn</p>
+                         @* Hiển thị lỗi chung từ ModelState nếu có *@
+                         <div asp-validation-summary="ModelOnly" class="text-danger alert alert-danger"></div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="CurrentPasswordInput">Mật khẩu hiện tại</label>
+                            <input type="password" id="CurrentPasswordInput" name="CurrentPassword" class="form-input form-control" required>
+                            <span class="text-danger">@Html.ValidationMessage("CurrentPassword")</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="NewPasswordInput">Mật khẩu mới</label>
+                            <input type="password" id="NewPasswordInput" name="NewPassword" class="form-input form-control" required>
+                            <span class="text-danger">@Html.ValidationMessage("NewPassword")</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="ConfirmPasswordInput">Xác nhận mật khẩu mới</label>
+                            <input type="password" id="ConfirmPasswordInput" name="ConfirmPassword" class="form-input form-control" required>
+                            <span class="text-danger">@Html.ValidationMessage("ConfirmPassword")</span>
+                        </div>
+
+                        <div class="button-group mt-3">
+                            <button type="submit" class="btn btn-primary">Cập nhật mật khẩu</button>
+                        </div>
+                    </div>
+                </form>
             </div>
 
-            <div id="security-tab" class="tab-content">
-                <div class="content-section" id="cai-dat">
-                    <h3 class="section-title">Mật khẩu & Bảo mật</h3>
-                    <p class="card-description">Quản lý mật khẩu và các tùy chọn bảo mật cho tài khoản của bạn</p>
-
-                    <div class="form-group">
-                        <label class="form-label">Mật khẩu hiện tại</label>
-                        <input type="password" class="form-input">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Mật khẩu mới</label>
-                        <input type="password" class="form-input">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Xác nhận mật khẩu mới</label>
-                        <input type="password" class="form-input">
-                    </div>
-
-                    <div class="button-group">
-                        <button class="btn btn-primary">Cập nhật mật khẩu</button>
-                    </div>
-                </div>
-
-                <div class="content-section">
+                @* <div class="content-section">
                     <h3 class="section-title">Xác thực hai yếu tố</h3>
                     <p class="card-description">Tăng cường bảo mật cho tài khoản của bạn</p>
 
@@ -192,8 +222,8 @@
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
-                </div>
-            </div>
+                </div> *@
+            
 
             <div class="content-section" id="bo-suu-tap">
                 <h3 class="section-title">Bộ sưu tập ảnh</h3>
@@ -217,6 +247,43 @@
                         </div>
                         <div class="photo-item">
                             <img src="/images/sontra.jpg" alt="Hình ảnh du lịch">
+                        </div>
+                    }
+                </div>
+            </div>
+
+
+
+            <div class="content-section" id="danh-gia">
+                <h3 class="section-title">Đánh giá của tôi</h3>
+                <div class="blog-list">
+                    @foreach (var review in Model.Reviews.Take(3))
+                    {
+                        <div class="blog-item">
+                            <img src="@review.Spot.ImageUrl" alt="@review.Spot.Name">
+                            <div class="blog-content">
+                                <div class="blog-title">@review.Rating</div>
+                                <div class="blog-preview">@review.Comment.Substring(0, Math.Min(review.Comment.Length, 100))...</div>
+                                <div class="blog-meta">
+                                    <span>Đăng ngày: @review.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                    @* <span>@review.ViewCount lượt xem</span> *@
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.Reviews.Count == 0)
+                    {
+                        <div class="blog-item">
+                            <img src="/images/hoian.jpg" alt="Ẩm thực Hội An">
+                            <div class="blog-content">
+                                <div class="blog-title">Top 10 món ăn nhất định phải thử khi đến Hội An</div>
+                                <div class="blog-preview">Từ Cao lầu đến Bánh mì Phượng, hãy cùng khám phá những món ăn
+                                    tuyệt vời nhất của phố cổ...</div>
+                                <div class="blog-meta">
+                                    <span>Đăng ngày: 15/12/2024</span>
+                                    <span>325 lượt xem</span>
+                                </div>
+                            </div>
                         </div>
                     }
                 </div>
@@ -262,41 +329,6 @@
                                 <div class="inspiration-meta">
                                     <span>Thời gian tốt nhất: Tháng 2-8</span>
                                     <span>Đã lưu</span>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-
-            <div class="content-section" id="danh-gia">
-                <h3 class="section-title">Đánh giá của tôi</h3>
-                <div class="blog-list">
-                    @foreach (var review in Model.Reviews.Take(3))
-                    {
-                        <div class="blog-item">
-                            <img src="@review.Spot.ImageUrl" alt="@review.Spot.Name">
-                            <div class="blog-content">
-                                <div class="blog-title">@review.Rating</div>
-                                <div class="blog-preview">@review.Comment.Substring(0, Math.Min(review.Comment.Length, 100))...</div>
-                                <div class="blog-meta">
-                                    <span>Đăng ngày: @review.CreatedAt.ToString("dd/MM/yyyy")</span>
-                                    @* <span>@review.ViewCount lượt xem</span> *@
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    @if (Model.Reviews.Count == 0)
-                    {
-                        <div class="blog-item">
-                            <img src="/images/hoian.jpg" alt="Ẩm thực Hội An">
-                            <div class="blog-content">
-                                <div class="blog-title">Top 10 món ăn nhất định phải thử khi đến Hội An</div>
-                                <div class="blog-preview">Từ Cao lầu đến Bánh mì Phượng, hãy cùng khám phá những món ăn
-                                    tuyệt vời nhất của phố cổ...</div>
-                                <div class="blog-meta">
-                                    <span>Đăng ngày: 15/12/2024</span>
-                                    <span>325 lượt xem</span>
                                 </div>
                             </div>
                         </div>
@@ -390,4 +422,9 @@
             });
         });
     });
+    function enablePhoneEdit() {
+        const input = document.getElementById('PhoneNumberInput');
+        input.classList.remove('d-none');
+        input.focus();
+    }
 </script>
