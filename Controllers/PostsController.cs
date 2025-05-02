@@ -271,12 +271,17 @@ namespace TourismWeb.Controllers
             var post = await _context.Posts
                 .Include(p => p.Spot)
                 .Include(p => p.User)
+                .Include(p => p.Comments) // Include comments if needed
+                    .ThenInclude(c => c.User) // Include user for each comment
                 .FirstOrDefaultAsync(m => m.PostId == id);
 
             if (post == null)
             {
                 return NotFound();
             }
+
+            // Sắp xếp bình luận theo thời gian tạo (mới nhất lên đầu)
+            post.Comments = post.Comments.OrderByDescending(c => c.CreatedAt).ToList();
 
             // Check if the user is the author or an admin if the post is not approved
             if (post.Status != PostStatus.Approved)
@@ -668,6 +673,43 @@ namespace TourismWeb.Controllers
         private bool PostExists(int id)
         {
             return _context.Posts.Any(e => e.PostId == id);
+        }
+
+        private bool PostCommentExists(int id)
+        {
+            return _context.PostComments.Any(e => e.CommentId == id);
+        }
+
+        // POST: Posts/AddComment
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddComment(int postId, string content)
+        {
+            if (string.IsNullOrEmpty(content))
+            {
+                return RedirectToAction(nameof(Details), new { id = postId });
+            }
+
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+
+            var postComment = new PostComment
+            {
+                PostId = postId,
+                UserId = userId,
+                Content = content,
+                CreatedAt = DateTime.Now
+            };
+
+            _context.PostComments.Add(postComment);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details), new { id = postId });
         }
     }
 }

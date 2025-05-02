@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\contact.css"
     },
     {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\css\\details.css",
+      "PackagePath": "staticwebassets\\css\\details.css"
+    },
+    {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\css\\experience.css",
       "PackagePath": "staticwebassets\\css\\experience.css"
     },
