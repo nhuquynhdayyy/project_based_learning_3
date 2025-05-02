@@ -3950,7 +3950,6 @@ E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\TourismWeb.sourcelink.json
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\scopedcss\bundle\TourismWeb.styles.css
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\noqcdaocax-sx9jrfe4q0.gz
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\bq74799m76-2e0zi6qmxj.gz
-E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\yljvie71jl-blbvmwk0yv.gz
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\tk080zu9jp-eh962obovj.gz
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\jiphz1fxu8-oxu4evx4ew.gz
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\e1nq74b8jn-ztp6s5t2cx.gz
@@ -4046,3 +4045,4 @@ E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\ref\TourismWeb.dll
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\3zhvn2qyo5-nh3peztrp1.gz
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\yuz2a1cczz-yus26ym32d.gz
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\mmfoti1uct-0bhqbbqhrl.gz
+E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\yljvie71jl-2lqk2v8y2o.gz

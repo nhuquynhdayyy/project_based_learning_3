@@ -22,7 +22,6 @@
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">ĐÀ NẴNG</h5>
                         <a asp-controller="Location" asp-action="Danang1" class="btn btn-primary">Xem chi tiết</a>
-
                     </div>
                 </div>
             </div>
@@ -81,123 +80,52 @@
         <div class="swiper-container">
             <h2 class="text-center">Bài viết gần đây</h2>
             <div class="swiper-wrapper">
-
-                <div class="swiper-slide">
-                    <div class="slider-card">
-                        <div class="slider-image-wrapper">
-                            <img src="/images/danang2.webp" alt="Cầu Rồng Đà Nẵng">
-                            <span class="slider-category category-du-lich">Du lịch</span>
+                @if (ViewBag.RecentPosts != null && ((List<TourismWeb.Models.Post>)ViewBag.RecentPosts).Any())
+                {
+                    @foreach (var post in ViewBag.RecentPosts)
+                    {
+                        <div class="swiper-slide">
+                            <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.PostId" class="text-decoration-none text-dark">
+                                <div class="slider-card clickable-card">
+                                    <div class="slider-image-wrapper">
+                                        <img src="@(string.IsNullOrEmpty(post.ImageUrl) ? "/images/default-postImage.png" : post.ImageUrl)" alt="@post.Title">
+                                        <span class="slider-category @GetCategoryClass(post.TypeOfPost)">@post.TypeOfPost</span>
+                                    </div>
+                                    <div class="slider-content">
+                                        <div class="article-author">
+                                            <span class="author-name">@post.User.FullName</span>
+                                        </div>
+                                        <h3 class="slider-title">@post.Title</h3>
+                                        <p class="slider-description">
+                                            @(post.Content.Length > 100 ? post.Content.Substring(0, 100) + "..." : post.Content)
+                                        </p>
+                                        <div class="slider-location">📍 @post.Spot.Name</div>
+                                        <div class="article-interactions">
+                                            <div class="interaction-item me-3 d-inline-block">
+                                                <span class="interaction-icon">❤️</span>
+                                                <span>0</span>
+                                            </div>
+                                            <div class="interaction-item d-inline-block">
+                                                <span class="interaction-icon">💬</span>
+                                                <span>0</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                        <div class="slider-content">
-                            <div class="article-author">
-                                <span class="author-name">Lê Minh</span>
-                            </div>
-                            <h3 class="slider-title">Khám phá Đà Nẵng năng động</h3>
-                            <p class="slider-description">
-                                Thành phố đáng sống với những cây cầu độc đáo, bãi biển dài và ẩm thực hấp dẫn.
-                            </p>
-                            <div class="slider-location">📍 Đà Nẵng</div>
-                            <div class="article-interactions">
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">❤️</span>
-                                    <span>95</span>
-                                </div>
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">💬</span>
-                                    <span>12</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="slider-card">
-                        <div class="slider-image-wrapper">
-                            <img src="/images/hoian2.jpg" alt="Phố cổ Hội An">
-                            <span class="slider-category category-lich-su">Lịch sử</span>
-                        </div>
-                        <div class="slider-content">
-                            <div class="article-author">
-                                <span class="author-name">Trần Hà</span>
-                            </div>
-                            <h3 class="slider-title">Phố cổ Hội An lung linh sắc màu</h3>
-                            <p class="slider-description">
-                                Nét đẹp cổ kính với những ngôi nhà mái ngói vàng và đèn lồng rực rỡ mỗi đêm.
-                            </p>
-                            <div class="slider-location">📍 Hội An</div>
-                            <div class="article-interactions">
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">❤️</span>
-                                    <span>132</span>
-                                </div>
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">💬</span>
-                                    <span>20</span>
-                                </div>
+                    }
+                }
+                else
+                {
+                    <div class="swiper-slide">
+                        <div class="slider-card">
+                            <div class="slider-content text-center">
+                                <p>Chưa có bài viết nào.</p>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="slider-card">
-                        <div class="slider-image-wrapper">
-                            <img src="/images/nhatrang.jpg" alt="Bãi biển Nha Trang">
-                            <span class="slider-category category-bien">Biển</span>
-                        </div>
-                        <div class="slider-content">
-                            <div class="article-author">
-                                <span class="author-name">Phạm Thanh</span>
-                            </div>
-                            <h3 class="slider-title">Biển xanh Nha Trang quyến rũ</h3>
-                            <p class="slider-description">
-                                Một trong những vịnh biển đẹp nhất thế giới với nước trong xanh và san hô tuyệt đẹp.
-                            </p>
-                            <div class="slider-location">📍 Nha Trang</div>
-                            <div class="article-interactions">
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">❤️</span>
-                                    <span>110</span>
-                                </div>
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">💬</span>
-                                    <span>15</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="slider-card">
-                        <div class="slider-image-wrapper">
-                            <img src="/images/quangbinh2.jpg" alt="Động Phong Nha - Quảng Bình">
-                            <span class="slider-category category-thien-nhien">Thiên nhiên</span>
-                        </div>
-                        <div class="slider-content">
-                            <div class="article-author">
-                                <span class="author-name">Ngô Bảo</span>
-                            </div>
-                            <h3 class="slider-title">Quảng Bình - Vương quốc hang động</h3>
-                            <p class="slider-description">
-                                Phong Nha - Kẻ Bàng với những kỳ quan thiên nhiên kỳ vĩ bậc nhất Việt Nam.
-                            </p>
-                            <div class="slider-location">📍 Quảng Bình</div>
-                            <div class="article-interactions">
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">❤️</span>
-                                    <span>140</span>
-                                </div>
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">💬</span>
-                                    <span>22</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                }
             </div>
             <!-- Chấm tròn pagination -->
             <div class="swiper-pagination"></div>
@@ -235,7 +163,7 @@
                         {
                             <div class="col-md-4 mb-4">
                                 <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.PostId" class="destination-card text-decoration-none text-dark">
-                                    <div class="card h-100">
+                                    <div class="card h-100 clickable-card">
                                         <img src="@post.ImageUrl" class="card-img-top" alt="@post.Title">
                                         <div class="card-body">
                                             <h5 class="card-title"><b>@post.Title</b></h5>
@@ -261,3 +189,16 @@
         </div>
     </section>
 </section>
+
+@functions {
+    public string GetCategoryClass(string typeOfPost)
+    {
+        return typeOfPost switch
+        {
+            "Cẩm nang" => "category-cam-nang",
+            "Trải nghiệm" => "category-trai-nghiem",
+            "Địa điểm" => "category-dia-diem",
+            _ => "category-default"
+        };
+    }
+}
