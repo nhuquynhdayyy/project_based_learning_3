@@ -550,7 +550,7 @@
             else
             {
                 <!-- Sample review if no real reviews exist -->
-                <div class="review-item">
+                @* <div class="review-item">
                     <div class="review-user">
                         <img src="https://randomuser.me/api/portraits/women/42.jpg" alt="Người dùng mẫu" class="user-avatar">
                         <div class="user-info">
@@ -577,7 +577,7 @@
                             <button class="reply-btn"><i class="far fa-comment"></i> Phản hồi</button>
                         </div>
                     </div>
-                </div>
+                </div> *@
             }
 
             @if ((Model.Reviews?.Count ?? 0) > 3)
@@ -590,7 +590,7 @@
     </section>
 
     <!-- Comments Section -->
-    <section class="comments-section">
+    @* <section class="comments-section">
         <div class="section-header">
             <h2>Bình luận (@(Model.Comments?.Count ?? 0))</h2>
         </div>
@@ -629,7 +629,7 @@
                             <div class="comment-actions">
                                 <button class="like-btn"><i class="far fa-thumbs-up"></i> Thích (comment.LikeCount)</button>
                                 <button class="reply-btn"><i class="far fa-comment"></i> Phản hồi</button>
-                            </div>
+                            </div> *@
 
                             <!-- Replies -->
                             @* @if (comment.Replies != null && comment.Replies.Any())
@@ -654,7 +654,7 @@
                                     }
                                 </div>
                             } *@
-                        </div>
+                        @* </div>
                     </div>
                 }
             }
@@ -684,7 +684,7 @@
                 </div>
             }
         </div>
-    </section>
+    </section> *@
 
     <!-- Action buttons -->
     <div class="action-buttons">

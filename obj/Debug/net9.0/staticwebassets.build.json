@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mXGqgq4C7o7dqsm0GiwXuHSqThSpLSBMiWsTS76qNws=",
+  "Hash": "blTEhwfLTEC+mPoN5yPizDJzsswl8s0rAUn3/RaMAtc=",
   "Source": "TourismWeb",
   "BasePath": "_content/TourismWeb",
   "Mode": "Default",
@@ -2766,6 +2766,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\70a8faf0-a2e3-48f9-89e5-b56dca58a2e0.jpg"
+    },
+    {
+      "Identity": "D:\\PBL3\\PBL3\\wwwroot\\images\\820b4016-ec05-410a-8d82-090e8a1f2d31_danang2.webp",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/820b4016-ec05-410a-8d82-090e8a1f2d31_danang2#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "x8vc1t0f9z",
+      "Integrity": "z+GNrdWlCa+++ncHcYKmUwfI4wuDgLPycIDVr4uGSrA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\820b4016-ec05-410a-8d82-090e8a1f2d31_danang2.webp"
     },
     {
       "Identity": "D:\\PBL3\\PBL3\\wwwroot\\images\\af5fea27-dd19-4166-a351-2644d8ea80a2.jpg",
@@ -14246,6 +14267,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-kNx4sVX7xTGgWtfg95ag2lD8oKUSeCaFLirsj0fJMtg="
+        }
+      ]
+    },
+    {
+      "Route": "images/820b4016-ec05-410a-8d82-090e8a1f2d31_danang2.webp",
+      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\820b4016-ec05-410a-8d82-090e8a1f2d31_danang2.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "677506"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"z+GNrdWlCa+++ncHcYKmUwfI4wuDgLPycIDVr4uGSrA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 02 May 2025 23:24:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-z+GNrdWlCa+++ncHcYKmUwfI4wuDgLPycIDVr4uGSrA="
+        }
+      ]
+    },
+    {
+      "Route": "images/820b4016-ec05-410a-8d82-090e8a1f2d31_danang2.x8vc1t0f9z.webp",
+      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\820b4016-ec05-410a-8d82-090e8a1f2d31_danang2.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "677506"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"z+GNrdWlCa+++ncHcYKmUwfI4wuDgLPycIDVr4uGSrA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 02 May 2025 23:24:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "x8vc1t0f9z"
+        },
+        {
+          "Name": "label",
+          "Value": "images/820b4016-ec05-410a-8d82-090e8a1f2d31_danang2.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-z+GNrdWlCa+++ncHcYKmUwfI4wuDgLPycIDVr4uGSrA="
         }
       ]
     },
