@@ -84,7 +84,7 @@
     </div>
 
 
-    <section>
+    @* <section>
         <div class="swiper-container">
             <h2 class="text-center">Bài viết gần đây</h2>
             <div class="swiper-wrapper">
@@ -212,7 +212,62 @@
             <!-- Chấm tròn pagination -->
             <div class="swiper-pagination"></div>
         </div>
-    </section>>
+    </section>> *@
+    <section>
+        <div class="swiper-container">
+            <h2 class="text-center">Bài viết gần đây</h2>
+            <div class="swiper-wrapper">
+                @if (ViewBag.RecentPosts != null && ((List<TourismWeb.Models.Post>)ViewBag.RecentPosts).Any())
+                {
+                    @foreach (var post in ViewBag.RecentPosts)
+                    {
+                        <div class="swiper-slide">
+                            <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.PostId" class="text-decoration-none text-dark">
+                                <div class="slider-card clickable-card">
+                                    <div class="slider-image-wrapper">
+                                        <img src="@(string.IsNullOrEmpty(post.ImageUrl) ? "/images/default-postImage.png" : post.ImageUrl)" alt="@post.Title">
+                                        <span class="slider-category @GetCategoryClass(post.TypeOfPost)">@post.TypeOfPost</span>
+                                    </div>
+                                    <div class="slider-content">
+                                        <div class="article-author">
+                                            <span class="author-name">@post.User.FullName</span>
+                                        </div>
+                                        <h3 class="slider-title">@post.Title</h3>
+                                        <p class="slider-description">
+                                            @(post.Content.Length > 100 ? post.Content.Substring(0, 100) + "..." : post.Content)
+                                        </p>
+                                        <div class="slider-location">📍 @post.Spot.Name</div>
+                                        <div class="article-interactions">
+                                            <div class="interaction-item me-3 d-inline-block">
+                                                <span class="interaction-icon">❤️</span>
+                                                <span>0</span>
+                                            </div>
+                                            <div class="interaction-item d-inline-block">
+                                                <span class="interaction-icon">💬</span>
+                                                <span>0</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="swiper-slide">
+                        <div class="slider-card">
+                            <div class="slider-content text-center">
+                                <p>Chưa có bài viết nào.</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- Chấm tròn pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
     @await Html.PartialAsync("_Review")
     <section class="guide-wrapper">
         <div class="guide-section">
@@ -263,8 +318,7 @@
                     </div>
                 </div>
             </a> *@
-            <div class="container"></div>
-                
+            <div class="container">
                 <div class="row">
                     @if (ViewBag.GuidebookPosts != null && ViewBag.GuidebookPosts.Count > 0)
                     {
@@ -299,3 +353,16 @@
 
     </section>
 </section>
+
+@functions {
+    public string GetCategoryClass(string typeOfPost)
+    {
+        return typeOfPost switch
+        {
+            "Cẩm nang" => "category-cam-nang",
+            "Trải nghiệm" => "category-trai-nghiem",
+            "Địa điểm" => "category-dia-diem",
+            _ => "category-default"
+        };
+    }
+}

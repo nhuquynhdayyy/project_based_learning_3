@@ -22,6 +22,13 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
+        // Get recent posts from all categories for the slider section
+        var recentPosts = await _context.Posts
+            .Include(p => p.User)
+            .Include(p => p.Spot)
+            .OrderByDescending(p => p.CreatedAt)
+            .Take(8)  // Limiting to 8 posts for the slider
+            .ToListAsync();
         // Lấy 3 bài viết cẩm nang mới nhất
         var guidebookPosts = await _context.Posts
             .Include(p => p.Spot)
@@ -32,6 +39,7 @@ public class HomeController : Controller
             .ToListAsync();
             
         // Gửi dữ liệu đến view
+        ViewBag.RecentPosts = recentPosts;
         ViewBag.GuidebookPosts = guidebookPosts;
 
         return View();
