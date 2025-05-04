@@ -109,8 +109,16 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\0d421de0-e703-4868-82bc-d5c96ec755e7_myson.jpg",
+      "PackagePath": "staticwebassets\\images\\0d421de0-e703-4868-82bc-d5c96ec755e7_myson.jpg"
+    },
+    {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\3085bca9-6be7-4dbf-b16e-48edc47cf899.jpg",
       "PackagePath": "staticwebassets\\images\\3085bca9-6be7-4dbf-b16e-48edc47cf899.jpg"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\52947839-0a55-4591-bd82-03c66fa9ae43_nhatho.webp",
+      "PackagePath": "staticwebassets\\images\\52947839-0a55-4591-bd82-03c66fa9ae43_nhatho.webp"
     },
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\5fa6872a-48f7-4385-832a-890f65110605.jpg",
@@ -127,6 +135,10 @@
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\70a8faf0-a2e3-48f9-89e5-b56dca58a2e0.jpg",
       "PackagePath": "staticwebassets\\images\\70a8faf0-a2e3-48f9-89e5-b56dca58a2e0.jpg"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\77fcdd51-b0e8-4cbd-af35-531e92b600db_culaocham.jpg",
+      "PackagePath": "staticwebassets\\images\\77fcdd51-b0e8-4cbd-af35-531e92b600db_culaocham.jpg"
     },
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\820b4016-ec05-410a-8d82-090e8a1f2d31_danang2.webp",
