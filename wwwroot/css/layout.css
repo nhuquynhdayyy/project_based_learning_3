@@ -12,7 +12,7 @@ img {
     margin: 0 auto;
 }
 .navbar {
-    position: fixed; /* Cố định vị trí */
+    /* position: fixed; Cố định vị trí */
     top: 0;
     left: 0;
     width: 100%;
@@ -52,7 +52,7 @@ img {
 .navbar-nav {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 8px;
     flex-wrap: nowrap;
     overflow-x: auto;
     white-space: nowrap;

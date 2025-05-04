@@ -1,4 +1,4 @@
-@model IEnumerable<TourismWeb.Models.Post>
+@* @model IEnumerable<TourismWeb.Models.Post>
 
 @{
     ViewData["Title"] = "Moderate Posts";
@@ -129,4 +129,325 @@
             </tr>
         }
     </tbody>
-</table>
+</table> *@
+@model IEnumerable<TourismWeb.Models.Post>
+
+@{
+    ViewData["Title"] = "Moderate Posts";
+}
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="main-content ps-md-4 ps-2"> <!-- 👈 Chỗ padding trái -->
+
+    <h1>Post Moderation</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New</a>
+    </p>
+
+    <div class="mb-3">
+        <div class="btn-group" role="group">
+            <a asp-action="Moderate" class="btn btn-outline-primary active">All Posts</a>
+            <a asp-action="Moderate" asp-route-status="Pending" class="btn btn-outline-warning">Pending</a>
+            <a asp-action="Moderate" asp-route-status="Approved" class="btn btn-outline-success">Approved</a>
+            <a asp-action="Moderate" asp-route-status="Rejected" class="btn btn-outline-danger">Rejected</a>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.PostId)</th>
+                <th>@Html.DisplayNameFor(model => model.Title)</th>
+                <th>@Html.DisplayNameFor(model => model.TypeOfPost)</th>
+                <th>@Html.DisplayNameFor(model => model.Spot)</th>
+                <th>@Html.DisplayNameFor(model => model.User)</th>
+                <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
+                <th>@Html.DisplayNameFor(model => model.Status)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.PostId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TypeOfPost)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Spot.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.User.FullName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                    <td>
+                        @{
+                            string badgeClass = item.Status == TourismWeb.Models.PostStatus.Pending
+                            ? "badge bg-warning"
+                            : (item.Status == TourismWeb.Models.PostStatus.Approved
+                            ? "badge bg-success"
+                            : "badge bg-danger");
+                        }
+                        <span class="@badgeClass">@item.Status</span>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a asp-action="Details" asp-route-id="@item.PostId" class="btn btn-sm btn-info">
+                                <i class="bi bi-eye"></i> View
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-sm btn-primary">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+
+                            @if (item.Status == TourismWeb.Models.PostStatus.Pending)
+                            {
+                                <form asp-action="Approve" asp-route-id="@item.PostId" method="post" style="display: inline;">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-success">
+                                        <i class="bi bi-check-circle"></i> Approve
+                                    </button>
+                                </form>
+                                <form asp-action="Reject" asp-route-id="@item.PostId" method="post" style="display: inline;">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-x-circle"></i> Reject
+                                    </button>
+                                </form>
+                            }
+                            else if (item.Status == TourismWeb.Models.PostStatus.Approved)
+                            {
+                                <form asp-action="Reject" asp-route-id="@item.PostId" method="post" style="display: inline;">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-x-circle"></i> Reject
+                                    </button>
+                                </form>
+                            }
+                            else if (item.Status == TourismWeb.Models.PostStatus.Rejected)
+                            {
+                                <form asp-action="Approve" asp-route-id="@item.PostId" method="post" style="display: inline;">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-success">
+                                        <i class="bi bi-check-circle"></i> Approve
+                                    </button>
+                                </form>
+                            }
+
+                            <a asp-action="Delete" asp-route-id="@item.PostId" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<style>
+    /* Styles cho trang Post Moderation */
+
+    /* Phần tiêu đề chính */
+    h1 {
+        font-size: 2rem;
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #3498db;
+    }
+
+    /* Nút tạo mới */
+    .btn-primary {
+        background-color: #3498db;
+        border-color: #3498db;
+        padding: 8px 16px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        border-color: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Nhóm nút lọc trạng thái */
+    .btn-group {
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .btn-group .btn {
+        padding: 8px 16px;
+        font-weight: 500;
+        border-radius: 0;
+    }
+
+    .btn-outline-primary.active {
+        background-color: #3498db;
+        color: white;
+    }
+
+    .btn-outline-warning.active {
+        background-color: #f39c12;
+        color: white;
+    }
+
+    .btn-outline-success.active {
+        background-color: #2ecc71;
+        color: white;
+    }
+
+    .btn-outline-danger.active {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+    /* Bảng dữ liệu */
+    .table {
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+    }
+
+    .table thead {
+        background-color: #f8f9fa;
+    }
+
+    .table thead th {
+        padding: 12px 15px;
+        border-bottom: 2px solid #e9ecef;
+        font-weight: 600;
+        color: #2c3e50;
+        white-space: nowrap;
+    }
+
+    .table tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    .table tbody td {
+        padding: 12px 15px;
+        vertical-align: middle;
+        border-top: 1px solid #e9ecef;
+    }
+
+    /* Badges cho trạng thái */
+    .badge {
+        padding: 6px 10px;
+        font-weight: 500;
+        border-radius: 4px;
+        font-size: 0.85rem;
+    }
+
+    .bg-warning {
+        background-color: #f39c12 !important;
+        color: #fff;
+    }
+
+    .bg-success {
+        background-color: #2ecc71 !important;
+    }
+
+    .bg-danger {
+        background-color: #e74c3c !important;
+    }
+
+    /* Nhóm nút hành động */
+    .btn-group .btn-sm {
+        padding: 4px 8px;
+        font-size: 0.85rem;
+        margin-right: 4px;
+    }
+
+    .btn-info {
+        background-color: #3498db;
+        border-color: #3498db;
+        color: #fff;
+    }
+
+    .btn-info:hover {
+        background-color: #2980b9;
+        border-color: #2980b9;
+    }
+
+    .btn-success {
+        background-color: #2ecc71;
+        border-color: #2ecc71;
+    }
+
+    .btn-success:hover {
+        background-color: #27ae60;
+        border-color: #27ae60;
+    }
+
+    .btn-danger {
+        background-color: #e74c3c;
+        border-color: #e74c3c;
+    }
+
+    .btn-danger:hover {
+        background-color: #c0392b;
+        border-color: #c0392b;
+    }
+
+    /* Icons */
+    .bi {
+        margin-right: 4px;
+    }
+
+    /* Responsive adjustments */
+    media (max-width: 992px) {
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .btn-group .btn {
+            flex: 1 0 auto;
+            margin-bottom: 5px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        td .btn-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        td .btn-group .btn {
+            margin-bottom: 5px;
+        }
+    }
+
+    /* Fix cho các form inline */
+    form[style="display: inline;"] {
+        margin-right: 4px;
+    }
+
+    /* Đảm bảo nội dung chính không bị chồng lấn với sidebar */
+    .content-wrapper {
+        margin-left: 30%;
+        /* Phù hợp với chiều rộng của sidebar trong layout */
+        padding: 25px;
+        width: 70%;
+    }
+
+    /* Hiệu ứng hover cho các nút */
+    .btn {
+        transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+</style>
