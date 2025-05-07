@@ -27,6 +27,7 @@ namespace TourismWeb.Models
 
         public string ImageUrl { get; set; } = "/images/default-spotImage.png" ;    
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public bool IsLikedByCurrentUser { get; set; } = false;
 
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
         public ICollection<SpotComment> Comments { get; set; } = new List<SpotComment>();

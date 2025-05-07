@@ -1,0 +1,475 @@
+@section Styles {
+    <link rel="stylesheet" href="~/cssadmin/comments.css" asp-append-version="true" />
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+}
+
+@{
+    ViewData["Title"] = "Đánh Giá & Bình Luận - Hệ Thống Quản Trị";
+}
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/js/jsadmin/comments.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+}
+
+<div class="app-container">
+    <!-- Sidebar -->
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <main class="content-wrapper">
+            <div class="page-header">
+                <h1 class="page-title">Đánh Giá & Bình Luận</h1>
+                <div class="page-actions">
+                    <div class="filter-group">
+                        <label for="comment-status">Trạng thái:</label>
+                        <select id="comment-status" class="select-control">
+                            <option value="all">Tất cả</option>
+                            <option value="pending" selected>Chờ duyệt</option>
+                            <option value="approved">Đã duyệt</option>
+                            <option value="spam">Spam</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-card">
+                <div class="filter-grid">
+                    <div class="filter-item">
+                        <div class="search-input">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Tìm kiếm bình luận...">
+                        </div>
+                    </div>
+                    <div class="filter-item">
+                        <select class="select-control">
+                            <option value="all">Tất cả bài viết</option>
+                            <option value="location">Địa điểm</option>
+                            <option value="guide">Cẩm nang du lịch</option>
+                            <option value="experience">Trải nghiệm</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <select class="select-control">
+                            <option value="all">Tất cả đánh giá</option>
+                            <option value="5">5 sao</option>
+                            <option value="4">4 sao</option>
+                            <option value="3">3 sao</option>
+                            <option value="2">2 sao</option>
+                            <option value="1">1 sao</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <button class="btn btn-filter">
+                            <i class="fas fa-filter"></i>
+                            Lọc
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comments Table -->
+            <div class="table-card">
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Người dùng</th>
+                                <th>Bình luận</th>
+                                <th>Bài viết</th>
+                                <th>Đánh giá</th>
+                                <th>Ngày đăng</th>
+                                <th>Trạng thái</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=1" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Nguyễn Văn A</div>
+                                            <div class="user-email">nguyenvana@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="comment-content">
+                                        Bài viết rất hay và chi tiết. Tôi đã đến Đà Lạt vào tháng trước và trải nghiệm
+                                        đúng như mô tả. Cảm ơn tác giả!
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="#" class="post-link">Khám phá Đà Lạt mùa hoa</a>
+                                </td>
+                                <td>
+                                    <div class="rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <span class="rating-text">5.0</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-clock"></i>
+                                        10/04/2025 14:30
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge yellow">Chờ duyệt</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn approve-btn" title="Duyệt">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="action-btn reject-btn" title="Từ chối">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=2" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Trần Thị B</div>
+                                            <div class="user-email">tranthib@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="comment-content">
+                                        Cẩm nang rất hữu ích cho chuyến đi Hội An của tôi. Tuy nhiên, giá cả một số dịch
+                                        vụ đã thay đổi so với bài viết.
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="#" class="post-link">Cẩm nang du lịch Hội An tự túc</a>
+                                </td>
+                                <td>
+                                    <div class="rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <span class="rating-text">4.0</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-clock"></i>
+                                        09/04/2025 10:15
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge yellow">Chờ duyệt</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn approve-btn" title="Duyệt">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="action-btn reject-btn" title="Từ chối">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=3" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Lê Văn C</div>
+                                            <div class="user-email">levanc@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="comment-content">
+                                        Trải nghiệm leo núi Fansipan thật tuyệt vời! Tôi đã thử và cảm thấy rất đáng
+                                        giá. Cảnh đẹp tuyệt vời.
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="#" class="post-link">Trải nghiệm leo núi Fansipan</a>
+                                </td>
+                                <td>
+                                    <div class="rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <span class="rating-text">4.5</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-clock"></i>
+                                        08/04/2025 16:45
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge yellow">Chờ duyệt</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn approve-btn" title="Duyệt">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="action-btn reject-btn" title="Từ chối">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=4" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Phạm Thị D</div>
+                                            <div class="user-email">phamthid@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="comment-content">
+                                        Bãi biển Bãi Sao thật sự rất đẹp như bài viết mô tả. Nước trong xanh, cát trắng
+                                        mịn. Tuy nhiên dịch vụ ăn uống hơi đắt.
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="#" class="post-link">Bãi biển đẹp nhất Phú Quốc</a>
+                                </td>
+                                <td>
+                                    <div class="rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <i class="far fa-star"></i>
+                                        <span class="rating-text">3.5</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-clock"></i>
+                                        07/04/2025 09:20
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge yellow">Chờ duyệt</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn approve-btn" title="Duyệt">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="action-btn reject-btn" title="Từ chối">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">
+                                            <img src="https://i.pravatar.cc/40?img=5" alt="Avatar">
+                                        </div>
+                                        <div class="user-info">
+                                            <div class="user-name">Hoàng Văn E</div>
+                                            <div class="user-email">hoangvane@example.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="comment-content">
+                                        Bài viết này không chính xác. Tôi đã đến Sapa vào tháng 12 năm ngoái và không có
+                                        tuyết như mô tả. Thời tiết chỉ lạnh thôi.
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="#" class="post-link">Kinh nghiệm du lịch Sapa mùa đông</a>
+                                </td>
+                                <td>
+                                    <div class="rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <span class="rating-text">2.0</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-clock"></i>
+                                        06/04/2025 11:30
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge yellow">Chờ duyệt</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn approve-btn" title="Duyệt">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="action-btn reject-btn" title="Từ chối">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        <span>Hiển thị
+                            <select class="select-sm">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                            </select>
+                            trên tổng số 42 bình luận
+                        </span>
+                    </div>
+                    <div class="pagination">
+                        <button class="pagination-btn" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="pagination-text">Trang 1 / 9</span>
+                        <button class="pagination-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Comment Modal -->
+<div class="modal" id="commentModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Chi tiết bình luận</h2>
+            <button class="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="comment-detail">
+                <div class="comment-header">
+                    <div class="user-cell">
+                        <div class="user-avatar">
+                            <img src="https://i.pravatar.cc/60?img=1" alt="Avatar">
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">Nguyễn Văn A</div>
+                            <div class="user-email">nguyenvana@example.com</div>
+                        </div>
+                    </div>
+                    <div class="comment-meta">
+                        <div class="date-cell">
+                            <i class="fas fa-clock"></i>
+                            10/04/2025 14:30
+                        </div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span class="rating-text">5.0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment-post">
+                    <strong>Bài viết:</strong> <a href="#" class="post-link">Khám phá Đà Lạt mùa hoa</a>
+                </div>
+                <div class="comment-body">
+                    <p>Bài viết rất hay và chi tiết. Tôi đã đến Đà Lạt vào tháng trước và trải nghiệm đúng như mô tả.
+                        Cảm ơn tác giả!</p>
+                </div>
+                <div class="comment-status">
+                    <strong>Trạng thái:</strong> <span class="badge yellow">Chờ duyệt</span>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="cancelComment">Đóng</button>
+                <button type="button" class="btn btn-danger" id="rejectComment">Từ chối</button>
+                <button type="button" class="btn btn-primary" id="approveComment">Duyệt</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal" id="deleteModal">
+    <div class="modal-content modal-sm">
+        <div class="modal-header">
+            <h2 class="modal-title">Xác nhận xóa bình luận</h2>
+            <button class="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Bạn có chắc chắn muốn xóa bình luận này?</p>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="cancelDelete">Hủy</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>

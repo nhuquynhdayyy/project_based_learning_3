@@ -13,11 +13,18 @@ namespace TourismWeb.Controllers
     public class ReviewsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ReviewsController(ApplicationDbContext context)
+        public ReviewsController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
+
+        // public ReviewsController(ApplicationDbContext context)
+        // {
+        //     _context = context;
+        // }
 
         // GET: Reviews
         public async Task<IActionResult> Index()
@@ -56,32 +63,100 @@ namespace TourismWeb.Controllers
         // POST: Reviews/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public async Task<IActionResult> Create([Bind("ReviewId,SpotId,Rating,Comment,ImageUrl,CreatedAt")] Review review)
+        // {
+        //     if (ModelState.IsValid)
+        //     {
+        //         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        //         if (userIdClaim == null)
+        //         {                    
+        //             return Unauthorized();
+        //         }
+
+        //         review.UserId = int.Parse(userIdClaim.Value);
+        //         review.CreatedAt = DateTime.Now;
+
+        //         if (string.IsNullOrEmpty(review.ImageUrl))
+        //         {
+        //             review.ImageUrl = "/images/default-postImage.png";
+        //         }
+        //         _context.Add(review);
+        //         await _context.SaveChangesAsync();
+        //         // return RedirectToAction(nameof(Index));
+        //         return RedirectToAction("Details", "TouristSpots", new { id = review.SpotId });
+        //     }
+        //     ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", review.SpotId);
+        //     return View(review);
+        // }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReviewId,SpotId,Rating,Comment,ImageUrl,CreatedAt")] Review review)
+        public async Task<IActionResult> Create([Bind("SpotId,Rating,Comment")] Review review, IFormFile imageFile)
         {
-            if (ModelState.IsValid)
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized();
+
+            review.UserId = int.Parse(userIdClaim.Value);
+            review.CreatedAt = DateTime.Now;
+
+            // Xử lý ảnh tải lên nếu có
+            if (imageFile != null && imageFile.Length > 0)
             {
-                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-                if (userIdClaim == null)
-                {                    
-                    return Unauthorized();
-                }
-
-                review.UserId = int.Parse(userIdClaim.Value);
-                review.CreatedAt = DateTime.Now;
-
-                if (string.IsNullOrEmpty(review.ImageUrl))
+                // Kiểm tra kích thước file (ví dụ: tối đa 5MB)
+                if (imageFile.Length > 5 * 1024 * 1024)
                 {
-                    review.ImageUrl = "/images/default-postImage.png";
+                    ModelState.AddModelError("ImageFile", "Kích thước file không được vượt quá 5MB");
+                    return RedirectToAction("Details", "TouristSpots", new { id = review.SpotId });
                 }
-                _context.Add(review);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                // Kiểm tra loại file
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                var extension = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
+                if (!allowedExtensions.Contains(extension))
+                {
+                    ModelState.AddModelError("ImageFile", "Chỉ chấp nhận các định dạng: .jpg, .jpeg, .png, .gif");
+                    return RedirectToAction("Details", "TouristSpots", new { id = review.SpotId });
+                }
+
+                // Tạo tên file duy nhất
+                string fileName = Guid.NewGuid().ToString() + extension;
+
+                // Thư mục lưu ảnh: wwwroot/images/reviews
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "reviews");
+
+                // Tạo thư mục nếu chưa tồn tại
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                // Đường dẫn vật lý để lưu
+                string filePath = Path.Combine(uploadsFolder, fileName);
+
+                // Lưu file vào hệ thống
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(stream);
+                }
+
+                // Gán đường dẫn vào Review
+                review.ImageUrl = "/images/reviews/" + fileName;
             }
-            ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", review.SpotId);
-            return View(review);
+            else
+            {
+                // Nếu không có ảnh, gán ảnh mặc định
+                review.ImageUrl = "/images/default-postImage.png";
+            }
+
+            // Lưu vào database
+            _context.Add(review);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Details", "TouristSpots", new { id = review.SpotId });
         }
+
 
         // GET: Reviews/Edit/5
         public async Task<IActionResult> Edit(int? id)

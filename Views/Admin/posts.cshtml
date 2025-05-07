@@ -1,0 +1,544 @@
+@section Styles {
+    <link rel="stylesheet" href="~/cssadmin/posts.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+}
+
+@{
+    ViewData["Title"] = "Quản Lý Bài Viết - Hệ Thống Quản Trị";
+}
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/js/jsadmin/posts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+}
+
+<div class="app-container">
+    <!-- Sidebar -->
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <main class="content-wrapper">
+            <!-- Mobile Sidebar Toggle Button -->
+            <button class="toggle-sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="page-header">
+                <h1 class="page-title">Quản Lý Bài Viết</h1>
+                <div class="page-actions">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Thêm bài viết
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-card">
+                <div class="filter-grid">
+                    <div class="filter-item">
+                        <div class="search-input">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Tìm kiếm bài viết...">
+                        </div>
+                    </div>
+                    <div class="filter-item">
+                        <select class="select-control" id="post-type-filter">
+                            <option value="all">Tất cả loại bài viết</option>
+                            <option value="location">Địa điểm</option>
+                            <option value="guide">Cẩm nang du lịch</option>
+                            <option value="experience">Trải nghiệm</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <select class="select-control" id="post-status-filter">
+                            <option value="all">Tất cả trạng thái</option>
+                            <option value="approved">Đã duyệt</option>
+                            <option value="pending">Chờ duyệt</option>
+                            <option value="rejected">Từ chối</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <select class="select-control" id="post-location-filter">
+                            <option value="all">Tất cả địa điểm</option>
+                            <option value="hanoi">Hà Nội</option>
+                            <option value="hoian">Hội An</option>
+                            <option value="danang">Đà Nẵng</option>
+                            <option value="halong">Hạ Long</option>
+                            <option value="hagiang">Hà Giang</option>
+                            <option value="sapa">Sapa</option>
+                            <option value="phuquoc">Phú Quốc</option>
+                            <option value="dalat">Đà Lạt</option>
+                            <option value="quangbinh">Quảng Bình</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <button class="btn btn-filter" id="filter-button">
+                            <i class="fas fa-filter"></i>
+                            Lọc
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Posts Table -->
+            <div class="table-card">
+                <div class="table-responsive">
+                    <table class="data-table" id="posts-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tiêu đề</th>
+                                <th>Loại</th>
+                                <th>Tác giả</th>
+                                <th>Địa điểm</th>
+                                <th>Ngày đăng</th>
+                                <th>Trạng thái</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Trang 1 -->
+                            <tr class="data-row" data-post-type="location" data-post-status="approved"
+                                data-post-location="dalat">
+                                <td>1</td>
+                                <td>
+                                    <div class="table-title-cell">Khám phá Đà Lạt mùa hoa</div>
+                                    <div class="table-content-preview">Đà Lạt vào mùa hoa là một trong những thời
+                                        điểm đẹp nhất để du lịch...</div>
+                                </td>
+                                <td>
+                                    <span class="badge blue">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Địa điểm
+                                    </span>
+                                </td>
+                                <td>Nguyễn Văn A</td>
+                                <td>Đà Lạt</td>
+                                <td>10/04/2025</td>
+                                <td>
+                                    <span class="badge green">Đã duyệt</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="data-row" data-post-type="guide" data-post-status="approved"
+                                data-post-location="hoian">
+                                <td>2</td>
+                                <td>
+                                    <div class="table-title-cell">Cẩm nang du lịch Hội An tự túc</div>
+                                    <div class="table-content-preview">Hội An là một trong những điểm đến hấp dẫn
+                                        nhất Việt Nam...</div>
+                                </td>
+                                <td>
+                                    <span class="badge green">
+                                        <i class="fas fa-book"></i>
+                                        Cẩm nang
+                                    </span>
+                                </td>
+                                <td>Trần Thị B</td>
+                                <td>Hội An</td>
+                                <td>09/04/2025</td>
+                                <td>
+                                    <span class="badge green">Đã duyệt</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="data-row" data-post-type="experience" data-post-status="pending"
+                                data-post-location="sapa">
+                                <td>3</td>
+                                <td>
+                                    <div class="table-title-cell">Trải nghiệm leo núi Fansipan</div>
+                                    <div class="table-content-preview">Fansipan được mệnh danh là 'Nóc nhà Đông
+                                        Dương'...</div>
+                                </td>
+                                <td>
+                                    <span class="badge amber">
+                                        <i class="fas fa-star"></i>
+                                        Trải nghiệm
+                                    </span>
+                                </td>
+                                <td>Lê Văn C</td>
+                                <td>Sapa</td>
+                                <td>08/04/2025</td>
+                                <td>
+                                    <span class="badge yellow">Chờ duyệt</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="action-btn approve-btn" title="Duyệt">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="action-btn reject-btn" title="Từ chối">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="data-row" data-post-type="location" data-post-status="approved"
+                                data-post-location="phuquoc">
+                                <td>4</td>
+                                <td>
+                                    <div class="table-title-cell">Bãi biển đẹp nhất Phú Quốc</div>
+                                    <div class="table-content-preview">Phú Quốc nổi tiếng với những bãi biển trong
+                                        xanh, cát trắng mịn...</div>
+                                </td>
+                                <td>
+                                    <span class="badge blue">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Địa điểm
+                                    </span>
+                                </td>
+                                <td>Phạm Thị D</td>
+                                <td>Phú Quốc</td>
+                                <td>07/04/2025</td>
+                                <td>
+                                    <span class="badge green">Đã duyệt</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="data-row" data-post-type="guide" data-post-status="rejected"
+                                data-post-location="hanoi">
+                                <td>5</td>
+                                <td>
+                                    <div class="table-title-cell">10 địa điểm ăn ngon ở Hà Nội</div>
+                                    <div class="table-content-preview">Hà Nội nổi tiếng với nhiều món ăn ngon, đặc
+                                        sản độc đáo...</div>
+                                </td>
+                                <td>
+                                    <span class="badge green">
+                                        <i class="fas fa-book"></i>
+                                        Cẩm nang
+                                    </span>
+                                </td>
+                                <td>Hoàng Văn E</td>
+                                <td>Hà Nội</td>
+                                <td>06/04/2025</td>
+                                <td>
+                                    <span class="badge red">Từ chối</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <!-- Thêm các mục cho trang 2 -->
+                            <tr class="data-row page-2" data-post-type="experience" data-post-status="approved"
+                                data-post-location="hanoi" style="display: none;">
+                                <td>6</td>
+                                <td>
+                                    <div class="table-title-cell">Khám phá ẩm thực đường phố Hà Nội</div>
+                                    <div class="table-content-preview">Hà Nội nổi tiếng với nền văn hóa ẩm thực
+                                        đường phố phong phú...</div>
+                                </td>
+                                <td>
+                                    <span class="badge amber">
+                                        <i class="fas fa-star"></i>
+                                        Trải nghiệm
+                                    </span>
+                                </td>
+                                <td>Vũ Thị F</td>
+                                <td>Hà Nội</td>
+                                <td>05/04/2025</td>
+                                <td>
+                                    <span class="badge green">Đã duyệt</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="data-row page-2" data-post-type="experience" data-post-status="approved"
+                                data-post-location="halong" style="display: none;">
+                                <td>7</td>
+                                <td>
+                                    <div class="table-title-cell">Khám phá vịnh Hạ Long bằng thuyền kayak</div>
+                                    <div class="table-content-preview">Hạ Long có nhiều hòn đảo đá vôi và hang động
+                                        tuyệt đẹp để khám phá...</div>
+                                </td>
+                                <td>
+                                    <span class="badge amber">
+                                        <i class="fas fa-star"></i>
+                                        Trải nghiệm
+                                    </span>
+                                </td>
+                                <td>Đỗ Văn G</td>
+                                <td>Hạ Long</td>
+                                <td>04/04/2025</td>
+                                <td>
+                                    <span class="badge green">Đã duyệt</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="data-row page-2" data-post-type="guide" data-post-status="approved"
+                                data-post-location="danang" style="display: none;">
+                                <td>8</td>
+                                <td>
+                                    <div class="table-title-cell">Top 10 khách sạn view đẹp ở Đà Nẵng</div>
+                                    <div class="table-content-preview">Đà Nẵng có nhiều khách sạn với tầm nhìn ra
+                                        biển hoặc sông Hàn...</div>
+                                </td>
+                                <td>
+                                    <span class="badge green">
+                                        <i class="fas fa-book"></i>
+                                        Cẩm nang
+                                    </span>
+                                </td>
+                                <td>Nguyễn Thị H</td>
+                                <td>Đà Nẵng</td>
+                                <td>03/04/2025</td>
+                                <td>
+                                    <span class="badge green">Đã duyệt</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="data-row page-2" data-post-type="location" data-post-status="approved"
+                                data-post-location="quangbinh" style="display: none;">
+                                <td>9</td>
+                                <td>
+                                    <div class="table-title-cell">Khám phá hang Sơn Đoòng</div>
+                                    <div class="table-content-preview">Hang Sơn Đoòng được công nhận là hang động
+                                        lớn nhất thế giới...</div>
+                                </td>
+                                <td>
+                                    <span class="badge blue">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Địa điểm
+                                    </span>
+                                </td>
+                                <td>Trần Văn I</td>
+                                <td>Quảng Bình</td>
+                                <td>02/04/2025</td>
+                                <td>
+                                    <span class="badge green">Đã duyệt</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="data-row page-2" data-post-type="location" data-post-status="approved"
+                                data-post-location="hagiang" style="display: none;">
+                                <td>10</td>
+                                <td>
+                                    <div class="table-title-cell">Lễ hội hoa tam giác mạch Hà Giang</div>
+                                    <div class="table-content-preview">Mỗi năm vào tháng 10-11, Hà Giang chìm trong
+                                        sắc hồng của hoa tam giác mạch...</div>
+                                </td>
+                                <td>
+                                    <span class="badge blue">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Địa điểm
+                                    </span>
+                                </td>
+                                <td>Lê Thị K</td>
+                                <td>Hà Giang</td>
+                                <td>01/04/2025</td>
+                                <td>
+                                    <span class="badge green">Đã duyệt</span>
+                                </td>
+                                <td class="actions-cell">
+                                    <button class="action-btn view-btn" title="Xem">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn edit-btn" title="Sửa">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete-btn" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        Hiển thị
+                        <select class="select-sm" id="items-per-page">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                        </select>
+                        trên tổng số <span id="total-items">10</span> bài viết
+                    </div>
+                    <div class="pagination">
+                        <button class="pagination-btn" id="prev-page" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="pagination-text">
+                            Trang <span id="current-page">1</span> / <span id="total-pages">2</span>
+                        </span>
+                        <button class="pagination-btn" id="next-page">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Post Modal -->
+<div class="modal" id="postModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Thêm bài viết mới</h2>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="postForm" class="form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="title">Tiêu đề <span class="required">*</span></label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="post-type">Loại bài viết <span class="required">*</span></label>
+                        <select id="post-type" name="post-type" required>
+                            <option value="">Chọn loại bài viết</option>
+                            <option value="location">Địa điểm</option>
+                            <option value="guide">Cẩm nang du lịch</option>
+                            <option value="experience">Trải nghiệm</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Địa điểm <span class="required">*</span></label>
+                        <select id="location" name="location" required>
+                            <option value="">Chọn địa điểm</option>
+                            <option value="hanoi">Hà Nội</option>
+                            <option value="hoian">Hội An</option>
+                            <option value="danang">Đà Nẵng</option>
+                            <option value="halong">Hạ Long</option>
+                            <option value="hagiang">Hà Giang</option>
+                            <option value="sapa">Sapa</option>
+                            <option value="phuquoc">Phú Quốc</option>
+                            <option value="dalat">Đà Lạt</option>
+                            <option value="quangbinh">Quảng Bình</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Tác giả <span class="required">*</span></label>
+                        <input type="text" id="author" name="author" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="excerpt">Tóm tắt</label>
+                        <textarea id="excerpt" name="excerpt" rows="2"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="content">Nội dung <span class="required">*</span></label>
+                        <textarea id="content" name="content" rows="8" required></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelPost">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal" id="deleteModal">
+    <div class="modal-content modal-sm">
+        <div class="modal-header">
+            <h2 class="modal-title">Xác nhận xóa</h2>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Bạn có chắc chắn muốn xóa bài viết "<span id="deletePostTitle"></span>"?</p>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="cancelDelete">Hủy</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/posts.js"></script>

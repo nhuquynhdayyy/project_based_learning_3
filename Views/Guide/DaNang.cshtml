@@ -1,0 +1,733 @@
+@{
+    ViewData["Title"] = "Hướng dẫn du lịch Đà Nẵng từ A-Z";
+    Layout = "_Layout";
+}
+
+<h2>Cẩm nang về Đà Nẵng</h2>
+<p>Đây là trang cẩm nang về địa điểm Đà Nẵng.</p>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/guidelayout.css" asp-append-version="true" />
+}
+<script src="~/js/script.js"></script>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb container">
+    <a asp-controller="Home" asp-action="Index">Trang chủ</a> &gt;
+    <a asp-controller="Guide" asp-action="Index">Cẩm nang du lịch</a> &gt;
+    <span>Hướng dẫn du lịch Đà Nẵng từ A-Z</span>
+</div>
+
+<!-- Main Content -->
+<main class="container">
+    <!-- Guide Header -->
+    <section class="guide-header">
+        <div class="guide-title">
+            <h1>Hướng dẫn du lịch Đà Nẵng từ A-Z</h1>
+            <div class="guide-meta">
+                <span class="category"><i class="fas fa-tag"></i> Cẩm nang du lịch</span>
+                <span class="date"><i class="far fa-calendar-alt"></i> Cập nhật: 15/04/2023</span>
+            </div>
+        </div>
+        <div class="guide-actions">
+            <button class="btn favorite" id="favoriteBtn"><i class="far fa-heart"></i> Yêu thích</button>
+            <div class="share-dropdown">
+                <button class="btn share"><i class="fas fa-share-alt"></i> Chia sẻ</button>
+                <div class="share-options">
+                    <a href="#" class="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="#" class="twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="#" class="zalo"><i class="fas fa-comment"></i> Zalo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guide Content -->
+    <div class="guide-content">
+        <div class="guide-info">
+            <!-- Banner -->
+            <div class="guide-banner">
+                <img src="/images/danang2.webp" alt="Cầu Rồng Đà Nẵng">
+                <div class="guide-banner-overlay">
+                    <h2>Khám phá vẻ đẹp hiện đại của thành phố Đà Nẵng</h2>
+                    <p>Hướng dẫn chi tiết để có chuyến du lịch hoàn hảo tại Đà Nẵng</p>
+                </div>
+            </div>
+
+            <!-- Introduction -->
+            <section class="guide-section" id="gioi-thieu">
+                <h2><i class="fas fa-info-circle"></i> Giới thiệu về Đà Nẵng</h2>
+                <p>Đà Nẵng là thành phố lớn thứ ba của Việt Nam, nằm giữa Hà Nội và TP. Hồ Chí Minh. Thành phố này nổi
+                    tiếng với những bãi biển tuyệt đẹp, cảnh quan thiên nhiên hùng vĩ và sự phát triển nhanh chóng về cơ
+                    sở hạ tầng.</p>
+
+                <p>Đà Nẵng quyến rũ du khách bởi những bãi biển xanh trong như Mỹ Khê, Non Nước, và các điểm tham quan
+                    nổi tiếng như Cầu Rồng phun lửa, Bà Nà Hills, Ngũ Hành Sơn. Đây còn được mệnh danh là thành phố của
+                    những cây cầu với kiến trúc độc đáo.</p>
+
+                <p>Bài viết này sẽ cung cấp cho bạn mọi thông tin cần thiết để có một chuyến du lịch Đà Nẵng trọn vẹn,
+                    từ cách di chuyển, nơi ở, địa điểm tham quan đến ẩm thực và các lưu ý quan trọng.</p>
+            </section>
+
+            <!-- When to Visit -->
+            <section class="guide-section" id="thoi-diem">
+                <h2><i class="fas fa-calendar-alt"></i> Thời điểm lý tưởng để đến Đà Nẵng</h2>
+                <p>Đà Nẵng có khí hậu nhiệt đới gió mùa, với hai mùa rõ rệt: mùa khô (từ tháng 1 đến tháng 8) và mùa mưa
+                    (từ tháng 9 đến tháng 12).</p>
+
+                <p><strong>Thời điểm lý tưởng nhất để du lịch Đà Nẵng:</strong></p>
+                <ul>
+                    <li><strong>Tháng 2 - Tháng 5:</strong> Thời tiết mát mẻ, ít mưa, nhiệt độ dao động từ 23-30°C, rất
+                        thích hợp để tham quan và tắm biển.</li>
+                    <li><strong>Tháng 9 - Tháng 11:</strong> Thời tiết dễ chịu, mặc dù có thể có mưa nhẹ, nhưng cảnh sắc
+                        thiên nhiên rất đẹp.</li>
+                </ul>
+
+                <p><strong>Thời điểm nên tránh:</strong></p>
+                <ul>
+                    <li><strong>Tháng 6 - Tháng 8:</strong> Thời tiết nóng bức, nhiệt độ có thể lên đến 35-38°C, tuy
+                        nhiên đây là mùa cao điểm du lịch.</li>
+                    <li><strong>Tháng 10 - Tháng 12:</strong> Mùa mưa cao điểm, có thể gặp mưa lớn và bão.</li>
+                </ul>
+
+                <p><strong>Các sự kiện đặc biệt:</strong></p>
+                <ul>
+                    <li><strong>Lễ hội pháo hoa quốc tế Đà Nẵng (DIFF):</strong> Thường diễn ra vào tháng 6-7, là sự
+                        kiện văn hóa lớn với các màn trình diễn pháo hoa đặc sắc từ nhiều quốc gia.</li>
+                    <li><strong>Lễ hội Quán Thế Âm:</strong> Diễn ra vào tháng 2 và tháng 9 âm lịch tại chùa Linh Ứng,
+                        Bán đảo Sơn Trà.</li>
+                </ul>
+            </section>
+
+            <!-- How to Get There -->
+            <section class="guide-section" id="di-chuyen">
+                <h2><i class="fas fa-plane"></i> Cách di chuyển đến Đà Nẵng</h2>
+
+                <p><strong>Bằng máy bay:</strong></p>
+                <p>Sân bay quốc tế Đà Nẵng nằm cách trung tâm thành phố khoảng 5km. Có các chuyến bay thẳng từ Hà Nội,
+                    TP.HCM và nhiều thành phố lớn khác trong nước, cũng như các chuyến bay quốc tế từ Hàn Quốc, Nhật
+                    Bản, Trung Quốc, Thái Lan, Singapore, Malaysia...</p>
+                <ul>
+                    <li>Từ sân bay về trung tâm: Taxi (khoảng 150.000 VNĐ), Grab (khoảng 120.000 VNĐ)</li>
+                </ul>
+
+                <p><strong>Bằng tàu hỏa:</strong></p>
+                <p>Ga Đà Nẵng nằm ở trung tâm thành phố, thuận tiện cho việc di chuyển. Có các chuyến tàu từ Hà Nội và
+                    TP.HCM đến Đà Nẵng hàng ngày.</p>
+                <ul>
+                    <li>Từ Hà Nội: 14-16 giờ, giá từ 500.000 - 1.500.000 VNĐ tùy loại vé</li>
+                    <li>Từ TP.HCM: 16-18 giờ, giá từ 600.000 - 1.700.000 VNĐ tùy loại vé</li>
+                </ul>
+
+                <p><strong>Bằng xe khách:</strong></p>
+                <p>Có nhiều nhà xe chất lượng cao chạy tuyến Hà Nội - Đà Nẵng và TP.HCM - Đà Nẵng.</p>
+                <ul>
+                    <li>Từ Hà Nội: 14-16 giờ, giá từ 400.000 - 600.000 VNĐ</li>
+                    <li>Từ Huế: 3-4 giờ, giá từ 100.000 - 150.000 VNĐ</li>
+                    <li>Từ Hội An: 45 phút, giá từ 50.000 - 80.000 VNĐ</li>
+                </ul>
+            </section>
+
+            <!-- Accommodation -->
+            <section class="guide-section" id="luu-tru">
+                <h2><i class="fas fa-bed"></i> Nơi lưu trú</h2>
+
+                <p>Đà Nẵng có nhiều lựa chọn lưu trú phù hợp với mọi ngân sách, từ khách sạn 5 sao đến nhà nghỉ bình
+                    dân.</p>
+
+                <p><strong>Khu vực nên ở:</strong></p>
+                <ul>
+                    <li><strong>Khu vực biển Mỹ Khê:</strong> Thuận tiện cho việc tắm biển, nhiều nhà hàng, quán bar.
+                    </li>
+                    <li><strong>Khu vực trung tâm (quận Hải Châu):</strong> Gần các trung tâm mua sắm, nhà hàng và điểm
+                        tham quan.</li>
+                    <li><strong>Khu vực Sơn Trà:</strong> Yên tĩnh, view đẹp, phù hợp cho những ai thích không gian
+                        riêng tư.</li>
+                </ul>
+
+                <p><strong>Các khách sạn đề xuất:</strong></p>
+                <table>
+                    <tr>
+                        <th>Loại hình</th>
+                        <th>Tên khách sạn</th>
+                        <th>Giá tham khảo</th>
+                    </tr>
+                    <tr>
+                        <td>Cao cấp (5 sao)</td>
+                        <td>Hyatt Regency, Pullman, InterContinental</td>
+                        <td>2.500.000 - 5.000.000 VNĐ/đêm</td>
+                    </tr>
+                    <tr>
+                        <td>Trung cấp (3-4 sao)</td>
+                        <td>Cicilia Hotel, Danang Golden Bay, Belle Maison</td>
+                        <td>800.000 - 2.000.000 VNĐ/đêm</td>
+                    </tr>
+                    <tr>
+                        <td>Bình dân (1-2 sao)</td>
+                        <td>Funtastic Danang, Danang Backpackers, Sunna Hotel</td>
+                        <td>300.000 - 700.000 VNĐ/đêm</td>
+                    </tr>
+                    <tr>
+                        <td>Homestay</td>
+                        <td>Danang Moment, Dahlia Homestay, Memory Hostel</td>
+                        <td>250.000 - 600.000 VNĐ/đêm</td>
+                    </tr>
+                </table>
+
+                <p><strong>Lưu ý khi đặt phòng:</strong></p>
+                <ul>
+                    <li>Nên đặt phòng trước 1-2 tháng nếu đi vào mùa cao điểm (tháng 6-8) hoặc dịp lễ hội pháo hoa.</li>
+                    <li>Các khách sạn ven biển thường có giá cao hơn nhưng view đẹp và thuận tiện cho việc tắm biển.
+                    </li>
+                    <li>Nhiều khách sạn ở Đà Nẵng cung cấp dịch vụ đưa đón sân bay miễn phí, nên kiểm tra khi đặt phòng.
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Must-Visit Places -->
+            <section class="guide-section" id="dia-diem">
+                <h2><i class="fas fa-map-marked-alt"></i> Những địa điểm không thể bỏ qua</h2>
+
+                <p><strong>1. Bà Nà Hills</strong></p>
+                <p>Khu du lịch nổi tiếng với Cầu Vàng, làng Pháp và nhiều trò chơi giải trí hấp dẫn.</p>
+                <ul>
+                    <li>Giá vé: 850.000 VNĐ/người (bao gồm vé cáp treo khứ hồi)</li>
+                    <li>Giờ mở cửa: 7:30 - 21:30</li>
+                    <li>Thời gian tham quan: 6-8 giờ</li>
+                    <li>Điểm nổi bật: Cầu Vàng, làng Pháp, vườn hoa Le Jardin D'Amour, Fantasy Park</li>
+                </ul>
+
+                <p><strong>2. Ngũ Hành Sơn (Non Nước)</strong></p>
+                <p>Danh thắng gồm 5 ngọn núi đá vôi với nhiều hang động, chùa chiền và làng nghề đá mỹ nghệ truyền
+                    thống.</p>
+                <ul>
+                    <li>Giá vé: 40.000 VNĐ/người</li>
+                    <li>Giờ mở cửa: 7:00 - 17:30</li>
+                    <li>Thời gian tham quan: 2-3 giờ</li>
+                    <li>Điểm nổi bật: Động Huyền Không, chùa Linh Ứng, làng đá Non Nước</li>
+                </ul>
+
+                <p><strong>3. Bán đảo Sơn Trà</strong></p>
+                <p>Khu bảo tồn thiên nhiên với rừng nguyên sinh, bãi biển đẹp và là nơi sinh sống của loài voọc chà vá
+                    chân nâu quý hiếm.</p>
+                <ul>
+                    <li>Giá vé: Miễn phí</li>
+                    <li>Thời gian tham quan: 3-4 giờ</li>
+                    <li>Điểm nổi bật: Chùa Linh Ứng với tượng Phật Quan Âm cao nhất Việt Nam, bãi Bụt, bãi Tiên Sa</li>
+                </ul>
+
+                <p><strong>4. Cầu Rồng</strong></p>
+                <p>Biểu tượng của Đà Nẵng, cầu Rồng có thể phun lửa và nước vào các tối cuối tuần và ngày lễ.</p>
+                <ul>
+                    <li>Giá vé: Miễn phí</li>
+                    <li>Thời gian biểu diễn phun lửa: 21:00 tối thứ 7, Chủ nhật và ngày lễ</li>
+                    <li>Điểm nổi bật: Kiến trúc hình rồng độc đáo, màn trình diễn phun lửa và nước</li>
+                </ul>
+
+                <p><strong>5. Bãi biển Mỹ Khê</strong></p>
+                <p>Được Forbes bình chọn là một trong những bãi biển quyến rũ nhất hành tinh với bờ cát trắng mịn, nước
+                    biển trong xanh.</p>
+                <ul>
+                    <li>Giá vé: Miễn phí</li>
+                    <li>Hoạt động: Tắm biển, thể thao nước, ngắm bình minh/hoàng hôn</li>
+                </ul>
+
+                <p><strong>6. Bảo tàng Điêu khắc Chăm</strong></p>
+                <p>Bảo tàng lưu giữ và trưng bày nhiều hiện vật điêu khắc của nền văn hóa Chăm Pa.</p>
+                <ul>
+                    <li>Giá vé: 60.000 VNĐ/người</li>
+                    <li>Giờ mở cửa: 7:00 - 17:30 (đóng cửa thứ Hai)</li>
+                    <li>Thời gian tham quan: 1-2 giờ</li>
+                </ul>
+            </section>
+
+            <!-- Itinerary -->
+            <section class="guide-section" id="lich-trinh">
+                <h2><i class="fas fa-route"></i> Lịch trình tham quan gợi ý</h2>
+
+                <p>Dưới đây là lịch trình gợi ý cho chuyến du lịch Đà Nẵng trong 3 ngày:</p>
+
+                <div class="itinerary-day">
+                    <div class="day-header">
+                        <h3>Ngày 1: Khám phá trung tâm Đà Nẵng</h3>
+                    </div>
+                    <div class="itinerary-activities">
+                        <div class="activity">
+                            <div class="activity-time">7:00 - 8:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn sáng:</strong> Thưởng thức bún chả cá hoặc mì Quảng tại một quán địa phương.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">8:30 - 10:30</div>
+                            <div class="activity-content">
+                                <strong>Tham quan Bảo tàng Điêu khắc Chăm:</strong> Tìm hiểu về nền văn hóa Chăm Pa cổ
+                                đại.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">11:00 - 12:30</div>
+                            <div class="activity-content">
+                                <strong>Tham quan chợ Hàn:</strong> Khám phá khu chợ truyền thống và thưởng thức ẩm thực
+                                địa phương.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">12:30 - 14:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn trưa:</strong> Thưởng thức bánh xèo, bánh tráng cuốn thịt heo tại chợ Hàn.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">14:30 - 16:30</div>
+                            <div class="activity-content">
+                                <strong>Tham quan Ngũ Hành Sơn:</strong> Khám phá các hang động, chùa chiền và làng nghề
+                                đá.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">17:00 - 18:30</div>
+                            <div class="activity-content">
+                                <strong>Tắm biển Mỹ Khê:</strong> Thư giãn và tắm biển vào buổi chiều mát mẻ.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">19:00 - 21:00</div>
+                            <div class="activity-content">
+                                <strong>Cầu Rồng:</strong> Ngắm cảnh và xem biểu diễn phun lửa (nếu vào tối thứ 7 hoặc
+                                Chủ nhật).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="itinerary-day">
+                    <div class="day-header">
+                        <h3>Ngày 2: Bà Nà Hills</h3>
+                    </div>
+                    <div class="itinerary-activities">
+                        <div class="activity">
+                            <div class="activity-time">7:00 - 8:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn sáng:</strong> Thưởng thức bánh mì Đà Nẵng nổi tiếng.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">8:30 - 16:30</div>
+                            <div class="activity-content">
+                                <strong>Tham quan Bà Nà Hills:</strong> Khám phá Cầu Vàng, làng Pháp, vườn hoa, và các
+                                trò chơi tại Fantasy Park.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">17:00 - 18:30</div>
+                            <div class="activity-content">
+                                <strong>Về khách sạn nghỉ ngơi</strong>
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">19:00 - 21:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn tối và dạo phố:</strong> Thưởng thức hải sản tại khu vực bãi biển Mỹ Khê hoặc
+                                dọc sông Hàn.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="itinerary-day">
+                    <div class="day-header">
+                        <h3>Ngày 3: Bán đảo Sơn Trà và các cây cầu</h3>
+                    </div>
+                    <div class="itinerary-activities">
+                        <div class="activity">
+                            <div class="activity-time">5:30 - 7:00</div>
+                            <div class="activity-content">
+                                <strong>Ngắm bình minh tại bãi biển Mỹ Khê:</strong> Bắt đầu ngày mới với khung cảnh
+                                bình minh tuyệt đẹp trên biển.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">7:00 - 8:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn sáng:</strong> Thưởng thức bún mắm hoặc cháo quẩy tại quán địa phương.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">8:30 - 12:00</div>
+                            <div class="activity-content">
+                                <strong>Tham quan Bán đảo Sơn Trà:</strong> Khám phá chùa Linh Ứng, ngắm tượng Phật Quan
+                                Âm, và có thể bắt gặp đàn voọc chà vá chân nâu.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">12:30 - 14:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn trưa:</strong> Thưởng thức hải sản tươi sống tại khu vực gần bán đảo Sơn Trà.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">14:30 - 16:30</div>
+                            <div class="activity-content">
+                                <strong>Tour các cây cầu:</strong> Tham quan các cây cầu nổi tiếng của Đà Nẵng như cầu
+                                Tình Yêu, cầu Rồng, cầu Trần Thị Lý, cầu Thuận Phước.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">17:00 - 18:30</div>
+                            <div class="activity-content">
+                                <strong>Mua sắm tại VINCOM:</strong> Mua sắm đồ lưu niệm và đặc sản Đà Nẵng.
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <div class="activity-time">19:00 - 21:00</div>
+                            <div class="activity-content">
+                                <strong>Ăn tối:</strong> Thưởng thức bữa tối chia tay với các món đặc sản Đà Nẵng.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Local Cuisine -->
+            <section class="guide-section" id="am-thuc">
+                <h2><i class="fas fa-utensils"></i> Ẩm thực Đà Nẵng</h2>
+
+                <p>Đà Nẵng nổi tiếng với nền ẩm thực phong phú, kết hợp giữa hương vị miền Trung và ảnh hưởng từ các
+                    vùng miền khác. Dưới đây là những món ăn không thể bỏ qua khi đến Đà Nẵng:</p>
+
+                <p><strong>Các món chính:</strong></p>
+                <ul>
+                    <li><strong>Mì Quảng:</strong> Món mì đặc trưng với sợi mì dày, nước dùng ít, ăn kèm với thịt gà,
+                        tôm, trứng, đậu phộng và rau sống.</li>
+                    <li><strong>Bún chả cá:</strong> Bún với chả cá thơm ngon, nước dùng ngọt thanh từ xương cá.</li>
+                    <li><strong>Bánh tráng cuốn thịt heo:</strong> Món ăn đặc trưng với bánh tráng, thịt heo luộc, rau
+                        sống và nước chấm đặc biệt.</li>
+                </ul>
+
+                <p><strong>Các món hải sản:</strong></p>
+                <ul>
+                    <li><strong>Gỏi cá Nam Ô:</strong> Món gỏi cá tươi sống trộn với gia vị đặc biệt, đặc sản của làng
+                        Nam Ô.</li>
+                    <li><strong>Mực một nắng:</strong> Mực phơi khô vừa đủ, nướng trên than hoa, thơm ngon đặc biệt.
+                    </li>
+                    <li><strong>Ốc hút:</strong> Các loại ốc biển hấp với sả, ăn kèm với nước chấm cay.</li>
+                </ul>
+
+                <p><strong>Bánh và món tráng miệng:</strong></p>
+                <ul>
+                    <li><strong>Bánh xèo:</strong> Bánh xèo miền Trung với vỏ giòn, nhân tôm thịt, ăn kèm với rau sống
+                        và nước chấm.</li>
+                    <li><strong>Bánh mì Đà Nẵng:</strong> Bánh mì giòn với nhân thịt, pate, rau và gia vị đặc biệt.</li>
+                    <li><strong>Chè Đà Nẵng:</strong> Các loại chè đặc trưng như chè bắp, chè trôi nước, chè thập cẩm.
+                    </li>
+                </ul>
+
+                <p><strong>Địa chỉ ăn uống gợi ý:</strong></p>
+                <ul>
+                    <li><strong>Mì Quảng:</strong> Mì Quảng Bà Mua (19 Trần Bình Trọng), Mì Quảng 1A (1A Hải Phòng)</li>
+                    <li><strong>Bún chả cá:</strong> Bún chả cá Bà Lữ (113 Nguyễn Chí Thanh), Bún chả cá 109 (109 Nguyễn
+                        Chí Thanh)</li>
+                    <li><strong>Bánh tráng cuốn thịt heo:</strong> Quán Mậu (35 Đỗ Thúc Tịnh), Trần (K280/23 Hoàng Diệu)
+                    </li>
+                    <li><strong>Hải sản:</strong> Nhà hàng Sơn Trà (Bãi biển Mỹ Khê), Làng Vân (Bán đảo Sơn Trà)</li>
+                    <li><strong>Bánh mì:</strong> Bánh mì Bà Lan (62 Hàm Nghi), Bánh mì Madam Khánh (1 Hoàng Diệu)</li>
+                </ul>
+            </section>
+
+            <!-- Travel Tips -->
+            <section class="guide-section" id="meo-du-lich">
+                <h2><i class="fas fa-lightbulb"></i> Mẹo du lịch hữu ích</h2>
+
+                <p><strong>Di chuyển trong thành phố:</strong></p>
+                <ul>
+                    <li>Thuê xe máy: 120.000 - 150.000 VNĐ/ngày, phương tiện linh hoạt nhất để khám phá Đà Nẵng.</li>
+                    <li>Grab/Taxi: Có nhiều hãng taxi uy tín như Mai Linh, Vinasun và dịch vụ Grab.</li>
+                    <li>Xe buýt: Hệ thống xe buýt công cộng với giá vé từ 5.000 - 10.000 VNĐ/lượt.</li>
+                </ul>
+
+                <p><strong>Trang phục:</strong></p>
+                <ul>
+                    <li>Mang theo đồ bơi, kem chống nắng, nón, kính râm khi đi biển.</li>
+                    <li>Mặc trang phục lịch sự khi vào các đền, chùa.</li>
+                    <li>Chuẩn bị áo khoác nhẹ khi đi Bà Nà Hills vì nhiệt độ có thể thấp hơn 5-10°C so với thành phố.
+                    </li>
+                </ul>
+
+                <p><strong>An toàn:</strong></p>
+                <ul>
+                    <li>Đà Nẵng là thành phố an toàn, nhưng vẫn nên cẩn thận với đồ đạc cá nhân ở nơi đông người.</li>
+                    <li>Mang theo bản sao giấy tờ tùy thân, để bản gốc ở khách sạn.</li>
+                    <li>Lưu số điện thoại khách sạn và số khẩn cấp (113: Công an, 115: Cấp cứu).</li>
+                </ul>
+
+                <p><strong>Mua sắm:</strong></p>
+                <ul>
+                    <li>Chợ Hàn và chợ Cồn là nơi lý tưởng để mua đặc sản và quà lưu niệm.</li>
+                    <li>Đặc sản để mua về: mực một nắng, nước mắm Nam Ô, trà sâm, bánh khô mè.</li>
+                    <li>Các trung tâm mua sắm lớn: Vincom, Lotte Mart, Big C.</li>
+                </ul>
+
+                <p><strong>Khác:</strong></p>
+                <ul>
+                    <li>Nên đặt vé Bà Nà Hills online trước để tránh xếp hàng dài.</li>
+                    <li>Đi sớm đến Bà Nà Hills (trước 8:00) để tránh đông đúc và có thời gian tham quan đầy đủ.</li>
+                    <li>Nên kết hợp du lịch Đà Nẵng với Hội An và Huế do khoảng cách gần.</li>
+                    <li>Mùa mưa (tháng 9-12) có thể gặp bão, nên theo dõi dự báo thời tiết.</li>
+                </ul>
+            </section>
+
+            <!-- Budget -->
+            <section class="guide-section" id="chi-phi">
+                <h2><i class="fas fa-money-bill-wave"></i> Chi phí du lịch Đà Nẵng</h2>
+
+                <p>Dưới đây là ước tính chi phí cho chuyến du lịch Đà Nẵng 3 ngày 2 đêm (tính cho 1 người):</p>
+
+                <table>
+                    <tr>
+                        <th>Hạng mục</th>
+                        <th>Chi phí thấp</th>
+                        <th>Chi phí trung bình</th>
+                        <th>Chi phí cao</th>
+                    </tr>
+                    <tr>
+                        <td>Khách sạn (2 đêm)</td>
+                        <td>500.000 VNĐ</td>
+                        <td>1.600.000 VNĐ</td>
+                        <td>5.000.000 VNĐ</td>
+                    </tr>
+                    <tr>
+                        <td>Ăn uống (3 ngày)</td>
+                        <td>450.000 VNĐ</td>
+                        <td>900.000 VNĐ</td>
+                        <td>1.800.000 VNĐ</td>
+                    </tr>
+                    <tr>
+                        <td>Vé tham quan</td>
+                        <td>950.000 VNĐ</td>
+                        <td>950.000 VNĐ</td>
+                        <td>950.000 VNĐ</td>
+                    </tr>
+                    <tr>
+                        <td>Di chuyển nội thành</td>
+                        <td>200.000 VNĐ</td>
+                        <td>400.000 VNĐ</td>
+                        <td>800.000 VNĐ</td>
+                    </tr>
+                    <tr>
+                        <td>Mua sắm</td>
+                        <td>300.000 VNĐ</td>
+                        <td>700.000 VNĐ</td>
+                        <td>1.500.000 VNĐ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tổng cộng</strong></td>
+                        <td><strong>2.400.000 VNĐ</strong></td>
+                        <td><strong>4.550.000 VNĐ</strong></td>
+                        <td><strong>10.050.000 VNĐ</strong></td>
+                    </tr>
+                </table>
+
+                <p><strong>Lưu ý:</strong></p>
+                <ul>
+                    <li>Chi phí trên chưa bao gồm vé máy bay/tàu xe đến Đà Nẵng.</li>
+                    <li>Vé tham quan bao gồm: Bà Nà Hills (850.000 VNĐ), Ngũ Hành Sơn (40.000 VNĐ), Bảo tàng Chăm
+                        (60.000 VNĐ).</li>
+                    <li>Có thể tiết kiệm chi phí bằng cách ăn tại các quán bình dân, ở homestay, đi xe buýt.</li>
+                    <li>Nên chuẩn bị thêm khoảng 10-20% cho các chi phí phát sinh.</li>
+                </ul>
+            </section>
+
+            <!-- Conclusion -->
+            <section class="guide-section" id="ket-luan">
+                <h2><i class="fas fa-flag-checkered"></i> Kết luận</h2>
+
+                <p>Đà Nẵng là điểm đến lý tưởng cho những ai yêu thích sự kết hợp giữa biển đẹp, núi non hùng vĩ và
+                    thành phố hiện đại. Với cơ sở hạ tầng phát triển, dịch vụ du lịch chuyên nghiệp và người dân thân
+                    thiện, Đà Nẵng sẽ mang đến cho bạn những trải nghiệm du lịch tuyệt vời.</p>
+
+                <p>Hãy dành ít nhất 3 ngày để khám phá Đà Nẵng, và nếu có thể, kết hợp thêm 1-2 ngày để thăm Hội An cổ
+                    kính chỉ cách đó 30km. Đừng quên thưởng thức đầy đủ các món ăn đặc trưng và mang về những món quà
+                    lưu niệm ý nghĩa.</p>
+
+                <p>Đà Nẵng - thành phố đáng sống nhất Việt Nam, chắc chắn sẽ không làm bạn thất vọng với vẻ đẹp thiên
+                    nhiên tuyệt vời, ẩm thực phong phú và sự hiếu khách của người dân địa phương.</p>
+
+                <p>Chúc bạn có chuyến du lịch Đà Nẵng thật vui vẻ và trọn vẹn!</p>
+            </section>
+        </div>
+
+        <aside class="guide-sidebar">
+            <!-- Author Info -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-user-edit"></i> Tác giả</h3>
+                <div class="sidebar-widget-content">
+                    <div class="author-info">
+                        <img src="~/images/avatar2.jpg" alt="Nguyễn Văn An" class="author-avatar">
+                        <div class="author-details">
+                            <h4>Nguyễn Văn An</h4>
+                            <p>Travel Blogger</p>
+                        </div>
+                    </div>
+                    <p>Người yêu du lịch với hơn 5 năm kinh nghiệm khám phá các điểm đến tại Việt Nam. Đặc biệt yêu
+                        thích miền Trung và các thành phố biển.</p>
+                </div>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-list"></i> Mục lục</h3>
+                <div class="sidebar-widget-content">
+                    <ul class="guide-toc">
+                        <li><a href="#gioi-thieu"><i class="fas fa-info-circle"></i> Giới thiệu về Đà Nẵng</a></li>
+                        <li><a href="#thoi-diem"><i class="fas fa-calendar-alt"></i> Thời điểm lý tưởng để đến Đà
+                                Nẵng</a></li>
+                        <li><a href="#di-chuyen"><i class="fas fa-plane"></i> Cách di chuyển đến Đà Nẵng</a></li>
+                        <li><a href="#luu-tru"><i class="fas fa-bed"></i> Nơi lưu trú</a></li>
+                        <li><a href="#dia-diem"><i class="fas fa-map-marked-alt"></i> Những địa điểm không thể bỏ
+                                qua</a></li>
+                        <li><a href="#lich-trinh"><i class="fas fa-route"></i> Lịch trình tham quan gợi ý</a></li>
+                        <li><a href="#am-thuc"><i class="fas fa-utensils"></i> Ẩm thực Đà Nẵng</a></li>
+                        <li><a href="#meo-du-lich"><i class="fas fa-lightbulb"></i> Mẹo du lịch hữu ích</a></li>
+                        <li><a href="#chi-phi"><i class="fas fa-money-bill-wave"></i> Chi phí du lịch Đà Nẵng</a></li>
+                    </ul>
+                    <a href="@Url.Action("DownloadGuide", "TravelGuide", new { id = "danang" })"
+                        class="download-guide"><i class="fas fa-download"></i> Tải cẩm nang PDF</a>
+                </div>
+            </div>
+
+            <!-- Weather Widget -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-cloud-sun"></i> Thời tiết Đà Nẵng</h3>
+                <div class="sidebar-widget-content">
+                    <div class="weather-info">
+                        <div class="current-weather">
+                            <i class="fas fa-cloud-sun-rain"></i>
+                            <div>
+                                <span class="temperature">30°C</span>
+                                <span class="condition">Có mây, có thể mưa rào</span>
+                            </div>
+                        </div>
+                        <div class="forecast">
+                            <div class="forecast-day">
+                                <span>T2</span>
+                                <i class="fas fa-cloud-sun"></i>
+                                <span>29°C</span>
+                            </div>
+                            <div class="forecast-day">
+                                <span>T3</span>
+                                <i class="fas fa-cloud-rain"></i>
+                                <span>28°C</span>
+                            </div>
+                            <div class="forecast-day">
+                                <span>T4</span>
+                                <i class="fas fa-sun"></i>
+                                <span>31°C</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Guides -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-book-open"></i> Cẩm nang liên quan</h3>
+                <div class="sidebar-widget-content">
+                    <ul class="related-guides">
+                        <li class="related-guide-item">
+                            <img src="~/images/danang-food-guide.jpg" alt="Ẩm thực Đà Nẵng" class="related-guide-img">
+                            <div class="related-guide-info">
+                                <h4><a asp-controller="TravelGuide" asp-action="Detail" asp-route-id="danang-food">Top
+                                        10 món ăn không thể bỏ qua ở Đà Nẵng</a></h4>
+                                <div class="related-guide-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 10/03/2023</span>
+                                    <span><i class="far fa-eye"></i> 1.5k</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="related-guide-item">
+                            <img src="~/images/bana-hills.jpg" alt="Bà Nà Hills" class="related-guide-img">
+                            <div class="related-guide-info">
+                                <h4><a asp-controller="TravelGuide" asp-action="Detail" asp-route-id="bana-hills">Khám
+                                        phá Bà Nà Hills - Thiên đường trong mây</a></h4>
+                                <div class="related-guide-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 05/02/2023</span>
+                                    <span><i class="far fa-eye"></i> 2.3k</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="related-guide-item">
+                            <img src="~/images/danang-fireworks.jpg" alt="Lễ hội pháo hoa" class="related-guide-img">
+                            <div class="related-guide-info">
+                                <h4><a asp-controller="TravelGuide" asp-action="Detail"
+                                        asp-route-id="danang-fireworks">Lịch trình chi tiết Lễ hội pháo hoa Đà Nẵng
+                                        2023</a></h4>
+                                <div class="related-guide-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 20/04/2023</span>
+                                    <span><i class="far fa-eye"></i> 1.8k</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Travel Tips -->
+            <div class="sidebar-widget">
+                <h3><i class="fas fa-info-circle"></i> Mẹo du lịch</h3>
+                <div class="sidebar-widget-content">
+                    <ul class="tips-list">
+                        <li>Nên thuê xe máy để khám phá thành phố một cách linh hoạt</li>
+                        <li>Đặt vé Bà Nà Hills online trước để tránh xếp hàng dài</li>
+                        <li>Thử các món đặc sản như Mì Quảng, Bún chả cá, Bánh tráng cuốn thịt heo</li>
+                        <li>Xem biểu diễn phun lửa của Cầu Rồng vào tối thứ 7 và Chủ nhật</li>
+                        <li>Mang theo áo khoác nhẹ khi đi Bà Nà Hills vì nhiệt độ mát hơn</li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+</main>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Favorite button
+            $('#favoriteBtn').click(function () {
+                const icon = $(this).find('i');
+                if (icon.hasClass('far')) {
+                    icon.removeClass('far').addClass('fas');
+                    $(this).css('color', '#e74c3c');
+                } else {
+                    icon.removeClass('fas').addClass('far');
+                    $(this).css('color', '');
+                }
+            });
+
+            // Share dropdown
+            $('.share').click(function (e) {
+                e.stopPropagation();
+                $('.share-options').toggle();
+            });
+
+            $(document).click(function () {
+                $('.share-options').hide();
+            });
+
+            // Smooth scroll for TOC links
+            $('.guide-toc a').click(function (e) {
+                e.preventDefault();
+                const targetId = $(this).attr('href');
+                $('html, body').animate({
+                    scrollTop: $(targetId).offset().top - 100
+                }, 800);
+            });
+
+            // Print functionality
+            $('.download-guide').click(function (e) {
+                e.preventDefault();
+                window.print();
+            });
+        });
+    </script>
+}

@@ -21,7 +21,12 @@
                     <img src="/images/danang.jpg" class="card-img-top" alt="Đà Nẵng">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">ĐÀ NẴNG</h5>
+<<<<<<< HEAD
                         <a asp-controller="Location" asp-action="Danang1" class="btn btn-primary">Xem chi tiết</a>
+=======
+                        @* <a asp-controller="TouristSpots" asp-action="Danang1" class="btn btn-primary">Xem chi tiết</a> *@
+                        <a href="/TouristSpots/Details/7" class="btn btn-primary">Xem chi tiết</a>
+>>>>>>> main
                     </div>
                 </div>
             </div>
@@ -30,7 +35,8 @@
                     <img src="/images/hue.jpg" class="card-img-top" alt="Huế">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">HUẾ</h5>
-                        <a asp-controller="Location" asp-action="Hue1" class="btn btn-primary">Xem chi tiết</a>
+                        @* <a asp-controller="Location" asp-action="Hue1" class="btn btn-primary">Xem chi tiết</a> *@
+                        <a href="/TouristSpots/Details/8" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
@@ -39,7 +45,8 @@
                     <img src="/images/hoian.jpg" class="card-img-top" alt="Hội An">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">HỘI AN</h5>
-                        <a asp-controller="Location" asp-action="Hoian1" class="btn btn-primary">Xem chi tiết</a>
+                        @* <a asp-controller="Location" asp-action="Hoian1" class="btn btn-primary">Xem chi tiết</a> *@
+                        <a href="/TouristSpots/Details/9" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
@@ -51,7 +58,8 @@
                     <img src="/images/phongnha.jpg" class="card-img-top" alt="Quảng Bình">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">QUẢNG BÌNH</h5>
-                        <a asp-controller="Location" asp-action="Quangbinh1" class="btn btn-primary">Xem chi tiết</a>
+                        @* <a asp-controller="Location" asp-action="Quangbinh1" class="btn btn-primary">Xem chi tiết</a> *@
+                        <a href="/TouristSpots/Details/10" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
@@ -60,7 +68,8 @@
                     <img src="/images/nhatrang.jpg" class="card-img-top" alt="Nha Trang">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">NHA TRANG</h5>
-                        <a asp-controller="Location" asp-action="Nhatrang1" class="btn btn-primary">Xem chi tiết</a>
+                        @* <a asp-controller="Location" asp-action="Nhatrang1" class="btn btn-primary">Xem chi tiết</a> *@
+                        <a href="/TouristSpots/Details/11" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
@@ -69,13 +78,78 @@
                     <img src="/images/phuyen.jpg" class="card-img-top" alt="Phú Yên">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">PHÚ YÊN</h5>
-                        <a asp-controller="Location" asp-action="Phuyen1" class="btn btn-primary">Xem chi tiết</a>
+                        @* <a asp-controller="Location" asp-action="Phuyen1" class="btn btn-primary">Xem chi tiết</a> *@
+                        <a href="/TouristSpots/Details/12" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+<<<<<<< HEAD
+    <section>
+=======
+
+    @* <section>
+>>>>>>> main
+        <div class="swiper-container">
+            <h2 class="text-center">Bài viết gần đây</h2>
+            <div class="swiper-wrapper">
+                @if (ViewBag.RecentPosts != null && ((List<TourismWeb.Models.Post>)ViewBag.RecentPosts).Any())
+                {
+                    @foreach (var post in ViewBag.RecentPosts)
+                    {
+                        <div class="swiper-slide">
+                            <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.PostId" class="text-decoration-none text-dark">
+                                <div class="slider-card clickable-card">
+                                    <div class="slider-image-wrapper">
+                                        <img src="@(string.IsNullOrEmpty(post.ImageUrl) ? "/images/default-postImage.png" : post.ImageUrl)" alt="@post.Title">
+                                        <span class="slider-category @GetCategoryClass(post.TypeOfPost)">@post.TypeOfPost</span>
+                                    </div>
+                                    <div class="slider-content">
+                                        <div class="article-author">
+                                            <span class="author-name">@post.User.FullName</span>
+                                        </div>
+                                        <h3 class="slider-title">@post.Title</h3>
+                                        <p class="slider-description">
+                                            @(post.Content.Length > 100 ? post.Content.Substring(0, 100) + "..." : post.Content)
+                                        </p>
+                                        <div class="slider-location">📍 @post.Spot.Name</div>
+                                        <div class="article-interactions">
+                                            <div class="interaction-item me-3 d-inline-block">
+                                                <span class="interaction-icon">❤️</span>
+                                                <span>0</span>
+                                            </div>
+                                            <div class="interaction-item d-inline-block">
+                                                <span class="interaction-icon">💬</span>
+                                                <span>0</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="swiper-slide">
+                        <div class="slider-card">
+                            <div class="slider-content text-center">
+                                <p>Chưa có bài viết nào.</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- Chấm tròn pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+<<<<<<< HEAD
+    </section>
+    
+=======
+    </section>> *@
     <section>
         <div class="swiper-container">
             <h2 class="text-center">Bài viết gần đây</h2>
@@ -131,7 +205,7 @@
             <div class="swiper-pagination"></div>
         </div>
     </section>
-    
+>>>>>>> main
     @await Html.PartialAsync("_Review")
     
 
@@ -155,7 +229,10 @@
         
         <div class="guide-container">
             <div class="container">
+<<<<<<< HEAD
                 
+=======
+>>>>>>> main
                 <div class="row">
                     @if (ViewBag.GuidebookPosts != null && ViewBag.GuidebookPosts.Count > 0)
                     {
@@ -163,7 +240,11 @@
                         {
                             <div class="col-md-4 mb-4">
                                 <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.PostId" class="destination-card text-decoration-none text-dark">
+<<<<<<< HEAD
                                     <div class="card h-100 clickable-card">
+=======
+                                    <div class="card h-100">
+>>>>>>> main
                                         <img src="@post.ImageUrl" class="card-img-top" alt="@post.Title">
                                         <div class="card-body">
                                             <h5 class="card-title"><b>@post.Title</b></h5>

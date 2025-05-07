@@ -1,0 +1,320 @@
+@section Styles {
+    <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+}
+
+@{
+    ViewData["Title"] = "Hệ Thống Quản Trị Bài Viết";
+}
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/js/jsadmin/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+}
+
+
+<div class="app-container">
+    @* <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="sidebar-title">ADMIN DASHBOARD</h1>
+            </div>
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="active">
+                        <a href="index.html">
+                            <i class="fas fa-home"></i>
+                            <span>Tổng Quan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Admin" asp-action="Posts">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Quản Lý Bài Viết</span>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="comments.html">
+                            <i class="fas fa-comments"></i>
+                            <span>Đánh Giá & Bình Luận</span>
+                            <span class="badge">12</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="interactions.html">
+                            <i class="fas fa-heart"></i>
+                            <span>Tương Tác</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="reports.html">
+                            <i class="fas fa-flag"></i>
+                            <span>Báo Cáo</span>
+                            <span class="badge">5</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="statistics.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Thống Kê</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            <span>Người Dùng</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Cài Đặt</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="sidebar-footer">
+                <button class="logout-button">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Đăng Xuất</span>
+                </button>
+            </div>
+        </div> *@
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <main class="content-wrapper">
+            <!-- Mobile Sidebar Toggle Button -->
+            <button class="toggle-sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="page-header">
+                <h1 class="page-title">Tổng Quan</h1>
+                <div class="page-actions">
+                    <div class="filter-group">
+                        <label for="time-range">Thời gian:</label>
+                        <select id="time-range" class="select-control">
+                            <option value="7">7 ngày</option>
+                            <option value="30" selected>30 ngày</option>
+                            <option value="all">Tất cả</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Tổng số bài viết</p>
+                            <p class="stats-card-value">125</p>
+                        </div>
+                        <div class="stats-card-icon blue">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                    </div>
+                    <div class="stats-card-footer">
+                        <span class="stats-trend positive">+12%</span> so với tuần trước
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Địa điểm</p>
+                            <p class="stats-card-value">48</p>
+                        </div>
+                        <div class="stats-card-icon blue-light">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                    </div>
+                    <div class="stats-card-footer">
+                        <span class="stats-trend positive">+5</span> bài mới trong tuần
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Cẩm nang du lịch</p>
+                            <p class="stats-card-value">42</p>
+                        </div>
+                        <div class="stats-card-icon green">
+                            <i class="fas fa-book"></i>
+                        </div>
+                    </div>
+                    <div class="stats-card-footer">
+                        <span class="stats-trend positive">+3</span> bài mới trong tuần
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Trải nghiệm</p>
+                            <p class="stats-card-value">35</p>
+                        </div>
+                        <div class="stats-card-icon amber">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="stats-card-footer">
+                        <span class="stats-trend positive">+4</span> bài mới trong tuần
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-card large">
+                    <h2 class="chart-title">Số bài viết trong 30 ngày qua</h2>
+                    <div class="chart-container">
+                        <canvas id="postsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h2 class="chart-title">Tỷ lệ phân bố bài viết</h2>
+                    <div class="chart-container">
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activities -->
+            <div class="table-card">
+                <div class="table-header">
+                    <h2 class="table-title">Hoạt động gần đây</h2>
+                    <a href="posts.html" class="view-all">Xem tất cả</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tiêu đề</th>
+                                <th>Loại</th>
+                                <th>Tác giả</th>
+                                <th>Ngày đăng</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Khám phá Đà Lạt mùa hoa</div>
+                                </td>
+                                <td>
+                                    <span class="badge blue">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Địa điểm
+                                    </span>
+                                </td>
+                                <td>Nguyễn Văn A</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-clock"></i>
+                                        10/04/2023 14:30
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="#" class="action-link">Xem</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Cẩm nang du lịch Hội An tự túc</div>
+                                </td>
+                                <td>
+                                    <span class="badge green">
+                                        <i class="fas fa-book"></i>
+                                        Cẩm nang
+                                    </span>
+                                </td>
+                                <td>Trần Thị B</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-clock"></i>
+                                        09/04/2023 10:15
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="#" class="action-link">Xem</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Trải nghiệm leo núi Fansipan</div>
+                                </td>
+                                <td>
+                                    <span class="badge amber">
+                                        <i class="fas fa-star"></i>
+                                        Trải nghiệm
+                                    </span>
+                                </td>
+                                <td>Lê Văn C</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-clock"></i>
+                                        08/04/2023 16:45
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="#" class="action-link">Xem</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Bãi biển đẹp nhất Phú Quốc</div>
+                                </td>
+                                <td>
+                                    <span class="badge blue">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Địa điểm
+                                    </span>
+                                </td>
+                                <td>Phạm Thị D</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-clock"></i>
+                                        07/04/2023 09:20
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="#" class="action-link">Xem</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="table-title-cell">Kinh nghiệm du lịch Sapa mùa đông</div>
+                                </td>
+                                <td>
+                                    <span class="badge green">
+                                        <i class="fas fa-book"></i>
+                                        Cẩm nang
+                                    </span>
+                                </td>
+                                <td>Hoàng Văn E</td>
+                                <td>
+                                    <div class="date-cell">
+                                        <i class="fas fa-clock"></i>
+                                        06/04/2023 11:30
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="#" class="action-link">Xem</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

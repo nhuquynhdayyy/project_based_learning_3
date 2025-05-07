@@ -1,65 +1,426 @@
 @model IEnumerable<TourismWeb.Models.TouristSpot>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Địa điểm du lịch";
+    var currentSort = Context.Request.Query["sortBy"].ToString() ?? "default";
+    // Lấy userId cho JavaScript
+    var currentUserIdForJs = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "0";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.SpotId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SpotId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SpotId">Delete</a>
-            </td>
-        </tr>
+@section Styles {
+    <link rel="stylesheet" href="~/css/spot.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
+    <style>
+        .location-favorite {
+            cursor: pointer; /* Thêm con trỏ để người dùng biết có thể click */
+        }
+    </style>
 }
-    </tbody>
-</table>
+
+<!-- Đặt 1 lần dưới cùng hoặc đầu trang -->
+<form id="antiForgeryForm" style="display: none;">
+    @Html.AntiForgeryToken()
+</form>
+
+<div class="container">
+    <!-- Main content -->
+    <div class="main-content">
+        <!-- Header section -->
+        <div class="header-section">
+            <h1 class="page-title">Khám phá địa điểm du lịch</h1>
+            <a asp-action="Create" class="create-button">
+                <i class="fas fa-plus-circle"></i> Thêm địa điểm mới
+            </a>
+        </div>
+
+        <!-- Sort options -->
+        <div class="sort-options">
+            <a asp-action="Index" asp-route-sortBy="default" class="sort-option @(currentSort == "default" ? "active" : "")">Mặc định</a>
+            <a asp-action="Index" asp-route-sortBy="latest" class="sort-option @(currentSort == "latest" ? "active" : "")">Mới nhất</a>
+            <a asp-action="Index" asp-route-sortBy="mostLiked" class="sort-option @(currentSort == "mostLiked" ? "active" : "")">Yêu thích nhất</a>
+            <a asp-action="Index" asp-route-sortBy="popular" class="sort-option @(currentSort == "popular" ? "active" : "")">Phổ biến</a>
+        </div>
+
+        @* <!-- Locations grid -->
+        <div class="locations-grid">
+            @foreach (var item in Model)
+            {
+                <div class="location-card">
+                    <div class="location-image">
+                        @if (item.CreatedAt > DateTime.Now.AddDays(-7))
+                        {
+                            <div class="location-highlight">MỚI</div>
+                        }
+                        <img src="@item.ImageUrl" alt="@item.Name">
+                        <div class="location-favorite" data-spot-id="@item.SpotId" onclick="toggleLike(this, @item.SpotId)">
+                            <span class="heart-icon">@(item.IsLikedByCurrentUser ? "❤️" : "🤍")</span>
+                        </div>
+                    </div>
+                    <div class="location-details">
+                        <h3 class="location-name">@item.Name</h3>
+                        <div class="location-meta">
+                            <div class="meta-item">
+                                <span class="interaction-icon">❤️</span>
+                                <span class="like-count" id="like-count-@item.SpotId">@(item.Favorites?.Count ?? 0)</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>💬</span>
+                                <span>@(item.Comments?.Count ?? 0)</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>📍</span>
+                                <span>@item.Address</span>
+                            </div>
+                        </div>
+                        <div class="location-tags">
+                            <a asp-action="Index" asp-route-categoryId="@item.CategoryId" class="tag">@item.Category.Name</a>
+                            @if (item.SpotTags != null && item.SpotTags.Any())
+                            {
+                                @foreach (var tag in item.SpotTags.Take(2))
+                                {
+                                    <a asp-action="Index" asp-route-tagId="@tag.TagId" class="tag">@tag.Tag.Name</a>
+                                }
+                            }
+                        </div>
+                        <div class="location-actions">
+                            <a asp-action="Details" asp-route-id="@item.SpotId" class="action-link details">
+                                <i class="fas fa-info-circle"></i> Chi tiết
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.SpotId" class="action-link edit">
+                                <i class="fas fa-edit"></i> Sửa
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.SpotId" class="action-link delete">
+                                <i class="fas fa-trash-alt"></i> Xóa
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (!Model.Any())
+            {
+                <div class="empty-state">
+                    <div class="empty-icon">🏝️</div>
+                    <h3>Chưa có địa điểm du lịch nào</h3>
+                    <p>Hãy thêm địa điểm du lịch đầu tiên của bạn!</p>
+                    <a asp-action="Create" class="btn-add-first">Thêm địa điểm</a>
+                </div>
+            } *@
+        @* </div> *@
+        <!-- Locations grid -->
+        <div class="locations-grid">
+            @foreach (var item in Model)
+            {
+                <div class="location-card" id="spot-card-@item.SpotId"> @* Thêm ID cho card *@
+                    <div class="location-image">
+                        @if (item.CreatedAt > DateTime.Now.AddDays(-7))
+                        {
+                            <div class="location-highlight">MỚI</div>
+                        }
+                        <img src="@item.ImageUrl" alt="@item.Name">
+                        <div class="location-favorite" data-spot-id="@item.SpotId"> @* Bỏ onclick ở đây, sẽ xử lý bằng JS *@
+                            <span class="heart-icon">@(item.IsLikedByCurrentUser ? "❤️" : "🤍")</span>
+                        </div>
+                    </div>
+                    <div class="location-details">
+                        <h3 class="location-name">@item.Name</h3>
+                        <div class="location-meta">
+                            <div class="meta-item">
+                                <span class="interaction-icon">❤️</span>
+                                <span class="like-count" id="like-count-@item.SpotId">@(item.Favorites?.Count ?? 0)</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>💬</span>
+                                <span>@(item.Comments?.Count ?? 0)</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>📍</span>
+                                <span>@item.Address</span>
+                            </div>
+                        </div>
+                        <div class="location-tags">
+                            <a asp-action="Index" asp-route-categoryId="@item.CategoryId" class="tag">@item.Category.Name</a>
+                            @if (item.SpotTags != null && item.SpotTags.Any())
+                            {
+                                @foreach (var tag in item.SpotTags.Take(2))
+                                {
+                                    <a asp-action="Index" asp-route-tagId="@tag.TagId" class="tag">@tag.Tag.Name</a>
+                                }
+                            }
+                        </div>
+                        <div class="location-actions">
+                            <a asp-action="Details" asp-route-id="@item.SpotId" class="action-link details">
+                                <i class="fas fa-info-circle"></i> Chi tiết
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.SpotId" class="action-link edit">
+                                <i class="fas fa-edit"></i> Sửa
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.SpotId" class="action-link delete">
+                                <i class="fas fa-trash-alt"></i> Xóa
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (!Model.Any())
+            {
+                <div class="empty-state">
+                    <div class="empty-icon">🏝️</div>
+                    <h3>Chưa có địa điểm du lịch nào</h3>
+                    <p>Hãy thêm địa điểm du lịch đầu tiên của bạn!</p>
+                    <a asp-action="Create" class="btn-add-first">Thêm địa điểm</a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Categories -->
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Danh mục</h3>
+            <ul class="category-list">
+                @{
+                    // Lấy categoryId hiện tại từ query string để đánh dấu danh mục đang được chọn
+                    var currentCategoryId = Context.Request.Query["categoryId"].ToString();
+                    
+                    // Giả định rằng bạn có thể truy cập danh sách danh mục từ ViewBag hoặc một nguồn khác
+                    var categories = ViewBag.Categories as List<TourismWeb.Models.Category> ?? new List<TourismWeb.Models.Category>();
+                    
+                    if (categories.Any())
+                    {
+                        <li class="category-item">
+                            <a asp-action="Index" class="@(string.IsNullOrEmpty(currentCategoryId) ? "active" : "")">
+                                <span>Tất cả</span>
+                                @* <span class="category-count">@Model.Count()</span> *@
+                                <span class="category-count">@ViewBag.AllTouristSpotsCount</span> <!-- Hiển thị tổng số địa điểm -->
+                            </a>
+                        </li>
+                        
+                        foreach (var category in categories)
+                        {
+                            <li class="category-item">
+                                <a asp-action="Index" asp-route-categoryId="@category.CategoryId" class="@(currentCategoryId == category.CategoryId.ToString() ? "active" : "")">
+                                    <span>@category.Name</span>
+                                    <span class="category-count">@(category.TouristSpots?.Count ?? 0)</span>
+                                </a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        // Hiển thị danh mục mẫu nếu không có dữ liệu thực
+                        <li class="category-item">
+                            <a href="#">
+                                <span>Bãi biển, đảo</span>
+                                <span class="category-count">26</span>
+                            </a>
+                        </li>
+                        <li class="category-item">
+                            <a href="#">
+                                <span>Cảnh đẹp</span>
+                                <span class="category-count">32</span>
+                            </a>
+                        </li>
+                        <li class="category-item">
+                            <a href="#">
+                                <span>Di tích</span>
+                                <span class="category-count">29</span>
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+
+        <!-- Popular locations -->
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Địa điểm phổ biến</h3>
+
+            @{
+                // Sử dụng dữ liệu từ ViewBag.PopularSpots thay vì xử lý trong View
+                var popularSpots = ViewBag.PopularSpots as List<TourismWeb.Models.TouristSpot> ?? new List<TourismWeb.Models.TouristSpot>();
+                
+                if (popularSpots.Any())
+                {
+                    foreach (var spot in popularSpots)
+                    {
+                        <div class="popular-location">
+                            <div class="popular-image">
+                                <img src="@spot.ImageUrl" alt="@spot.Name">
+                            </div>
+                            <div class="popular-details">
+                                <h4>
+                                    <a asp-action="Details" asp-route-id="@spot.SpotId">@spot.Name</a>
+                                </h4>
+                                <div class="popular-meta">@(spot.Favorites?.Count ?? 0) lượt thích</div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    // Hiển thị dữ liệu mẫu nếu không có dữ liệu thực
+                    <div class="popular-location">
+                        <div class="popular-image">
+                            <img src="~/images/hoian2.jpg" alt="Hội An">
+                        </div>
+                        <div class="popular-details">
+                            <h4>Phố cổ Hội An</h4>
+                            <div class="popular-meta">358 lượt thích</div>
+                        </div>
+                    </div>
+                    <div class="popular-location">
+                        <div class="popular-image">
+                            <img src="~/images/hangsondong.jpg" alt="Hang Sơn Đoòng">
+                        </div>
+                        <div class="popular-details">
+                            <h4>Hang Sơn Đoòng</h4>
+                            <div class="popular-meta">412 lượt thích</div>
+                        </div>
+                    </div>
+                }
+            }
+
+            <a asp-action="Popular" class="view-more">Xem thêm</a>
+        </div>
+
+        <!-- Recent posts -->
+        <div class="sidebar-section">
+            <h3 class="sidebar-title">Bài viết gần đây</h3>
+
+            @{
+                // Giả định rằng bạn có thể truy cập danh sách bài viết gần đây từ ViewBag hoặc một nguồn khác
+                var recentPosts = ViewBag.RecentPosts as List<TourismWeb.Models.Post> ?? new List<TourismWeb.Models.Post>();
+                
+                if (recentPosts.Any())
+                {
+                    foreach (var post in recentPosts)
+                    {
+                        <div class="recent-post">
+                            <div class="recent-image">
+                                <img src="@post.ImageUrl" alt="@post.Title">
+                            </div>
+                            <div class="recent-details">
+                                <h4>
+                                    <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.PostId">@post.Title</a>
+                                </h4>
+                                <div class="post-date">
+                                    <span>📅</span>
+                                    <span>@post.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    // Hiển thị dữ liệu mẫu nếu không có dữ liệu thực
+                    <div class="recent-post">
+                        <div class="recent-image">
+                            <img src="~/images/sondong.webp" alt="Sơn Đoòng">
+                        </div>
+                        <div class="recent-details">
+                            <h4>Khám phá Hang Sơn Đoòng - Hang động lớn nhất thế giới</h4>
+                            <div class="post-date">
+                                <span>📅</span>
+                                <span>12/03/2025</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recent-post">
+                        <div class="recent-image">
+                            <img src="~/images/banhloc.jpg" alt="Bánh Lọc">
+                        </div>
+                        <div class="recent-details">
+                            <h4>Top 10 món ăn không thể bỏ qua khi đến Huế</h4>
+                            <div class="post-date">
+                                <span>📅</span>
+                                <span>05/03/2025</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+            <a asp-controller="Posts" asp-action="Index" class="view-more">Xem thêm</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const antiForgeryToken = document.querySelector('#antiForgeryForm input[name="__RequestVerificationToken"]').value;
+        const currentUserId = parseInt('@currentUserIdForJs'); // Lấy userId từ C#
+
+        document.querySelectorAll('.location-favorite').forEach(favoriteDiv => {
+            favoriteDiv.addEventListener('click', async function () {
+                if (currentUserId === 0) {
+                    // Hoặc chuyển hướng đến trang đăng nhập
+                    alert('Vui lòng đăng nhập để yêu thích địa điểm này.');
+                    window.location.href = '/Identity/Account/Login'; // Điều chỉnh đường dẫn nếu cần
+                    return;
+                }
+
+                const spotId = this.dataset.spotId;
+                const heartIconSpan = this.querySelector('.heart-icon');
+                const likeCountSpan = document.getElementById(`like-count-${spotId}`);
+
+                // Tạm thời thay đổi icon để người dùng thấy phản hồi ngay
+                const isCurrentlyLiked = heartIconSpan.textContent === '❤️';
+                heartIconSpan.textContent = isCurrentlyLiked ? '🤍' : '❤️';
+
+
+                try {
+                    const response = await fetch(`/TouristSpots/ToggleFavoriteSpot?spotId=${spotId}`, {
+                        method: 'POST',
+                        headers: {
+                            // 'Content-Type': 'application/json', // Không cần nếu chỉ gửi spotId qua query string
+                            'RequestVerificationToken': antiForgeryToken // Gửi token
+                        },
+                        // body: JSON.stringify({ spotId: parseInt(spotId) }) // Nếu bạn gửi dưới dạng JSON body
+                    });
+
+                    if (!response.ok) {
+                        // Hoàn tác lại icon nếu lỗi
+                        heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
+                        const errorData = await response.json().catch(() => null);
+                        if (errorData && errorData.aniauth) {
+                            alert(errorData.message || 'Vui lòng đăng nhập để thực hiện thao tác này.');
+                             window.location.href = '/Identity/Account/Login';
+                        } else {
+                            alert(errorData ? errorData.message : 'Có lỗi xảy ra, vui lòng thử lại.');
+                        }
+                        return;
+                    }
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        heartIconSpan.textContent = data.favorited ? '❤️' : '🤍';
+                        if (likeCountSpan) {
+                            likeCountSpan.textContent = data.likeCount;
+                        }
+                    } else {
+                        // Hoàn tác lại icon nếu server báo lỗi logic
+                        heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
+                        if (data.aniauth) {
+                             alert(data.message || 'Vui lòng đăng nhập để thực hiện thao tác này.');
+                             window.location.href = '/Identity/Account/Login';
+                        } else {
+                            alert(data.message || 'Có lỗi xảy ra khi cập nhật yêu thích.');
+                        }
+                    }
+                } catch (error) {
+                    // Hoàn tác lại icon nếu lỗi mạng
+                    heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
+                    console.error('Lỗi khi toggle favorite:', error);
+                    alert('Có lỗi kết nối, vui lòng thử lại.');
+                }
+            });
+        });
+    });
+</script>
+}

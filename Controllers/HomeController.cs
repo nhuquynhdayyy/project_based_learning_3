@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
+using TourismWeb.Models.ViewModels;
 
 namespace TourismWeb.Controllers;
 
@@ -10,6 +11,13 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly ApplicationDbContext _context;
 
+<<<<<<< HEAD
+=======
+    // public HomeController(ILogger<HomeController> logger)
+    // {
+    //     _logger = logger;
+    // }
+>>>>>>> main
     public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
     {
         _logger = logger;
@@ -17,15 +25,44 @@ public class HomeController : Controller
     }
 
     public async Task<IActionResult> Index()
+<<<<<<< HEAD
 {
     // Get recent posts from all categories for the slider section
+=======
+    {
+        // Lấy các đánh giá để hiển thị trên trang chủ/trang giới thiệu
+        var customerReviews = await _context.Reviews
+                                    .Include(r => r.User) // Để lấy tên và ảnh đại diện người dùng
+                                    .Include(r => r.Spot) // Để lấy tên địa điểm được đánh giá
+                                    .OrderByDescending(r => r.CreatedAt) // Sắp xếp theo mới nhất
+                                    .Take(3) // Lấy 3 đánh giá hàng đầu (hoặc số lượng bạn muốn)
+                                    .Select(r => new ReviewViewModel // Ánh xạ sang ReviewViewModel
+                                    {
+                                        // Id = r.ReviewId, // ViewModel của bạn không có Id, không sao cả
+                                        AvatarImageUrl = r.User.AvatarUrl ?? "/images/avatar-default.png", // Lấy AvatarUrl từ User, nếu null thì dùng ảnh mặc định
+                                        Rating = r.Rating,
+                                        Comment = r.Comment,
+                                        AuthorName = r.User.FullName, // Lấy FullName từ User
+                                        TourName = r.Spot.Name, // Lấy Name từ Spot
+                                        // CreatedAt = r.CreatedAt // ViewModel của bạn không có CreatedAt
+                                    })
+                                    .ToListAsync();
+
+        ViewBag.CustomerReviews = customerReviews;
+
+        // Get recent posts from all categories for the slider section
+>>>>>>> main
         var recentPosts = await _context.Posts
             .Include(p => p.User)
             .Include(p => p.Spot)
             .OrderByDescending(p => p.CreatedAt)
             .Take(8)  // Limiting to 8 posts for the slider
             .ToListAsync();
+<<<<<<< HEAD
     // Lấy 3 bài viết cẩm nang mới nhất
+=======
+        // Lấy 3 bài viết cẩm nang mới nhất
+>>>>>>> main
         var guidebookPosts = await _context.Posts
             .Include(p => p.Spot)
             .Include(p => p.User)
@@ -37,7 +74,11 @@ public class HomeController : Controller
         // Gửi dữ liệu đến view
         ViewBag.RecentPosts = recentPosts;
         ViewBag.GuidebookPosts = guidebookPosts;
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> main
         return View();
 }
     public IActionResult Privacy()

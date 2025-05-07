@@ -1,3 +1,77 @@
+@* @model IEnumerable<TourismWeb.Models.Post>
+
+@{
+    ViewData["Title"] = "Tất Cả Bài Viết";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Tất Cả Bài Viết</h1>
+
+<<<<<<< HEAD
+=======
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Spot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeOfPost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Spot.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfPost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PostId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table> *@
 @model IEnumerable<TourismWeb.Models.Post>
 
 @{
@@ -7,6 +81,7 @@
 <div class="container mt-4">
     <h1 class="mb-4">Tất Cả Bài Viết</h1>
 
+>>>>>>> main
     <p>
         <a asp-action="Create" class="btn btn-primary">Tạo Bài Viết Mới</a>
     </p>

@@ -64,6 +64,9 @@ namespace TourismWeb.Migrations
                     b.Property<int>("SpotId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -454,6 +457,9 @@ namespace TourismWeb.Migrations
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsLikedByCurrentUser")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()

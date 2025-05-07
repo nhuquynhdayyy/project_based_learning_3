@@ -1,0 +1,65 @@
+@model IEnumerable<TourismWeb.Models.Review>
+
+@if (Model != null && Model.Any())
+{
+    foreach (var review in Model)
+    {
+        <div class="review-item">
+            <div class="review-user">
+                <img src="@(review.User?.AvatarUrl ?? "/images/avatar-default.png")" alt="@review.User?.FullName" class="user-avatar">
+                <div class="user-info">
+                    <h4>@review.User?.FullName</h4>
+                    <p class="review-date">Đã đánh giá vào @review.CreatedAt.ToString("dd/MM/yyyy")</p>
+                </div>
+            </div>
+            <div class="review-content">
+                <div class="review-rating">
+                    <div class="stars">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            if (i <= review.Rating)
+                            {
+                                <i class="fas fa-star"></i>
+                            }
+                            else if (i - 0.5 <= review.Rating)
+                            {
+                                <i class="fas fa-star-half-alt"></i>
+                            }
+                            else
+                            {
+                                <i class="far fa-star"></i>
+                            }
+                        }
+                    </div>
+                </div>
+                <p class="review-text">@review.Comment</p>
+                @if (!string.IsNullOrEmpty(review.ImageUrl) && review.ImageUrl != "/images/default-postImage.png") // Kiểm tra ảnh có thật sự tồn tại
+                {
+                    <div class="review-photos">
+                        <img src="@Url.Content(review.ImageUrl)" alt="Ảnh đánh giá" onclick="openLightbox(this.src)">
+                    </div>
+                }
+                <div class="review-actions">
+                    <button class="like-btn"><i class="far fa-thumbs-up"></i> Hữu ích ((review.LikeCount ?? 0))</button> @* Giả sử có LikeCount *@
+                    <button class="reply-btn"><i class="far fa-comment"></i> Phản hồi</button>
+                </div>
+            </div>
+        </div>
+    }
+
+    // Logic hiển thị nút "Xem thêm" dựa trên thông tin từ ViewBag (được đặt trong GetFilteredReviews)
+    var totalReviewsForPagination = ViewBag.TotalReviewsForPagination ?? 0;
+    var currentPage = ViewBag.CurrentPage ?? 1;
+    var pageSize = ViewBag.PageSize ?? 3;
+
+    if (totalReviewsForPagination > currentPage * pageSize)
+    {
+        <div class="load-more">
+            <button class="btn secondary" id="loadMoreReviews">Xem thêm đánh giá</button>
+        </div>
+    }
+}
+else if (ViewBag.CurrentPage == 1) // Chỉ hiển thị nếu là trang đầu tiên và không có review nào
+{
+    <p class="text-center no-reviews-message">Chưa có đánh giá nào phù hợp với lựa chọn của bạn.</p>
+}

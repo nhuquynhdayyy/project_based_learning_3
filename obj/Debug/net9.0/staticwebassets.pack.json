@@ -1,6 +1,13 @@
 {
   "Files": [
     {
+<<<<<<< HEAD
+=======
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\components\\ui\\chart.js",
+      "PackagePath": "staticwebassets\\components\\ui\\chart.js"
+    },
+    {
+>>>>>>> main
       "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\css\\contact.css",
       "PackagePath": "staticwebassets\\css\\contact.css"
     },
@@ -41,14 +48,159 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+<<<<<<< HEAD
+=======
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\css\\spot.css",
+      "PackagePath": "staticwebassets\\css\\spot.css"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\css\\spotLayout.css",
+      "PackagePath": "staticwebassets\\css\\spotLayout.css"
+    },
+    {
+>>>>>>> main
       "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\css\\userprofile.css",
       "PackagePath": "staticwebassets\\css\\userprofile.css"
     },
     {
+<<<<<<< HEAD
+=======
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\cssadmin\\comments.css",
+      "PackagePath": "staticwebassets\\cssadmin\\comments.css"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\cssadmin\\dark-mode.css",
+      "PackagePath": "staticwebassets\\cssadmin\\dark-mode.css"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\cssadmin\\interactions.css",
+      "PackagePath": "staticwebassets\\cssadmin\\interactions.css"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\cssadmin\\login.css",
+      "PackagePath": "staticwebassets\\cssadmin\\login.css"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\cssadmin\\posts.css",
+      "PackagePath": "staticwebassets\\cssadmin\\posts.css"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\cssadmin\\profile.css",
+      "PackagePath": "staticwebassets\\cssadmin\\profile.css"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\cssadmin\\reports.css",
+      "PackagePath": "staticwebassets\\cssadmin\\reports.css"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\cssadmin\\settings.css",
+      "PackagePath": "staticwebassets\\cssadmin\\settings.css"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\cssadmin\\site.css",
+      "PackagePath": "staticwebassets\\cssadmin\\site.css"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\cssadmin\\statistics.css",
+      "PackagePath": "staticwebassets\\cssadmin\\statistics.css"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\cssadmin\\styles.css",
+      "PackagePath": "staticwebassets\\cssadmin\\styles.css"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\cssadmin\\users.css",
+      "PackagePath": "staticwebassets\\cssadmin\\users.css"
+    },
+    {
+>>>>>>> main
       "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+<<<<<<< HEAD
+=======
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\09093a36-85bd-4ddd-9c17-0688f888ee21_2.PNG",
+      "PackagePath": "staticwebassets\\images\\09093a36-85bd-4ddd-9c17-0688f888ee21_2.PNG"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\0b6b133c-4c45-4644-966a-d1d9ca8cf599_2.PNG",
+      "PackagePath": "staticwebassets\\images\\0b6b133c-4c45-4644-966a-d1d9ca8cf599_2.PNG"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\0d421de0-e703-4868-82bc-d5c96ec755e7_myson.jpg",
+      "PackagePath": "staticwebassets\\images\\0d421de0-e703-4868-82bc-d5c96ec755e7_myson.jpg"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\17e2debf-770a-4024-b721-3deff3506e6d_images (2).jpg",
+      "PackagePath": "staticwebassets\\images\\17e2debf-770a-4024-b721-3deff3506e6d_images (2).jpg"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\2463d34a-2427-4803-b80d-6384565c8c5b.PNG",
+      "PackagePath": "staticwebassets\\images\\2463d34a-2427-4803-b80d-6384565c8c5b.PNG"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\29937a49-dfa1-4eb4-89d3-4d9cf96fb5d2.PNG",
+      "PackagePath": "staticwebassets\\images\\29937a49-dfa1-4eb4-89d3-4d9cf96fb5d2.PNG"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\3085bca9-6be7-4dbf-b16e-48edc47cf899.jpg",
+      "PackagePath": "staticwebassets\\images\\3085bca9-6be7-4dbf-b16e-48edc47cf899.jpg"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\3c3ef3f3-9b4b-4909-8e24-398598ac7a0d.jpg",
+      "PackagePath": "staticwebassets\\images\\3c3ef3f3-9b4b-4909-8e24-398598ac7a0d.jpg"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\52947839-0a55-4591-bd82-03c66fa9ae43_nhatho.webp",
+      "PackagePath": "staticwebassets\\images\\52947839-0a55-4591-bd82-03c66fa9ae43_nhatho.webp"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\5fa6872a-48f7-4385-832a-890f65110605.jpg",
+      "PackagePath": "staticwebassets\\images\\5fa6872a-48f7-4385-832a-890f65110605.jpg"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\5fbf85b3-dd7f-43af-a118-a69fa663b0c8.jpg",
+      "PackagePath": "staticwebassets\\images\\5fbf85b3-dd7f-43af-a118-a69fa663b0c8.jpg"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\6145ccd9-d3dd-46f0-af39-bbe3b8b4af88.jpg",
+      "PackagePath": "staticwebassets\\images\\6145ccd9-d3dd-46f0-af39-bbe3b8b4af88.jpg"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\70a8faf0-a2e3-48f9-89e5-b56dca58a2e0.jpg",
+      "PackagePath": "staticwebassets\\images\\70a8faf0-a2e3-48f9-89e5-b56dca58a2e0.jpg"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\71b729d3-d69e-4cf0-acbd-8c0469081fe8_images (4).jpg",
+      "PackagePath": "staticwebassets\\images\\71b729d3-d69e-4cf0-acbd-8c0469081fe8_images (4).jpg"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\77fcdd51-b0e8-4cbd-af35-531e92b600db_culaocham.jpg",
+      "PackagePath": "staticwebassets\\images\\77fcdd51-b0e8-4cbd-af35-531e92b600db_culaocham.jpg"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\820b4016-ec05-410a-8d82-090e8a1f2d31_danang2.webp",
+      "PackagePath": "staticwebassets\\images\\820b4016-ec05-410a-8d82-090e8a1f2d31_danang2.webp"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\8bfa91a8-4be3-456e-a7bf-46a80ae4b7ec_3.PNG",
+      "PackagePath": "staticwebassets\\images\\8bfa91a8-4be3-456e-a7bf-46a80ae4b7ec_3.PNG"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\a5d7461b-1fef-4153-b822-aeae010450c4.jpg",
+      "PackagePath": "staticwebassets\\images\\a5d7461b-1fef-4153-b822-aeae010450c4.jpg"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\aa0ec988-e965-47ac-aaf2-97a18a8d11ed_3.PNG",
+      "PackagePath": "staticwebassets\\images\\aa0ec988-e965-47ac-aaf2-97a18a8d11ed_3.PNG"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\af5fea27-dd19-4166-a351-2644d8ea80a2.jpg",
+      "PackagePath": "staticwebassets\\images\\af5fea27-dd19-4166-a351-2644d8ea80a2.jpg"
+    },
+    {
+>>>>>>> main
       "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\avatar2.jpg",
       "PackagePath": "staticwebassets\\images\\avatar2.jpg"
     },
@@ -89,6 +241,13 @@
       "PackagePath": "staticwebassets\\images\\bunkhoang.jpg"
     },
     {
+<<<<<<< HEAD
+=======
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\cc6f8f2e-0452-4c32-b886-4d8487895111_istockphoto-646509486-1024x1024.jpg",
+      "PackagePath": "staticwebassets\\images\\cc6f8f2e-0452-4c32-b886-4d8487895111_istockphoto-646509486-1024x1024.jpg"
+    },
+    {
+>>>>>>> main
       "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\champa.jpg",
       "PackagePath": "staticwebassets\\images\\champa.jpg"
     },
@@ -109,6 +268,17 @@
       "PackagePath": "staticwebassets\\images\\culaocham.jpg"
     },
     {
+<<<<<<< HEAD
+=======
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\d3fa86c7-63ed-482e-8e1a-a25b78d2d7dc_1.PNG",
+      "PackagePath": "staticwebassets\\images\\d3fa86c7-63ed-482e-8e1a-a25b78d2d7dc_1.PNG"
+    },
+    {
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\d97add4a-e3e9-47dd-9536-443266b052af_Capture.PNG",
+      "PackagePath": "staticwebassets\\images\\d97add4a-e3e9-47dd-9536-443266b052af_Capture.PNG"
+    },
+    {
+>>>>>>> main
       "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\dainoi.jpg",
       "PackagePath": "staticwebassets\\images\\dainoi.jpg"
     },
@@ -137,6 +307,13 @@
       "PackagePath": "staticwebassets\\images\\dananggg.jpg"
     },
     {
+<<<<<<< HEAD
+=======
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\dceb3ab4-f021-4789-9f22-b2771b52ab8e.jpg",
+      "PackagePath": "staticwebassets\\images\\dceb3ab4-f021-4789-9f22-b2771b52ab8e.jpg"
+    },
+    {
+>>>>>>> main
       "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\default-avatar.png",
       "PackagePath": "staticwebassets\\images\\default-avatar.png"
     },
@@ -145,6 +322,13 @@
       "PackagePath": "staticwebassets\\images\\desktop.ini"
     },
     {
+<<<<<<< HEAD
+=======
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\eba22a91-7953-4095-92d6-3a8d5d3245d1_vinpear.jpg",
+      "PackagePath": "staticwebassets\\images\\eba22a91-7953-4095-92d6-3a8d5d3245d1_vinpear.jpg"
+    },
+    {
+>>>>>>> main
       "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\ganhdadia.jpg",
       "PackagePath": "staticwebassets\\images\\ganhdadia.jpg"
     },
@@ -261,6 +445,13 @@
       "PackagePath": "staticwebassets\\images\\quangngai.jpg"
     },
     {
+<<<<<<< HEAD
+=======
+      "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\reviews\\8a814a00-adf9-4ec1-8c4c-25f7c2ebd351.jpg",
+      "PackagePath": "staticwebassets\\images\\reviews\\8a814a00-adf9-4ec1-8c4c-25f7c2ebd351.jpg"
+    },
+    {
+>>>>>>> main
       "Id": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\sacmaudanang.webp",
       "PackagePath": "staticwebassets\\images\\sacmaudanang.webp"
     },

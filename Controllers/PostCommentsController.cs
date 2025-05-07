@@ -168,6 +168,13 @@ namespace TourismWeb.Controllers
                 return Unauthorized();
             }
 
+            // Kiểm tra quyền xóa comment
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || postComment.UserId != int.Parse(userIdClaim.Value))
+            {
+                return Unauthorized();
+            }
+
             return View(postComment);
         }
 
@@ -178,9 +185,17 @@ namespace TourismWeb.Controllers
         {
             var postComment = await _context.PostComments.FindAsync(id);
             int postId = 0;
+<<<<<<< HEAD
             
             if (postComment != null)
             {
+=======
+
+            if (postComment != null)
+            {
+                // _context.PostComments.Remove(postComment);
+
+>>>>>>> main
                 // Lưu lại PostId trước khi xóa comment
                 postId = postComment.PostId;
                 
@@ -191,6 +206,7 @@ namespace TourismWeb.Controllers
                     _context.PostComments.Remove(postComment);
                     await _context.SaveChangesAsync();
                 }
+<<<<<<< HEAD
             }
 
             // Trở về trang chi tiết bài viết sau khi xóa comment
@@ -199,6 +215,18 @@ namespace TourismWeb.Controllers
                 return RedirectToAction("Details", "Posts", new { id = postId });
             }
             
+=======
+            }
+
+            // await _context.SaveChangesAsync();
+            
+            // Trở về trang chi tiết bài viết sau khi xóa comment
+            if (postId > 0)
+            {
+                return RedirectToAction("Details", "Posts", new { id = postId });
+            }
+
+>>>>>>> main
             return RedirectToAction(nameof(Index));
         }
     }

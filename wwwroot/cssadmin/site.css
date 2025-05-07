@@ -1,0 +1,195 @@
+main {
+  margin-top: 100px;
+  margin-bottom: 50px;
+  padding: 20px;
+}
+
+:root {
+  --forest-fern: #327039;
+  --wheat-field: #f0be49;
+  --tilled-earth: #133020;
+  --alabaster-hay: #f8edd9;
+  --cherry-grove: #dd5c36;
+
+  /* Màu chữ */
+  --text-light: var(--alabaster-hay);
+  --text-dark: var(--tilled-earth);
+
+  /* Màu thành phần giao diện */
+  --primary: var(--forest-fern);
+  --secondary: var(--wheat-field);
+  --accent: var(--cherry-grove);
+  --background: var(--alabaster-hay);
+  --navbar-bg: var(--forest-fern);
+  --footer-bg: var(--tilled-earth);
+}
+
+/* Kiểu dáng toàn cục */
+body {
+  background-color: var(--background);
+  color: var(--text-dark);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Định dạng thanh điều hướng */
+.navbar {
+  background-color: var(--navbar-bg) !important;
+  border-bottom: 3px solid var(--secondary);
+}
+
+.navbar-brand,
+.nav-link {
+  color: var(--text-light) !important;
+  font-weight: 500;
+}
+
+.navbar-brand:hover,
+.nav-link:hover {
+  color: var(--secondary) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--background);
+  border: 1px solid var(--primary);
+}
+
+.dropdown-item {
+  color: var(--text-dark);
+}
+
+.dropdown-item:hover {
+  background-color: var(--primary);
+  color: var(--text-light);
+}
+
+.navbar-toggler {
+  background-color: var(--secondary);
+}
+
+.navbar-toggler-icon {
+  filter: brightness(0) invert(1);
+}
+
+/* Định dạng chân trang */
+.footer {
+  background-color: var(--footer-bg) !important;
+  color: var(--text-light) !important;
+  border-top: 3px solid var(--secondary) !important;
+  padding: 1rem 0;
+}
+
+.footer a {
+  color: var(--secondary) !important;
+}
+
+.footer a:hover {
+  color: var(--accent) !important;
+  text-decoration: none;
+}
+
+/* Nút */
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--text-light);
+}
+
+.btn-primary:hover {
+  background-color: var(--tilled-earth);
+  border-color: var(--tilled-earth);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+  color: var(--text-dark);
+}
+
+.btn-secondary:hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--text-light);
+}
+
+.btn-danger {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Thẻ */
+.card {
+  border-color: var(--primary);
+  background-color: white;
+}
+
+.card-header {
+  background-color: var(--primary);
+  color: var(--text-light);
+}
+
+/* Bảng */
+.table {
+  background-color: white;
+}
+
+.table thead {
+  background-color: var(--primary);
+  color: var(--text-light);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(240, 190, 73, 0.1);
+}
+
+/* Các thành phần biểu mẫu */
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.25rem rgba(50, 112, 57, 0.25);
+}
+
+/* Container tùy chỉnh với nền forest fern */
+.forest-bg {
+  background-color: var(--forest-fern);
+  color: var(--text-light);
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+
+/* Container tùy chỉnh với nền wheat field */
+.wheat-bg {
+  background-color: var(--wheat-field);
+  color: var(--text-dark);
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+
+/* Container tùy chỉnh với nền cherry grove */
+.cherry-bg {
+  background-color: var(--cherry-grove);
+  color: var(--text-light);
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+
+/* Jumbotron với nền forest fern */
+.jumbotron {
+  background-color: var(--forest-fern);
+  color: var(--text-light);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+}
+
+/* Huy hiệu */
+.badge-primary {
+  background-color: var(--primary);
+}
+
+.badge-secondary {
+  background-color: var(--secondary);
+  color: var(--text-dark);
+}
+
+.badge-accent {
+  background-color: var(--accent);
+}
