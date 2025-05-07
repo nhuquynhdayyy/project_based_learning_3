@@ -1992,8 +1992,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>2cgj1fus9c</Fingerprint>
-      <Integrity>cvbyYfTKqO59URWhiBDru2nxJzRKqTJbqp+5/v5Ddkw=</Integrity>
+      <Fingerprint>x94jbl2hd1</Fingerprint>
+      <Integrity>m6QXH8IwRJzI9Qo8cw8+LfsmzkL3oRrl4aMHOZ1demY=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\dashboard.js'))</OriginalItemSpec>

@@ -1320,17 +1320,17 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"klzy6qd0hu"},{"Name":"integrity","Value":"sha256-SNkLazI78IWd6\u002BvQ3DFAxXKlNRf12/zGlIRkNVGVAAw="},{"Name":"label","Value":"_content/TourismWeb/js/jsadmin/common.js"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1683"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022SNkLazI78IWd6\u002BvQ3DFAxXKlNRf12/zGlIRkNVGVAAw=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Apr 2025 18:47:37 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/TourismWeb/js/jsadmin/dashboard.2cgj1fus9c.js">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\dashboard.js'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"2cgj1fus9c"},{"Name":"integrity","Value":"sha256-cvbyYfTKqO59URWhiBDru2nxJzRKqTJbqp\u002B5/v5Ddkw="},{"Name":"label","Value":"_content/TourismWeb/js/jsadmin/dashboard.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"10206"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022cvbyYfTKqO59URWhiBDru2nxJzRKqTJbqp\u002B5/v5Ddkw=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Apr 2025 18:47:37 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TourismWeb/js/jsadmin/dashboard.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\dashboard.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-cvbyYfTKqO59URWhiBDru2nxJzRKqTJbqp\u002B5/v5Ddkw="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"10206"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022cvbyYfTKqO59URWhiBDru2nxJzRKqTJbqp\u002B5/v5Ddkw=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Apr 2025 18:47:37 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-m6QXH8IwRJzI9Qo8cw8\u002BLfsmzkL3oRrl4aMHOZ1demY="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"14238"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022m6QXH8IwRJzI9Qo8cw8\u002BLfsmzkL3oRrl4aMHOZ1demY=\u0022"},{"Name":"Last-Modified","Value":"Wed, 07 May 2025 18:51:39 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/js/jsadmin/dashboard.x94jbl2hd1.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\dashboard.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"x94jbl2hd1"},{"Name":"integrity","Value":"sha256-m6QXH8IwRJzI9Qo8cw8\u002BLfsmzkL3oRrl4aMHOZ1demY="},{"Name":"label","Value":"_content/TourismWeb/js/jsadmin/dashboard.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"14238"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022m6QXH8IwRJzI9Qo8cw8\u002BLfsmzkL3oRrl4aMHOZ1demY=\u0022"},{"Name":"Last-Modified","Value":"Wed, 07 May 2025 18:51:39 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TourismWeb/js/jsadmin/interactions.cmg85s24sk.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\interactions.js'))</AssetFile>

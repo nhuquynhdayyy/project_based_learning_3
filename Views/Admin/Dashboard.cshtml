@@ -1,4 +1,4 @@
-@section Styles {
+@* @section Styles {
     <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -247,6 +247,201 @@
                     </table>
                 </div>
             </div>
+        </main>
+    </div>
+</div> *@
+@model TourismWeb.Models.ViewModels.DashboardViewModel // Thay bằng namespace đúng của bạn
+
+@section Styles {
+    <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+}
+
+@{
+    ViewData["Title"] = "Hệ Thống Quản Trị"; // Tiêu đề chung hơn
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/js/jsadmin/dashboard.js" asp-append-version="true"></script> 
+    <script>
+        // Truyền dữ liệu từ ViewModel sang JavaScript cho biểu đồ
+        const postChartLabels = @Html.Raw(Json.Serialize(Model.PostChartLabels));
+        const postChartData = @Html.Raw(Json.Serialize(Model.PostChartData));
+        const distributionChartLabels = @Html.Raw(Json.Serialize(Model.DistributionChartLabels));
+        const distributionChartData = @Html.Raw(Json.Serialize(Model.DistributionChartData));
+        const selectedTimeRange = "@ViewContext.RouteData.Values["timeRange"] ?? "30"; // Lấy timeRange hiện tại
+    </script>
+}
+
+<div class="app-container">
+    <!-- Main Content -->
+    <div class="main-content">
+        <main class="content-wrapper">
+            <button class="toggle-sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="page-header">
+                <h1 class="page-title">Tổng Quan</h1>
+                <div class="page-actions">
+                    <div class="filter-group">
+                        <label for="time-range">Thời gian:</label>
+                        <select id="time-range" class="select-control">
+                            <option value="7" selected="@(ViewContext.RouteData.Values["timeRange"]?.ToString() == "7")">7 ngày</option>
+                            <option value="30" selected="@(ViewContext.RouteData.Values["timeRange"]?.ToString() == "30" || ViewContext.RouteData.Values["timeRange"] == null)">30 ngày</option>
+                            <option value="all" selected="@(ViewContext.RouteData.Values["timeRange"]?.ToString() == "all")">Tất cả</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Tổng số bài viết</p>
+                            <p class="stats-card-value">@Model.TotalPosts</p>
+                        </div>
+                        <div class="stats-card-icon blue">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                    </div>
+                    @* <div class="stats-card-footer">
+                        <span class="stats-trend positive">+12%</span> so với tuần trước
+                    </div> *@
+                </div>
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Bài viết về Địa điểm</p> @* Đây là TouristSpots *@
+                            <p class="stats-card-value">@Model.PostsInLocationCategory</p>
+                        </div>
+                        <div class="stats-card-icon blue-light">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                    </div>
+                    @* <div class="stats-card-footer">
+                        <span class="stats-trend positive">+5</span> bài mới trong tuần
+                    </div> *@
+                </div>
+
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Cẩm nang du lịch</p> @* Đây là Posts có TypeOfPost = "Cẩm nang" *@
+                            <p class="stats-card-value">@Model.PostsInGuidebookCategory</p>
+                        </div>
+                        <div class="stats-card-icon green">
+                            <i class="fas fa-book"></i>
+                        </div>
+                    </div>
+                    @* <div class="stats-card-footer">
+                        <span class="stats-trend positive">+3</span> bài mới trong tuần
+                    </div> *@
+                </div>
+
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Trải nghiệm</p> @* Đây là Posts có TypeOfPost = "Trải nghiệm" *@
+                            <p class="stats-card-value">@Model.PostsInExperienceCategory</p>
+                        </div>
+                        <div class="stats-card-icon amber">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    @* <div class="stats-card-footer">
+                        <span class="stats-trend positive">+4</span> bài mới trong tuần
+                    </div> *@
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-card large">
+                    <h2 class="chart-title">Số bài viết trong @(ViewContext.RouteData.Values["timeRange"] ?? "30") ngày qua</h2>
+                    <div class="chart-container">
+                        <canvas id="postsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h2 class="chart-title">Tỷ lệ phân bố</h2>
+                    <div class="chart-container">
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activities -->
+            @if (Model.RecentActivities.Any())
+            {
+                <div class="table-card">
+                    <div class="table-header">
+                        <h2 class="table-title">Hoạt động gần đây</h2>
+                        <a asp-controller="Posts" asp-action="Index" asp-area="Admin" class="view-all">Xem tất cả</a> @* Cập nhật link này *@
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Tiêu đề</th>
+                                    <th>Loại</th>
+                                    <th>Tác giả</th>
+                                    <th>Ngày đăng</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var post in Model.RecentActivities)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="table-title-cell">@post.Title</div>
+                                        </td>
+                                        <td>
+                                            @* Điều chỉnh badge dựa trên TypeOfPost của Post *@
+                                            @if (post.TypeOfPost == "Cẩm nang")
+                                            {
+                                                <span class="badge green"><i class="fas fa-book"></i> @post.TypeOfPost</span>
+                                            }
+                                            else if (post.TypeOfPost == "Trải nghiệm")
+                                            {
+                                                <span class="badge amber"><i class="fas fa-star"></i> @post.TypeOfPost</span>
+                                            }
+                                            else if (post.TypeOfPost == "Địa điểm")
+                                            {
+                                                <span class="badge blue"><i class="fas fa-map-marker-alt"></i> @post.TypeOfPost</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge gray">@post.TypeOfPost</span>
+                                            }
+                                        </td>
+                                        <td>@(post.User?.FullName ?? "N/A")</td> @* Giả sử User có FullName *@
+                                        <td>
+                                            <div class="date-cell">
+                                                <i class="fas fa-clock"></i>
+                                                @post.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.PostId" asp-area="Admin" class="action-link">Xem</a> @* Cập nhật link này *@
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info mt-4">Chưa có hoạt động nào gần đây.</div>
+            }
         </main>
     </div>
 </div>
