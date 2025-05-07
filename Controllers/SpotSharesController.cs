@@ -183,76 +183,76 @@ namespace TourismWeb.Controllers
         }
 
         [HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> Share([FromBody] ShareRequestDto request)
-{
-    var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-    if (userIdClaim == null)
-    {
-        return Unauthorized();
-    }
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Share([FromBody] ShareRequestDto request)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
 
-    var userId = int.Parse(userIdClaim.Value);
+            var userId = int.Parse(userIdClaim.Value);
 
-    // Validate platform
-    var allowedPlatforms = new[] { "Facebook", "Twitter", "Instagram", "Zalo" };
-    if (!allowedPlatforms.Contains(request.SharedOn))
-    {
-        return BadRequest("Nền tảng không hợp lệ.");
-    }
+            // Validate platform
+            var allowedPlatforms = new[] { "Facebook", "Twitter", "Instagram", "Zalo" };
+            if (!allowedPlatforms.Contains(request.SharedOn))
+            {
+                return BadRequest("Nền tảng không hợp lệ.");
+            }
 
-    var share = new SpotShare
-    {
-        SpotId = request.SpotId,
-        UserId = userId,
-        SharedOn = request.SharedOn,
-        SharedAt = DateTime.Now
-    };
+            var share = new SpotShare
+            {
+                SpotId = request.SpotId,
+                UserId = userId,
+                SharedOn = request.SharedOn,
+                SharedAt = DateTime.Now
+            };
 
-    _context.SpotShares.Add(share);
-    await _context.SaveChangesAsync();
+            _context.SpotShares.Add(share);
+            await _context.SaveChangesAsync();
 
-    return Json(new { success = true });
-}
+            return Json(new { success = true });
+        }
 
-public class ShareRequestDto
-{
-    public int SpotId { get; set; }
-    public string SharedOn { get; set; }
-}
+        public class ShareRequestDto
+        {
+            public int SpotId { get; set; }
+            public string SharedOn { get; set; }
+        }
 
-[HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> CreateFromShare([FromBody] ShareRequestModel model)
-{
-    var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-    if (userIdClaim == null)
-        return Unauthorized();
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateFromShare([FromBody] ShareRequestModel model)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized();
 
-    if (string.IsNullOrEmpty(model.Platform) || model.SpotId == 0)
-        return BadRequest("Missing data.");
+            if (string.IsNullOrEmpty(model.Platform) || model.SpotId == 0)
+                return BadRequest("Missing data.");
 
-    var share = new SpotShare
-    {
-        UserId = int.Parse(userIdClaim.Value),
-        SpotId = model.SpotId,
-        SharedOn = model.Platform,
-        SharedAt = DateTime.Now
-    };
+            var share = new SpotShare
+            {
+                UserId = int.Parse(userIdClaim.Value),
+                SpotId = model.SpotId,
+                SharedOn = model.Platform,
+                SharedAt = DateTime.Now
+            };
 
-    _context.SpotShares.Add(share);
-    await _context.SaveChangesAsync();
+            _context.SpotShares.Add(share);
+            await _context.SaveChangesAsync();
 
-    // Gửi lại đường link trang chi tiết để JS chia sẻ tiếp
-    var spotUrl = Url.Action("Details", "TouristSpots", new { id = model.SpotId }, Request.Scheme);
-    return Json(new { success = true, url = spotUrl });
-}
+            // Gửi lại đường link trang chi tiết để JS chia sẻ tiếp
+            var spotUrl = Url.Action("Details", "TouristSpots", new { id = model.SpotId }, Request.Scheme);
+            return Json(new { success = true, url = spotUrl });
+        }
 
-public class ShareRequestModel
-{
-    public string Platform { get; set; }
-    public int SpotId { get; set; }
-}
+        public class ShareRequestModel
+        {
+            public string Platform { get; set; }
+            public int SpotId { get; set; }
+        }
 
     }
 }

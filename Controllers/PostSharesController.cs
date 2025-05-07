@@ -182,5 +182,77 @@ namespace TourismWeb.Controllers
         {
             return _context.PostShares.Any(e => e.ShareId == id);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Share([FromBody] ShareRequestDto request)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            var userId = int.Parse(userIdClaim.Value);
+
+            // Validate platform
+            var allowedPlatforms = new[] { "Facebook", "Twitter", "Instagram", "Zalo" };
+            if (!allowedPlatforms.Contains(request.SharedOn))
+            {
+                return BadRequest("Nền tảng không hợp lệ.");
+            }
+
+            var share = new PostShare
+            {
+                PostId = request.PostId,
+                UserId = userId,
+                SharedOn = request.SharedOn,
+                SharedAt = DateTime.Now
+            };
+
+            _context.PostShares.Add(share);
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true });
+        }
+
+        public class ShareRequestDto
+        {
+            public int PostId { get; set; }
+            public string SharedOn { get; set; }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateFromShare([FromBody] ShareRequestModel model)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return Unauthorized();
+
+            if (string.IsNullOrEmpty(model.Platform) || model.PostId == 0)
+                return BadRequest("Missing data.");
+
+            var share = new PostShare
+            {
+                UserId = int.Parse(userIdClaim.Value),
+                PostId = model.PostId,
+                SharedOn = model.Platform,
+                SharedAt = DateTime.Now
+            };
+
+            _context.PostShares.Add(share);
+            await _context.SaveChangesAsync();
+
+            // Gửi lại đường link trang chi tiết để JS chia sẻ tiếp
+            var postUrl = Url.Action("Details", "Posts", new { id = model.PostId }, Request.Scheme);
+            return Json(new { success = true, url = postUrl });
+        }
+
+        public class ShareRequestModel
+        {
+            public string Platform { get; set; }
+            public int PostId { get; set; }
+        }
     }
 }

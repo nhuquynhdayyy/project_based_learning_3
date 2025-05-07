@@ -149,6 +149,121 @@
 //             return View(post);
 //         }
 
+//         // // GET: Posts/Edit/5
+//         // [Authorize]
+//         // public async Task<IActionResult> Edit(int? id)
+//         // {
+//         //     if (id == null)
+//         //     {
+//         //         return NotFound();
+//         //     }
+
+//         //     var post = await _context.Posts.FindAsync(id);
+//         //     if (post == null)
+//         //     {
+//         //         return NotFound();
+//         //     }
+
+//         //     // Check if user is authorized to edit this post
+//         //     var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+//         //     bool isAdmin = User.IsInRole("Admin");
+
+//         //     if (userIdClaim == null ||
+//         //         (!isAdmin && post.UserId != int.Parse(userIdClaim.Value)))
+//         //     {
+//         //         return Unauthorized();
+//         //     }
+
+//         //     ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", post.SpotId);
+//         //     return View(post);
+//         // }
+
+//         // // POST: Posts/Edit/5
+//         // [HttpPost]
+//         // [ValidateAntiForgeryToken]
+//         // [Authorize]
+//         // public async Task<IActionResult> Edit(int id, [Bind("PostId,SpotId,TypeOfPost,Title,Content,ImageUrl,Status")] Post post)
+//         // {
+//         //     if (id != post.PostId)
+//         //     {
+//         //         return NotFound();
+//         //     }
+
+//         //     if (ModelState.IsValid)
+//         //     {
+//         //         try
+//         //         {
+//         //             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+//         //             if (userIdClaim == null)
+//         //             {
+//         //                 return Unauthorized();
+//         //             }
+
+//         //             var existingPost = await _context.Posts.FirstOrDefaultAsync(p => p.PostId == id);
+//         //             if (existingPost == null)
+//         //             {
+//         //                 return NotFound();
+//         //             }
+
+//         //             bool isAdmin = User.IsInRole("Admin");
+
+//         //             // Check if user has permission to edit this post
+//         //             if (!isAdmin && existingPost.UserId != int.Parse(userIdClaim.Value))
+//         //             {
+//         //                 return Unauthorized();
+//         //             }
+
+//         //             // Update basic fields
+//         //             existingPost.SpotId = post.SpotId;
+//         //             existingPost.TypeOfPost = post.TypeOfPost;
+//         //             existingPost.Title = post.Title;
+//         //             existingPost.Content = post.Content;
+//         //             existingPost.ImageUrl = string.IsNullOrEmpty(post.ImageUrl)
+//         //                 ? existingPost.ImageUrl ?? "/images/default-postImage.png"
+//         //                 : post.ImageUrl;
+
+//         //             // Only admin can directly change status from the edit form
+//         //             if (isAdmin && post.Status != existingPost.Status)
+//         //             {
+//         //                 existingPost.Status = post.Status;
+//         //             }
+//         //             // For regular users editing their posts, reset to pending if already approved
+//         //             else if (!isAdmin && existingPost.Status == PostStatus.Approved)
+//         //             {
+//         //                 existingPost.Status = PostStatus.Pending;
+//         //             }
+
+//         //             await _context.SaveChangesAsync();
+
+//         //             if (isAdmin)
+//         //             {
+//         //                 return RedirectToAction(nameof(Moderate));
+//         //             }
+//         //             else
+//         //             {
+//         //                 // Redirect to appropriate category page based on post type
+//         //                 if (!string.IsNullOrEmpty(existingPost.TypeOfPost))
+//         //                 {
+//         //                     return RedirectToAction(nameof(Category), new { type = existingPost.TypeOfPost });
+//         //                 }
+//         //                 return RedirectToAction(nameof(MyPosts));
+//         //             }
+//         //         }
+//         //         catch (DbUpdateConcurrencyException)
+//         //         {
+//         //             if (!PostExists(post.PostId))
+//         //             {
+//         //                 return NotFound();
+//         //             }
+//         //             else
+//         //             {
+//         //                 throw;
+//         //             }
+//         //         }
+//         //     }
+//         //     ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", post.SpotId);
+//         //     return View(post);
+//         // }
 //         // GET: Posts/Edit/5
 //         [Authorize]
 //         public async Task<IActionResult> Edit(int? id)
@@ -158,7 +273,10 @@
 //                 return NotFound();
 //             }
 
-//             var post = await _context.Posts.FindAsync(id);
+//             var post = await _context.Posts
+//                 .Include(p => p.Images)
+//                 .FirstOrDefaultAsync(p => p.PostId == id);
+
 //             if (post == null)
 //             {
 //                 return NotFound();
@@ -182,7 +300,7 @@
 //         [HttpPost]
 //         [ValidateAntiForgeryToken]
 //         [Authorize]
-//         public async Task<IActionResult> Edit(int id, [Bind("PostId,SpotId,TypeOfPost,Title,Content,ImageUrl,Status")] Post post)
+//         public async Task<IActionResult> Edit(int id, [Bind("PostId,SpotId,TypeOfPost,Title,Content,ImageUrl,Status")] Post post, IFormFile mainImageFile, List<IFormFile> additionalImages, List<int> imagesToDelete)
 //         {
 //             if (id != post.PostId)
 //             {
@@ -199,16 +317,20 @@
 //                         return Unauthorized();
 //                     }
 
-//                     var existingPost = await _context.Posts.FirstOrDefaultAsync(p => p.PostId == id);
+//                     int userId = int.Parse(userIdClaim.Value);
+//                     bool isAdmin = User.IsInRole("Admin");
+
+//                     var existingPost = await _context.Posts
+//                         .Include(p => p.Images)
+//                         .FirstOrDefaultAsync(p => p.PostId == id);
+
 //                     if (existingPost == null)
 //                     {
 //                         return NotFound();
 //                     }
 
-//                     bool isAdmin = User.IsInRole("Admin");
-
 //                     // Check if user has permission to edit this post
-//                     if (!isAdmin && existingPost.UserId != int.Parse(userIdClaim.Value))
+//                     if (!isAdmin && existingPost.UserId != userId)
 //                     {
 //                         return Unauthorized();
 //                     }
@@ -218,9 +340,80 @@
 //                     existingPost.TypeOfPost = post.TypeOfPost;
 //                     existingPost.Title = post.Title;
 //                     existingPost.Content = post.Content;
-//                     existingPost.ImageUrl = string.IsNullOrEmpty(post.ImageUrl)
-//                         ? existingPost.ImageUrl ?? "/images/default-postImage.png"
-//                         : post.ImageUrl;
+
+//                     // Process main image upload if provided
+//                     if (mainImageFile != null && mainImageFile.Length > 0)
+//                     {
+//                         var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+//                         if (!Directory.Exists(uploadsFolder))
+//                         {
+//                             Directory.CreateDirectory(uploadsFolder);
+//                         }
+
+//                         var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(mainImageFile.FileName);
+//                         var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+//                         using (var fileStream = new FileStream(filePath, FileMode.Create))
+//                         {
+//                             await mainImageFile.CopyToAsync(fileStream);
+//                         }
+
+//                         existingPost.ImageUrl = "/images/" + uniqueFileName;
+//                     }
+//                     // Don't change to default if no new image is uploaded
+//                     else if (string.IsNullOrEmpty(post.ImageUrl) && string.IsNullOrEmpty(existingPost.ImageUrl))
+//                     {
+//                         existingPost.ImageUrl = "/images/default-postImage.png";
+//                     }
+
+//                     // Process additional images
+//                     if (additionalImages != null && additionalImages.Count > 0)
+//                     {
+//                         var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+//                         if (!Directory.Exists(uploadsFolder))
+//                         {
+//                             Directory.CreateDirectory(uploadsFolder);
+//                         }
+
+//                         foreach (var imageFile in additionalImages)
+//                         {
+//                             if (imageFile != null && imageFile.Length > 0)
+//                             {
+//                                 var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(imageFile.FileName);
+//                                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+//                                 using (var fileStream = new FileStream(filePath, FileMode.Create))
+//                                 {
+//                                     await imageFile.CopyToAsync(fileStream);
+//                                 }
+
+//                                 PostImage newImage = new PostImage
+//                                 {
+//                                     PostId = existingPost.PostId,
+//                                     ImageUrl = "/images/" + uniqueFileName,
+//                                     UploadedBy = userId,
+//                                     UploadedAt = DateTime.Now
+//                                 };
+
+//                                 _context.PostImages.Add(newImage);
+//                             }
+//                         }
+//                     }
+
+//                     // Delete images if specified
+//                     if (imagesToDelete != null && imagesToDelete.Count > 0)
+//                     {
+//                         foreach (var imageId in imagesToDelete)
+//                         {
+//                             var imageToRemove = await _context.PostImages.FindAsync(imageId);
+//                             if (imageToRemove != null &&
+//                                 (isAdmin || imageToRemove.UploadedBy == userId) &&
+//                                 imageToRemove.PostId == existingPost.PostId)
+//                             {
+//                                 _context.PostImages.Remove(imageToRemove);
+//                             }
+//                         }
+//                     }
 
 //                     // Only admin can directly change status from the edit form
 //                     if (isAdmin && post.Status != existingPost.Status)
@@ -261,10 +454,10 @@
 //                     }
 //                 }
 //             }
+
 //             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", post.SpotId);
 //             return View(post);
 //         }
-
 //         // GET: Posts/Delete/5
 //         [Authorize]
 //         public async Task<IActionResult> Delete(int? id)

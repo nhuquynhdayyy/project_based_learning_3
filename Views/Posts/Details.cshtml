@@ -1,64 +1,9 @@
-@* @model TourismWeb.Models.Post
-
-@{
-    ViewData["Title"] = "Details";
-}
-
-<h1>Details</h1>
-
-<div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.FullName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Spot)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Spot.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TypeOfPost)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TypeOfPost)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.PostId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div> *@
 @model TourismWeb.Models.Post
+@using Microsoft.AspNetCore.Antiforgery
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@inject IAntiforgery AntiForgery
+@Html.AntiForgeryToken()
+
 @{
     ViewData["Title"] = Model.Title;
 }
@@ -95,13 +40,60 @@
                 <span>@Model.Spot.Name</span>
             </div>
         </div>
-        <div class="social-share">
+        @* <div class="social-share">
             <a href="#" class="share-btn like">
                 <i class="bi bi-heart"></i> Yêu thích
             </a>
             <a href="#" class="share-btn share">
                 <i class="bi bi-share"></i> Chia sẻ
             </a>
+        </div> *@
+        <div class="post-actions">
+            <!-- Nút Yêu thích -->
+            @* <button class="btn favorite @(isFavorited ? "active" : "")" id="favoriteBtn" data-spot-id="@Model.SpotId">
+                <i class="@(isFavorited ? "fas" : "far") fa-heart"></i> @(isFavorited ? "Đã yêu thích" : "Yêu thích")
+            </button> *@
+            @* <div class="share-dropdown">
+                <button class="btn share"><i class="fas fa-share-alt"></i> Chia sẻ</button>
+                <div class="share-options">
+                    <a href="#" class="share-btn" data-platform="Facebook" data-post-id="@Model.PostId">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </a>
+                    <a href="#" class="share-btn" data-platform="Twitter" data-post-id="@Model.PostId">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </a>
+                    <a href="#" class="share-btn" data-platform="Email" data-post-id="@Model.PostId">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                    <a href="#" class="copy-link">
+                        <i class="fas fa-link"></i> Sao chép liên kết
+                    </a>
+                </div>
+                <input type="hidden" name="__RequestVerificationToken" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
+            </div> *@
+            <div class="share-dropdown position-relative"> @* Keep position-relative on the parent *@
+                <button type="button" class="btn share" onclick="toggleShareOptions(this)"> @* Added type and onclick *@
+                    <i class="fas fa-share-alt"></i> Chia sẻ
+                </button>
+                <div class="share-options bg-white border rounded shadow p-2 mt-2"> @* Removed d-none, added Bootstrap styling classes directly *@
+                    <a href="#" class="share-btn" data-platform="Facebook" data-post-id="@Model.PostId">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </a>
+                    <a href="#" class="share-btn" data-platform="Twitter" data-post-id="@Model.PostId">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </a>
+                    <a href="#" class="share-btn" data-platform="Email" data-post-id="@Model.PostId">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                    <a href="#" class="copy-link">
+                        <i class="fas fa-link"></i> Sao chép liên kết
+                    </a>
+                </div>
+                @* Token can be outside if needed for other things, or inside if only for share.
+                Having one at the bottom of the page for general AJAX is also common. *@
+            </div>
+        </div>
+
         </div>
     </div>
 </div>
@@ -351,3 +343,158 @@
 <!-- Thêm Bootstrap Icons nếu chưa có -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
  
+
+<!-- Token để dùng trong AJAX -->
+<input type="hidden" name="__RequestVerificationToken" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
+@* <input type="hidden" id="antiForgeryToken" name="__RequestVerificationToken" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" /> *@
+
+@section Scripts {
+    <script>
+        function toggleShareOptions(button) {
+            const dropdownMenu = button.nextElementSibling; // Get the .share-options div
+            if (dropdownMenu && dropdownMenu.classList.contains('share-options')) {
+                // Toggle the .show class on the clicked dropdown
+                const isCurrentlyShown = dropdownMenu.classList.contains('show');
+                
+                // First, close all other open dropdowns
+                document.querySelectorAll('.share-options.show').forEach(openDropdown => {
+                    openDropdown.classList.remove('show');
+                });
+
+                // If the clicked dropdown was not the one already shown (or if none were shown), show it.
+                if (!isCurrentlyShown) {
+                    dropdownMenu.classList.add('show');
+                }
+                // If it was already shown, the loop above already closed it.
+            }
+        }
+
+        // Hide dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+            const shareDropdown = e.target.closest('.share-dropdown');
+            if (!shareDropdown) { // If the click is outside any .share-dropdown
+                document.querySelectorAll('.share-options.show').forEach(opt => {
+                    opt.classList.remove('show');
+                });
+            }
+        });
+
+        // Your existing share button click logic
+        document.querySelectorAll('.share-options .share-btn').forEach(btn => {
+            btn.addEventListener('click', async function (e) {
+                e.preventDefault();
+
+                const platform = this.dataset.platform;
+                const postId = this.dataset.postId; // Make sure this is data-post-id not data-spot-id
+                // const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                const tokenInput = document.getElementById('antiForgeryToken'); // Use the ID
+                const token = tokenInput ? tokenInput.value : document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+
+                try {
+                    const response = await fetch('/PostShares/CreateFromShare', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': token
+                        },
+                        body: JSON.stringify({ platform, postId })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const urlToShare = data.url;
+
+                        if (platform === "Facebook") {
+                            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlToShare)}`, '_blank');
+                        } else if (platform === "Twitter") {
+                            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(urlToShare)}&text=Check this out!`, '_blank');
+                        } else if (platform === "Email") {
+                            window.open(`https://mail.google.com/mail/?view=cm&to=&su=Check this out&body=${encodeURIComponent(urlToShare)}`, '_blank');
+                        }
+                        // You might want to close the dropdown after sharing
+                        this.closest('.share-options').classList.remove('show');
+                        alert("Thanks for sharing! 🙌");
+                    } else {
+                        alert("Lỗi khi chia sẻ. Vui lòng thử lại.");
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert("Có lỗi xảy ra.");
+                }
+            });
+        });
+
+        // Your existing copy link logic
+        document.querySelectorAll('.share-options .copy-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                navigator.clipboard.writeText(window.location.href).then(function () {
+                    const toast = document.getElementById('copy-toast');
+                    toast.style.display = 'block';
+                    setTimeout(() => {
+                        toast.style.display = 'none';
+                    }, 2500);
+                    // Ghi nhận chia sẻ (nếu you have a createShare function)
+                    // createShare("CopyLink"); // Assuming you have this function
+                });
+                // You might want to close the dropdown after copying
+                this.closest('.share-options').classList.remove('show');
+            });
+        });
+
+    </script>
+}
+
+<div id="copy-toast" style="
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    font-weight: bold;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+">
+    🔗 Đã sao chép liên kết!
+</div>
+<style>
+    .share-dropdown {
+        position: relative; /* Ensure this is here for absolute positioning of children */
+    }
+
+    .share-options {
+        display: none; /* Hide by default */
+        position: absolute; /* Position it relative to .share-dropdown */
+        top: 100%; /* Position it below the button */
+        left: 0;
+        /* background-color: white;  Now handled by Bootstrap class bg-white */
+        /* border-radius: 5px;       Now handled by Bootstrap class rounded */
+        /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); Now handled by Bootstrap class shadow */
+        /* padding: 0.5rem; /* Example, adjust as needed, or use Bootstrap p-2 */
+        z-index: 1000; /* Ensure it's on top */
+        min-width: 180px; /* Optional: give it a minimum width */
+    }
+
+    .share-options.show {
+        display: block; /* Show it when .show class is added */
+    }
+
+    .share-options .share-btn,
+    .share-options .copy-link { /* Target links inside .share-options */
+        padding: 8px 12px; /* Adjusted padding */
+        text-decoration: none;
+        color: #333;
+        display: block; /* Make each link take full width */
+        white-space: nowrap; /* Prevent text wrapping */
+    }
+
+    .share-options .share-btn:hover,
+    .share-options .copy-link:hover {
+        background-color: #f8f9fa;
+    }
+</style>
