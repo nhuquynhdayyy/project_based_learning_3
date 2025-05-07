@@ -458,95 +458,213 @@ namespace TourismWeb.Controllers
             return View(touristSpot);
         }
 
+        // // POST: TouristSpots/Edit/5
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public async Task<IActionResult> Edit(int id, [Bind("SpotId,Name,Address,CategoryId,Description,ImageUrl,CreatedAt")] TouristSpot touristSpot, IFormFile imageFile)
+        // {
+        //     if (id != touristSpot.SpotId)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     // Lấy thông tin hiện tại từ database để giữ lại các giá trị không thay đổi
+        //     var existingSpot = await _context.TouristSpots.AsNoTracking().FirstOrDefaultAsync(s => s.SpotId == id);
+        //     if (existingSpot == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     // Giữ lại URL ảnh cũ nếu không có ảnh mới được tải lên
+        //     if (imageFile == null || imageFile.Length == 0)
+        //     {
+        //         touristSpot.ImageUrl = existingSpot.ImageUrl;
+        //     }
+
+        //     if (ModelState.IsValid)
+        //     {
+        //         try
+        //         {
+        //             // Xử lý tải lên hình ảnh mới nếu có
+        //             if (imageFile != null && imageFile.Length > 0)
+        //             {
+        //                 // Kiểm tra kích thước file (ví dụ: tối đa 5MB)
+        //                 if (imageFile.Length > 5 * 1024 * 1024)
+        //                 {
+        //                     ModelState.AddModelError("ImageFile", "Kích thước file không được vượt quá 5MB");
+        //                     ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
+        //                     return View(touristSpot);
+        //                 }
+
+        //                 // Kiểm tra loại file
+        //                 var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+        //                 var extension = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
+        //                 if (!allowedExtensions.Contains(extension))
+        //                 {
+        //                     ModelState.AddModelError("ImageFile", "Chỉ chấp nhận file ảnh có định dạng: .jpg, .jpeg, .png, .gif");
+        //                     ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
+        //                     return View(touristSpot);
+        //                 }
+                        
+        //                 // Tạo tên file duy nhất để tránh trùng lặp
+        //                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+                        
+        //                 // Đường dẫn lưu file (trong thư mục wwwroot/images)
+        //                 string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                        
+        //                 // Đảm bảo thư mục tồn tại
+        //                 if (!Directory.Exists(uploadsFolder))
+        //                 {
+        //                     Directory.CreateDirectory(uploadsFolder);
+        //                 }
+                        
+        //                 string filePath = Path.Combine(uploadsFolder, fileName);
+                        
+        //                 // Lưu file vào thư mục
+        //                 using (var fileStream = new FileStream(filePath, FileMode.Create))
+        //                 {
+        //                     await imageFile.CopyToAsync(fileStream);
+        //                 }
+                        
+        //                 // Xóa ảnh cũ nếu không phải ảnh mặc định
+        //                 var oldImagePath = touristSpot.ImageUrl;
+        //                 if (!string.IsNullOrEmpty(oldImagePath) && !oldImagePath.Contains("default-spotImage.png"))
+        //                 {
+        //                     var oldFilePath = Path.Combine(_webHostEnvironment.WebRootPath, oldImagePath.TrimStart('/'));
+        //                     if (System.IO.File.Exists(oldFilePath))
+        //                     {
+        //                         System.IO.File.Delete(oldFilePath);
+        //                     }
+        //                 }
+                        
+        //                 // Cập nhật đường dẫn ảnh mới trong model
+        //                 touristSpot.ImageUrl = "/images/" + fileName;
+        //             }
+                    
+        //             _context.Update(touristSpot);
+        //             await _context.SaveChangesAsync();
+        //             return RedirectToAction(nameof(Index));
+        //         }
+        //         catch (DbUpdateConcurrencyException)
+        //         {
+        //             if (!TouristSpotExists(touristSpot.SpotId))
+        //             {
+        //                 return NotFound();
+        //             }
+        //             else
+        //             {
+        //                 throw;
+        //             }
+        //         }
+        //     }
+        //     ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
+        //     return View(touristSpot);
+        // }
         // POST: TouristSpots/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SpotId,Name,Address,CategoryId,Description,ImageUrl,CreatedAt")] TouristSpot touristSpot, IFormFile imageFile)
+// POST: TouristSpots/Edit/5
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Edit(int id, [Bind("SpotId,Name,Address,CategoryId,Description,ImageUrl")] TouristSpot touristSpotFromForm, IFormFile imageFile)
+{
+    if (id != touristSpotFromForm.SpotId)
+    {
+        return NotFound();
+    }
+
+    // Luôn chuẩn bị lại ViewData cho DropDownList
+    ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpotFromForm.CategoryId);
+
+    if (ModelState.IsValid)
+    {
+        try
         {
-            if (id != touristSpot.SpotId)
+            var touristSpotToUpdate = await _context.TouristSpots.FindAsync(id);
+
+            if (touristSpotToUpdate == null)
             {
+                // Log hoặc debug ở đây để xem tại sao không tìm thấy
+                // _logger.LogWarning($"TouristSpot with id {id} not found for update.");
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    // Xử lý tải lên hình ảnh mới nếu có
-                    if (imageFile != null && imageFile.Length > 0)
-                    {
-                        // Kiểm tra kích thước file (ví dụ: tối đa 5MB)
-                        if (imageFile.Length > 5 * 1024 * 1024)
-                        {
-                            ModelState.AddModelError("ImageFile", "Kích thước file không được vượt quá 5MB");
-                            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
-                            return View(touristSpot);
-                        }
+            // Gán các giá trị từ form vào thực thể đã tải từ DB
+            touristSpotToUpdate.Name = touristSpotFromForm.Name;
+            touristSpotToUpdate.Address = touristSpotFromForm.Address;
+            touristSpotToUpdate.CategoryId = touristSpotFromForm.CategoryId;
+            touristSpotToUpdate.Description = touristSpotFromForm.Description;
+            // KHÔNG CẬP NHẬT CreatedAt
+            // ImageUrl sẽ được xử lý bên dưới
 
-                        // Kiểm tra loại file
-                        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
-                        var extension = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
-                        if (!allowedExtensions.Contains(extension))
-                        {
-                            ModelState.AddModelError("ImageFile", "Chỉ chấp nhận file ảnh có định dạng: .jpg, .jpeg, .png, .gif");
-                            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
-                            return View(touristSpot);
-                        }
-                        
-                        // Tạo tên file duy nhất để tránh trùng lặp
-                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-                        
-                        // Đường dẫn lưu file (trong thư mục wwwroot/images)
-                        string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
-                        
-                        // Đảm bảo thư mục tồn tại
-                        if (!Directory.Exists(uploadsFolder))
-                        {
-                            Directory.CreateDirectory(uploadsFolder);
-                        }
-                        
-                        string filePath = Path.Combine(uploadsFolder, fileName);
-                        
-                        // Lưu file vào thư mục
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await imageFile.CopyToAsync(fileStream);
-                        }
-                        
-                        // Xóa ảnh cũ nếu không phải ảnh mặc định
-                        var oldImagePath = touristSpot.ImageUrl;
-                        if (!string.IsNullOrEmpty(oldImagePath) && !oldImagePath.Contains("default-spotImage.png"))
-                        {
-                            var oldFilePath = Path.Combine(_webHostEnvironment.WebRootPath, oldImagePath.TrimStart('/'));
-                            if (System.IO.File.Exists(oldFilePath))
-                            {
-                                System.IO.File.Delete(oldFilePath);
-                            }
-                        }
-                        
-                        // Cập nhật đường dẫn ảnh mới trong model
-                        touristSpot.ImageUrl = "/images/" + fileName;
-                    }
-                    
-                    _context.Update(touristSpot);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TouristSpotExists(touristSpot.SpotId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+            // Xử lý tải lên hình ảnh mới nếu có
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                // ... (toàn bộ code xử lý imageFile như đã cung cấp)
+                // ... (bao gồm xóa ảnh cũ và cập nhật touristSpotToUpdate.ImageUrl)
+                // Tạo tên file duy nhất để tránh trùng lặp
+                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+                 // Đường dẫn lưu file (trong thư mục wwwroot/images)
+                 string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                 // Đảm bảo thư mục tồn tại
+                 if (!Directory.Exists(uploadsFolder))
+                 {
+                     Directory.CreateDirectory(uploadsFolder);
+                 }
+                 string filePath = Path.Combine(uploadsFolder, fileName);
+                 // Lưu file vào thư mục
+                 using (var fileStream = new FileStream(filePath, FileMode.Create))
+                 {
+                     await imageFile.CopyToAsync(fileStream);
+                 }
+                 // Xóa ảnh cũ nếu không phải ảnh mặc định
+                 var oldImagePathFromDb = touristSpotToUpdate.ImageUrl; // Lấy từ thực thể đang theo dõi
+                 if (!string.IsNullOrEmpty(oldImagePathFromDb) && !oldImagePathFromDb.Contains("default-spotImage.png"))
+                 {
+                     var oldFilePath = Path.Combine(_webHostEnvironment.WebRootPath, oldImagePathFromDb.TrimStart('/'));
+                     if (System.IO.File.Exists(oldFilePath))
+                     {
+                         System.IO.File.Delete(oldFilePath);
+                     }
+                 }
+                 // Cập nhật đường dẫn ảnh mới trong model
+                 touristSpotToUpdate.ImageUrl = "/images/" + fileName;
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
-            return View(touristSpot);
+            else
+            {
+                // Nếu không có file ảnh mới, đảm bảo ImageUrl được giữ nguyên từ giá trị đã có trong form
+                // (hoặc giá trị đã được tải vào touristSpotToUpdate nếu bạn không muốn nó thay đổi từ hidden input)
+                // Với hidden input asp-for="ImageUrl", touristSpotFromForm.ImageUrl sẽ chứa URL hiện tại.
+                touristSpotToUpdate.ImageUrl = touristSpotFromForm.ImageUrl;
+            }
+
+            // EF Core tự động theo dõi thay đổi trên touristSpotToUpdate
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!TouristSpotExists(touristSpotFromForm.SpotId))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+        // Bắt các exception khác nếu cần để debug
+        catch (Exception ex)
+        {
+            // Log lỗi này
+            // _logger.LogError(ex, "Error saving tourist spot.");
+            ModelState.AddModelError("", "Có lỗi xảy ra khi lưu. Vui lòng thử lại.");
+            // Trả về view với model từ form để người dùng không mất dữ liệu đã nhập
+            return View(touristSpotFromForm);
+        }
+    }
+
+    // Nếu ModelState không hợp lệ, trả về view với model từ form
+    return View(touristSpotFromForm);
+}
 
         // GET: TouristSpots/Delete/5
         public async Task<IActionResult> Delete(int? id)

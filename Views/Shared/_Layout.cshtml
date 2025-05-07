@@ -45,17 +45,7 @@
                             <i class="fas fa-map-marker-alt"></i> Địa điểm
                         </a>
                     </li>
-                    @* <li class="nav-item">
-                        <a class="nav-link" asp-controller="Guide" asp-action="Index">
-                            <i class="fas fa-book"></i> Cẩm nang du lịch
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Experience" asp-action="Index">
-                            <i class="fas fa-walking"></i> Trải nghiệm
-                        </a>
-                    </li> *@
-                    <li class="nav-item"></li>
+                   <li class="nav-item"></li>
                         <a class="nav-link" asp-controller="Posts" asp-action="Category" asp-route-type="Cẩm nang">
                             <i class="fas fa-book"></i> Cẩm nang
                         </a>
@@ -148,7 +138,7 @@
 
             </div>
         </div>
-    </nav>
+    </nav> 
 
     <!-- Main Content -->
     <main role="main" class="flex-grow-1">
@@ -184,6 +174,7 @@
 
         function redirectIfNeeded() {
             var redirectUrl = sessionStorage.getItem("redirectAfterLogin");
+            var isAuthenticatedInput = document.getElementById("isAuthenticated"); // Lấy phần tử
 
             // Kiểm tra nếu người dùng đã đăng nhập thì mới chuyển hướng
             if (redirectUrl && document.getElementById("isAuthenticated")?.value === "true") {
@@ -191,7 +182,6 @@
                 window.location.href = redirectUrl;
             }
         }
-
         document.addEventListener("DOMContentLoaded", redirectIfNeeded);
     </script>
 

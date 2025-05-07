@@ -9033,6 +9033,88 @@
       ]
     },
     {
+      "Route": "images/avatars/ab162e25-4fd3-4963-bb4f-ee59f409ef76.png",
+      "AssetFile": "images/avatars/ab162e25-4fd3-4963-bb4f-ee59f409ef76.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "480714"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Wkj9GA6/pMBRkk7E83cmjVv/IXNuZSXbj5Sd0ONaE3A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 07 May 2025 15:36:27 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Wkj9GA6/pMBRkk7E83cmjVv/IXNuZSXbj5Sd0ONaE3A="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatars/ab162e25-4fd3-4963-bb4f-ee59f409ef76.yqxafcanfa.png",
+      "AssetFile": "images/avatars/ab162e25-4fd3-4963-bb4f-ee59f409ef76.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "480714"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Wkj9GA6/pMBRkk7E83cmjVv/IXNuZSXbj5Sd0ONaE3A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 07 May 2025 15:36:27 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yqxafcanfa"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Wkj9GA6/pMBRkk7E83cmjVv/IXNuZSXbj5Sd0ONaE3A="
+        },
+        {
+          "Name": "label",
+          "Value": "images/avatars/ab162e25-4fd3-4963-bb4f-ee59f409ef76.png"
+        }
+      ]
+    },
+    {
       "Route": "images/bachma.ud3sav45cm.webp",
       "AssetFile": "images/bachma.webp",
       "Selectors": [],

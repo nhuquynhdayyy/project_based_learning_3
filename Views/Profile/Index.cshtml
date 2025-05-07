@@ -94,11 +94,9 @@
                 <div class="tab active" data-tab="account">Thông tin tài khoản</div>
                 <div class="tab" data-tab="security">Mật khẩu & Bảo mật</div>
             </div>
-
             <div id="account-tab" class="tab-content active">
     <form asp-controller="Profile" asp-action="UpdateProfile" method="post">
         @Html.AntiForgeryToken()
-
         <div class="content-section" id="thongtin-tai-khoan">
             <h3 class="section-title">Dữ liệu cá nhân</h3>
             <div class="form-group">
