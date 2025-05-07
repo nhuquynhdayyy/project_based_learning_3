@@ -85,10 +85,15 @@
                     </li>
                 </ul>
 
-                <form class="d-flex">
+                @* <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Tìm kiếm...">
                     <button class="btn btn-outline-light" type="submit"><i class="fas fa-search"></i></button>
+                </form> *@
+                <form class="d-flex" asp-controller="Search" asp-action="Index" method="get">
+                    <input class="form-control me-2" type="search" name="searchTerm" placeholder="Tìm kiếm..." required>
+                    <button class="btn btn-outline-light" type="submit"><i class="fas fa-search"></i></button>
                 </form>
+
 
                 <div class="dropdown ms-3">
                     <button class="btn btn-outline-light dropdown-toggle" type="button" id="userMenu"
