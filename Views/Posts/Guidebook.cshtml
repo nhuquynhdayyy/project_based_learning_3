@@ -1,4 +1,4 @@
-@model IEnumerable<TourismWeb.Models.Post>
+@* @model IEnumerable<TourismWeb.Models.Post>
 
 @{
     ViewData["Title"] = "Cẩm Nang Du Lịch";
@@ -100,11 +100,6 @@
 @section Styles {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     <style>
-        @* <style> *@
-        @* .hero {
-            padding: 0.5rem 0;
-            margin-bottom: 0.5rem;
-        } *@
         
         .hero h1 {
             font-weight: bold;
@@ -158,6 +153,427 @@
         .card-title {
             font-size: 1.1rem;
             line-height: 1.3;
+        }
+    </style>
+} *@
+@model IEnumerable<TourismWeb.Models.Post>
+
+@{
+    ViewData["Title"] = "Cẩm Nang Du Lịch";
+}
+
+<div class="container-fluid p-0">
+    <!-- Enhanced Hero Banner -->
+    <section class="hero py-5">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="display-5 fw-bold">CẨM NANG DU LỊCH MIỀN TRUNG TỪ A - Z</h1>
+                <div class="dots-container my-3">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <p class="lead text-muted">Khám phá những điểm đến tuyệt vời và kinh nghiệm du lịch hữu ích</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container mt-5">
+        <!-- Navigation Buttons -->
+        <div class="mb-4 d-flex justify-content-between align-items-center">
+            <h2 class="section-title mb-0">Tất Cả Cẩm Nang</h2>
+            <a asp-action="Create" class="btn create-btn">
+                <i class="bi bi-plus-circle me-2"></i>Thêm Cẩm Nang Mới
+            </a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="row">
+            <!-- All Posts -->
+            <div class="col-lg-9">
+                <div class="row">
+                    @foreach (var post in Model)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 border-0 shadow-sm hover-card position-relative">
+                                <div class="position-absolute top-0 start-0 text-white p-2 m-2 rounded date-badge">
+                                    <i class="bi bi-calendar-event me-1"></i>@post.CreatedAt.ToString("dd")
+                                    Th@(post.CreatedAt.ToString("MM"))
+                                </div>
+                                <div class="card-img-container">
+                                    <img src="@post.ImageUrl" class="card-img-top" alt="@post.Title">
+                                    <div class="card-img-overlay-gradient"></div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">@post.Title.ToUpper()</h5>
+                                    <p class="card-text text-muted">@(post.Content.Length > 120 ? post.Content.Substring(0,
+                                                                            120) + "..." : post.Content)</p>
+                            </div>
+                            <div
+                                class="card-footer bg-white border-0 d-flex justify-content-between align-items-center">
+                                <a asp-action="Details" asp-route-id="@post.PostId" class="btn btn-read-more">
+                                    Xem Chi Tiết <i class="bi bi-arrow-right ms-1"></i>
+                                </a>
+                                <div>
+                                    <a asp-action="Edit" asp-route-id="@post.PostId"
+                                        class="btn btn-outline-secondary btn-sm action-btn">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@post.PostId"
+                                        class="btn btn-outline-danger btn-sm action-btn">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                        }
+                </div>
+            </div>
+
+            <!-- Enhanced Sidebar -->
+            <div class="col-lg-3">
+                <!-- Search Box -->
+                <div class="card mb-4 border-0 shadow-sm sidebar-card">
+                    <div class="card-body">
+                        <h5 class="sidebar-title">
+                            <i class="bi bi-search me-2"></i>Tìm Kiếm
+                        </h5>
+                        <form class="d-flex mt-3">
+                            <input class="form-control me-2 search-input" type="search" placeholder="Tìm kiếm..."
+                                aria-label="Search">
+                            <button class="btn create-btn" type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Latest Posts -->
+                <div class="card border-0 shadow-sm sidebar-card">
+                    <div class="card-body">
+                        <h5 class="sidebar-title">
+                            <i class="bi bi-clock-history me-2"></i>Bài Viết Mới Nhất
+                        </h5>
+                        <div class="list-group list-group-flush">
+                            @foreach (var item in Model.OrderByDescending(p => p.CreatedAt).Take(5))
+                            {
+                                <div class="list-group-item border-0 px-0 py-3 sidebar-post-item">
+                                    <div class="row g-0 align-items-center">
+                                        <div class="col-3">
+                                            <div class="sidebar-img-container">
+                                                <img src="@item.ImageUrl" class="img-fluid rounded" alt="@item.Title">
+                                            </div>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="ps-3">
+                                                <small class="text-orange">
+                                                    <i class="bi bi-calendar-event me-1"></i>@item.CreatedAt.ToString("dd")
+                                                    Th@(item.CreatedAt.ToString("MM"))
+                                                </small>
+                                                <h6 class="mb-0 sidebar-post-title">
+                                                    <a asp-action="Details" asp-route-id="@item.PostId"
+                                                        class="text-decoration-none text-dark stretched-link">@item.Title</a>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-orange: #e65c00;
+            --secondary-orange: #ff8c1a;
+            --light-orange: #ffad66;
+            --dark-orange: #cc5200;
+            --orange-gradient: linear-gradient(135deg, var(--dark-orange), var(--primary-orange));
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--orange-gradient);
+            padding: 3rem 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,224C672,213,768,171,864,149.3C960,128,1056,128,1152,149.3C1248,171,1344,213,1392,234.7L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-position: bottom;
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.6;
+        }
+
+        .hero h1 {
+            font-weight: 700;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .dots-container {
+            margin: 10px 0;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.8);
+            margin: 0 5px;
+        }
+
+        /* Buttons */
+        .create-btn {
+            background: var(--orange-gradient);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(230, 92, 0, 0.3);
+        }
+
+        .create-btn:hover {
+            background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(230, 92, 0, 0.4);
+        }
+
+        /* Section Titles */
+        .section-title {
+            color: var(--dark-orange);
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 8px;
+            font-size: 1.6rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--orange-gradient);
+            border-radius: 3px;
+        }
+
+        /* Cards */
+        .card {
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12) !important;
+        }
+
+        .card-img-container {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-img-top {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .hover-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .card-img-overlay-gradient {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+        }
+
+        .date-badge {
+            background: var(--orange-gradient);
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            line-height: 1.4;
+            color: #333;
+            margin-bottom: 10px;
+            height: 3rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .card-text {
+            color: #666;
+            font-size: 0.9rem;
+            height: 4.5rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        .btn-read-more {
+            color: var(--primary-orange);
+            background: transparent;
+            border: 1px solid var(--primary-orange);
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .btn-read-more:hover {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 5px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        /* Sidebar */
+        .sidebar-card {
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-title {
+            color: var(--primary-orange);
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(230, 92, 0, 0.2);
+            margin-bottom: 15px;
+        }
+
+        .search-input {
+            border-color: rgba(230, 92, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 0 0.2rem rgba(230, 92, 0, 0.15);
+        }
+
+        .sidebar-post-item {
+            transition: all 0.2s;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-post-item:hover {
+            background-color: rgba(255, 140, 26, 0.05);
+        }
+
+        .sidebar-img-container {
+            height: 60px;
+            width: 60px;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .sidebar-img-container img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .sidebar-post-item:hover .sidebar-img-container img {
+            transform: scale(1.1);
+        }
+
+        .sidebar-post-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            line-height: 1.3;
+            transition: color 0.2s;
+        }
+
+        .sidebar-post-item:hover .sidebar-post-title a {
+            color: var(--primary-orange) !important;
+        }
+
+        .text-orange {
+            color: var(--primary-orange);
+        }
+
+        /* Responsive adjustments */
+        media (max-width: 992px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+
+        media (max-width: 768px) {
+            .hero {
+                padding: 2rem 0;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .card-img-container {
+                height: 180px;
+            }
         }
     </style>
 }

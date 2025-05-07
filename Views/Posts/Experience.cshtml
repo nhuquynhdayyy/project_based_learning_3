@@ -1,4 +1,4 @@
-@model IEnumerable<TourismWeb.Models.Post>
+@* @model IEnumerable<TourismWeb.Models.Post>
 
 @{
     ViewData["Title"] = "Trải Nghiệm Du Lịch";
@@ -10,15 +10,6 @@
         
         <div class="row align-items-center mb-4">
             <div class="col-lg-9 mb-3 mb-lg-0">
-                @* <div class="category-tabs d-flex flex-wrap gap-2">
-                    <div class="category-tab tab-tatca">Tất cả</div>
-                    <div class="category-tab tab-baibien">Bãi biển, Đảo</div>
-                    <div class="category-tab tab-khuvuichoi">Khu vui chơi</div>
-                    <div class="category-tab tab-canhdep">Cảnh đẹp</div>
-                    <div class="category-tab tab-chuachien">Chùa chiền</div>
-                    <div class="category-tab tab-hangdong">Hang động</div>
-                    <div class="category-tab tab-ditich">Di tích</div>
-                </div> *@
             </div>
             <div class="col-lg-3 text-lg-end">
                 <a asp-action="Create" class="btn create-btn">
@@ -95,14 +86,6 @@
 @section Styles {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        /* General styles */
-        @* body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        .container {
-            max-width: 1200px;
-        } *@
 
         /* Hero section styles */
         .hero-title {
@@ -289,4 +272,910 @@
             });
         });
     </script>
+} *@
+@model IEnumerable<TourismWeb.Models.Post>
+
+@{
+    ViewData["Title"] = "Trải Nghiệm Du Lịch";
 }
+
+<div class="tourism-container">
+    <div class="tourism-header">
+        <div class="tourism-title">
+            <h1>Trải Nghiệm Du Lịch</h1>
+            <div class="tourism-divider"></div>
+            <p class="tourism-subtitle">Khám phá những trải nghiệm tuyệt vời tại Miền Trung</p>
+        </div>
+
+        <div class="tourism-actions">
+            <div class="search-box">
+                <input type="text" placeholder="Tìm kiếm trải nghiệm..." />
+                <i class="search-icon"></i>
+            </div>
+            <a asp-action="Create" class="btn-create">
+                <span>Thêm Trải Nghiệm Mới</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="tourism-content">
+        <!-- Main Content (on the left) -->
+        <div class="tourism-main">
+            <div class="tourism-grid">
+                @foreach (var item in Model)
+                {
+                    <div class="tourism-card">
+                        <div class="card-image-container">
+                            <img src="@item.ImageUrl" alt="@item.Title" class="card-image" />
+                            <div class="card-category">
+                                <span class="palm-icon small-palm"></span>
+                                <span>@item.Spot.Name</span>
+                            </div>
+                            <div class="card-overlay">
+                                <a asp-action="Details" asp-route-id="@item.PostId" class="overlay-btn">
+                                    <i class="view-icon"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h2 class="card-title">@item.Title</h2>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="date-icon"></i>
+                                    <span>@item.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="user-icon"></i>
+                                    <span>@item.User.FullName</span>
+                                </div>
+                            </div>
+                            <p class="card-description">@(item.Content.Length > 150 ? item.Content.Substring(0, 150) + "..."
+                                                            : item.Content)</p>
+                        <div class="card-actions">
+                            <a asp-action="Details" asp-route-id="@item.PostId" class="btn-details">
+                                <span>Xem Chi Tiết</span>
+                                <i class="arrow-icon"></i>
+                            </a>
+                            <div class="action-buttons">
+                                <a asp-action="Edit" asp-route-id="@item.PostId" class="btn-edit" title="Sửa">
+                                    <i class="edit-icon"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.PostId" class="btn-delete" title="Xóa">
+                                    <i class="delete-icon"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                }
+            </div>
+
+            <!-- Pagination -->
+            <div class="tourism-pagination">
+                <a href="#" class="page-link disabled"><i class="prev-icon"></i></a>
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <a href="#" class="page-link"><i class="next-icon"></i></a>
+            </div>
+        </div>
+
+        <!-- Sidebar (on the right) -->
+        <div class="tourism-sidebar">
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><span class="palm-icon star-palm"></span>Trải Nghiệm Nổi Bật</h3>
+                <div class="featured-places">
+                    @foreach (var item in Model.Take(3))
+                    {
+                        <div class="featured-place-item">
+                            <div class="featured-place-img">
+                                <img src="@item.ImageUrl" alt="@item.Title" />
+                            </div>
+                            <div class="featured-place-info">
+                                <h4>@item.Title</h4>
+                                <span class="featured-place-category">@item.Spot.Name</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><span class="palm-icon filter-palm"></span>Lọc Theo</h3>
+                <div class="filter-options">
+                    <div class="filter-group">
+                        <label>Khu vực</label>
+                        <select class="filter-select">
+                            <option>Tất cả</option>
+                            <option>Đà Nẵng</option>
+                            <option>Huế</option>
+                            <option>Quảng Nam</option>
+                            <option>Quảng Ngãi</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Sắp xếp theo</label>
+                        <select class="filter-select">
+                            <option>Mới nhất</option>
+                            <option>Phổ biến nhất</option>
+                            <option>A-Z</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title"><span class="palm-icon tag-palm"></span>Thẻ Phổ Biến</h3>
+                <div class="tag-cloud">
+                    <a href="#" class="tag-item">Du lịch</a>
+                    <a href="#" class="tag-item">Biển</a>
+                    <a href="#" class="tag-item">Đà Nẵng</a>
+                    <a href="#" class="tag-item">Hội An</a>
+                    <a href="#" class="tag-item">Huế</a>
+                    <a href="#" class="tag-item">Phong Nha</a>
+                    <a href="#" class="tag-item">Cù Lao Chàm</a>
+                    <a href="#" class="tag-item">Bà Nà</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Global Styles */
+    :root {
+        --primary-color: #2ecc71;
+        --primary-dark: #27ae60;
+        --primary-light: #a9dfbf;
+        --secondary-color: #1abc9c;
+        --text-color: #333;
+        --text-light: #666;
+        --light-bg: #f8f9fa;
+        --medium-gray: #e9ecef;
+        --dark-gray: #6c757d;
+        --white: #ffffff;
+        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --border-radius: 8px;
+        --transition: all 0.3s ease;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text-color);
+        background-color: var(--light-bg);
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Container */
+    .tourism-container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    /* Header Section */
+    .tourism-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--medium-gray);
+        position: relative;
+    }
+
+    .tourism-header::before {
+        content: '';
+        position: absolute;
+        top: -15px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3Cpath fill='%232ecc71' d='M546.2 9.7c-5.6-12.5-21.6-13-28.3-1.2C486.9 62.4 431.4 96 368 96h-80C182 96 96 182 96 288c0 7 .8 13.7 1.5 20.5C161.3 262.8 253.4 224 384 224c8.8 0 16 7.2 16 16s-7.2 16-16 16C132.6 256 26 410.1 2.4 468c-6.6 16.3 1.2 34.9 17.5 41.6 16.4 6.8 35-1.1 41.8-17.3 1.5-3.6 20.9-47.9 71.9-90.6 32.4 43.9 94 85.8 174.9 77.2C465.5 467.5 576 326.7 576 154.3c0-50.2-10.8-102.2-29.8-144.6z'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: contain;
+        opacity: 0.7;
+        transform: rotate(-15deg);
+    }
+
+    .tourism-title h1 {
+        font-size: 2.5rem;
+        margin: 0;
+        font-weight: 700;
+        color: var(--text-color);
+        text-transform: uppercase;
+    }
+
+    .tourism-subtitle {
+        margin-top: 0.5rem;
+        color: var(--text-light);
+        font-size: 1.1rem;
+    }
+
+    .tourism-divider {
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+        margin-top: 12px;
+        border-radius: 2px;
+    }
+
+    .tourism-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    /* Palm Tree and Leaf Icons */
+    .palm-icon {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        vertical-align: middle;
+    }
+
+    .small-palm {
+        width: 16px;
+        height: 16px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3Cpath fill='%23ffffff' d='M546.2 9.7c-5.6-12.5-21.6-13-28.3-1.2C486.9 62.4 431.4 96 368 96h-80C182 96 96 182 96 288c0 7 .8 13.7 1.5 20.5C161.3 262.8 253.4 224 384 224c8.8 0 16 7.2 16 16s-7.2 16-16 16C132.6 256 26 410.1 2.4 468c-6.6 16.3 1.2 34.9 17.5 41.6 16.4 6.8 35-1.1 41.8-17.3 1.5-3.6 20.9-47.9 71.9-90.6 32.4 43.9 94 85.8 174.9 77.2C465.5 467.5 576 326.7 576 154.3c0-50.2-10.8-102.2-29.8-144.6z'%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    .star-palm {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3Cpath fill='%232ecc71' d='M546.2 9.7c-5.6-12.5-21.6-13-28.3-1.2C486.9 62.4 431.4 96 368 96h-80C182 96 96 182 96 288c0 7 .8 13.7 1.5 20.5C161.3 262.8 253.4 224 384 224c8.8 0 16 7.2 16 16s-7.2 16-16 16C132.6 256 26 410.1 2.4 468c-6.6 16.3 1.2 34.9 17.5 41.6 16.4 6.8 35-1.1 41.8-17.3 1.5-3.6 20.9-47.9 71.9-90.6 32.4 43.9 94 85.8 174.9 77.2C465.5 467.5 576 326.7 576 154.3c0-50.2-10.8-102.2-29.8-144.6z'%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    .filter-palm {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'%3E%3Cpath fill='%232ecc71' d='M584.2 96.36c-28.88-1.701-54.71 17.02-79.74 26.49C490 88.22 455.9 32 392 32c-51.26 0-73.53 56.33-73.53 107.4 0 32.01 14.21 47.31 14.21 76.11 0 15.38-11.03 32.7-32.74 32.7-18.34 0-36.73-7.92-45.8-19.21-4.979-6.26-11.79-9.852-18.84-9.852-6.387 0-12.86 2.954-17.94 8.455-6.526 7.068-13.83 13.51-22.01 19.42C186.5 255.7 175.2 259.1 163.5 259.1c-11.69 0-22.98-3.386-32.04-12.56-2.322-2.346-4.862-3.451-7.334-3.451-7.094 0-13.62 8.598-13.62 15.68 0 36.34 45.54 71.22 80.27 71.22 33.19 0 60.04-30.57 103.5-30.57 18.25 0 34.17 6.74 50.25 6.74 50.13 0 79.67-42.03 79.67-65.87 0-4.076-1.291-7.969-3.723-11.24 25.4-12.32 46.56-33.55 60.65-59.32 9.734 3.252 19.25 6.969 29.39 6.969 33.95 0 75.1-41.86 75.1-75.77-.002-5.705-1.266-10.94-4.422-14.93-2.283-2.891-5.861-4.312-9.561-4.312-2.566 0-5.188.6406-7.623 1.934zM488 352h-32v32c0 53.02-42.98 96-96 96h-32c-53.02 0-96-42.98-96-96v-32h-32c-17.67 0-32-14.33-32-32v-32c0-17.67 14.33-32 32-32h32v-32c0-53.02 42.98-96 96-96h32c53.02 0 96 42.98 96 96v32h32c17.67 0 32 14.33 32 32v32c0 17.7-14.3 32-32 32z'%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    .tag-palm {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%232ecc71' d='M64 96H0c0 123.7 100.3 224 224 224v144c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V320C288 196.3 187.7 96 64 96zm384-64c-84.2 0-157.4 46.5-195.7 115.2 27.7 30.2 48.2 66.9 59 107.6C424 243.1 512 147.9 512 32h-64z'%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    /* Search Box */
+    .search-box {
+        position: relative;
+        width: 280px;
+    }
+
+    .search-box input {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        border: 1px solid var(--medium-gray);
+        border-radius: var(--border-radius);
+        font-size: 0.9rem;
+        transition: var(--transition);
+        background-color: var(--white);
+    }
+
+    .search-box input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%236c757d' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    /* Add New Button */
+    .btn-create {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1.25rem;
+        background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+        color: var(--white);
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+        box-shadow: 0 2px 8px rgba(46, 204, 113, 0.3);
+    }
+
+    .btn-create:hover {
+        background: linear-gradient(to right, var(--primary-dark), var(--primary-color));
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+    }
+
+    .btn-create:before {
+        content: "";
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='%23ffffff' d='M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+
+    /* Content Layout */
+    .tourism-content {
+        display: flex;
+        gap: 2rem;
+        flex-direction: row-reverse;
+        /* Sidebar on the right */
+    }
+
+    /* Sidebar */
+    .tourism-sidebar {
+        width: 25%;
+        flex-shrink: 0;
+    }
+
+    .sidebar-section {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--box-shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .sidebar-section::after {
+        content: '';
+        position: absolute;
+        bottom: -30px;
+        right: -30px;
+        width: 80px;
+        height: 80px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3Cpath fill='%23a9dfbf' opacity='0.2' d='M546.2 9.7c-5.6-12.5-21.6-13-28.3-1.2C486.9 62.4 431.4 96 368 96h-80C182 96 96 182 96 288c0 7 .8 13.7 1.5 20.5C161.3 262.8 253.4 224 384 224c8.8 0 16 7.2 16 16s-7.2 16-16 16C132.6 256 26 410.1 2.4 468c-6.6 16.3 1.2 34.9 17.5 41.6 16.4 6.8 35-1.1 41.8-17.3 1.5-3.6 20.9-47.9 71.9-90.6 32.4 43.9 94 85.8 174.9 77.2C465.5 467.5 576 326.7 576 154.3c0-50.2-10.8-102.2-29.8-144.6z'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: contain;
+        opacity: 0.2;
+        transform: rotate(15deg);
+        z-index: 0;
+    }
+
+    .sidebar-title {
+        font-size: 1.2rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+        position: relative;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--medium-gray);
+        display: flex;
+        align-items: center;
+    }
+
+    .sidebar-title::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+        border-radius: 1.5px;
+    }
+
+    /* Featured Places */
+    .featured-places {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .featured-place-item {
+        display: flex;
+        gap: 0.75rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--medium-gray);
+    }
+
+    .featured-place-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .featured-place-img {
+        width: 70px;
+        height: 70px;
+        border-radius: 6px;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+
+    .featured-place-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    .featured-place-item:hover .featured-place-img img {
+        transform: scale(1.05);
+    }
+
+    .featured-place-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .featured-place-info h4 {
+        margin: 0 0 0.25rem 0;
+        font-size: 0.95rem;
+        font-weight: 600;
+    }
+
+    .featured-place-category {
+        font-size: 0.8rem;
+        color: var(--primary-color);
+        background-color: rgba(46, 204, 113, 0.1);
+        padding: 2px 8px;
+        border-radius: 12px;
+        display: inline-block;
+    }
+
+    /* Filter Options */
+    .filter-options {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .filter-group label {
+        font-size: 0.9rem;
+        color: var(--text-light);
+        display: flex;
+        align-items: center;
+    }
+
+    .filter-group label::before {
+        content: '';
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        background-image: url("E:\project_based_learning_3\wwwroot\images\2ef365f7-9a37-4aba-a982-49a6457e1841_anh2.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+
+    .filter-select {
+        padding: 0.5rem;
+        border: 1px solid var(--medium-gray);
+        border-radius: 4px;
+        font-size: 0.9rem;
+        background-color: var(--white);
+        transition: var(--transition);
+    }
+
+    .filter-select:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+    }
+
+    /* Tag Cloud */
+    .tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .tag-item {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        background-color: rgba(46, 204, 113, 0.1);
+        color: var(--primary-color);
+        border-radius: 20px;
+        font-size: 0.8rem;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .tag-item:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+        transform: translateY(-2px);
+    }
+
+    /* Main Content */
+    .tourism-main {
+        flex-grow: 1;
+        width: 75%;
+    }
+
+    /* Tourism Grid */
+    .tourism-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Tourism Card */
+    .tourism-card {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--box-shadow);
+        transition: var(--transition);
+        position: relative;
+    }
+
+    .tourism-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-image-container {
+        position: relative;
+        height: 220px;
+        overflow: hidden;
+    }
+
+    .card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    .tourism-card:hover .card-image {
+        transform: scale(1.05);
+    }
+
+    .card-category {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
+        color: var(--white);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2px 6px rgba(46, 204, 113, 0.3);
+    }
+
+    .card-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: var(--transition);
+    }
+
+    .tourism-card:hover .card-overlay {
+        opacity: 1;
+    }
+
+    .overlay-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background-color: var(--white);
+        border-radius: 50%;
+        color: var(--primary-color);
+        transition: var(--transition);
+        transform: translateY(20px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .tourism-card:hover .overlay-btn {
+        transform: translateY(0);
+    }
+
+    .overlay-btn:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    .view-icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z'/%3E%3Cpath d='M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .card-content {
+        padding: 1.5rem;
+    }
+
+    .card-title {
+        margin-top: 0;
+        margin-bottom: 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1.3;
+    }
+
+    .card-meta {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        font-size: 0.85rem;
+        color: var(--dark-gray);
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+    }
+
+    .date-icon,
+    .user-icon {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+
+    .date-icon {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%236c757d' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z'%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    .user-icon {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%236c757d' viewBox='0 0 16 16'%3E%3Cpath d='M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z'%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    .card-description {
+        font-size: 0.9rem;
+        color: var(--text-light);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    /* Card Actions */
+    .card-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-details {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        background-color: rgba(46, 204, 113, 0.1);
+        color: var(--primary-color);
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+    .btn-details:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    .arrow-icon {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin-left: 6px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    .btn-edit,
+    .btn-delete {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .btn-edit {
+        background-color: rgba(26, 188, 156, 0.1);
+        color: var(--secondary-color);
+    }
+
+    .btn-delete {
+        background-color: rgba(231, 76, 60, 0.1);
+        color: #e74c3c;
+    }
+
+    .btn-edit:hover {
+        background-color: var(--secondary-color);
+        color: var(--white);
+    }
+
+    .btn-delete:hover {
+        background-color: #e74c3c;
+        color: var(--white);
+    }
+
+    .edit-icon,
+    .delete-icon {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+
+    .edit-icon {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    .delete-icon {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'%3E%3C/path%3E%3Cpath fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    /* Pagination */
+    .tourism-pagination {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 2rem;
+    }
+
+    .page-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--white);
+        color: var(--text-color);
+        text-decoration: none;
+        transition: var(--transition);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .page-link.active {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    .page-link:hover:not(.active):not(.disabled) {
+        background-color: rgba(46, 204, 113, 0.1);
+        color: var(--primary-color);
+    }
+
+    .page-link.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    .prev-icon,
+    .next-icon {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .prev-icon {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
+    }
+
+    .next-icon {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    }
+
+    /* Responsive adjustments */
+    media (max-width: 992px) {
+        .tourism-content {
+            flex-direction: column;
+        }
+
+        .tourism-sidebar,
+        .tourism-main {
+            width: 100%;
+        }
+    }
+
+    media (max-width: 768px) {
+        .tourism-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .tourism-actions {
+            width: 100%;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .search-box {
+            width: 100%;
+        }
+
+        .btn-create {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .tourism-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add hover effects to cards
+        const cards = document.querySelectorAll('.tourism-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.querySelector('.card-image').style.transform = 'scale(1.05)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.querySelector('.card-image').style.transform = 'scale(1)';
+            });
+        });
+
+        // Add hover effects to featured place items
+        const featuredItems = document.querySelectorAll('.featured-place-item');
+        featuredItems.forEach(item => {
+            item.addEventListener('mouseenter', function () {
+                this.querySelector('img').style.transform = 'scale(1.05)';
+            });
+
+            item.addEventListener('mouseleave', function () {
+                this.querySelector('img').style.transform = 'scale(1)';
+            });
+        });
+    });
+</script>
