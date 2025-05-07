@@ -1,54 +1,3 @@
-// using Microsoft.AspNetCore.Authorization;
-// using Microsoft.AspNetCore.Mvc;
-// using Microsoft.EntityFrameworkCore;
-// using System.Security.Claims;
-// using System.Threading.Tasks;
-// using TourismWeb.Models;
-// using Microsoft.AspNetCore.Identity;  
-
-// namespace TourismWeb.Controllers
-// {
-//     [Authorize] // Đảm bảo người dùng đã đăng nhập
-//     public class ProfileController : Controller
-//     {
-//         private readonly ApplicationDbContext _context;
-
-//         public ProfileController(ApplicationDbContext context)
-//         {
-//             _context = context;
-//         }
-
-//         public async Task<IActionResult> Index()
-//         {
-//             // Lấy ID của người dùng đang đăng nhập
-//             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
-//             // Nếu sử dụng Identity, bạn có thể cần chuyển đổi userId từ string sang int
-//             if (int.TryParse(userId, out int userIdInt))
-//             {
-//                 // Lấy thông tin người dùng từ database, bao gồm các collection liên quan
-//                 var user = await _context.Users
-//                     .Include(u => u.Posts)
-//                     .Include(u => u.Reviews)
-//                     .Include(u => u.SpotImages)
-//                     .Include(u => u.SpotFavorites)
-//                         .ThenInclude(sf => sf.Spot)
-//                     .Include(u => u.PostFavorites)
-//                         .ThenInclude(pf => pf.Post)
-//                             .ThenInclude(p => p.User)
-//                     .FirstOrDefaultAsync(u => u.UserId == userIdInt);
-
-//                 if (user != null)
-//                 {
-//                     return View(user);
-//                 }
-//             }
-
-//             // Nếu không tìm thấy người dùng, chuyển hướng đến trang đăng nhập
-//             return RedirectToAction("Login", "Account");
-//         }
-//     }
-// }
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;   
 using Microsoft.AspNetCore.Mvc;
@@ -82,6 +31,8 @@ namespace TourismWeb.Controllers
                     .Include(u => u.Posts)
                     .Include(u => u.Reviews) 
                         .ThenInclude(r => r.Spot) // << --- THÊM DÒNG NÀY RẤT QUAN TRỌNG
+                    .Include(u => u.PostComments)
+                        .ThenInclude(pc => pc.Post)
                     .Include(u => u.SpotImages)
                     .Include(u => u.SpotFavorites)
                         .ThenInclude(sf => sf.Spot)
@@ -100,6 +51,60 @@ namespace TourismWeb.Controllers
             // Nếu không tìm thấy người dùng, chuyển hướng đến trang đăng nhập
             return RedirectToAction("Login", "Account");
         }
+
+        [HttpPost]
+public async Task<IActionResult> UploadAvatar(IFormFile avatarFile)
+{
+    if (avatarFile == null || avatarFile.Length == 0)
+    {
+        TempData["ErrorMessage"] = "Vui lòng chọn một tệp ảnh.";
+        return RedirectToAction("Index");
+    }
+
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    if (!int.TryParse(userId, out int userIdInt))
+    {
+        TempData["ErrorMessage"] = "Phiên người dùng không hợp lệ.";
+        return RedirectToAction("Index");
+    }
+
+    var user = await _context.Users.FindAsync(userIdInt);
+    if (user == null)
+    {
+        TempData["ErrorMessage"] = "Không tìm thấy người dùng.";
+        return RedirectToAction("Index");
+    }
+
+    // Kiểm tra định dạng file ảnh
+    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+    var extension = Path.GetExtension(avatarFile.FileName).ToLower();
+
+    if (!allowedExtensions.Contains(extension))
+    {
+        TempData["ErrorMessage"] = "Chỉ chấp nhận các định dạng ảnh JPG, JPEG, PNG, GIF.";
+        return RedirectToAction("Index");
+    }
+
+    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/avatars");
+    Directory.CreateDirectory(uploadsFolder); // Đảm bảo thư mục tồn tại
+
+    var fileName = $"{Guid.NewGuid()}{extension}";
+    var filePath = Path.Combine(uploadsFolder, fileName);
+
+    using (var stream = new FileStream(filePath, FileMode.Create))
+    {
+        await avatarFile.CopyToAsync(stream);
+    }
+
+    // Cập nhật avatar URL
+    user.AvatarUrl = $"/images/avatars/{fileName}";
+    _context.Update(user);
+    await _context.SaveChangesAsync();
+
+    TempData["SuccessMessage"] = "Ảnh đại diện đã được cập nhật.";
+    return RedirectToAction("Index");
+}
 
         // POST: /Profile/UpdateProfile
         [HttpPost]

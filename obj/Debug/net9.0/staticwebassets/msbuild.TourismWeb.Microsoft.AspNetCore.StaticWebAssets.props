@@ -504,23 +504,23 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\0d421de0-e703-4868-82bc-d5c96ec755e7_myson.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\3085bca9-6be7-4dbf-b16e-48edc47cf899.jpg'))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\0ee6c348-8191-4248-8382-d424d2fc2c15.jpg'))">
       <SourceType>Package</SourceType>
       <SourceId>TourismWeb</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/TourismWeb</BasePath>
-      <RelativePath>images/3085bca9-6be7-4dbf-b16e-48edc47cf899.jpg</RelativePath>
+      <RelativePath>images/0ee6c348-8191-4248-8382-d424d2fc2c15.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>oqy96f113s</Fingerprint>
-      <Integrity>IMqgzzFwPSwzSDWFtvpZk3fALNG/luQ8wJLVUnJDl0A=</Integrity>
+      <Fingerprint>qkf4z0h2pc</Fingerprint>
+      <Integrity>JkU2iFT3lUGu6j6Hr8Q+Jme9Gt4F5CU1IyKyLYCffzs=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\3085bca9-6be7-4dbf-b16e-48edc47cf899.jpg'))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\0ee6c348-8191-4248-8382-d424d2fc2c15.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\52947839-0a55-4591-bd82-03c66fa9ae43_nhatho.webp'))">
       <SourceType>Package</SourceType>

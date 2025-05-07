@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "W6VzOGXcj4/eVbil1ATvZnjNSPTKuKtuh8UhMUpqwDs=",
+  "Hash": "OusxE1vz8BxzQ6j30jbXNrY79igDR+qKuD/+pmTxpkU=",
   "Source": "TourismWeb",
   "BasePath": "_content/TourismWeb",
   "Mode": "Default",
@@ -2684,12 +2684,12 @@
       "OriginalItemSpec": "wwwroot\\images\\0d421de0-e703-4868-82bc-d5c96ec755e7_myson.jpg"
     },
     {
-      "Identity": "D:\\PBL3\\PBL3\\wwwroot\\images\\3085bca9-6be7-4dbf-b16e-48edc47cf899.jpg",
+      "Identity": "D:\\PBL3\\PBL3\\wwwroot\\images\\0ee6c348-8191-4248-8382-d424d2fc2c15.jpg",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\PBL3\\PBL3\\wwwroot\\",
       "BasePath": "_content/TourismWeb",
-      "RelativePath": "images/3085bca9-6be7-4dbf-b16e-48edc47cf899#[.{fingerprint}]?.jpg",
+      "RelativePath": "images/0ee6c348-8191-4248-8382-d424d2fc2c15#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -2698,11 +2698,11 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "oqy96f113s",
-      "Integrity": "IMqgzzFwPSwzSDWFtvpZk3fALNG/luQ8wJLVUnJDl0A=",
+      "Fingerprint": "qkf4z0h2pc",
+      "Integrity": "JkU2iFT3lUGu6j6Hr8Q+Jme9Gt4F5CU1IyKyLYCffzs=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\3085bca9-6be7-4dbf-b16e-48edc47cf899.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\0ee6c348-8191-4248-8382-d424d2fc2c15.jpg"
     },
     {
       "Identity": "D:\\PBL3\\PBL3\\wwwroot\\images\\52947839-0a55-4591-bd82-03c66fa9ae43_nhatho.webp",
@@ -14006,8 +14006,8 @@
       ]
     },
     {
-      "Route": "images/3085bca9-6be7-4dbf-b16e-48edc47cf899.jpg",
-      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\3085bca9-6be7-4dbf-b16e-48edc47cf899.jpg",
+      "Route": "images/0ee6c348-8191-4248-8382-d424d2fc2c15.jpg",
+      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\0ee6c348-8191-4248-8382-d424d2fc2c15.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -14016,7 +14016,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "152025"
+          "Value": "16124"
         },
         {
           "Name": "Content-Type",
@@ -14024,11 +14024,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"IMqgzzFwPSwzSDWFtvpZk3fALNG/luQ8wJLVUnJDl0A=\""
+          "Value": "\"JkU2iFT3lUGu6j6Hr8Q+Jme9Gt4F5CU1IyKyLYCffzs=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 30 Apr 2025 11:01:46 GMT"
+          "Value": "Wed, 07 May 2025 15:13:18 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -14038,13 +14038,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-IMqgzzFwPSwzSDWFtvpZk3fALNG/luQ8wJLVUnJDl0A="
+          "Value": "sha256-JkU2iFT3lUGu6j6Hr8Q+Jme9Gt4F5CU1IyKyLYCffzs="
         }
       ]
     },
     {
-      "Route": "images/3085bca9-6be7-4dbf-b16e-48edc47cf899.oqy96f113s.jpg",
-      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\3085bca9-6be7-4dbf-b16e-48edc47cf899.jpg",
+      "Route": "images/0ee6c348-8191-4248-8382-d424d2fc2c15.qkf4z0h2pc.jpg",
+      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\0ee6c348-8191-4248-8382-d424d2fc2c15.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -14053,7 +14053,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "152025"
+          "Value": "16124"
         },
         {
           "Name": "Content-Type",
@@ -14061,11 +14061,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"IMqgzzFwPSwzSDWFtvpZk3fALNG/luQ8wJLVUnJDl0A=\""
+          "Value": "\"JkU2iFT3lUGu6j6Hr8Q+Jme9Gt4F5CU1IyKyLYCffzs=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 30 Apr 2025 11:01:46 GMT"
+          "Value": "Wed, 07 May 2025 15:13:18 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -14075,15 +14075,15 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "oqy96f113s"
+          "Value": "qkf4z0h2pc"
         },
         {
           "Name": "label",
-          "Value": "images/3085bca9-6be7-4dbf-b16e-48edc47cf899.jpg"
+          "Value": "images/0ee6c348-8191-4248-8382-d424d2fc2c15.jpg"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-IMqgzzFwPSwzSDWFtvpZk3fALNG/luQ8wJLVUnJDl0A="
+          "Value": "sha256-JkU2iFT3lUGu6j6Hr8Q+Jme9Gt4F5CU1IyKyLYCffzs="
         }
       ]
     },
