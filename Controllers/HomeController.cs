@@ -58,7 +58,17 @@ public class HomeController : Controller
             .OrderByDescending(p => p.CreatedAt)
             .Take(3)
             .ToListAsync();
-            
+        
+        // Lấy 6 địa điểm được thêm vào gần nhất
+        var recentSpots = await _context.TouristSpots
+                                        .OrderByDescending(spot => spot.CreatedAt) // Sắp xếp theo ngày tạo giảm dần
+                                        .Take(6)                                 // Chỉ lấy 6 địa điểm đầu tiên
+                                        .ToListAsync();
+
+        // Truyền danh sách này đến View
+        // Bạn có thể truyền qua ViewModel của View Index, hoặc qua ViewBag/ViewData nếu View đơn giản
+        // Ví dụ sử dụng ViewBag:
+        ViewBag.RecentTouristSpots = recentSpots;
         // Gửi dữ liệu đến view
         ViewBag.RecentPosts = recentPosts;
         ViewBag.GuidebookPosts = guidebookPosts;

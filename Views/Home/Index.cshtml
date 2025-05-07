@@ -16,13 +16,12 @@
         <h2 class="text-center">Khám phá miền Trung</h2>
         <p class="text-center">Những điểm đến hấp dẫn không thể bỏ lỡ</p>
 
-        <div class="row">
+        @* <div class="row">
             <div class="col-md-4">
                 <div class="card tour-card">
                     <img src="/images/danang.jpg" class="card-img-top" alt="Đà Nẵng">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">ĐÀ NẴNG</h5>
-                        @* <a asp-controller="TouristSpots" asp-action="Danang1" class="btn btn-primary">Xem chi tiết</a> *@
                         <a href="/TouristSpots/Details/7" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
@@ -32,7 +31,6 @@
                     <img src="/images/hue.jpg" class="card-img-top" alt="Huế">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">HUẾ</h5>
-                        @* <a asp-controller="Location" asp-action="Hue1" class="btn btn-primary">Xem chi tiết</a> *@
                         <a href="/TouristSpots/Details/8" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
@@ -42,7 +40,6 @@
                     <img src="/images/hoian.jpg" class="card-img-top" alt="Hội An">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">HỘI AN</h5>
-                        @* <a asp-controller="Location" asp-action="Hoian1" class="btn btn-primary">Xem chi tiết</a> *@
                         <a href="/TouristSpots/Details/9" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
@@ -55,7 +52,6 @@
                     <img src="/images/phongnha.jpg" class="card-img-top" alt="Quảng Bình">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">QUẢNG BÌNH</h5>
-                        @* <a asp-controller="Location" asp-action="Quangbinh1" class="btn btn-primary">Xem chi tiết</a> *@
                         <a href="/TouristSpots/Details/10" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
@@ -65,7 +61,6 @@
                     <img src="/images/nhatrang.jpg" class="card-img-top" alt="Nha Trang">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">NHA TRANG</h5>
-                        @* <a asp-controller="Location" asp-action="Nhatrang1" class="btn btn-primary">Xem chi tiết</a> *@
                         <a href="/TouristSpots/Details/11" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
@@ -75,144 +70,45 @@
                     <img src="/images/phuyen.jpg" class="card-img-top" alt="Phú Yên">
                     <div class="card-body text-center">
                         <h5 class="card-title text-warning">PHÚ YÊN</h5>
-                        @* <a asp-controller="Location" asp-action="Phuyen1" class="btn btn-primary">Xem chi tiết</a> *@
                         <a href="/TouristSpots/Details/12" class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
+        </div> *@
+        @* Giả sử ViewBag.RecentTouristSpots chứa List<TouristSpot> *@
+@{
+    var recentSpots = ViewBag.RecentTouristSpots as List<TourismWeb.Models.TouristSpot>;
+    int spotCounter = 0;
+}
+
+@if (recentSpots != null && recentSpots.Any())
+{
+    @for (int i = 0; i < recentSpots.Count; i += 3) // Lặp qua mỗi 3 địa điểm để tạo một hàng mới
+    {
+        <div class="row @(i > 0 ? "mt-4" : "")"> @* Thêm mt-4 cho các hàng sau hàng đầu tiên *@
+            @for (int j = 0; j < 3 && (i + j) < recentSpots.Count; j++) // Lặp tối đa 3 địa điểm cho mỗi hàng
+            {
+                var spot = recentSpots[i + j];
+                <div class="col-md-4">
+                    <div class="card tour-card"> @* Thêm class h-100 để các card có chiều cao bằng nhau nếu cần *@
+                        <img src="@(string.IsNullOrEmpty(spot.ImageUrl) ? "/images/default-spotImage.png" : spot.ImageUrl)" class="card-img-top" alt="@spot.Name" style="height: 200px; object-fit: cover;">
+                        <div class="card-body text-center"> @* Thêm d-flex và flex-column *@
+                            <h5 class="card-title text-warning">@spot.Name.ToUpper()</h5>
+                            <a asp-controller="TouristSpots" asp-action="Details" asp-route-id="@spot.SpotId" class="btn btn-primary mt-auto">Xem chi tiết</a> @* Thêm mt-auto để nút ở cuối card *@
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
+        spotCounter += 3;
+    }
+}
+else
+{
+    <p>Chưa có địa điểm nào để hiển thị.</p>
+}
     </div>
 
-
-    @* <section>
-        <div class="swiper-container">
-            <h2 class="text-center">Bài viết gần đây</h2>
-            <div class="swiper-wrapper">
-
-                <div class="swiper-slide">
-                    <div class="slider-card">
-                        <div class="slider-image-wrapper">
-                            <img src="/images/danang2.webp" alt="Cầu Rồng Đà Nẵng">
-                            <span class="slider-category category-du-lich">Du lịch</span>
-                        </div>
-                        <div class="slider-content">
-                            <div class="article-author">
-                                <span class="author-name">Lê Minh</span>
-                            </div>
-                            <h3 class="slider-title">Khám phá Đà Nẵng năng động</h3>
-                            <p class="slider-description">
-                                Thành phố đáng sống với những cây cầu độc đáo, bãi biển dài và ẩm thực hấp dẫn.
-                            </p>
-                            <div class="slider-location">📍 Đà Nẵng</div>
-                            <div class="article-interactions">
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">❤️</span>
-                                    <span>95</span>
-                                </div>
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">💬</span>
-                                    <span>12</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="swiper-slide">
-                    <div class="slider-card">
-                        <div class="slider-image-wrapper">
-                            <img src="/images/hoian2.jpg" alt="Phố cổ Hội An">
-                            <span class="slider-category category-lich-su">Lịch sử</span>
-                        </div>
-                        <div class="slider-content">
-                            <div class="article-author">
-                                <span class="author-name">Trần Hà</span>
-                            </div>
-                            <h3 class="slider-title">Phố cổ Hội An lung linh sắc màu</h3>
-                            <p class="slider-description">
-                                Nét đẹp cổ kính với những ngôi nhà mái ngói vàng và đèn lồng rực rỡ mỗi đêm.
-                            </p>
-                            <div class="slider-location">📍 Hội An</div>
-                            <div class="article-interactions">
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">❤️</span>
-                                    <span>132</span>
-                                </div>
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">💬</span>
-                                    <span>20</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="swiper-slide">
-                    <div class="slider-card">
-                        <div class="slider-image-wrapper">
-                            <img src="/images/nhatrang.jpg" alt="Bãi biển Nha Trang">
-                            <span class="slider-category category-bien">Biển</span>
-                        </div>
-                        <div class="slider-content">
-                            <div class="article-author">
-                                <span class="author-name">Phạm Thanh</span>
-                            </div>
-                            <h3 class="slider-title">Biển xanh Nha Trang quyến rũ</h3>
-                            <p class="slider-description">
-                                Một trong những vịnh biển đẹp nhất thế giới với nước trong xanh và san hô tuyệt đẹp.
-                            </p>
-                            <div class="slider-location">📍 Nha Trang</div>
-                            <div class="article-interactions">
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">❤️</span>
-                                    <span>110</span>
-                                </div>
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">💬</span>
-                                    <span>15</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="swiper-slide">
-                    <div class="slider-card">
-                        <div class="slider-image-wrapper">
-                            <img src="/images/quangbinh2.jpg" alt="Động Phong Nha - Quảng Bình">
-                            <span class="slider-category category-thien-nhien">Thiên nhiên</span>
-                        </div>
-                        <div class="slider-content">
-                            <div class="article-author">
-                                <span class="author-name">Ngô Bảo</span>
-                            </div>
-                            <h3 class="slider-title">Quảng Bình - Vương quốc hang động</h3>
-                            <p class="slider-description">
-                                Phong Nha - Kẻ Bàng với những kỳ quan thiên nhiên kỳ vĩ bậc nhất Việt Nam.
-                            </p>
-                            <div class="slider-location">📍 Quảng Bình</div>
-                            <div class="article-interactions">
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">❤️</span>
-                                    <span>140</span>
-                                </div>
-                                <div class="interaction-item">
-                                    <span class="interaction-icon">💬</span>
-                                    <span>22</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- Chấm tròn pagination -->
-            <div class="swiper-pagination"></div>
-        </div>
-    </section>> *@
     <section>
         <div class="swiper-container">
             <h2 class="text-center">Bài viết gần đây</h2>
