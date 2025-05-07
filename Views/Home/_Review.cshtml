@@ -1,4 +1,4 @@
-@{
+@* @{
     ViewData["Title"] = "Đánh giá của mọi người";
 }
 
@@ -126,6 +126,144 @@
                         dẫn viên thân thiện, nhiệt tình. Mong công ty tiếp tục phát triển!</p>
                     <p class="author"><strong>Lê Quốc Bảo</strong> / Tour Hội An</p>
                 </div>
+            </div>
+        </div>
+    </section>
+</div> *@
+@using TourismWeb.Models 
+@using TourismWeb.Models.ViewModels;
+
+@{
+    ViewData["Title"] = "Đánh giá của mọi người";
+    // Khai báo kiểu cho ViewBag để có IntelliSense và kiểm tra kiểu
+    var customerReviews = ViewBag.CustomerReviews as List<ReviewViewModel> ?? new List<ReviewViewModel>();
+}
+
+<style>
+    /* CSS của bạn giữ nguyên như đã cung cấp ở câu trả lời trước */
+    .review-section {
+        font-family: Arial, sans-serif;
+    }
+
+    .review-section .testimonials {
+        position: relative;
+        color: white;
+        text-align: center;
+        padding: 80px 20px;
+    }
+
+    .review-section .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Lớp phủ tối */
+    }
+
+    .review-section .container {
+        position: relative;
+        z-index: 1;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    .review-section .title {
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    .review-section .subtitle {
+        font-size: 18px;
+        margin-bottom: 40px;
+    }
+
+    .review-section .reviews {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .review-section .review {
+        padding: 20px;
+        border-radius: 10px;
+        width: 30%; /* Điều chỉnh nếu cần, ví dụ: min-width: 300px; max-width: 340px; flex-basis: 30%; */
+        box-sizing: border-box;
+        text-align: center;
+        color: white;
+        background: rgba(0, 0, 0, 0.6);
+        margin-bottom: 20px;
+    }
+
+    .review-section .avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        object-fit: cover;
+        border: 2px solid #FFD700;
+    }
+
+    .review-section .stars {
+        color: orange;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .review-section .comment {
+        font-style: italic;
+        font-size: 14px;
+        min-height: 80px;
+    }
+
+    .review-section .author {
+        font-size: 14px;
+        margin-top: 10px;
+        color: #FFD700;
+    }
+
+    .review-section {
+        background-image: url('/images/xinchao5.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        padding: 50px 0;
+    }
+</style>
+
+<div class="review-section">
+    <section class="testimonials">
+        <div class="overlay"></div>
+        <div class="container">
+            <h2 class="title">ĐÁNH GIÁ CỦA MỌI NGƯỜI</h2>
+            <p class="subtitle">Cùng nhau tạo nên những chuyến đi đáng nhớ</p>
+            <div class="reviews">
+                @if (customerReviews.Any())
+                {
+                    @foreach (var reviewData in customerReviews) // Đổi tên biến để tránh nhầm lẫn với class Review
+                    {
+                        <div class="review">
+                            <img src="@Url.Content(reviewData.AvatarImageUrl)" alt="Ảnh đại diện @reviewData.AuthorName" class="avatar">
+                            <div class="stars">
+                                @for (int i = 0; i < reviewData.Rating; i++)
+                                {
+                                    <text>★</text>
+                                }
+                                @for (int i = reviewData.Rating; i < 5; i++)
+                                {
+                                    <text>☆</text>
+                                }
+                            </div>
+                            <p class="comment">@reviewData.Comment</p>
+                            <p class="author"><strong>@reviewData.AuthorName</strong> / @reviewData.TourName</p>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-center" style="color: white; width:100%;">Chưa có đánh giá nào để hiển thị.</p>
+                }
             </div>
         </div>
     </section>
