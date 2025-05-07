@@ -95,6 +95,19 @@
                 <input type="hidden" asp-for="UserId" />
                 <input type="hidden" asp-for="CreatedAt" />
 
+                <!-- Keep the existing Images collection to ensure it's not lost during model binding -->
+                @if (Model.Images != null)
+                {
+                    @foreach (var img in Model.Images)
+                    {
+                        <input type="hidden" name="Images[@img.PostImageId].PostImageId" value="@img.PostImageId" />
+                        <input type="hidden" name="Images[@img.PostImageId].PostId" value="@img.PostId" />
+                        <input type="hidden" name="Images[@img.PostImageId].ImageUrl" value="@img.ImageUrl" />
+                        <input type="hidden" name="Images[@img.PostImageId].UploadedBy" value="@img.UploadedBy" />
+                        <input type="hidden" name="Images[@img.PostImageId].UploadedAt" value="@img.UploadedAt" />
+                    }
+                }
+
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <div class="form-group mb-3">
@@ -240,6 +253,45 @@
                     document.getElementById('currentMainImage').src = e.target.result;
                 }
                 reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        // Show preview for additional images
+        document.querySelector('input[name="additionalImages"]').addEventListener('change', function (e) {
+            const previewContainer = document.createElement('div');
+            previewContainer.className = 'row mt-2';
+            previewContainer.id = 'additionalImagesPreview';
+
+            // Remove existing preview if any
+            const existingPreview = document.getElementById('additionalImagesPreview');
+            if (existingPreview) {
+                existingPreview.remove();
+            }
+
+            if (e.target.files && e.target.files.length > 0) {
+                for (let i = 0; i < e.target.files.length; i++) {
+                    const file = e.target.files[i];
+
+                    const col = document.createElement('div');
+                    col.className = 'col-md-3 mb-2';
+
+                    const img = document.createElement('img');
+                    img.className = 'img-thumbnail';
+                    img.style.height = '120px';
+                    img.style.width = '100%';
+                    img.style.objectFit = 'cover';
+
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        img.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+
+                    col.appendChild(img);
+                    previewContainer.appendChild(col);
+                }
+
+                this.parentElement.appendChild(previewContainer);
             }
         });
     </script>

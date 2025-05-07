@@ -6,10 +6,236 @@
 
 @{
     ViewData["Title"] = Model.Title;
+    string postType = Model.TypeOfPost;
+    
+    // Define theme colors and icons based on post type
+    string themeColor = "";
+    string themeClass = "";
+    string themeIcon = "";
+    string themeIconName = "";
+    
+    if (postType == "Trải nghiệm") {
+        themeColor = "#4CAF50"; // Green
+        themeClass = "experience-theme";
+        themeIcon = "bi-palm-tree"; // Biểu tượng cây dừa
+        themeIconName = "cây dừa";
+    } else if (postType == "Cẩm nang") {
+        themeColor = "#2196F3"; // Blue
+        themeClass = "guidebook-theme";
+        themeIcon = "bi-water"; // Biểu tượng sóng biển
+        themeIconName = "sóng biển";
+    } else if (postType == "Bài viết" || postType == "Địa điểm") {
+        themeColor = "#FF9800"; // Orange
+        themeClass = "article-theme";
+        themeIcon = "bi-circle-fill"; // Biểu tượng quả cam (sẽ tạo kiểu CSS để trông giống quả cam)
+        themeIconName = "quả cam";
+    }
 }
 
 @section Styles {
     <link rel="stylesheet" href="~/css/details.css" asp-append-version="true" />
+    <style>
+        /* Custom icons */
+        .orange-icon {
+            color: #FF9800;
+            position: relative;
+            font-size: 1.2em;
+        }
+        
+        .orange-icon:before {
+            content: "\F287"; /* Bootstrap Icons circle-fill code */
+            color: #FF9800;
+        }
+        
+        .orange-icon:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,152,0,0.1) 100%);
+            border-radius: 50%;
+        }
+        
+        .palm-tree-icon {
+            color: #4CAF50;
+        }
+        
+        .wave-icon {
+            color: #2196F3;
+        }
+        
+        /* Common theme styles */
+        .theme-icon {
+            margin-right: 8px;
+        }
+        
+        /* Experience theme - Green */
+        .experience-theme .section-title,
+        .experience-theme .meta-item i,
+        .experience-theme .sidebar-widget h4,
+        .experience-theme .toc-list a:hover,
+        .experience-theme .info-item i {
+            color: #4CAF50 !important;
+        }
+        
+        .experience-theme .btn-primary-custom,
+        .experience-theme .btn-primary,
+        .experience-theme .page-header {
+            background-color: #4CAF50 !important;
+            border-color: #4CAF50 !important;
+        }
+        
+        .experience-theme .sidebar-widget {
+            border-left: 3px solid #4CAF50;
+        }
+        
+        .experience-theme .tag-item:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        /* Guidebook theme - Blue */
+        .guidebook-theme .section-title,
+        .guidebook-theme .meta-item i,
+        .guidebook-theme .sidebar-widget h4,
+        .guidebook-theme .toc-list a:hover,
+        .guidebook-theme .info-item i {
+            color: #2196F3 !important;
+        }
+        
+        .guidebook-theme .btn-primary-custom,
+        .guidebook-theme .btn-primary,
+        .guidebook-theme .page-header {
+            background-color: #2196F3 !important;
+            border-color: #2196F3 !important;
+        }
+        
+        .guidebook-theme .sidebar-widget {
+            border-left: 3px solid #2196F3;
+        }
+        
+        .guidebook-theme .tag-item:hover {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        /* Article theme - Orange */
+        .article-theme .section-title,
+        .article-theme .meta-item i,
+        .article-theme .sidebar-widget h4,
+        .article-theme .toc-list a:hover,
+        .article-theme .info-item i {
+            color: #FF9800 !important;
+        }
+        
+        .article-theme .btn-primary-custom,
+        .article-theme .btn-primary,
+        .article-theme .page-header {
+            background-color: #FF9800 !important;
+            border-color: #FF9800 !important;
+        }
+        
+        .article-theme .sidebar-widget {
+            border-left: 3px solid #FF9800;
+        }
+        
+        .article-theme .tag-item:hover {
+            background-color: #FF9800;
+            color: white;
+        }
+        
+        /* Enhanced layout styles */
+        .page-header {
+            padding: 30px 0;
+            margin-bottom: 30px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .content-wrapper {
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: white;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .feature-image {
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: currentColor;
+        }
+        
+        .tag-item {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 0 5px 5px 0;
+            border-radius: 20px;
+            background-color: #f5f5f5;
+            transition: all 0.3s ease;
+        }
+        
+        .comment-item {
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+        }
+        
+        .theme-header-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            vertical-align: middle;
+        }
+        
+        /* Custom theme icons */
+        .theme-icon-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+        
+        .experience-theme .theme-icon-container {
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+        
+        .guidebook-theme .theme-icon-container {
+            background-color: rgba(33, 150, 243, 0.1);
+        }
+        
+        .article-theme .theme-icon-container {
+            background-color: rgba(255, 152, 0, 0.1);
+        }
+    </style>
 }
 
 @using System.Security.Claims
@@ -20,6 +246,7 @@
     var isFavorited = Model.PostFavorites?.Any(f => f.UserId == userId) == true;
 }
 
+<div class="@themeClass">
 <div class="page-header">
     <div class="container">
         <ul class="breadcrumb">
@@ -27,7 +254,22 @@
             <li class="breadcrumb-item"><a asp-action="Index">Bài viết</a></li>
             <li class="breadcrumb-item">@Model.Title</li>
         </ul>
-        <h1 class="post-title">@Model.Title</h1>
+        @* <h1 class="post-title">@Model.Title</h1> *@
+        <h1 class="post-title">
+            @if (postType == "Trải nghiệm")
+            {
+                <i class="bi bi-palm-tree theme-header-icon"></i>
+            }
+            else if (postType == "Cẩm nang")
+            {
+                <i class="bi bi-water theme-header-icon"></i>
+            }
+            else
+            {
+                <span class="theme-header-icon orange-icon"></span>
+            }
+            @Model.Title
+        </h1>
         <div class="post-meta">
             <div class="meta-item">
                 <i class="bi bi-person-fill"></i>
@@ -99,12 +341,343 @@
                     <p class="mb-0">Địa điểm du lịch nổi tiếng tại Việt Nam</p>
                 </div>
                 
-                <!-- Nội dung bài viết -->
+                @* <!-- Nội dung bài viết -->
                 <h3 class="section-title">Nội dung bài viết</h3>
                 <div class="post-content">
                     @Html.DisplayFor(model => model.Content)
-                </div>
-                
+                </div> *@
+                @* Nội dung bài viết theo loại *@
+                    @if (postType == "Địa điểm")
+                    {
+                        <div class="location-specific-content">
+                            <div class="location-highlights mb-4">
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <span class="orange-icon"></span>
+                                    </span>
+                                    Thông tin địa điểm
+                                </h3>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <div class="info-item">
+                                            <i class="bi bi-geo-alt-fill"></i>
+                                            <strong>Vị trí:</strong> @Model.Spot.Address
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="info-item">
+                                            <i class="bi bi-clock-fill"></i>
+                                            <strong>Thời gian tham quan:</strong> 2-3 giờ
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="info-item">
+                                            <i class="bi bi-currency-dollar"></i>
+                                            <strong>Giá vé:</strong> Từ 50.000 VND
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="info-item">
+                                            <i class="bi bi-star-fill"></i>
+                                            <strong>Đánh giá:</strong> 4.5/5
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="section-title">
+                                <span class="theme-icon-container">
+                                    <span class="orange-icon"></span>
+                                </span>
+                                Mô tả địa điểm
+                            </h3>
+                            <div class="post-content">
+                                @Html.DisplayFor(model => model.Content)
+                            </div>
+
+                            <!-- Hình ảnh bổ sung -->
+                            @if (Model.Images != null && Model.Images.Any())
+                            {
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <span class="orange-icon"></span>
+                                    </span>
+                                    Hình ảnh địa điểm
+                                </h3>
+                                <div class="location-gallery row">
+                                    @foreach (var image in Model.Images)
+                                    {
+                                        <div class="col-md-4 mb-3">
+                                            <img src="@image.ImageUrl" alt="Hình ảnh địa điểm" class="img-fluid rounded">
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            <h3 class="section-title">
+                                <span class="theme-icon-container">
+                                    <span class="orange-icon"></span>
+                                </span>
+                                Lịch trình tham quan gợi ý
+                            </h3>
+                            <div class="suggested-schedule">
+                                <div class="schedule-item">
+                                    <h5>Buổi sáng</h5>
+                                    <p>Khám phá các điểm tham quan chính và chụp hình</p>
+                                </div>
+                                <div class="schedule-item">
+                                    <h5>Buổi trưa</h5>
+                                    <p>Thưởng thức ẩm thực địa phương tại các nhà hàng gần đó</p>
+                                </div>
+                                <div class="schedule-item">
+                                    <h5>Buổi chiều</h5>
+                                    <p>Tham gia các hoạt động trải nghiệm và mua sắm quà lưu niệm</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (postType == "Cẩm nang")
+                    {
+                        <div class="guidebook-specific-content">
+                            <div class="guidebook-intro mb-4">
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <i class="bi bi-water wave-icon"></i>
+                                    </span>
+                                    Tổng quan
+                                </h3>
+                                <div class="callout-box" style="border-left: 4px solid @themeColor; padding: 15px; background-color: rgba(33, 150, 243, 0.1); border-radius: 4px;">
+                                    <i class="bi bi-info-circle-fill" style="color: @themeColor;"></i>
+                                    <p>Cẩm nang du lịch này sẽ cung cấp thông tin đầy đủ về @Model.Spot.Name, giúp bạn có chuyến đi trọn vẹn và tiết kiệm nhất.</p>
+                                </div>
+                            </div>
+
+                            <h3 class="section-title">
+                                <span class="theme-icon-container">
+                                    <i class="bi bi-water wave-icon"></i>
+                                </span>
+                                Nội dung cẩm nang
+                            </h3>
+                            <div class="post-content">
+                                @Html.DisplayFor(model => model.Content)
+                            </div>
+
+                            <!-- Hình ảnh bổ sung -->
+                            @if (Model.Images != null && Model.Images.Any())
+                            {
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <i class="bi bi-water wave-icon"></i>
+                                    </span>
+                                    Hình ảnh minh họa
+                                </h3>
+                                <div class="guidebook-gallery row">
+                                    @foreach (var image in Model.Images)
+                                    {
+                                        <div class="col-md-4 mb-3">
+                                            <img src="@image.ImageUrl" alt="Hình ảnh minh họa" class="img-fluid rounded">
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            <div class="tips-box mt-4" style="background-color: rgba(33, 150, 243, 0.05); border-radius: 8px; padding: 20px;">
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <i class="bi bi-water wave-icon"></i>
+                                    </span>
+                                    Mẹo du lịch
+                                </h3>
+                                <ul class="tips-list">
+                                    <li><i class="bi bi-check-circle-fill text-success"></i> Nên mang theo nước uống và đồ ăn nhẹ khi đi tham quan</li>
+                                    <li><i class="bi bi-check-circle-fill text-success"></i> Đặt phòng khách sạn trước khi đến để được giá tốt</li>
+                                    <li><i class="bi bi-check-circle-fill text-success"></i> Mang theo tiền mặt để mua đồ tại các chợ địa phương</li>
+                                    <li><i class="bi bi-check-circle-fill text-success"></i> Tìm hiểu về văn hóa và phong tục địa phương</li>
+                                </ul>
+                            </div>
+
+                            <div class="packing-list mt-4">
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <i class="bi bi-water wave-icon"></i>
+                                    </span>
+                                    Đồ cần mang theo
+                                </h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="packing-category" style="background-color: rgba(33, 150, 243, 0.05); border-radius: 8px; padding: 15px;">
+                                            <h5><i class="bi bi-sun-fill text-warning"></i> Mùa nắng</h5>
+                                            <ul>
+                                                <li>Kem chống nắng</li>
+                                                <li>Nón rộng vành</li>
+                                                <li>Kính râm</li>
+                                                <li>Quần áo thoáng mát</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="packing-category" style="background-color: rgba(33, 150, 243, 0.05); border-radius: 8px; padding: 15px;">
+                                            <h5><i class="bi bi-cloud-rain-fill text-info"></i> Mùa mưa</h5>
+                                            <ul>
+                                                <li>Áo mưa/dù</li>
+                                                <li>Giày không thấm nước</li>
+                                                <li>Quần áo dễ khô</li>
+                                                <li>Túi chống nước cho điện thoại</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (postType == "Trải nghiệm")
+                    {
+                        <div class="experience-specific-content">
+                            <div class="experience-highlights mb-4">
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <i class="bi bi-palm-tree palm-tree-icon"></i>
+                                    </span>
+                                    Tóm tắt trải nghiệm
+                                </h3>
+                                <div class="experience-info-box" style="background-color: rgba(76, 175, 80, 0.05); border-radius: 8px; padding: 20px; border-left: 4px solid #4CAF50;">
+                                    <p><strong><i class="bi bi-calendar-check" style="color: #4CAF50;"></i> Thời gian:</strong> @Model.CreatedAt.ToString("dd/MM/yyyy") - @Model.CreatedAt.AddDays(3).ToString("dd/MM/yyyy")</p>
+                                    <p><strong><i class="bi bi-people-fill" style="color: #4CAF50;"></i> Đồng hành:</strong> Gia đình</p>
+                                    <p><strong><i class="bi bi-cash" style="color: #4CAF50;"></i> Chi phí:</strong> Khoảng 5 triệu VND/người</p>
+                                    <p><strong><i class="bi bi-emoji-smile" style="color: #4CAF50;"></i> Đánh giá:</strong> Tuyệt vời (9/10)</p>
+                                </div>
+                            </div>
+
+                            <h3 class="section-title">
+                                <span class="theme-icon-container">
+                                    <i class="bi bi-palm-tree palm-tree-icon"></i>
+                                </span>
+                                Câu chuyện trải nghiệm
+                            </h3>
+                            <div class="post-content">
+                                @Html.DisplayFor(model => model.Content)
+                            </div>
+
+                            <!-- Hình ảnh bổ sung -->
+                            @if (Model.Images != null && Model.Images.Any())
+                            {
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <i class="bi bi-palm-tree palm-tree-icon"></i>
+                                    </span>
+                                    Khoảnh khắc đáng nhớ
+                                </h3>
+                                <div class="experience-gallery row">
+                                    @foreach (var image in Model.Images)
+                                    {
+                                        <div class="col-md-4 mb-3">
+                                            <div class="memory-card" style="border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                                <img src="@image.ImageUrl" alt="Khoảnh khắc đáng nhớ" class="img-fluid">
+                                                <div class="memory-caption" style="background-color: rgba(76, 175, 80, 0.8); color: white; padding: 8px 12px;">
+                                                    <i class="bi bi-camera"></i> Khoảnh khắc tại @Model.Spot.Name
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            <div class="experience-rating mt-4" style="background-color: rgba(76, 175, 80, 0.05); border-radius: 8px; padding: 20px;">
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <i class="bi bi-palm-tree palm-tree-icon"></i>
+                                    </span>
+                                    Đánh giá chi tiết
+                                </h3>
+                                <div class="rating-categories">
+                                    <div class="rating-item">
+                                        <span>Cảnh quan</span>
+                                        <div class="rating-stars">
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                        </div>
+                                    </div>
+                                    <div class="rating-item">
+                                        <span>Ẩm thực</span>
+                                        <div class="rating-stars">
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star text-warning"></i>
+                                        </div>
+                                    </div>
+                                    <div class="rating-item">
+                                        <span>Dịch vụ</span>
+                                        <div class="rating-stars">
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-half text-warning"></i>
+                                            <i class="bi bi-star text-warning"></i>
+                                        </div>
+                                    </div>
+                                    <div class="rating-item">
+                                        <span>Giá cả</span>
+                                        <div class="rating-stars">
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                            <i class="bi bi-star text-warning"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="experience-conclusion mt-4">
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <i class="bi bi-palm-tree palm-tree-icon"></i>
+                                    </span>
+                                    Lời khuyên cho bạn
+                                </h3>
+                                <div class="conclusion-box" style="background-color: rgba(76, 175, 80, 0.1); border-radius: 8px; padding: 20px; border-left: 4px solid #4CAF50;">
+                                    <p>Nếu bạn có kế hoạch đến @Model.Spot.Name, hãy dành ít nhất 2 ngày để tận hưởng đầy đủ vẻ đẹp của nơi này. Đừng quên thưởng thức món đặc sản địa phương và tham gia các hoạt động văn hóa để có trải nghiệm trọn vẹn nhất.</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- Nội dung bài viết mặc định -->
+                        <h3 class="section-title">
+                            <span class="theme-icon-container">
+                                <span class="orange-icon"></span>
+                            </span>
+                            Nội dung bài viết
+                        </h3>
+                        <div class="post-content">
+                            @Html.DisplayFor(model => model.Content)
+                        </div>
+                        
+                        <!-- Hiển thị hình ảnh bổ sung -->
+                        @if (Model.Images != null && Model.Images.Any())
+                        {
+                            <h3 class="section-title">
+                                <span class="theme-icon-container">
+                                    <span class="orange-icon"></span>
+                                </span>
+                                Hình ảnh
+                            </h3>
+                            <div class="row">
+                                @foreach (var image in Model.Images)
+                                {
+                                    <div class="col-md-4 mb-3">
+                                        <img src="@image.ImageUrl" alt="Hình ảnh" class="img-fluid rounded">
+                                    </div>
+                                }
+                            </div>
+                        }
+                    }
                 <!-- Thông tin tác giả -->
                 <!-- <h3 class="section-title">Về tác giả</h3>
                 <div class="author-box">
@@ -122,8 +695,27 @@
                 <!-- Phần bình luận -->
                 <div class="comments-section mt-5">
                     <h3 class="section-title">
-                        <i class="bi bi-chat-dots-fill me-2"></i>
-                        Bình luận (@Model.Comments.Count)
+                        @* <i class="bi bi-chat-dots-fill me-2"></i>
+                        Bình luận (@Model.Comments.Count) *@
+                        @if (postType == "Trải nghiệm")
+                            {
+                                <span class="theme-icon-container">
+                                    <i class="bi bi-palm-tree palm-tree-icon"></i>
+                                </span>
+                            }
+                            else if (postType == "Cẩm nang")
+                            {
+                                <span class="theme-icon-container">
+                                    <i class="bi bi-water wave-icon"></i>
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="theme-icon-container">
+                                    <span class="orange-icon"></span>
+                                </span>
+                            }
+                            Bình luận (@(Model.Comments?.Count ?? 0))
                     </h3>
                     
                     <!-- Form thêm bình luận mới -->
@@ -223,7 +815,22 @@
         <div class="col-lg-4">
             <!-- Widget thông tin tác giả -->
             <div class="sidebar-widget">
-                <h4><i class="bi bi-person-circle"></i> Tác giả</h4>
+                @* <h4><i class="bi bi-person-circle"></i> Tác giả</h4> *@
+                <h4>
+                        @if (postType == "Trải nghiệm")
+                        {
+                            <i class="bi bi-palm-tree me-2"></i>
+                        }
+                        else if (postType == "Cẩm nang")
+                        {
+                            <i class="bi bi-water me-2"></i>
+                        }
+                        else
+                        {
+                            <span class="orange-icon me-2"></span>
+                        }
+                        Tác giả
+                    </h4>
                 <div class="d-flex align-items-center">
                     <div class="author-avatar" style="width: 50px; height: 50px; font-size: 1.2rem;">
                         @(Model.User.FullName.Substring(0, 1).ToUpper())
@@ -235,48 +842,186 @@
                 </div>
                 <!-- <p class="mt-3 mb-0">Người yêu du lịch với hơn 5 năm kinh nghiệm khám phá các điểm đến tại Việt Nam.</p> -->
             </div>
+
+            <!-- Sidebar tùy chỉnh theo loại bài viết -->
+                @if (postType == "Địa điểm")
+                {
+                    <div class="sidebar-widget">
+                        <h4>
+                            <span class="orange-icon me-2"></span>
+                            Thông tin liên hệ
+                        </h4>
+                        <ul class="contact-info">
+                            <li><i class="bi bi-telephone"></i> Hotline: 0123 456 789</li>
+                            <li><i class="bi bi-globe"></i> Website: www.@(Model.Spot?.Name?.ToLower().Replace(" ", "").Replace("ê", "e").Replace("ố", "o") ?? "")tourism.com</li>
+                            <li><i class="bi bi-envelope"></i> Email: info@@@(Model.Spot?.Name?.ToLower().Replace(" ", "").Replace("ê", "e").Replace("ố", "o") ?? "")tourism.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-widget">
+                        <h4>
+                            <span class="orange-icon me-2"></span>
+                            Thời điểm lý tưởng
+                        </h4>
+                        <div class="best-time">
+                            <p>Thời gian tốt nhất để tham quan @Model.Spot?.Name là từ tháng 10 đến tháng 4 năm sau, khi thời tiết mát mẻ và ít mưa.</p>
+                        </div>
+                    </div>
+                }
+                else if (postType == "Cẩm nang")
+                {
+                    <div class="sidebar-widget">
+                        <h4>
+                            <i class="bi bi-water me-2"></i>
+                            Chi phí tham khảo
+                        </h4>
+                        <div class="cost-breakdown">
+                            <div class="cost-item">
+                                <span>Khách sạn:</span>
+                                <span class="price">300.000 - 1.500.000 VND/đêm</span>
+                            </div>
+                            <div class="cost-item">
+                                <span>Ăn uống:</span>
+                                <span class="price">100.000 - 300.000 VND/ngày</span>
+                            </div>
+                            <div class="cost-item">
+                                <span>Di chuyển:</span>
+                                <span class="price">200.000 - 500.000 VND/ngày</span>
+                            </div>
+                            <div class="cost-item">
+                                <span>Vé tham quan:</span>
+                                <span class="price">50.000 - 200.000 VND/người</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-widget">
+                        <h4>
+                            <i class="bi bi-water me-2"></i>
+                            Tài liệu hữu ích
+                        </h4>
+                        <ul class="download-links">
+                            <li><a href="#"><i class="bi bi-file-pdf"></i> Bản đồ du lịch @Model.Spot?.Name</a></li>
+                            <li><a href="#"><i class="bi bi-file-pdf"></i> Danh sách nhà hàng đề xuất</a></li>
+                            <li><a href="#"><i class="bi bi-file-pdf"></i> Lịch trình tham quan 3 ngày</a></li>
+                        </ul>
+                    </div>
+                }
+                else if (postType == "Trải nghiệm")
+                {
+                    <div class="sidebar-widget">
+                        <h4>
+                            <i class="bi bi-palm-tree me-2"></i>
+                            Trải nghiệm nổi bật
+                        </h4>
+                        <div class="highlight-experiences">
+                            <div class="highlight-item">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <span>Ngắm hoàng hôn tại bãi biển</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <span>Thưởng thức ẩm thực đường phố</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <span>Tham gia tour khám phá văn hóa</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-widget">
+                        <h4>
+                            <i class="bi bi-palm-tree me-2"></i>
+                            Hành trình của tôi
+                        </h4>
+                        <div class="itinerary-summary">
+                            <div class="day-item">
+                                <h6>Ngày 1</h6>
+                                <p>Check-in khách sạn, khám phá khu vực lân cận</p>
+                            </div>
+                            <div class="day-item">
+                                <h6>Ngày 2</h6>
+                                <p>Tham quan các điểm du lịch chính, thưởng thức ẩm thực địa phương</p>
+                            </div>
+                            <div class="day-item">
+                                <h6>Ngày 3</h6>
+                                <p>Trải nghiệm các hoạt động đặc sắc, mua sắm quà lưu niệm</p>
+                            </div>
+                        </div>
+                    </div>
+                }
             
             <!-- Widget mục lục -->
             <div class="sidebar-widget">
-                <h4><i class="bi bi-list-ul"></i> Mục lục</h4>
+                @* <h4><i class="bi bi-list-ul"></i> Mục lục</h4> *@
+                <h4>
+                        @if (postType == "Trải nghiệm")
+                        {
+                            <i class="bi bi-palm-tree me-2"></i>
+                        }
+                        else if (postType == "Cẩm nang")
+                        {
+                            <i class="bi bi-water me-2"></i>
+                        }
+                        else
+                        {
+                            <span class="orange-icon me-2"></span>
+                        }
+                        Mục lục
+                    </h4>
                 <ul class="toc-list">
-                    <li>
-                        <a href="#introduction">
-                            <i class="bi bi-arrow-right-short"></i>
-                            Giới thiệu về @Model.Spot.Name
-                        </a>
-                    </li>
-                    <!-- <li>
-                        <a href="#activities">
-                            <i class="bi bi-arrow-right-short"></i>
-                            Hoạt động du lịch
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#accommodation">
-                            <i class="bi bi-arrow-right-short"></i>
-                            Nơi lưu trú
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#food">
-                            <i class="bi bi-arrow-right-short"></i>
-                            Ẩm thực địa phương
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#tips">
-                            <i class="bi bi-arrow-right-short"></i>
-                            Mẹo du lịch
-                        </a>
-                    </li> -->
+                    @if (postType == "Địa điểm")
+                        {
+                            <li><a href="#section-thông-tin-địa-điểm"><i class="bi bi-arrow-right-short"></i> Thông tin địa điểm</a></li>
+                            <li><a href="#section-mô-tả-địa-điểm"><i class="bi bi-arrow-right-short"></i> Mô tả địa điểm</a></li>
+                            <li><a href="#section-hình-ảnh-địa-điểm"><i class="bi bi-arrow-right-short"></i> Hình ảnh địa điểm</a></li>
+                            <li><a href="#section-lịch-trình-tham-quan-gợi-ý"><i class="bi bi-arrow-right-short"></i> Lịch trình tham quan gợi ý</a></li>
+                        }
+                        else if (postType == "Cẩm nang")
+                        {
+                            <li><a href="#section-tổng-quan"><i class="bi bi-arrow-right-short"></i> Tổng quan</a></li>
+                            <li><a href="#section-nội-dung-cẩm-nang"><i class="bi bi-arrow-right-short"></i> Nội dung cẩm nang</a></li>
+                            <li><a href="#section-hình-ảnh-minh-họa"><i class="bi bi-arrow-right-short"></i> Hình ảnh minh họa</a></li>
+                            <li><a href="#section-mẹo-du-lịch"><i class="bi bi-arrow-right-short"></i> Mẹo du lịch</a></li>
+                            <li><a href="#section-đồ-cần-mang-theo"><i class="bi bi-arrow-right-short"></i> Đồ cần mang theo</a></li>
+                        }
+                        else if (postType == "Trải nghiệm")
+                        {
+                           <li><a href="#section-tóm-tắt-trải-nghiệm"><i class="bi bi-arrow-right-short"></i> Tóm tắt trải nghiệm</a></li>
+                            <li><a href="#section-câu-chuyện-trải-nghiệm"><i class="bi bi-arrow-right-short"></i> Câu chuyện trải nghiệm</a></li>
+                            <li><a href="#section-khoảnh-khắc-đáng-nhớ"><i class="bi bi-arrow-right-short"></i> Khoảnh khắc đáng nhớ</a></li>
+                            <li><a href="#section-đánh-giá-chi-tiết"><i class="bi bi-arrow-right-short"></i> Đánh giá chi tiết</a></li>
+                            <li><a href="#section-lời-khuyên-cho-bạn"><i class="bi bi-arrow-right-short"></i> Lời khuyên cho bạn</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="#section-nội-dung-bài-viết"><i class="bi bi-arrow-right-short"></i> Nội dung bài viết</a></li>
+                            <li><a href="#section-hình-ảnh"><i class="bi bi-arrow-right-short"></i> Hình ảnh</a></li>
+                        }
+                        <li><a href="#section-bình-luận"><i class="bi bi-arrow-right-short"></i> Bình luận</a></li>
                 </ul>
             </div>
             
             <!-- Widget bài viết liên quan -->
             <div class="sidebar-widget">
-                <h4><i class="bi bi-journals"></i> Bài viết liên quan</h4>
-                <div class="mb-3 related-post-item">
+                @* <h4><i class="bi bi-journals"></i> Bài viết liên quan</h4> *@
+                <h4>
+                        @if (postType == "Trải nghiệm")
+                        {
+                            <i class="bi bi-palm-tree me-2"></i>
+                        }
+                        else if (postType == "Cẩm nang")
+                        {
+                            <i class="bi bi-water me-2"></i>
+                        }
+                        else
+                        {
+                            <span class="orange-icon me-2"></span>
+                        }
+                        Bài viết liên quan
+                </h4>
+                @* <div class="mb-3 related-post-item">
                     <a href="#" class="text-decoration-none">
                         <div class="d-flex">
                             <div class="flex-shrink-0">
@@ -314,8 +1059,94 @@
                             </div>
                         </div>
                     </a>
+                </div> *@
+                <div class="related-posts"></div>
+                        <!-- Đây là phần giả định có 3 bài viết liên quan -->
+                        <div class="related-post-item">
+                            <div class="related-post-img">
+                                <img src="/img/placeholder-image.jpg" alt="Bài viết liên quan" class="img-fluid">
+                            </div>
+                            <div class="related-post-content">
+                                <h6><a href="#">Top 10 địa điểm không thể bỏ qua ở @Model.Spot?.Name</a></h6>
+                                <span class="small text-muted">15/04/2023</span>
+                            </div>
+                        </div>
+                        <div class="related-post-item">
+                            <div class="related-post-img">
+                                <img src="/img/placeholder-image.jpg" alt="Bài viết liên quan" class="img-fluid">
+                            </div>
+                            <div class="related-post-content">
+                                <h6><a href="#">Ẩm thực đặc sắc tại @Model.Spot?.Name phải thử một lần</a></h6>
+                                <span class="small text-muted">20/03/2023</span>
+                            </div>
+                        </div>
+                        <div class="related-post-item">
+                            <div class="related-post-img">
+                                <img src="/img/placeholder-image.jpg" alt="Bài viết liên quan" class="img-fluid">
+                            </div>
+                            <div class="related-post-content">
+                                <h6><a href="#">Kinh nghiệm du lịch @Model.Spot?.Name tiết kiệm</a></h6>
+                                <span class="small text-muted">05/02/2023</span>
+                            </div>
+                        </div>
+                    </div>
+                <!-- Widget tags - chung cho tất cả loại bài viết -->
+                <div class="sidebar-widget">
+                    <h4>
+                        @if (postType == "Trải nghiệm")
+                        {
+                            <i class="bi bi-palm-tree me-2"></i>
+                        }
+                        else if (postType == "Cẩm nang")
+                        {
+                            <i class="bi bi-water me-2"></i>
+                        }
+                        else
+                        {
+                            <span class="orange-icon me-2"></span>
+                        }
+                        Tags
+                    </h4>
+                    <div class="post-tags">
+                        <a href="#" class="tag-item">Du lịch</a>
+                        <a href="#" class="tag-item">Việt Nam</a>
+                        <a href="#" class="tag-item">@Model.Spot?.Name</a>
+                        <a href="#" class="tag-item">@Model.TypeOfPost</a>
+                        <a href="#" class="tag-item">Khám phá</a>
+                        <a href="#" class="tag-item">Trải nghiệm</a>
+                    </div>
                 </div>
-            </div>
+                
+                <!-- Widget đăng ký nhận tin - chung cho tất cả loại bài viết -->
+                <div class="sidebar-widget">
+                    <h4>
+                        @if (postType == "Trải nghiệm")
+                        {
+                            <i class="bi bi-palm-tree me-2"></i>
+                        }
+                        else if (postType == "Cẩm nang")
+                        {
+                            <i class="bi bi-water me-2"></i>
+                        }
+                        else
+                        {
+                            <span class="orange-icon me-2"></span>
+                        }
+                        Đăng ký nhận tin
+                    </h4>
+                    <div class="newsletter-box">
+                        <p>Nhận thông tin cập nhật về các điểm du lịch và ưu đãi hấp dẫn</p>
+                        <form action="#" method="post">
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control" placeholder="Email của bạn" required>
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="bi bi-send"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> 
         </div>
     </div>
 </div>
@@ -452,6 +1283,88 @@
             });
         });
 
+    </script>
+    <script>
+        // Script để xử lý smooth scroll cho mục lục
+        document.addEventListener('DOMContentLoaded', function() {
+            const tocLinks = document.querySelectorAll('.toc-list a');
+            
+            tocLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+        // Thêm ID cho các tiêu đề để liên kết với mục lục
+            const addSectionIds = () => {
+                const sectionTitles = document.querySelectorAll('.section-title');
+                sectionTitles.forEach((title, index) => {
+                    const titleText = title.textContent.trim().toLowerCase().replace(/\s+/g, '-');
+                    title.id = `section-${titleText}`;
+                });
+            };
+            
+            addSectionIds();
+            
+            // Hiệu ứng cho comment actions
+            const commentActions = document.querySelectorAll('.comment-action');
+            commentActions.forEach(action => {
+                if (action.textContent.trim() === 'Thích' || action.textContent.trim() === 'Trả lời') {
+                    action.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        this.classList.toggle('active');
+                        
+                        if (this.textContent.trim() === 'Trả lời') {
+                            // Thêm logic hiển thị form trả lời comment tại đây
+                            alert('Chức năng trả lời comment sẽ được phát triển sau!');
+                        }
+                    });
+                }
+            });
+            
+            // Hiệu ứng zoom cho hình ảnh
+            const galleryImages = document.querySelectorAll('.location-gallery img, .guidebook-gallery img, .experience-gallery img');
+            galleryImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    // Tạo lightbox đơn giản
+                    const lightbox = document.createElement('div');
+                    lightbox.classList.add('lightbox');
+                    lightbox.style.position = 'fixed';
+                    lightbox.style.top = '0';
+                    lightbox.style.left = '0';
+                    lightbox.style.width = '100%';
+                    lightbox.style.height = '100%';
+                    lightbox.style.backgroundColor = 'rgba(0,0,0,0.9)';
+                    lightbox.style.display = 'flex';
+                    lightbox.style.alignItems = 'center';
+                    lightbox.style.justifyContent = 'center';
+                    lightbox.style.zIndex = '9999';
+                    
+                    const imgClone = document.createElement('img');
+                    imgClone.src = this.src;
+                    imgClone.style.maxHeight = '90%';
+                    imgClone.style.maxWidth = '90%';
+                    imgClone.style.objectFit = 'contain';
+                    
+                    lightbox.appendChild(imgClone);
+                    document.body.appendChild(lightbox);
+                    
+                    lightbox.addEventListener('click', function() {
+                        this.remove();
+                    });
+                });
+            });
+        });
     </script>
 }
 
