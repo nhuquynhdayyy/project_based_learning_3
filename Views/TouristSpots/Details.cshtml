@@ -340,59 +340,6 @@
 
     <!-- Reviews Section -->
     <section class="reviews-section">
-        @* <div class="section-header">
-            <h2>Đánh giá (@(Model.Reviews?.Count ?? 0))</h2>
-            <div class="rating-summary">
-                <div class="average-rating">
-                    <span class="big-rating">4.8</span>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <span>@(Model.Reviews?.Count ?? 0) đánh giá</span>
-                </div>
-                <div class="rating-bars">
-                    <div class="rating-bar">
-                        <span>5 sao</span>
-                        <div class="bar-container">
-                            <div class="bar" style="width: 80%"></div>
-                        </div>
-                        <span>125</span>
-                    </div>
-                    <div class="rating-bar">
-                        <span>4 sao</span>
-                        <div class="bar-container">
-                            <div class="bar" style="width: 15%"></div>
-                        </div>
-                        <span>23</span>
-                    </div>
-                    <div class="rating-bar">
-                        <span>3 sao</span>
-                        <div class="bar-container">
-                            <div class="bar" style="width: 4%"></div>
-                        </div>
-                        <span>6</span>
-                    </div>
-                    <div class="rating-bar">
-                        <span>2 sao</span>
-                        <div class="bar-container">
-                            <div class="bar" style="width: 1%"></div>
-                        </div>
-                        <span>2</span>
-                    </div>
-                    <div class="rating-bar">
-                        <span>1 sao</span>
-                        <div class="bar-container">
-                            <div class="bar" style="width: 0%"></div>
-                        </div>
-                        <span>0</span>
-                    </div>
-                </div>
-            </div>
-        </div> *@
         <div class="section-header">
             <h2>Đánh giá (@(ViewBag.TotalReviews ?? 0))</h2>
             <div class="rating-summary">
@@ -774,14 +721,14 @@
             document.querySelector('.share-options').classList.toggle('show');
         });
 
-        // Filter reviews
+        @* // Filter reviews
         document.querySelectorAll('.filter-btn').forEach(button => {
             button.addEventListener('click', function() {
                 document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
                 // Add filter logic here
             });
-        });
+        }); *@
     </script>
     <script>
         document.querySelectorAll('.share-btn').forEach(btn => {
@@ -848,11 +795,142 @@
             });
         });
     </script>
-    <script>
+    @* <script>
         document.getElementById('writeReviewBtn').addEventListener('click', function() {
             var reviewForm = document.getElementById('reviewForm');
             reviewForm.style.display = (reviewForm.style.display === 'none' || reviewForm.style.display === '') ? 'block' : 'none';
         });
+    </script> *@
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const reviewsListContainer = document.querySelector('.reviews-list');
+            const loadMoreButton = document.getElementById('loadMoreReviews');
+            const writeReviewBtn = document.getElementById('writeReviewBtn');
+            const reviewForm = document.getElementById('reviewForm');
+            const spotId = @Model.SpotId; // Lấy SpotId từ Model
+
+            let currentPage = 1; // Để theo dõi trang hiện tại cho "Xem thêm"
+            const reviewsPerPage = 3; // Số lượng review mỗi lần tải
+
+            // Hàm để tải và hiển thị reviews
+            async function loadReviews(page = 1, sortBy = 'newest', filterByRating = 'all', filterByPhotos = false, append = false) {
+                // Vô hiệu hóa nút "Xem thêm" tạm thời
+                if (loadMoreButton) loadMoreButton.disabled = true;
+
+                let url = `/TouristSpots/GetFilteredReviews?spotId=${spotId}&page=${page}&pageSize=${reviewsPerPage}&sortBy=${sortBy}&filterRating=${filterByRating}&withPhotos=${filterByPhotos}`;
+
+                try {
+                    const response = await fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            // Nếu cần AntiForgeryToken cho GET (thường không cần, nhưng nếu server yêu cầu)
+                            // 'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                        }
+                    });
+
+                    if (!response.ok) {
+                        console.error('Lỗi khi tải đánh giá:', response.statusText);
+                        // Hiển thị thông báo lỗi cho người dùng nếu cần
+                        if (loadMoreButton) loadMoreButton.disabled = false; // Kích hoạt lại nút
+                        return;
+                    }
+
+                    const htmlResult = await response.text();
+
+                    if (append) {
+                        // Xóa nút "Xem thêm" cũ trước khi thêm nội dung mới
+                        const existingLoadMoreDiv = reviewsListContainer.querySelector('.load-more');
+                        if (existingLoadMoreDiv) {
+                            existingLoadMoreDiv.remove();
+                        }
+                        reviewsListContainer.insertAdjacentHTML('beforeend', htmlResult);
+                    } else {
+                        reviewsListContainer.innerHTML = htmlResult; // Thay thế toàn bộ nội dung
+                    }
+
+                    currentPage = page;
+
+                    // Kích hoạt lại nút "Xem thêm" nếu còn dữ liệu
+                    const newLoadMoreButton = document.getElementById('loadMoreReviews'); // Nút có thể đã được render lại
+                    if (newLoadMoreButton) {
+                         // Logic để ẩn/hiện nút "Xem thêm" nên dựa trên việc server có trả về nút đó không,
+                         // hoặc server trả về một cờ báo hiệu còn dữ liệu.
+                         // Ví dụ, nếu htmlResult không chứa class 'load-more', nghĩa là hết dữ liệu.
+                         if (!htmlResult.includes('class="load-more"')) {
+                            newLoadMoreButton.style.display = 'none';
+                         } else {
+                            newLoadMoreButton.style.display = 'block';
+                            newLoadMoreButton.addEventListener('click', handleLoadMoreClick); // Gắn lại event
+                         }
+                    }
+
+
+                } catch (error) {
+                    console.error('Lỗi fetch:', error);
+                    if (loadMoreButton) loadMoreButton.disabled = false; // Kích hoạt lại nút
+                }
+            }
+
+            function getSelectedFilters() {
+                const sortBy = document.getElementById('sortReviews').value;
+                const activeRatingFilterBtn = document.querySelector('.filter-buttons .filter-btn.active');
+                const filterByRating = activeRatingFilterBtn ? activeRatingFilterBtn.dataset.filter : 'all';
+                const filterByPhotos = filterByRating === 'with-photos'; // Nếu nút "Có hình ảnh" active
+                // Hoặc nếu bạn có nút "Có hình ảnh" riêng biệt:
+                // const filterByPhotosBtn = document.querySelector('.filter-btn[data-filter="with-photos"]');
+                // const filterByPhotos = filterByPhotosBtn ? filterByPhotosBtn.classList.contains('active') : false;
+
+                return { sortBy, filterByRating: filterByPhotos ? 'all' : filterByRating, filterByPhotos };
+            }
+
+            // Xử lý sự kiện cho các nút lọc rating và nút "Có hình ảnh"
+            document.querySelectorAll('.filter-buttons .filter-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    document.querySelectorAll('.filter-buttons .filter-btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    currentPage = 1; // Reset về trang đầu khi đổi filter
+                    const filters = getSelectedFilters();
+                    loadReviews(currentPage, filters.sortBy, filters.filterByRating, filters.filterByPhotos, false);
+                });
+            });
+
+            // Xử lý sự kiện cho dropdown sắp xếp
+            document.getElementById('sortReviews').addEventListener('change', function () {
+                currentPage = 1; // Reset về trang đầu khi đổi sort
+                const filters = getSelectedFilters();
+                loadReviews(currentPage, filters.sortBy, filters.filterByRating, filters.filterByPhotos, false);
+            });
+
+            // Xử lý nút "Xem thêm"
+            function handleLoadMoreClick() {
+                const filters = getSelectedFilters();
+                loadReviews(currentPage + 1, filters.sortBy, filters.filterByRating, filters.filterByPhotos, true);
+            }
+
+            if (loadMoreButton) {
+                loadMoreButton.addEventListener('click', handleLoadMoreClick);
+            }
+
+
+            // Nút "Viết đánh giá"
+            if (writeReviewBtn) {
+                writeReviewBtn.addEventListener('click', function() {
+                    reviewForm.style.display = (reviewForm.style.display === 'none' || reviewForm.style.display === '') ? 'block' : 'none';
+                });
+            }
+
+            // Tải review ban đầu khi trang được load (nếu bạn không render sẵn)
+            // Hoặc nếu bạn đã render sẵn 3 review đầu, thì không cần gọi ở đây trừ khi muốn đồng bộ với filter mặc định.
+            // const initialFilters = getSelectedFilters();
+            // loadReviews(1, initialFilters.sortBy, initialFilters.filterByRating, initialFilters.filterByPhotos, false);
+
+        });
+
+        @* // Hàm mở lightbox (giữ nguyên nếu bạn có)
+        function openLightbox(src) {
+            // Logic mở lightbox của bạn
+            console.log('Open lightbox for:', src);
+        } *@
     </script>
 }
 

@@ -9,6 +9,7 @@ using TourismWeb.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Security.Claims;
+using System.Collections.Generic; // Cho List
 
 namespace TourismWeb.Controllers
 {
@@ -220,8 +221,80 @@ namespace TourismWeb.Controllers
             ViewBag.RatingPercentages = ratingPercentages;
             ViewBag.TotalReviews = totalReviews;
 
+            // Lấy 3 review đầu tiên để hiển thị ban đầu (nếu muốn)
+        // Bạn có thể bỏ qua phần này và để JavaScript tải tất cả khi trang load
+        // Hoặc bạn có thể gọi action GetFilteredReviews ngay từ đầu với tham số mặc định
+        var initialReviews = await GetReviewsQuery(id.Value, "newest", "all", false)
+                                    .Take(3)
+                                    .ToListAsync();
+        touristSpot.Reviews = initialReviews; // Gán lại cho Model để view ban đầu có dữ liệu
             return View(touristSpot);
         }
+
+        // Action mới để xử lý AJAX request cho việc lọc reviews
+    // GET: /TouristSpots/GetFilteredReviews
+    [HttpGet]
+    public async Task<IActionResult> GetFilteredReviews(int spotId, int page = 1, int pageSize = 3, string sortBy = "newest", string filterRating = "all", bool withPhotos = false)
+    {
+        var query = GetReviewsQuery(spotId, sortBy, filterRating, withPhotos);
+
+        var totalReviews = await query.CountAsync();
+        var reviews = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+        ViewBag.CurrentPage = page;
+        ViewBag.PageSize = pageSize;
+        ViewBag.TotalReviewsForPagination = totalReviews; // Tổng số review sau khi lọc, cho logic nút "Xem thêm"
+
+        // Nếu không còn review nào ở trang này và page > 1 (nghĩa là đang load more mà hết)
+        // thì không cần trả về nút "Xem thêm"
+        if (!reviews.Any() && page > 1) {
+            return Content(""); // Trả về chuỗi rỗng
+        }
+
+
+        return PartialView("_ReviewListPartial", reviews);
+    }
+
+    // Hàm helper để xây dựng query cho reviews
+    private IQueryable<Review> GetReviewsQuery(int spotId, string sortBy, string filterRating, bool withPhotos)
+    {
+        var query = _context.Reviews
+                            .Include(r => r.User) // Cần User để hiển thị thông tin người đánh giá
+                            .Where(r => r.SpotId == spotId);
+
+        // Áp dụng bộ lọc theo rating
+        if (filterRating != "all" && int.TryParse(filterRating, out int rating))
+        {
+            query = query.Where(r => r.Rating == rating);
+        }
+
+        // Áp dụng bộ lọc "Có hình ảnh"
+        if (withPhotos)
+        {
+            // Điều kiện này giả sử ImageUrl sẽ không phải là giá trị mặc định nếu có ảnh
+            // Hoặc bạn có thể có một trường boolean IsImageUploaded
+            query = query.Where(r => r.ImageUrl != null && r.ImageUrl != "/images/default-postImage.png" && r.ImageUrl != "");
+        }
+
+        // Áp dụng sắp xếp
+        switch (sortBy.ToLower())
+        {
+            case "oldest":
+                query = query.OrderBy(r => r.CreatedAt);
+                break;
+            case "highest":
+                query = query.OrderByDescending(r => r.Rating).ThenByDescending(r => r.CreatedAt);
+                break;
+            case "lowest":
+                query = query.OrderBy(r => r.Rating).ThenBy(r => r.CreatedAt);
+                break;
+            case "newest":
+            default:
+                query = query.OrderByDescending(r => r.CreatedAt);
+                break;
+        }
+        return query;
+    }
 
         // GET: TouristSpots/Create
         [HttpGet]
