@@ -66,28 +66,49 @@ namespace TourismWeb.Controllers
             
             var touristSpots = await query.ToListAsync();
             
-            // Kiểm tra xem người dùng hiện tại đã thích địa điểm nào
-            // Giả sử bạn có một phương thức để lấy ID người dùng hiện tại
-            // var currentUserId = GetCurrentUserId();
-            // if (currentUserId != null)
+            // var currentUserIdStr = GetCurrentUserId();
+            // if (int.TryParse(currentUserIdStr, out int currentUserId))
             // {
             //     foreach (var spot in touristSpots)
             //     {
             //         spot.IsLikedByCurrentUser = spot.Favorites?.Any(f => f.UserId == currentUserId) ?? false;
             //     }
             // }
-            var currentUserIdStr = GetCurrentUserId();
-            if (int.TryParse(currentUserIdStr, out int currentUserId))
+            // Lấy ID người dùng hiện tại
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        int currentUserId = 0; // Mặc định là 0 nếu người dùng chưa đăng nhập hoặc không tìm thấy claim
+        if (userIdClaim != null)
+        {
+            int.TryParse(userIdClaim.Value, out currentUserId);
+        }
+
+        // Kiểm tra xem người dùng hiện tại đã thích địa điểm nào (tối ưu hóa)
+        if (currentUserId > 0)
+        {
+            // Lấy danh sách ID của các địa điểm mà người dùng hiện tại đã yêu thích
+            var userFavoriteSpotIds = await _context.SpotFavorites
+                                              .Where(f => f.UserId == currentUserId)
+                                              .Select(f => f.SpotId)
+                                              .Distinct() // Đảm bảo không có ID trùng lặp
+                                              .ToListAsync();
+
+            foreach (var spot in touristSpots)
             {
-                foreach (var spot in touristSpots)
-                {
-                    spot.IsLikedByCurrentUser = spot.Favorites?.Any(f => f.UserId == currentUserId) ?? false;
-                }
+                spot.IsLikedByCurrentUser = userFavoriteSpotIds.Contains(spot.SpotId);
             }
+        }
+        else
+        {
+            // Nếu người dùng chưa đăng nhập, tất cả các địa điểm đều chưa được thích bởi họ
+            foreach (var spot in touristSpots)
+            {
+                spot.IsLikedByCurrentUser = false;
+            }
+        }
+
 
             // Lấy tổng số địa điểm không phân loại
             var allTouristSpotsCount = await _context.TouristSpots.CountAsync(); // Số lượng tất cả địa điểm
-
             // Truyền tổng số địa điểm vào ViewBag
             ViewBag.AllTouristSpotsCount = allTouristSpotsCount;
             
@@ -111,6 +132,47 @@ namespace TourismWeb.Controllers
             
             return View(touristSpots);
         }
+
+        // Action mới để xử lý AJAX Toggle Favorite
+    [HttpPost]
+    // [ValidateAntiForgeryToken] // Quan trọng nếu bạn gửi token từ client
+    public async Task<IActionResult> ToggleFavoriteSpot(int spotId)
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim == null)
+        {
+            return Json(new { success = false, message = "Vui lòng đăng nhập để thực hiện thao tác này.", aniauth = true });
+        }
+
+        if (!int.TryParse(userIdClaim.Value, out int userId))
+        {
+            return Json(new { success = false, message = "Lỗi xác thực người dùng." });
+        }
+
+        var existingFavorite = await _context.SpotFavorites
+                                        .FirstOrDefaultAsync(f => f.SpotId == spotId && f.UserId == userId);
+
+        bool favorited;
+        if (existingFavorite != null)
+        {
+            // Đã yêu thích -> Bỏ yêu thích
+            _context.SpotFavorites.Remove(existingFavorite);
+            favorited = false;
+        }
+        else
+        {
+            // Chưa yêu thích -> Thêm yêu thích
+            _context.SpotFavorites.Add(new SpotFavorite { SpotId = spotId, UserId = userId, CreatedAt = DateTime.Now });
+            favorited = true;
+        }
+
+        await _context.SaveChangesAsync();
+
+        // Lấy lại số lượt thích mới
+        int newLikeCount = await _context.SpotFavorites.CountAsync(f => f.SpotId == spotId);
+
+        return Json(new { success = true, favorited = favorited, likeCount = newLikeCount });
+    }
 
         // Phương thức giả định để lấy ID người dùng hiện tại
         private string GetCurrentUserId()
@@ -232,69 +294,69 @@ namespace TourismWeb.Controllers
         }
 
         // Action mới để xử lý AJAX request cho việc lọc reviews
-    // GET: /TouristSpots/GetFilteredReviews
-    [HttpGet]
-    public async Task<IActionResult> GetFilteredReviews(int spotId, int page = 1, int pageSize = 3, string sortBy = "newest", string filterRating = "all", bool withPhotos = false)
-    {
-        var query = GetReviewsQuery(spotId, sortBy, filterRating, withPhotos);
-
-        var totalReviews = await query.CountAsync();
-        var reviews = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-
-        ViewBag.CurrentPage = page;
-        ViewBag.PageSize = pageSize;
-        ViewBag.TotalReviewsForPagination = totalReviews; // Tổng số review sau khi lọc, cho logic nút "Xem thêm"
-
-        // Nếu không còn review nào ở trang này và page > 1 (nghĩa là đang load more mà hết)
-        // thì không cần trả về nút "Xem thêm"
-        if (!reviews.Any() && page > 1) {
-            return Content(""); // Trả về chuỗi rỗng
-        }
-
-
-        return PartialView("_ReviewListPartial", reviews);
-    }
-
-    // Hàm helper để xây dựng query cho reviews
-    private IQueryable<Review> GetReviewsQuery(int spotId, string sortBy, string filterRating, bool withPhotos)
-    {
-        var query = _context.Reviews
-                            .Include(r => r.User) // Cần User để hiển thị thông tin người đánh giá
-                            .Where(r => r.SpotId == spotId);
-
-        // Áp dụng bộ lọc theo rating
-        if (filterRating != "all" && int.TryParse(filterRating, out int rating))
+        // GET: /TouristSpots/GetFilteredReviews
+        [HttpGet]
+        public async Task<IActionResult> GetFilteredReviews(int spotId, int page = 1, int pageSize = 3, string sortBy = "newest", string filterRating = "all", bool withPhotos = false)
         {
-            query = query.Where(r => r.Rating == rating);
+            var query = GetReviewsQuery(spotId, sortBy, filterRating, withPhotos);
+
+            var totalReviews = await query.CountAsync();
+            var reviews = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalReviewsForPagination = totalReviews; // Tổng số review sau khi lọc, cho logic nút "Xem thêm"
+
+            // Nếu không còn review nào ở trang này và page > 1 (nghĩa là đang load more mà hết)
+            // thì không cần trả về nút "Xem thêm"
+            if (!reviews.Any() && page > 1) {
+                return Content(""); // Trả về chuỗi rỗng
+            }
+
+
+            return PartialView("_ReviewListPartial", reviews);
         }
 
-        // Áp dụng bộ lọc "Có hình ảnh"
-        if (withPhotos)
+        // Hàm helper để xây dựng query cho reviews
+        private IQueryable<Review> GetReviewsQuery(int spotId, string sortBy, string filterRating, bool withPhotos)
         {
-            // Điều kiện này giả sử ImageUrl sẽ không phải là giá trị mặc định nếu có ảnh
-            // Hoặc bạn có thể có một trường boolean IsImageUploaded
-            query = query.Where(r => r.ImageUrl != null && r.ImageUrl != "/images/default-postImage.png" && r.ImageUrl != "");
-        }
+            var query = _context.Reviews
+                                .Include(r => r.User) // Cần User để hiển thị thông tin người đánh giá
+                                .Where(r => r.SpotId == spotId);
 
-        // Áp dụng sắp xếp
-        switch (sortBy.ToLower())
-        {
-            case "oldest":
-                query = query.OrderBy(r => r.CreatedAt);
-                break;
-            case "highest":
-                query = query.OrderByDescending(r => r.Rating).ThenByDescending(r => r.CreatedAt);
-                break;
-            case "lowest":
-                query = query.OrderBy(r => r.Rating).ThenBy(r => r.CreatedAt);
-                break;
-            case "newest":
-            default:
-                query = query.OrderByDescending(r => r.CreatedAt);
-                break;
+            // Áp dụng bộ lọc theo rating
+            if (filterRating != "all" && int.TryParse(filterRating, out int rating))
+            {
+                query = query.Where(r => r.Rating == rating);
+            }
+
+            // Áp dụng bộ lọc "Có hình ảnh"
+            if (withPhotos)
+            {
+                // Điều kiện này giả sử ImageUrl sẽ không phải là giá trị mặc định nếu có ảnh
+                // Hoặc bạn có thể có một trường boolean IsImageUploaded
+                query = query.Where(r => r.ImageUrl != null && r.ImageUrl != "/images/default-postImage.png" && r.ImageUrl != "");
+            }
+
+            // Áp dụng sắp xếp
+            switch (sortBy.ToLower())
+            {
+                case "oldest":
+                    query = query.OrderBy(r => r.CreatedAt);
+                    break;
+                case "highest":
+                    query = query.OrderByDescending(r => r.Rating).ThenByDescending(r => r.CreatedAt);
+                    break;
+                case "lowest":
+                    query = query.OrderBy(r => r.Rating).ThenBy(r => r.CreatedAt);
+                    break;
+                case "newest":
+                default:
+                    query = query.OrderByDescending(r => r.CreatedAt);
+                    break;
+            }
+            return query;
         }
-        return query;
-    }
 
         // GET: TouristSpots/Create
         [HttpGet]
@@ -396,41 +458,6 @@ namespace TourismWeb.Controllers
             return View(touristSpot);
         }
 
-        // POST: TouristSpots/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> Edit(int id, [Bind("SpotId,Name,Address,CategoryId,Description,ImageUrl,CreatedAt")] TouristSpot touristSpot)
-        // {
-        //     if (id != touristSpot.SpotId)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     if (ModelState.IsValid)
-        //     {
-        //         try
-        //         {
-        //             _context.Update(touristSpot);
-        //             await _context.SaveChangesAsync();
-        //         }
-        //         catch (DbUpdateConcurrencyException)
-        //         {
-        //             if (!TouristSpotExists(touristSpot.SpotId))
-        //             {
-        //                 return NotFound();
-        //             }
-        //             else
-        //             {
-        //                 throw;
-        //             }
-        //         }
-        //         return RedirectToAction(nameof(Index));
-        //     }
-        //     ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
-        //     return View(touristSpot);
-        // }
         // POST: TouristSpots/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]

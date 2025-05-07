@@ -2,13 +2,19 @@
 
 @{
     ViewData["Title"] = "Địa điểm du lịch";
-    // Lấy giá trị sắp xếp hiện tại từ ViewBag hoặc từ query string
     var currentSort = Context.Request.Query["sortBy"].ToString() ?? "default";
+    // Lấy userId cho JavaScript
+    var currentUserIdForJs = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "0";
 }
 
 @section Styles {
     <link rel="stylesheet" href="~/css/spot.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
+    <style>
+        .location-favorite {
+            cursor: pointer; /* Thêm con trỏ để người dùng biết có thể click */
+        }
+    </style>
 }
 
 <!-- Đặt 1 lần dưới cùng hoặc đầu trang -->
@@ -35,7 +41,7 @@
             <a asp-action="Index" asp-route-sortBy="popular" class="sort-option @(currentSort == "popular" ? "active" : "")">Phổ biến</a>
         </div>
 
-        <!-- Locations grid -->
+        @* <!-- Locations grid -->
         <div class="locations-grid">
             @foreach (var item in Model)
             {
@@ -47,6 +53,72 @@
                         }
                         <img src="@item.ImageUrl" alt="@item.Name">
                         <div class="location-favorite" data-spot-id="@item.SpotId" onclick="toggleLike(this, @item.SpotId)">
+                            <span class="heart-icon">@(item.IsLikedByCurrentUser ? "❤️" : "🤍")</span>
+                        </div>
+                    </div>
+                    <div class="location-details">
+                        <h3 class="location-name">@item.Name</h3>
+                        <div class="location-meta">
+                            <div class="meta-item">
+                                <span class="interaction-icon">❤️</span>
+                                <span class="like-count" id="like-count-@item.SpotId">@(item.Favorites?.Count ?? 0)</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>💬</span>
+                                <span>@(item.Comments?.Count ?? 0)</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>📍</span>
+                                <span>@item.Address</span>
+                            </div>
+                        </div>
+                        <div class="location-tags">
+                            <a asp-action="Index" asp-route-categoryId="@item.CategoryId" class="tag">@item.Category.Name</a>
+                            @if (item.SpotTags != null && item.SpotTags.Any())
+                            {
+                                @foreach (var tag in item.SpotTags.Take(2))
+                                {
+                                    <a asp-action="Index" asp-route-tagId="@tag.TagId" class="tag">@tag.Tag.Name</a>
+                                }
+                            }
+                        </div>
+                        <div class="location-actions">
+                            <a asp-action="Details" asp-route-id="@item.SpotId" class="action-link details">
+                                <i class="fas fa-info-circle"></i> Chi tiết
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.SpotId" class="action-link edit">
+                                <i class="fas fa-edit"></i> Sửa
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.SpotId" class="action-link delete">
+                                <i class="fas fa-trash-alt"></i> Xóa
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (!Model.Any())
+            {
+                <div class="empty-state">
+                    <div class="empty-icon">🏝️</div>
+                    <h3>Chưa có địa điểm du lịch nào</h3>
+                    <p>Hãy thêm địa điểm du lịch đầu tiên của bạn!</p>
+                    <a asp-action="Create" class="btn-add-first">Thêm địa điểm</a>
+                </div>
+            } *@
+        @* </div> *@
+        <!-- Locations grid -->
+        <div class="locations-grid">
+            @foreach (var item in Model)
+            {
+                <div class="location-card" id="spot-card-@item.SpotId"> @* Thêm ID cho card *@
+                    <div class="location-image">
+                        @if (item.CreatedAt > DateTime.Now.AddDays(-7))
+                        {
+                            <div class="location-highlight">MỚI</div>
+                        }
+                        <img src="@item.ImageUrl" alt="@item.Name">
+                        <div class="location-favorite" data-spot-id="@item.SpotId"> @* Bỏ onclick ở đây, sẽ xử lý bằng JS *@
                             <span class="heart-icon">@(item.IsLikedByCurrentUser ? "❤️" : "🤍")</span>
                         </div>
                     </div>
@@ -276,26 +348,79 @@
         </div>
     </div>
 </div>
-@* 
+
 @section Scripts {
 <script>
-    function toggleLike(element, spotId) {
-        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
-        fetch(`/SpotFavorites/ToggleFavorite/${spotId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'RequestVerificationToken': token
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const heartSpan = element.querySelector('.heart-icon');
-                heartSpan.textContent = data.favorited ? '❤️' : '🤍';
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const antiForgeryToken = document.querySelector('#antiForgeryForm input[name="__RequestVerificationToken"]').value;
+        const currentUserId = parseInt('@currentUserIdForJs'); // Lấy userId từ C#
+
+        document.querySelectorAll('.location-favorite').forEach(favoriteDiv => {
+            favoriteDiv.addEventListener('click', async function () {
+                if (currentUserId === 0) {
+                    // Hoặc chuyển hướng đến trang đăng nhập
+                    alert('Vui lòng đăng nhập để yêu thích địa điểm này.');
+                    window.location.href = '/Identity/Account/Login'; // Điều chỉnh đường dẫn nếu cần
+                    return;
+                }
+
+                const spotId = this.dataset.spotId;
+                const heartIconSpan = this.querySelector('.heart-icon');
+                const likeCountSpan = document.getElementById(`like-count-${spotId}`);
+
+                // Tạm thời thay đổi icon để người dùng thấy phản hồi ngay
+                const isCurrentlyLiked = heartIconSpan.textContent === '❤️';
+                heartIconSpan.textContent = isCurrentlyLiked ? '🤍' : '❤️';
+
+
+                try {
+                    const response = await fetch(`/TouristSpots/ToggleFavoriteSpot?spotId=${spotId}`, {
+                        method: 'POST',
+                        headers: {
+                            // 'Content-Type': 'application/json', // Không cần nếu chỉ gửi spotId qua query string
+                            'RequestVerificationToken': antiForgeryToken // Gửi token
+                        },
+                        // body: JSON.stringify({ spotId: parseInt(spotId) }) // Nếu bạn gửi dưới dạng JSON body
+                    });
+
+                    if (!response.ok) {
+                        // Hoàn tác lại icon nếu lỗi
+                        heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
+                        const errorData = await response.json().catch(() => null);
+                        if (errorData && errorData.aniauth) {
+                            alert(errorData.message || 'Vui lòng đăng nhập để thực hiện thao tác này.');
+                             window.location.href = '/Identity/Account/Login';
+                        } else {
+                            alert(errorData ? errorData.message : 'Có lỗi xảy ra, vui lòng thử lại.');
+                        }
+                        return;
+                    }
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        heartIconSpan.textContent = data.favorited ? '❤️' : '🤍';
+                        if (likeCountSpan) {
+                            likeCountSpan.textContent = data.likeCount;
+                        }
+                    } else {
+                        // Hoàn tác lại icon nếu server báo lỗi logic
+                        heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
+                        if (data.aniauth) {
+                             alert(data.message || 'Vui lòng đăng nhập để thực hiện thao tác này.');
+                             window.location.href = '/Identity/Account/Login';
+                        } else {
+                            alert(data.message || 'Có lỗi xảy ra khi cập nhật yêu thích.');
+                        }
+                    }
+                } catch (error) {
+                    // Hoàn tác lại icon nếu lỗi mạng
+                    heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
+                    console.error('Lỗi khi toggle favorite:', error);
+                    alert('Có lỗi kết nối, vui lòng thử lại.');
+                }
+            });
+        });
+    });
 </script>
-} *@
+}

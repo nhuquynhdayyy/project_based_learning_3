@@ -761,29 +761,15 @@
                     }
                     @if (Model.SpotFavorites.Count == 0)
                     {
-                        <div class="inspiration-card">
-                            <img src="/images/hue.jpg" alt="Huế, Thừa Thiên Huế">
-                            <div class="inspiration-content">
-                                <div class="inspiration-title">Huế, Thừa Thiên Huế</div>
-                                <div class="inspiration-description">Cố đô với hệ thống di tích lăng tẩm, hoàng thành và
-                                    ẩm thực cung đình độc đáo.</div>
-                                <div class="inspiration-meta">
-                                    <span>Thời gian tốt nhất: Tháng 3-8</span>
-                                    <span>Đã lưu</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="inspiration-card">
-                            <img src="/images/danang3.jpg" alt="Đà Nẵng">
-                            <div class="inspiration-content">
-                                <div class="inspiration-title">Đà Nẵng</div>
-                                <div class="inspiration-description">Thành phố biển hiện đại với Bà Nà Hills, Ngũ Hành
-                                    Sơn và bãi biển Mỹ Khê tuyệt đẹp.</div>
-                                <div class="inspiration-meta">
-                                    <span>Thời gian tốt nhất: Tháng 2-8</span>
-                                    <span>Đã lưu</span>
-                                </div>
-                            </div>
+                        <div class="empty-state-favorites text-center p-4">
+                            <div class="empty-icon mb-3" style="font-size: 3rem; color: #6c757d;">🗺️</div> @* Hoặc 🧳 *@
+                            <h4>Bộ sưu tập yêu thích của bạn đang chờ!</h4>
+                            <p class="text-muted">
+                                Tìm thấy một nơi bạn muốn đến? Chỉ cần nhấn ❤️ để lưu lại đây và dễ dàng tìm thấy sau này.
+                            </p>
+                            <a asp-controller="TouristSpots" asp-action="Index" class="btn btn-outline-primary mt-3" style="border-radius: 20px; padding: 10px 25px;">
+                                Bắt đầu khám phá
+                            </a>
                         </div>
                     }
                 </div>

@@ -80,7 +80,8 @@ namespace TourismWeb.Controllers
                 // Lấy thông tin người dùng từ database, bao gồm các collection liên quan
                 var user = await _context.Users
                     .Include(u => u.Posts)
-                    .Include(u => u.Reviews)
+                    .Include(u => u.Reviews) 
+                        .ThenInclude(r => r.Spot) // << --- THÊM DÒNG NÀY RẤT QUAN TRỌNG
                     .Include(u => u.SpotImages)
                     .Include(u => u.SpotFavorites)
                         .ThenInclude(sf => sf.Spot)
