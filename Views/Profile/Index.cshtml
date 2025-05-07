@@ -404,10 +404,55 @@
 
 }
 
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="alert alert-success">@successMessage</div>
+}
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+
+
 <main>
     <div class="profile-container">
         <div class="profile-sidebar">
-            <img src="@Model.AvatarUrl" alt="@Model.FullName">
+    <div class="card-body p-4">
+       <div class="text-center mb-4">
+            <div class="avatar-container position-relative mx-auto" style="width: 150px; height: 150px;">
+                <!-- Current avatar display -->
+                <div class="rounded-circle overflow-hidden border border-3 border-light shadow-sm" style="width: 150px; height: 150px;">
+                    <img src="@Model.AvatarUrl" alt="@Model.FullName" class="w-100 h-100 object-fit-cover" id="avatarPreview">
+                </div>
+                
+                <!-- Hover overlay -->
+                <div class="avatar-overlay position-absolute top-0 start-0 w-100 h-100 rounded-circle d-flex align-items-center justify-content-center" 
+                     style="background: rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.2s ease;"
+                     onclick="document.getElementById('avatarFile').click()">
+                    <i class="bi bi-camera-fill text-white fs-3"></i>
+                </div>
+            </div>
+        </div>
+
+        <form asp-controller="Profile" asp-action="UploadAvatar" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <!-- Smaller, more compact upload area -->
+                <div class="upload-area border border-1 border-dashed rounded-3 py-2 px-3 text-center bg-light cursor-pointer hover-bg mx-auto" 
+                     style="max-width: 220px;"
+                     onclick="document.getElementById('avatarFile').click()">
+                    <i class="bi bi-upload text-secondary fs-5"></i>
+                    <p class="text-secondary mb-0 small">
+                        <span class="fw-medium">Nhấn để chọn ảnh</span> hoặc kéo thả vào đây
+                    </p>
+                </div>
+                <input type="file" id="avatarFile" name="avatarFile" accept="image/*" class="d-none" 
+                       onchange="previewImage(this)">
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100">Cập nhật ảnh đại diện</button>
+        </form>
+    </div>
+
             <h2 class="profile-name">@Model.FullName</h2>
 
             <div class="profile-stats">
@@ -422,6 +467,7 @@
                 <li><a href="#bo-suu-tap">Bộ sưu tập ảnh</a></li>
                 <li><a href="#bai-viet">Bài viết của tôi</a></li>
                 <li><a href="#danh-gia">Đánh giá của tôi</a></li>
+                <li><a href="#binh-luan">Bình luận của tôi</a></li>
                 <li><a href="#dia-diem-yeu-thich">Địa điểm yêu thích</a></li>
                 <li><a href="#bai-viet-yeu-thich">Bài viết yêu thích</a></li>
             </ul>
@@ -511,7 +557,7 @@
         <div class="content-section">
             <h3 class="section-title">Email</h3>
             <div class="email-item">
-                <p class="email-title">@Model.Email</p>
+                <p class="email-title" style="margin: 0;">@Model.Email</p>
                 <span class="notification-badge">Nơi nhận thông báo</span>
             </div>
             @if (string.IsNullOrEmpty(Model.Email))
@@ -726,21 +772,60 @@
                     }
                     @if (Model.Reviews.Count == 0)
                     {
-                        <div class="blog-item">
-                            <img src="/images/hoian.jpg" alt="Ẩm thực Hội An">
-                            <div class="blog-content">
-                                <div class="blog-title">Top 10 món ăn nhất định phải thử khi đến Hội An</div>
-                                <div class="blog-preview">Từ Cao lầu đến Bánh mì Phượng, hãy cùng khám phá những món ăn
-                                    tuyệt vời nhất của phố cổ...</div>
-                                <div class="blog-meta">
-                                    <span>Đăng ngày: 15/12/2024</span>
-                                    <span>325 lượt xem</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="alert alert-info text-center">Bạn chưa viết đánh giá nào.</div>
                     }
                 </div>
             </div>
+
+            @* Phần bình luận của tôi *@
+                 <div class="content-section" id="binh-luan">
+    <h3 class="section-title">
+        <i class="bi bi-chat-dots-fill me-2"></i>
+        Bình luận của tôi (@Model.PostComments.Count)
+    </h3>
+    <div class="blog-list">
+        @if (Model.PostComments != null && Model.PostComments.Any())
+        {
+            foreach (var comment in Model.PostComments.OrderByDescending(c => c.CreatedAt))
+            {
+                <div class="blog-item">
+                    <div class="blog-content">
+                        <div class="blog-title">
+                            @Html.Raw(comment.Content)
+                        </div>
+                        <div class="blog-meta">
+                            <span><i class="bi bi-clock me-1"></i>@comment.CreatedAt.ToString("dd/MM/yyyy HH:mm")</span>
+
+                            @if (comment.Post != null)
+                            {
+                                <span class="ms-3">
+                                    <i class="bi bi-file-text me-1"></i>Trong bài viết:
+                                    <a href="@Url.Action("Details", "Posts", new { id = comment.PostId })" title="@comment.Post.Title">
+                                        @(comment.Post.Title != null && comment.Post.Title.Length > 50
+                                            ? comment.Post.Title.Substring(0, 50) + "..."
+                                            : comment.Post.Title ?? "Không có tiêu đề")
+                                    </a>
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="ms-3 text-warning">
+                                    <i class="bi bi-exclamation-triangle me-1"></i>Bài viết liên quan không còn tồn tại
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-info text-center">Bạn chưa có bình luận nào.</div>
+        }
+    </div>
+</div>
+                    
+
 
             <div class="content-section" id="dia-diem-yeu-thich">
                 <h3 class="section-title">Địa điểm yêu thích</h3>
@@ -761,30 +846,7 @@
                     }
                     @if (Model.SpotFavorites.Count == 0)
                     {
-                        <div class="inspiration-card">
-                            <img src="/images/hue.jpg" alt="Huế, Thừa Thiên Huế">
-                            <div class="inspiration-content">
-                                <div class="inspiration-title">Huế, Thừa Thiên Huế</div>
-                                <div class="inspiration-description">Cố đô với hệ thống di tích lăng tẩm, hoàng thành và
-                                    ẩm thực cung đình độc đáo.</div>
-                                <div class="inspiration-meta">
-                                    <span>Thời gian tốt nhất: Tháng 3-8</span>
-                                    <span>Đã lưu</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="inspiration-card">
-                            <img src="/images/danang3.jpg" alt="Đà Nẵng">
-                            <div class="inspiration-content">
-                                <div class="inspiration-title">Đà Nẵng</div>
-                                <div class="inspiration-description">Thành phố biển hiện đại với Bà Nà Hills, Ngũ Hành
-                                    Sơn và bãi biển Mỹ Khê tuyệt đẹp.</div>
-                                <div class="inspiration-meta">
-                                    <span>Thời gian tốt nhất: Tháng 2-8</span>
-                                    <span>Đã lưu</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="alert alert-info text-center">Bạn chưa có địa điểm yêu thích.</div>
                     }
                 </div>
             </div>
@@ -807,27 +869,7 @@
                     }
                     @if (Model.PostFavorites.Count == 0)
                     {
-                        <div class="favorite-post-card">
-                            <img src="/images/hoian2.jpg" alt="Điểm tham quan Hội An">
-                            <div class="favorite-post-content">
-                                <div class="favorite-post-title">Top 10 điểm tham quan không thể bỏ lỡ ở Hội An</div>
-                                <div class="favorite-post-author">
-                                    <img src="/images/avatar3.png" alt="Lê Thị B">
-                                    <div class="favorite-post-author-name">Lê Thị B • 18/01/2025</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="favorite-post-card">
-                            <img src="/images/haunuong.jpg" alt="Ẩm thực đường phố miền Trung">
-                            <div class="favorite-post-content">
-                                <div class="favorite-post-title">Ẩm thực đường phố miền Trung: Hành trình khám phá hương
-                                    vị cay nồng</div>
-                                <div class="favorite-post-author">
-                                    <img src="/images/avatar3.png" alt="Trần Văn C">
-                                    <div class="favorite-post-author-name">Trần Văn C • 05/03/2025</div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="alert alert-info text-center">Bạn chưa có bài viết yêu thích.</div>
                     }
                 </div>
             </div>
@@ -881,5 +923,35 @@
         input.classList.remove('d-none');
         input.focus();
     }
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                document.getElementById('avatarPreview').src = e.target.result;
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 }
+<style>
+    .avatar-container:hover .avatar-overlay {
+        opacity: 1;
+        cursor: pointer;
+    }
+    
+    .hover-bg:hover {
+        background-color: #f0f0f0 !important;
+        transition: background-color 0.2s ease;
+    }
+    
+    .cursor-pointer {
+        cursor: pointer;
+    }
+    
+    .object-fit-cover {
+        object-fit: cover;
+    }
+</style>

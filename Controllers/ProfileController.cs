@@ -84,6 +84,8 @@ namespace TourismWeb.Controllers
                     .Include(u => u.SpotImages)
                     .Include(u => u.SpotFavorites)
                         .ThenInclude(sf => sf.Spot)
+                    .Include(u => u.PostComments)      // Nạp danh sách bình luận của user này
+                        .ThenInclude(c => c.Post)
                     .Include(u => u.PostFavorites)
                         .ThenInclude(pf => pf.Post)
                             .ThenInclude(p => p.User)
@@ -99,6 +101,61 @@ namespace TourismWeb.Controllers
             // Nếu không tìm thấy người dùng, chuyển hướng đến trang đăng nhập
             return RedirectToAction("Login", "Account");
         }
+
+        [HttpPost]
+public async Task<IActionResult> UploadAvatar(IFormFile avatarFile)
+{
+    if (avatarFile == null || avatarFile.Length == 0)
+    {
+        TempData["ErrorMessage"] = "Vui lòng chọn một tệp ảnh.";
+        return RedirectToAction("Index");
+    }
+
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    if (!int.TryParse(userId, out int userIdInt))
+    {
+        TempData["ErrorMessage"] = "Phiên người dùng không hợp lệ.";
+        return RedirectToAction("Index");
+    }
+
+    var user = await _context.Users.FindAsync(userIdInt);
+    if (user == null)
+    {
+        TempData["ErrorMessage"] = "Không tìm thấy người dùng.";
+        return RedirectToAction("Index");
+    }
+
+    // Kiểm tra định dạng file ảnh
+    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+    var extension = Path.GetExtension(avatarFile.FileName).ToLower();
+
+    if (!allowedExtensions.Contains(extension))
+    {
+        TempData["ErrorMessage"] = "Chỉ chấp nhận các định dạng ảnh JPG, JPEG, PNG, GIF.";
+        return RedirectToAction("Index");
+    }
+
+    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/avatars");
+    Directory.CreateDirectory(uploadsFolder); // Đảm bảo thư mục tồn tại
+
+    var fileName = $"{Guid.NewGuid()}{extension}";
+    var filePath = Path.Combine(uploadsFolder, fileName);
+
+    using (var stream = new FileStream(filePath, FileMode.Create))
+    {
+        await avatarFile.CopyToAsync(stream);
+    }
+
+    // Cập nhật avatar URL
+    user.AvatarUrl = $"/images/avatars/{fileName}";
+    _context.Update(user);
+    await _context.SaveChangesAsync();
+
+    TempData["SuccessMessage"] = "Ảnh đại diện đã được cập nhật.";
+    return RedirectToAction("Index");
+}
+
 
         // POST: /Profile/UpdateProfile
         [HttpPost]
@@ -291,6 +348,8 @@ namespace TourismWeb.Controllers
             TempData["SuccessMessage"] = "Đã đổi mật khẩu thành công.";
             return RedirectToAction(nameof(Index));
         }
+
+        
 
 
     }
