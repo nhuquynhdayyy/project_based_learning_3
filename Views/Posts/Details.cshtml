@@ -14,6 +14,12 @@
 
 @using System.Security.Claims
 
+@{
+    var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+    var userId = userIdClaim != null ? int.Parse(userIdClaim.Value) : 0;
+    var isFavorited = Model.PostFavorites?.Any(f => f.UserId == userId) == true;
+}
+
 <div class="page-header">
     <div class="container">
         <ul class="breadcrumb">
@@ -40,37 +46,11 @@
                 <span>@Model.Spot.Name</span>
             </div>
         </div>
-        @* <div class="social-share">
-            <a href="#" class="share-btn like">
-                <i class="bi bi-heart"></i> Yêu thích
-            </a>
-            <a href="#" class="share-btn share">
-                <i class="bi bi-share"></i> Chia sẻ
-            </a>
-        </div> *@
         <div class="post-actions">
             <!-- Nút Yêu thích -->
-            @* <button class="btn favorite @(isFavorited ? "active" : "")" id="favoriteBtn" data-spot-id="@Model.SpotId">
+            <button class="btn favorite @(isFavorited ? "active" : "")" id="favoriteBtn" data-post-id="@Model.PostId">
                 <i class="@(isFavorited ? "fas" : "far") fa-heart"></i> @(isFavorited ? "Đã yêu thích" : "Yêu thích")
-            </button> *@
-            @* <div class="share-dropdown">
-                <button class="btn share"><i class="fas fa-share-alt"></i> Chia sẻ</button>
-                <div class="share-options">
-                    <a href="#" class="share-btn" data-platform="Facebook" data-post-id="@Model.PostId">
-                        <i class="fab fa-facebook-f"></i> Facebook
-                    </a>
-                    <a href="#" class="share-btn" data-platform="Twitter" data-post-id="@Model.PostId">
-                        <i class="fab fa-twitter"></i> Twitter
-                    </a>
-                    <a href="#" class="share-btn" data-platform="Email" data-post-id="@Model.PostId">
-                        <i class="fas fa-envelope"></i> Email
-                    </a>
-                    <a href="#" class="copy-link">
-                        <i class="fas fa-link"></i> Sao chép liên kết
-                    </a>
-                </div>
-                <input type="hidden" name="__RequestVerificationToken" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
-            </div> *@
+            </button>
             <div class="share-dropdown position-relative"> @* Keep position-relative on the parent *@
                 <button type="button" class="btn share" onclick="toggleShareOptions(this)"> @* Added type and onclick *@
                     <i class="fas fa-share-alt"></i> Chia sẻ
@@ -350,6 +330,35 @@
 
 @section Scripts {
     <script>
+        // Toggle favorite button
+        document.getElementById('favoriteBtn').addEventListener('click', function () {
+            const btn = this;
+            const postId = btn.dataset.postId;
+            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+            fetch('/PostFavorites/ToggleFavorite/' + postId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': token
+                }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Lỗi khi cập nhật yêu thích');
+                return response.json();
+            })
+            .then(data => {
+                if (data.favorited) {
+                    btn.classList.add('active');
+                    btn.innerHTML = '<i class="fas fa-heart"></i> Đã yêu thích';
+                } else {
+                    btn.classList.remove('active');
+                    btn.innerHTML = '<i class="far fa-heart"></i> Yêu thích';
+                }
+            })
+            .catch(err => alert(err));
+        });
+
         function toggleShareOptions(button) {
             const dropdownMenu = button.nextElementSibling; // Get the .share-options div
             if (dropdownMenu && dropdownMenu.classList.contains('share-options')) {

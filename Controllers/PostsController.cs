@@ -720,6 +720,7 @@ namespace TourismWeb.Controllers
             var post = await _context.Posts
                 .Include(p => p.Spot)
                 .Include(p => p.User)
+                .Include(p => p.PostFavorites)
                 .Include(p => p.Comments) // Include comments if needed
                     .ThenInclude(c => c.User) // Include user for each comment
                 .FirstOrDefaultAsync(m => m.PostId == id);

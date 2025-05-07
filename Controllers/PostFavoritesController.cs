@@ -182,5 +182,54 @@ namespace TourismWeb.Controllers
         {
             return _context.PostFavorites.Any(e => e.FavoriteId == id);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("/PostFavorites/ToggleFavorite/{id}")]
+        public async Task<IActionResult> ToggleFavorite([FromRoute] int id)
+        {
+            var post = await _context.Posts
+                .Include(t => t.PostFavorites)
+                .FirstOrDefaultAsync(t => t.PostId == id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var currentUserId))
+            {
+                return Unauthorized();
+            }
+
+            var existingFavorite = post.PostFavorites?.FirstOrDefault(f => f.UserId == currentUserId);
+
+            if (existingFavorite != null)
+            {
+                _context.PostFavorites.Remove(existingFavorite);
+            }
+            else
+            {
+                _context.PostFavorites.Add(new PostFavorite
+                {
+                    PostId = id,
+                    UserId = currentUserId,
+                    CreatedAt = DateTime.Now
+                });
+            }
+
+            await _context.SaveChangesAsync();
+
+            var likeCount = await _context.PostFavorites.CountAsync(f => f.PostId == id);
+
+            return Json(new
+            {
+                success = true,
+                favorited = existingFavorite == null,
+                likeCount = likeCount
+            });
+        }
+
     }
 }
