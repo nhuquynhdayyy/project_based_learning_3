@@ -12,8 +12,8 @@ using TourismWeb.Models;
 namespace TourismWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250430080216_LikeSpot")]
-    partial class LikeSpot
+    [Migration("20250508003455_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,6 +65,9 @@ namespace TourismWeb.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SpotId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")

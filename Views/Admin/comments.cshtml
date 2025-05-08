@@ -1,397 +1,402 @@
+@model List<TourismWeb.Models.ViewModels.AdminCommentViewModel>
+
 @section Styles {
     <link rel="stylesheet" href="~/cssadmin/comments.css" asp-append-version="true" />
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-}
-
-@{
-    ViewData["Title"] = "Đánh Giá & Bình Luận - Hệ Thống Quản Trị";
-}
-@{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    <style>
+        .nav-tabs {
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 20px;
+        }
+        .nav-tabs .nav-item {
+            margin-bottom: -1px;
+        }
+        .nav-tabs .nav-link {
+            border: 1px solid transparent;
+            border-top-left-radius: 0.25rem;
+            border-top-right-radius: 0.25rem;
+            padding: 0.75rem 1.25rem;
+            font-weight: 500;
+            color: #495057;
+            background-color: #f8f9fa;
+            transition: all 0.2s ease;
+        }
+        .nav-tabs .nav-link:hover {
+            border-color: #e9ecef #e9ecef #dee2e6;
+            background-color: #e9ecef;
+        }
+        .nav-tabs .nav-link.active {
+            color: #0d6efd;
+            background-color: #fff;
+            border-color: #dee2e6 #dee2e6 #fff;
+            font-weight: 600;
+        }
+        .tab-content {
+            padding-top: 15px;
+        }
+        .tab-pane {
+            display: none;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+    </style>
 }
 
 @section Scripts {
     <script src="~/js/jsadmin/comments.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 }
 
-<div class="app-container">
-    <!-- Sidebar -->
 
-    <!-- Main Content -->
+@{
+    ViewData["Title"] = "Đánh Giá & Bình Luận - Hệ Thống Quản Trị";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@Html.AntiForgeryToken() 
+
+<div class="app-container">
     <div class="main-content">
         <main class="content-wrapper">
             <div class="page-header">
                 <h1 class="page-title">Đánh Giá & Bình Luận</h1>
-                <div class="page-actions">
-                    <div class="filter-group">
-                        <label for="comment-status">Trạng thái:</label>
-                        <select id="comment-status" class="select-control">
-                            <option value="all">Tất cả</option>
-                            <option value="pending" selected>Chờ duyệt</option>
-                            <option value="approved">Đã duyệt</option>
-                            <option value="spam">Spam</option>
-                        </select>
-                    </div>
-                </div>
             </div>
 
-            <!-- Filter Section -->
-            <div class="filter-card">
-                <div class="filter-grid">
-                    <div class="filter-item">
-                        <div class="search-input">
-                            <i class="fas fa-search"></i>
-                            <input type="text" placeholder="Tìm kiếm bình luận...">
+            <ul class="tab-list">
+                <li>
+                    <button class="active" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="true">
+                        <i class="fas fa-star"></i>Đánh Giá (Địa điểm)
+                    </button>
+                </li>
+                <li>
+                    <button id="comments-tab" data-bs-toggle="tab" data-bs-target="#comments" type="button" role="tab" aria-controls="comments" aria-selected="false">
+                        <i class="fas fa-comment"></i>Bình Luận (Bài viết)
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="commentTabsContent">
+                <!-- TAB 1: REVIEWS -->
+                <div class="tab-pane fade show active" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                    <div class="filter-card">
+                        <div class="filter-grid">
+                            <div class="filter-item">
+                                <div class="search-input">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="reviewSearchInput" placeholder="Tìm nội dung, người dùng...">
+                                </div>
+                            </div>
+                            <div class="filter-item">
+                                <select id="reviewRatingFilter" class="select-control">
+                                    <option value="all">Tất cả đánh giá (sao)</option>
+                                    <option value="5">5 sao</option>
+                                    <option value="4">4 sao</option>
+                                    <option value="3">3 sao</option>
+                                    <option value="2">2 sao</option>
+                                    <option value="1">1 sao</option>
+                                </select>
+                            </div>
+                            <div class="filter-item">
+                                <button class="btn btn-filter" id="applyReviewFiltersBtn">
+                                    <i class="fas fa-filter"></i>
+                                    Lọc
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="filter-item">
-                        <select class="select-control">
-                            <option value="all">Tất cả bài viết</option>
-                            <option value="location">Địa điểm</option>
-                            <option value="guide">Cẩm nang du lịch</option>
-                            <option value="experience">Trải nghiệm</option>
-                        </select>
-                    </div>
-                    <div class="filter-item">
-                        <select class="select-control">
-                            <option value="all">Tất cả đánh giá</option>
-                            <option value="5">5 sao</option>
-                            <option value="4">4 sao</option>
-                            <option value="3">3 sao</option>
-                            <option value="2">2 sao</option>
-                            <option value="1">1 sao</option>
-                        </select>
-                    </div>
-                    <div class="filter-item">
-                        <button class="btn btn-filter">
-                            <i class="fas fa-filter"></i>
-                            Lọc
-                        </button>
+
+                    <div class="table-card">
+                        <div class="table-responsive">
+                            <table class="data-table" id="reviewsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Người dùng</th>
+                                        <th>Nội dung</th>
+                                        <th>Ảnh đánh giá</th>
+                                        <th>Địa điểm</th>
+                                        <th>Đánh giá (Sao)</th>
+                                        <th>Ngày đăng</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        var reviews = Model.Where(x => x.ItemType == "Review").ToList();
+                                        if (reviews == null || !reviews.Any())
+                                        {
+                                            <tr>
+                                                <td colspan="7" class="text-center" style="padding: 20px;">Không có đánh giá nào.</td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            foreach (var item in reviews)
+                                            {
+                                                <tr data-item-type="@item.ItemType" data-rating="@(item.Rating.HasValue ? item.Rating.Value.ToString() : "")">
+                                                    <td>
+                                                        <div class="user-cell">
+                                                            <div class="user-avatar">
+                                                                <img src="@(string.IsNullOrEmpty(item.UserAvatar) || !item.UserAvatar.StartsWith("/") ? "/images/default-avatar.png" : Url.Content(item.UserAvatar))" alt="Avatar">
+                                                            </div>
+                                                            <div class="user-info">
+                                                                <div class="user-name">@item.UserFullName</div>
+                                                                <div class="user-email">@item.UserEmail</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="comment-content">
+                                                            @Html.Raw(item.Content?.Length > 100 ? item.Content.Substring(0, 100) + "..." : item.Content)
+                                                            @if (item.Content?.Length > 100)
+                                                            {
+                                                                <a href="#" class="view-btn-trigger"
+                                                                   data-id="@item.Id"
+                                                                   data-user-name="@item.UserFullName"
+                                                                   data-user-email="@item.UserEmail"
+                                                                   data-user-avatar="@(string.IsNullOrEmpty(item.UserAvatar) || !item.UserAvatar.StartsWith("/") ? "/images/default-avatar.png" : Url.Content(item.UserAvatar))"
+                                                                   data-item-title="@item.RelatedItemTitle"
+                                                                   data-item-url="@Url.Action("Details", item.RelatedItemController, new { id = item.RelatedItemId })"
+                                                                   data-content="@Html.Raw(item.Content)"
+                                                                   data-rating="@item.Rating"
+                                                                   data-created-at="@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")"
+                                                                   data-item-type="@item.ItemType"
+                                                                   data-item-type-detail="@item.RelatedItemTypeDetail"
+                                                                   data-image-url="@item.ImageUrl"
+                                                                   title="Xem đầy đủ">Xem thêm</a>
+                                                            }
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        @if (!string.IsNullOrEmpty(item.ImageUrl) && item.ImageUrl != "/images/default-postImage.png" && item.ImageUrl.StartsWith("/"))
+                                                        {
+                                                            <img src="@Url.Content(item.ImageUrl)" alt="Ảnh đánh giá" style="max-width: 100px; max-height: 70px; cursor: pointer; border-radius: 4px;" onclick="window.open('@Url.Content(item.ImageUrl)', '_blank');" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>Không có</span>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <a asp-controller="@item.RelatedItemController" asp-action="Details" asp-route-id="@item.RelatedItemId" class="post-link" target="_blank">
+                                                            @item.RelatedItemTitle
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        @if (item.Rating.HasValue)
+                                                        {
+                                                            <div class="rating">
+                                                                @for (int i = 1; i <= 5; i++)
+                                                                {
+                                                                    if (i <= item.Rating.Value)
+                                                                    {
+                                                                        <i class="fas fa-star text-warning"></i>
+                                                                    }
+                                                                    else if (i - 0.5 == item.Rating.Value) // For half stars if needed
+                                                                    {
+                                                                        <i class="fas fa-star-half-alt text-warning"></i>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <i class="far fa-star text-warning"></i>
+                                                                    }
+                                                                }
+                                                                <span class="rating-text">@item.Rating.Value.ToString("0.0")</span>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>N/A</span>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <div class="date-cell">
+                                                            <i class="fas fa-clock"></i>
+                                                            @item.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                                                        </div>
+                                                    </td>
+                                                    <td class="actions-cell">
+                                                        <button class="action-btn view-btn-trigger" title="Xem chi tiết"
+                                                                data-id="@item.Id"
+                                                                data-user-name="@item.UserFullName"
+                                                                data-user-email="@item.UserEmail"
+                                                                data-user-avatar="@(string.IsNullOrEmpty(item.UserAvatar) || !item.UserAvatar.StartsWith("/") ? "/images/default-avatar.png" : Url.Content(item.UserAvatar))"
+                                                                data-item-title="@item.RelatedItemTitle"
+                                                                data-item-url="@Url.Action("Details", item.RelatedItemController, new { id = item.RelatedItemId })"
+                                                                data-content="@Html.Raw(item.Content)"
+                                                                data-rating="@item.Rating"
+                                                                data-created-at="@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")"
+                                                                data-item-type="@item.ItemType"
+                                                                data-item-type-detail="@item.RelatedItemTypeDetail"
+                                                                data-image-url="@item.ImageUrl">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                        <button class="action-btn delete-btn-trigger" title="Xóa" data-id="@item.Id" data-item-type="@item.ItemType">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Comments Table -->
-            <div class="table-card">
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Người dùng</th>
-                                <th>Bình luận</th>
-                                <th>Bài viết</th>
-                                <th>Đánh giá</th>
-                                <th>Ngày đăng</th>
-                                <th>Trạng thái</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=1" alt="Avatar">
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Nguyễn Văn A</div>
-                                            <div class="user-email">nguyenvana@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="comment-content">
-                                        Bài viết rất hay và chi tiết. Tôi đã đến Đà Lạt vào tháng trước và trải nghiệm
-                                        đúng như mô tả. Cảm ơn tác giả!
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="#" class="post-link">Khám phá Đà Lạt mùa hoa</a>
-                                </td>
-                                <td>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <span class="rating-text">5.0</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-clock"></i>
-                                        10/04/2025 14:30
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge yellow">Chờ duyệt</span>
-                                </td>
-                                <td class="actions-cell">
-                                    <button class="action-btn view-btn" title="Xem">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="action-btn approve-btn" title="Duyệt">
-                                        <i class="fas fa-check"></i>
-                                    </button>
-                                    <button class="action-btn reject-btn" title="Từ chối">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button class="action-btn delete-btn" title="Xóa">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=2" alt="Avatar">
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Trần Thị B</div>
-                                            <div class="user-email">tranthib@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="comment-content">
-                                        Cẩm nang rất hữu ích cho chuyến đi Hội An của tôi. Tuy nhiên, giá cả một số dịch
-                                        vụ đã thay đổi so với bài viết.
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="#" class="post-link">Cẩm nang du lịch Hội An tự túc</a>
-                                </td>
-                                <td>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <span class="rating-text">4.0</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-clock"></i>
-                                        09/04/2025 10:15
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge yellow">Chờ duyệt</span>
-                                </td>
-                                <td class="actions-cell">
-                                    <button class="action-btn view-btn" title="Xem">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="action-btn approve-btn" title="Duyệt">
-                                        <i class="fas fa-check"></i>
-                                    </button>
-                                    <button class="action-btn reject-btn" title="Từ chối">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button class="action-btn delete-btn" title="Xóa">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=3" alt="Avatar">
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Lê Văn C</div>
-                                            <div class="user-email">levanc@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="comment-content">
-                                        Trải nghiệm leo núi Fansipan thật tuyệt vời! Tôi đã thử và cảm thấy rất đáng
-                                        giá. Cảnh đẹp tuyệt vời.
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="#" class="post-link">Trải nghiệm leo núi Fansipan</a>
-                                </td>
-                                <td>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <span class="rating-text">4.5</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-clock"></i>
-                                        08/04/2025 16:45
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge yellow">Chờ duyệt</span>
-                                </td>
-                                <td class="actions-cell">
-                                    <button class="action-btn view-btn" title="Xem">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="action-btn approve-btn" title="Duyệt">
-                                        <i class="fas fa-check"></i>
-                                    </button>
-                                    <button class="action-btn reject-btn" title="Từ chối">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button class="action-btn delete-btn" title="Xóa">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=4" alt="Avatar">
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Phạm Thị D</div>
-                                            <div class="user-email">phamthid@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="comment-content">
-                                        Bãi biển Bãi Sao thật sự rất đẹp như bài viết mô tả. Nước trong xanh, cát trắng
-                                        mịn. Tuy nhiên dịch vụ ăn uống hơi đắt.
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="#" class="post-link">Bãi biển đẹp nhất Phú Quốc</a>
-                                </td>
-                                <td>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <i class="far fa-star"></i>
-                                        <span class="rating-text">3.5</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-clock"></i>
-                                        07/04/2025 09:20
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge yellow">Chờ duyệt</span>
-                                </td>
-                                <td class="actions-cell">
-                                    <button class="action-btn view-btn" title="Xem">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="action-btn approve-btn" title="Duyệt">
-                                        <i class="fas fa-check"></i>
-                                    </button>
-                                    <button class="action-btn reject-btn" title="Từ chối">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button class="action-btn delete-btn" title="Xóa">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=5" alt="Avatar">
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Hoàng Văn E</div>
-                                            <div class="user-email">hoangvane@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="comment-content">
-                                        Bài viết này không chính xác. Tôi đã đến Sapa vào tháng 12 năm ngoái và không có
-                                        tuyết như mô tả. Thời tiết chỉ lạnh thôi.
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="#" class="post-link">Kinh nghiệm du lịch Sapa mùa đông</a>
-                                </td>
-                                <td>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <span class="rating-text">2.0</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-clock"></i>
-                                        06/04/2025 11:30
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge yellow">Chờ duyệt</span>
-                                </td>
-                                <td class="actions-cell">
-                                    <button class="action-btn view-btn" title="Xem">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="action-btn approve-btn" title="Duyệt">
-                                        <i class="fas fa-check"></i>
-                                    </button>
-                                    <button class="action-btn reject-btn" title="Từ chối">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <button class="action-btn delete-btn" title="Xóa">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Pagination -->
-                <div class="pagination-container">
-                    <div class="pagination-info">
-                        <span>Hiển thị
-                            <select class="select-sm">
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                            </select>
-                            trên tổng số 42 bình luận
-                        </span>
+                <!-- TAB 2: COMMENTS -->
+                <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+                    <div class="filter-card">
+                        <div class="filter-grid">
+                            <div class="filter-item">
+                                <div class="search-input">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="commentSearchInput" placeholder="Tìm nội dung, người dùng...">
+                                </div>
+                            </div>
+                            <div class="filter-item">
+                                <select id="commentTypeFilter" class="select-control">
+                                    <option value="all">Tất cả loại bài viết</option>
+                                    <option value="Cẩm nang">Cẩm nang</option>
+                                    <option value="Trải nghiệm">Trải nghiệm</option>
+                                    <option value="Địa điểm">Địa điểm</option>
+                                </select>
+                            </div>
+                            <div class="filter-item">
+                                <button class="btn btn-filter" id="applyCommentFiltersBtn">
+                                    <i class="fas fa-filter"></i>
+                                    Lọc
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="pagination">
-                        <button class="pagination-btn" disabled>
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <span class="pagination-text">Trang 1 / 9</span>
-                        <button class="pagination-btn">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+
+                    <div class="table-card">
+                        <div class="table-responsive">
+                            <table class="data-table" id="commentsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Người dùng</th>
+                                        <th>Nội dung</th>
+                                        <th>Ảnh bình luận</th>
+                                        <th>Bài viết</th>
+                                        <th>Loại bài viết</th>
+                                        <th>Ngày đăng</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        var comments = Model.Where(x => x.ItemType == "PostComment").ToList();
+                                        if (comments == null || !comments.Any())
+                                        {
+                                            <tr>
+                                                <td colspan="7" class="text-center" style="padding: 20px;">Không có bình luận nào.</td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            foreach (var item in comments)
+                                            {
+                                                // Lấy loại bài viết từ RelatedItemTypeDetail
+                                                string postType = "Không xác định";
+                                                if (item.RelatedItemTypeDetail != null)
+                                                {
+                                                    if (item.RelatedItemTypeDetail.Contains("Cẩm nang"))
+                                                        postType = "Cẩm nang";
+                                                    else if (item.RelatedItemTypeDetail.Contains("Trải nghiệm"))
+                                                        postType = "Trải nghiệm";
+                                                    else if (item.RelatedItemTypeDetail.Contains("Địa điểm"))
+                                                        postType = "Địa điểm";
+                                                }
+
+                                                <tr data-item-type="@item.ItemType" data-post-type="@postType">
+                                                    <td>
+                                                        <div class="user-cell">
+                                                            <div class="user-avatar">
+                                                                <img src="@(string.IsNullOrEmpty(item.UserAvatar) || !item.UserAvatar.StartsWith("/") ? "/images/default-avatar.png" : Url.Content(item.UserAvatar))" alt="Avatar">
+                                                            </div>
+                                                            <div class="user-info">
+                                                                <div class="user-name">@item.UserFullName</div>
+                                                                <div class="user-email">@item.UserEmail</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="comment-content">
+                                                            @Html.Raw(item.Content?.Length > 100 ? item.Content.Substring(0, 100) + "..." : item.Content)
+                                                            @if (item.Content?.Length > 100)
+                                                            {
+                                                                <a href="#" class="view-btn-trigger"
+                                                                   data-id="@item.Id"
+                                                                   data-user-name="@item.UserFullName"
+                                                                   data-user-email="@item.UserEmail"
+                                                                   data-user-avatar="@(string.IsNullOrEmpty(item.UserAvatar) || !item.UserAvatar.StartsWith("/") ? "/images/default-avatar.png" : Url.Content(item.UserAvatar))"
+                                                                   data-item-title="@item.RelatedItemTitle"
+                                                                   data-item-url="@Url.Action("Details", item.RelatedItemController, new { id = item.RelatedItemId })"
+                                                                   data-content="@Html.Raw(item.Content)"
+                                                                   data-rating="@item.Rating"
+                                                                   data-created-at="@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")"
+                                                                   data-item-type="@item.ItemType"
+                                                                   data-item-type-detail="@item.RelatedItemTypeDetail"
+                                                                   data-image-url="@item.ImageUrl"
+                                                                   title="Xem đầy đủ">Xem thêm</a>
+                                                            }
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        @if (!string.IsNullOrEmpty(item.ImageUrl) && item.ImageUrl != "/images/default-postImage.png" && item.ImageUrl.StartsWith("/"))
+                                                        {
+                                                            <img src="@Url.Content(item.ImageUrl)" alt="Ảnh bình luận" style="max-width: 100px; max-height: 70px; cursor: pointer; border-radius: 4px;" onclick="window.open('@Url.Content(item.ImageUrl)', '_blank');" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>Không có</span>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <a asp-controller="@item.RelatedItemController" asp-action="Details" asp-route-id="@item.RelatedItemId" class="post-link" target="_blank">
+                                                            @item.RelatedItemTitle
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge @(postType == "Cẩm nang" ? "blue" : (postType == "Trải nghiệm" ? "green" : "purple"))">
+                                                            @postType
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="date-cell">
+                                                            <i class="fas fa-clock"></i>
+                                                            @item.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                                                        </div>
+                                                    </td>
+                                                    <td class="actions-cell">
+                                                        <button class="action-btn view-btn-trigger" title="Xem chi tiết"
+                                                                data-id="@item.Id"
+                                                                data-user-name="@item.UserFullName"
+                                                                data-user-email="@item.UserEmail"
+                                                                data-user-avatar="@(string.IsNullOrEmpty(item.UserAvatar) || !item.UserAvatar.StartsWith("/") ? "/images/default-avatar.png" : Url.Content(item.UserAvatar))"
+                                                                data-item-title="@item.RelatedItemTitle"
+                                                                data-item-url="@Url.Action("Details", item.RelatedItemController, new { id = item.RelatedItemId })"
+                                                                data-content="@Html.Raw(item.Content)"
+                                                                data-rating="@item.Rating"
+                                                                data-created-at="@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")"
+                                                                data-item-type="@item.ItemType"
+                                                                data-item-type-detail="@item.RelatedItemTypeDetail"
+                                                                data-image-url="@item.ImageUrl">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                        <button class="action-btn delete-btn-trigger" title="Xóa" data-id="@item.Id" data-item-type="@item.ItemType">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -400,73 +405,66 @@
 </div>
 
 <!-- Comment Modal -->
-<div class="modal" id="commentModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2 class="modal-title">Chi tiết bình luận</h2>
-            <button class="modal-close">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="comment-detail">
-                <div class="comment-header">
-                    <div class="user-cell">
-                        <div class="user-avatar">
-                            <img src="https://i.pravatar.cc/60?img=1" alt="Avatar">
-                        </div>
-                        <div class="user-info">
-                            <div class="user-name">Nguyễn Văn A</div>
-                            <div class="user-email">nguyenvana@example.com</div>
-                        </div>
+<div class="modal" id="commentModal" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chi tiết Bình luận</h5>
+                <button type="button" class="modal-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="user-info-container">
+                    <div class="user-avatar">
+                        <img src="" alt="Avatar" id="modal-user-avatar">
                     </div>
-                    <div class="comment-meta">
-                        <div class="date-cell">
-                            <i class="fas fa-clock"></i>
-                            10/04/2025 14:30
-                        </div>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span class="rating-text">5.0</span>
-                        </div>
+                    <div class="user-details">
+                        <div class="user-name"></div>
+                        <div class="user-email"></div>
                     </div>
                 </div>
-                <div class="comment-post">
-                    <strong>Bài viết:</strong> <a href="#" class="post-link">Khám phá Đà Lạt mùa hoa</a>
+
+                <div class="comment-post-info">
+                    <div><strong>Mục:</strong> <a href="#" class="comment-post-link" target="_blank"><span class="comment-post-title"></span></a> <span class="comment-post-type-detail"></span></div>
                 </div>
-                <div class="comment-body">
-                    <p>Bài viết rất hay và chi tiết. Tôi đã đến Đà Lạt vào tháng trước và trải nghiệm đúng như mô tả.
-                        Cảm ơn tác giả!</p>
+
+                <div class="rating-display" style="margin-top: 15px;">
+                    <strong>Đánh giá:</strong>
+                    <div class="stars-container" style="display: inline-block; margin-left: 5px;"></div>
+                    <span class="rating-value"></span>
                 </div>
-                <div class="comment-status">
-                    <strong>Trạng thái:</strong> <span class="badge yellow">Chờ duyệt</span>
+
+                <div class="comment-content-container">
+                    <h6>Nội dung:</h6>
+                    <div class="comment-body-content"></div>
+                </div>
+
+                <div class="comment-image-container" style="margin-top: 15px;">
+                    <img class="modal-comment-image" style="max-width: 100%; border-radius: 5px;" />
+                </div>
+
+                <div class="date-info" style="margin-top: 15px;">
+                    <i class="fas fa-clock"></i> <span class="date-value"></span>
                 </div>
             </div>
-            <div class="form-actions">
-                <button type="button" class="btn btn-secondary" id="cancelComment">Đóng</button>
-                <button type="button" class="btn btn-danger" id="rejectComment">Từ chối</button>
-                <button type="button" class="btn btn-primary" id="approveComment">Duyệt</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary modal-close-btn">Đóng</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Delete Confirmation Modal -->
-<div class="modal" id="deleteModal">
-    <div class="modal-content modal-sm">
-        <div class="modal-header">
-            <h2 class="modal-title">Xác nhận xóa bình luận</h2>
-            <button class="modal-close">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p>Bạn có chắc chắn muốn xóa bình luận này?</p>
-            <div class="form-actions">
+<!-- Delete Modal -->
+<div class="modal" id="deleteModal" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác nhận xóa</h5>
+                <button type="button" class="modal-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteModalMessage">Bạn có chắc chắn muốn xóa mục này?</p>
+            </div>
+            <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="cancelDelete">Hủy</button>
                 <button type="button" class="btn btn-danger" id="confirmDelete">Xóa</button>
             </div>
