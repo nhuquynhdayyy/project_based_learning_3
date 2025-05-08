@@ -20,18 +20,11 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TourismDB")));
 
-// 🔹 Đăng ký Authentication (nếu dùng Cookie Auth)
-// builder.Services.AddAuthentication("CookieAuth")
-//     .AddCookie("CookieAuth", options =>
-//     {
-//         options.LoginPath = "/Users/Login";
-//         options.LogoutPath = "/Users/Logout";
-//     });
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Users/Login";     // Đường dẫn khi chưa đăng nhập
-        options.LogoutPath = "/Users/Logout";   // Đường dẫn khi đăng xuất
+        options.LoginPath = "/Account/Login";     // Đường dẫn khi chưa đăng nhập
+        options.LogoutPath = "/Accout/Logout";   // Đường dẫn khi đăng xuất
         options.AccessDeniedPath = "/Home/AccessDenied"; // Đường dẫn khi bị từ chối truy cập
         options.Cookie.Name = "UserAuthCookie"; // Tên cookie
         options.Cookie.HttpOnly = true;         // Bảo vệ cookie khỏi truy cập từ JavaScript

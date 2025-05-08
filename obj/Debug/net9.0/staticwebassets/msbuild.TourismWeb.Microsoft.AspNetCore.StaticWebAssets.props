@@ -648,6 +648,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\820b4016-ec05-410a-8d82-090e8a1f2d31_danang2.webp'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\9db3e4a0-6760-41a4-967f-2a050afeb2f7_bana.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>TourismWeb</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TourismWeb</BasePath>
+      <RelativePath>images/9db3e4a0-6760-41a4-967f-2a050afeb2f7_bana.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>qkf4z0h2pc</Fingerprint>
+      <Integrity>JkU2iFT3lUGu6j6Hr8Q+Jme9Gt4F5CU1IyKyLYCffzs=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\9db3e4a0-6760-41a4-967f-2a050afeb2f7_bana.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\af5fea27-dd19-4166-a351-2644d8ea80a2.jpg'))">
       <SourceType>Package</SourceType>
       <SourceId>TourismWeb</SourceId>
@@ -1992,8 +2010,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>x94jbl2hd1</Fingerprint>
-      <Integrity>m6QXH8IwRJzI9Qo8cw8+LfsmzkL3oRrl4aMHOZ1demY=</Integrity>
+      <Fingerprint>ijtvu1vnab</Fingerprint>
+      <Integrity>TtnCaMC3t5ggW64Ttz/vk9qumvICXllI6lwdxsSJbC8=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\dashboard.js'))</OriginalItemSpec>

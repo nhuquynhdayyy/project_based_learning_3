@@ -1,277 +1,209 @@
-@* @section Styles {
-    <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-}
-
-@{
-    ViewData["Title"] = "Hệ Thống Quản Trị Bài Viết";
-}
-@{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-}
-
-@section Scripts {
-    <script src="~/js/jsadmin/dashboard.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-}
-
-
-<div class="app-container">
-    <!-- Main Content -->
-    <div class="main-content">
-        <main class="content-wrapper">
-            <!-- Mobile Sidebar Toggle Button -->
-            <button class="toggle-sidebar">
-                <i class="fas fa-bars"></i>
-            </button>
-
-            <div class="page-header">
-                <h1 class="page-title">Tổng Quan</h1>
-                <div class="page-actions">
-                    <div class="filter-group">
-                        <label for="time-range">Thời gian:</label>
-                        <select id="time-range" class="select-control">
-                            <option value="7">7 ngày</option>
-                            <option value="30" selected>30 ngày</option>
-                            <option value="all">Tất cả</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Stats Cards -->
-            <div class="stats-grid">
-                <div class="stats-card">
-                    <div class="stats-card-content">
-                        <div>
-                            <p class="stats-card-label">Tổng số bài viết</p>
-                            <p class="stats-card-value">125</p>
-                        </div>
-                        <div class="stats-card-icon blue">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
-                    </div>
-                    <div class="stats-card-footer">
-                        <span class="stats-trend positive">+12%</span> so với tuần trước
-                    </div>
-                </div>
-
-                <div class="stats-card">
-                    <div class="stats-card-content">
-                        <div>
-                            <p class="stats-card-label">Địa điểm</p>
-                            <p class="stats-card-value">48</p>
-                        </div>
-                        <div class="stats-card-icon blue-light">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                    </div>
-                    <div class="stats-card-footer">
-                        <span class="stats-trend positive">+5</span> bài mới trong tuần
-                    </div>
-                </div>
-
-                <div class="stats-card">
-                    <div class="stats-card-content">
-                        <div>
-                            <p class="stats-card-label">Cẩm nang du lịch</p>
-                            <p class="stats-card-value">42</p>
-                        </div>
-                        <div class="stats-card-icon green">
-                            <i class="fas fa-book"></i>
-                        </div>
-                    </div>
-                    <div class="stats-card-footer">
-                        <span class="stats-trend positive">+3</span> bài mới trong tuần
-                    </div>
-                </div>
-
-                <div class="stats-card">
-                    <div class="stats-card-content">
-                        <div>
-                            <p class="stats-card-label">Trải nghiệm</p>
-                            <p class="stats-card-value">35</p>
-                        </div>
-                        <div class="stats-card-icon amber">
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="stats-card-footer">
-                        <span class="stats-trend positive">+4</span> bài mới trong tuần
-                    </div>
-                </div>
-            </div>
-
-            <!-- Charts -->
-            <div class="charts-grid">
-                <div class="chart-card large">
-                    <h2 class="chart-title">Số bài viết trong 30 ngày qua</h2>
-                    <div class="chart-container">
-                        <canvas id="postsChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="chart-card">
-                    <h2 class="chart-title">Tỷ lệ phân bố bài viết</h2>
-                    <div class="chart-container">
-                        <canvas id="distributionChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Activities -->
-            <div class="table-card">
-                <div class="table-header">
-                    <h2 class="table-title">Hoạt động gần đây</h2>
-                    <a href="posts.html" class="view-all">Xem tất cả</a>
-                </div>
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Tiêu đề</th>
-                                <th>Loại</th>
-                                <th>Tác giả</th>
-                                <th>Ngày đăng</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="table-title-cell">Khám phá Đà Lạt mùa hoa</div>
-                                </td>
-                                <td>
-                                    <span class="badge blue">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        Địa điểm
-                                    </span>
-                                </td>
-                                <td>Nguyễn Văn A</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-clock"></i>
-                                        10/04/2025 14:30
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="#" class="action-link">Xem</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="table-title-cell">Cẩm nang du lịch Hội An tự túc</div>
-                                </td>
-                                <td>
-                                    <span class="badge green">
-                                        <i class="fas fa-book"></i>
-                                        Cẩm nang
-                                    </span>
-                                </td>
-                                <td>Trần Thị B</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-clock"></i>
-                                        09/04/2025 10:15
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="#" class="action-link">Xem</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="table-title-cell">Trải nghiệm leo núi Fansipan</div>
-                                </td>
-                                <td>
-                                    <span class="badge amber">
-                                        <i class="fas fa-star"></i>
-                                        Trải nghiệm
-                                    </span>
-                                </td>
-                                <td>Lê Văn C</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-clock"></i>
-                                        08/04/2025 16:45
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="#" class="action-link">Xem</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="table-title-cell">Bãi biển đẹp nhất Phú Quốc</div>
-                                </td>
-                                <td>
-                                    <span class="badge blue">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        Địa điểm
-                                    </span>
-                                </td>
-                                <td>Phạm Thị D</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-clock"></i>
-                                        07/04/2025 09:20
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="#" class="action-link">Xem</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="table-title-cell">Kinh nghiệm du lịch Sapa mùa đông</div>
-                                </td>
-                                <td>
-                                    <span class="badge green">
-                                        <i class="fas fa-book"></i>
-                                        Cẩm nang
-                                    </span>
-                                </td>
-                                <td>Hoàng Văn E</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-clock"></i>
-                                        06/04/2025 11:30
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="#" class="action-link">Xem</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </main>
-    </div>
-</div> *@
 @model TourismWeb.Models.ViewModels.DashboardViewModel // Thay bằng namespace đúng của bạn
 
 @section Styles {
     <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Thêm style để chart không bị quá lớn và giữ tỷ lệ */
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 350px; /* Hoặc kích thước phù hợp với layout của bạn */
+            width: 100%;   /* Hoặc kích thước phù hợp */
+        }
+    </style>
 }
 
 @{
-    ViewData["Title"] = "Hệ Thống Quản Trị"; // Tiêu đề chung hơn
+    ViewData["Title"] = "Hệ Thống Quản Trị";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="~/js/jsadmin/dashboard.js" asp-append-version="true"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script> 
+    <script src="~/js/jsadmin/dashboard.js" asp-append-version="true"></script>
     <script>
         // Truyền dữ liệu từ ViewModel sang JavaScript cho biểu đồ
         const postChartLabels = @Html.Raw(Json.Serialize(Model.PostChartLabels));
         const postChartData = @Html.Raw(Json.Serialize(Model.PostChartData));
         const distributionChartLabels = @Html.Raw(Json.Serialize(Model.DistributionChartLabels));
         const distributionChartData = @Html.Raw(Json.Serialize(Model.DistributionChartData));
-        const selectedTimeRange = "@ViewContext.RouteData.Values["timeRange"] ?? "30"; // Lấy timeRange hiện tại
+
+        // DEBUGGING - Kiểm tra dữ liệu truyền sang
+        console.log("Post Chart Labels:", postChartLabels);
+        console.log("Post Chart Data:", postChartData);
+        console.log("Distribution Chart Labels:", distributionChartLabels);
+        console.log("Distribution Chart Data:", distributionChartData);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Xử lý thay đổi time-range
+            const timeRangeSelect = document.getElementById('time-range');
+            if (timeRangeSelect) {
+                timeRangeSelect.addEventListener('change', function () {
+                    const selectedValue = this.value;
+                    let currentUrlPath = window.location.pathname;
+                    window.location.href = `${currentUrlPath}?timeRange=${selectedValue}`;
+                });
+            }
+
+            // ĐĂNG KÝ PLUGIN DATALABELS (quan trọng cho Chart.js v3+)
+            // Plugin được đăng ký tự động nếu bạn dùng bản 'dist' hoàn chỉnh.
+            // Nếu dùng bản module, bạn cần Chart.register(ChartDataLabels);
+            // Với CDN 'dist', thường không cần gọi register thủ công.
+
+            // Khởi tạo biểu đồ số bài viết
+            if (document.getElementById('postsChart')) {
+                initPostsChart();
+            }
+
+            // Khởi tạo biểu đồ tỷ lệ phân bố
+            if (document.getElementById('distributionChart')) {
+                initDistributionChart();
+            }
+        });
+
+        // HÀM KHỞI TẠO BIỂU ĐỒ SỐ BÀI VIẾT
+        function initPostsChart() {
+            const ctxPosts = document.getElementById('postsChart').getContext('2d');
+            new Chart(ctxPosts, {
+                type: 'line', // Hoặc 'bar'
+                data: {
+                    labels: postChartLabels,
+                    datasets: [{
+                        label: 'Số bài viết',
+                        data: postChartData,
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        tension: 0.1,
+                        fill: true,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                // Đảm bảo chỉ hiển thị số nguyên trên trục y
+                                stepSize: 1,
+                                callback: function(value) { if (Number.isInteger(value)) { return value; } },
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                        },
+                        title: {
+                            display: false, // Đã có H2 bên ngoài
+                            // text: 'Số bài viết trong ... ngày qua'
+                        }
+                    }
+                }
+            });
+        }
+
+        // HÀM KHỞI TẠO BIỂU ĐỒ TỶ LỆ PHÂN BỐ (DOUGHNUT HOẶC PIE)
+        function initDistributionChart() {
+            const ctxDistribution = document.getElementById('distributionChart').getContext('2d');
+            new Chart(ctxDistribution, {
+                type: 'doughnut', // HOẶC 'pie' NẾU MUỐN BIỂU ĐỒ TRÒN ĐẶC
+                data: {
+                    labels: distributionChartLabels, // Ví dụ: ["Cẩm nang", "Trải nghiệm", "Bài viết về Địa điểm"]
+                    datasets: [{
+                        label: 'Tỷ lệ phân bố',
+                        data: distributionChartData, // Ví dụ: [3, 1, 1]
+                        backgroundColor: [
+                            '#FF6384', // Màu cho Cẩm nang (Hồng) - khớp với legend trong hình
+                            '#36A2EB', // Màu cho Trải nghiệm (Xanh dương) - khớp với legend trong hình
+                            '#FFCE56'  // Màu cho Bài viết về Địa điểm (Vàng) - khớp với legend trong hình
+                            // Thêm các màu khác nếu có thêm loại
+                        ],
+                        borderColor: [ // Thêm viền để đẹp hơn
+                            '#FFFFFF',
+                            '#FFFFFF',
+                            '#FFFFFF'
+                        ],
+                        borderWidth: 2, // Độ dày viền
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Quan trọng để chart co giãn theo container
+                    cutout: '50%', // Chỉ áp dụng cho 'doughnut', tạo độ dày cho vòng. '0%' sẽ giống 'pie'
+                    plugins: {
+                        legend: {
+                            display: true, // Hiển thị chú thích (Cẩm nang, Trải nghiệm,...)
+                            position: 'top', // Vị trí chú thích, có thể là 'bottom', 'left', 'right'
+                            labels: {
+                                usePointStyle: true, // Sử dụng hình tròn nhỏ cho legend thay vì hình chữ nhật
+                                padding: 20 // Khoảng cách giữa các mục legend
+                            }
+                        },
+                        title: {
+                            display: false, // Đã có H2 bên ngoài
+                            // text: 'Tỷ lệ phân bố bài viết'
+                        },
+                        tooltip: { // Cấu hình tooltip khi hover
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        // Hiển thị cả số lượng và phần trăm trong tooltip
+                                        const value = context.raw;
+                                        const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                        const percentage = total > 0 ? ((value / total) * 100).toFixed(1) + '%' : '0%';
+                                        label += `${value} (${percentage})`;
+                                    }
+                                    return label;
+                                }
+                            }
+                        },
+                        datalabels: { // Cấu hình cho plugin chartjs-plugin-datalabels
+                            display: true, // Đặt là true để hiển thị
+                            formatter: (value, ctx) => {
+                                let sum = 0;
+                                let dataArr = ctx.chart.data.datasets[0].data;
+                                dataArr.map(data => {
+                                    sum += data;
+                                });
+                                if (sum === 0) return ''; // Không hiển thị gì nếu tổng là 0
+                                let percentage = (value * 100 / sum).toFixed(1) + "%";
+                                // Chỉ hiển thị phần trăm nếu giá trị > 0 để tránh lộn xộn
+                                return value > 0 ? percentage : '';
+                            },
+                            color: (context) => { // Màu chữ có thể tự động điều chỉnh dựa trên màu nền
+                                const bgColor = context.dataset.backgroundColor[context.dataIndex];
+                                // Hàm đơn giản để quyết định màu chữ (đen hoặc trắng)
+                                // Bạn có thể cần một logic phức tạp hơn cho độ tương phản tốt
+                                const colorThreshold = 128; // Ngưỡng độ sáng
+                                const rgb = bgColor.match(/\d+/g);
+                                if (rgb) {
+                                     const brightness = (parseInt(rgb[0]) * 299 + parseInt(rgb[1]) * 587 + parseInt(rgb[2]) * 114) / 1000;
+                                     return brightness > colorThreshold ? '#000000' : '#FFFFFF';
+                                }
+                                return '#FFFFFF'; // Mặc định là trắng nếu không parse được màu
+                            },
+                            font: {
+                                weight: 'bold',
+                                size: 12
+                            },
+                            anchor: 'center', // Vị trí của label: 'center', 'start', 'end'
+                            align: 'center',  // Căn chỉnh label
+                            // offset: 8, // Khoảng cách từ điểm neo (nếu anchor không phải center)
+                            // rotation: -45, // Xoay label
+                        }
+                    }
+                }
+            });
+        }
     </script>
 }
 
@@ -309,53 +241,41 @@
                             <i class="fas fa-file-alt"></i>
                         </div>
                     </div>
-                    @* <div class="stats-card-footer">
-                        <span class="stats-trend positive">+12%</span> so với tuần trước
-                    </div> *@
                 </div>
                 <div class="stats-card">
                     <div class="stats-card-content">
                         <div>
-                            <p class="stats-card-label">Bài viết về Địa điểm</p> @* Đây là TouristSpots *@
+                            <p class="stats-card-label">Bài viết về Địa điểm</p>
                             <p class="stats-card-value">@Model.PostsInLocationCategory</p>
                         </div>
                         <div class="stats-card-icon blue-light">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                     </div>
-                    @* <div class="stats-card-footer">
-                        <span class="stats-trend positive">+5</span> bài mới trong tuần
-                    </div> *@
                 </div>
 
                 <div class="stats-card">
                     <div class="stats-card-content">
                         <div>
-                            <p class="stats-card-label">Cẩm nang du lịch</p> @* Đây là Posts có TypeOfPost = "Cẩm nang" *@
+                            <p class="stats-card-label">Cẩm nang du lịch</p>
                             <p class="stats-card-value">@Model.PostsInGuidebookCategory</p>
                         </div>
                         <div class="stats-card-icon green">
                             <i class="fas fa-book"></i>
                         </div>
                     </div>
-                    @* <div class="stats-card-footer">
-                        <span class="stats-trend positive">+3</span> bài mới trong tuần
-                    </div> *@
                 </div>
 
                 <div class="stats-card">
                     <div class="stats-card-content">
                         <div>
-                            <p class="stats-card-label">Trải nghiệm</p> @* Đây là Posts có TypeOfPost = "Trải nghiệm" *@
+                            <p class="stats-card-label">Trải nghiệm</p>
                             <p class="stats-card-value">@Model.PostsInExperienceCategory</p>
                         </div>
                         <div class="stats-card-icon amber">
                             <i class="fas fa-star"></i>
                         </div>
                     </div>
-                    @* <div class="stats-card-footer">
-                        <span class="stats-trend positive">+4</span> bài mới trong tuần
-                    </div> *@
                 </div>
             </div>
 
@@ -382,7 +302,7 @@
                 <div class="table-card">
                     <div class="table-header">
                         <h2 class="table-title">Hoạt động gần đây</h2>
-                        <a asp-controller="Posts" asp-action="Index" asp-area="Admin" class="view-all">Xem tất cả</a> @* Cập nhật link này *@
+                        <a asp-controller="Posts" asp-action="Index" asp-area="Admin" class="view-all">Xem tất cả</a>
                     </div>
                     <div class="table-responsive">
                         <table class="data-table">
@@ -403,7 +323,6 @@
                                             <div class="table-title-cell">@post.Title</div>
                                         </td>
                                         <td>
-                                            @* Điều chỉnh badge dựa trên TypeOfPost của Post *@
                                             @if (post.TypeOfPost == "Cẩm nang")
                                             {
                                                 <span class="badge green"><i class="fas fa-book"></i> @post.TypeOfPost</span>
@@ -414,14 +333,14 @@
                                             }
                                             else if (post.TypeOfPost == "Địa điểm")
                                             {
-                                                <span class="badge blue"><i class="fas fa-map-marker-alt"></i> @post.TypeOfPost</span>
+                                                <span class="badge blue-light"><i class="fas fa-map-marker-alt"></i> @post.TypeOfPost</span>
                                             }
                                             else
                                             {
                                                 <span class="badge gray">@post.TypeOfPost</span>
                                             }
                                         </td>
-                                        <td>@(post.User?.FullName ?? "N/A")</td> @* Giả sử User có FullName *@
+                                        <td>@(post.User?.FullName ?? "N/A")</td>
                                         <td>
                                             <div class="date-cell">
                                                 <i class="fas fa-clock"></i>
@@ -429,7 +348,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.PostId" asp-area="Admin" class="action-link">Xem</a> @* Cập nhật link này *@
+                                            <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.PostId" asp-area="Admin" class="action-link">Xem</a>
                                         </td>
                                     </tr>
                                 }
