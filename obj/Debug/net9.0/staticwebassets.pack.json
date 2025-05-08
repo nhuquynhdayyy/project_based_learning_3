@@ -141,8 +141,36 @@
       "PackagePath": "staticwebassets\\images\\avatar3.png"
     },
     {
+      "Id": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\128c0a5d-3fe6-4248-81f6-6b351e1303a7.jpg",
+      "PackagePath": "staticwebassets\\images\\avatars\\128c0a5d-3fe6-4248-81f6-6b351e1303a7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\344e12c3-1cf4-464a-a88a-4f2628175ea4.jpg",
+      "PackagePath": "staticwebassets\\images\\avatars\\344e12c3-1cf4-464a-a88a-4f2628175ea4.jpg"
+    },
+    {
       "Id": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\407cad9c-e6bf-43d7-9ca2-3847eab4e846.jpg",
       "PackagePath": "staticwebassets\\images\\avatars\\407cad9c-e6bf-43d7-9ca2-3847eab4e846.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\65b4abf1-5390-427e-8892-5fb3994e44d2.jpg",
+      "PackagePath": "staticwebassets\\images\\avatars\\65b4abf1-5390-427e-8892-5fb3994e44d2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\6722bb51-a20b-4ed0-9e36-0facf202b7c5.jpg",
+      "PackagePath": "staticwebassets\\images\\avatars\\6722bb51-a20b-4ed0-9e36-0facf202b7c5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\771bc780-a236-4981-9717-7f7b5db904a0.jpg",
+      "PackagePath": "staticwebassets\\images\\avatars\\771bc780-a236-4981-9717-7f7b5db904a0.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\852e97f1-2abf-4492-b904-cacf9368d7c1.jpg",
+      "PackagePath": "staticwebassets\\images\\avatars\\852e97f1-2abf-4492-b904-cacf9368d7c1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\adfb9ef5-973a-4e43-b8f3-0ea50912a146.jpg",
+      "PackagePath": "staticwebassets\\images\\avatars\\adfb9ef5-973a-4e43-b8f3-0ea50912a146.jpg"
     },
     {
       "Id": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\b35539e2-8b44-48e9-a443-b43a52e1c1fd.jpg",
@@ -379,6 +407,14 @@
     {
       "Id": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\reviews\\8a814a00-adf9-4ec1-8c4c-25f7c2ebd351.jpg",
       "PackagePath": "staticwebassets\\images\\reviews\\8a814a00-adf9-4ec1-8c4c-25f7c2ebd351.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\reviews\\a55a3b32-f41f-4302-92e1-6fdc2c037957.jpg",
+      "PackagePath": "staticwebassets\\images\\reviews\\a55a3b32-f41f-4302-92e1-6fdc2c037957.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\reviews\\e3a52050-148b-4cf6-be6a-0246ed61a8e5.png",
+      "PackagePath": "staticwebassets\\images\\reviews\\e3a52050-148b-4cf6-be6a-0246ed61a8e5.png"
     },
     {
       "Id": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\sacmaudanang.webp",

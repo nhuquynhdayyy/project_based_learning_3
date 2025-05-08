@@ -420,6 +420,30 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"yqxafcanfa"},{"Name":"integrity","Value":"sha256-Wkj9GA6/pMBRkk7E83cmjVv/IXNuZSXbj5Sd0ONaE3A="},{"Name":"label","Value":"_content/TourismWeb/images/avatar3.png"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"480714"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022Wkj9GA6/pMBRkk7E83cmjVv/IXNuZSXbj5Sd0ONaE3A=\u0022"},{"Name":"Last-Modified","Value":"Fri, 02 May 2025 18:33:53 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/128c0a5d-3fe6-4248-81f6-6b351e1303a7.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\128c0a5d-3fe6-4248-81f6-6b351e1303a7.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-uZb8lx9lzHoiVHYS4T2O6y\u002BKPRKAh1h9eaTyfkEtVbo="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"191269"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022uZb8lx9lzHoiVHYS4T2O6y\u002BKPRKAh1h9eaTyfkEtVbo=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 16:36:21 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/128c0a5d-3fe6-4248-81f6-6b351e1303a7.xydg8148ff.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\128c0a5d-3fe6-4248-81f6-6b351e1303a7.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"xydg8148ff"},{"Name":"integrity","Value":"sha256-uZb8lx9lzHoiVHYS4T2O6y\u002BKPRKAh1h9eaTyfkEtVbo="},{"Name":"label","Value":"_content/TourismWeb/images/avatars/128c0a5d-3fe6-4248-81f6-6b351e1303a7.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"191269"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022uZb8lx9lzHoiVHYS4T2O6y\u002BKPRKAh1h9eaTyfkEtVbo=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 16:36:21 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/344e12c3-1cf4-464a-a88a-4f2628175ea4.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\344e12c3-1cf4-464a-a88a-4f2628175ea4.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-ntvpX/n1U7S8XEv\u002Bnh\u002Bv9tKanowsanBqrOwXiUPVWVc="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"21167"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022ntvpX/n1U7S8XEv\u002Bnh\u002Bv9tKanowsanBqrOwXiUPVWVc=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 16:36:29 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/344e12c3-1cf4-464a-a88a-4f2628175ea4.y8y8duyhth.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\344e12c3-1cf4-464a-a88a-4f2628175ea4.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"y8y8duyhth"},{"Name":"integrity","Value":"sha256-ntvpX/n1U7S8XEv\u002Bnh\u002Bv9tKanowsanBqrOwXiUPVWVc="},{"Name":"label","Value":"_content/TourismWeb/images/avatars/344e12c3-1cf4-464a-a88a-4f2628175ea4.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"21167"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022ntvpX/n1U7S8XEv\u002Bnh\u002Bv9tKanowsanBqrOwXiUPVWVc=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 16:36:29 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/407cad9c-e6bf-43d7-9ca2-3847eab4e846.jpg">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\407cad9c-e6bf-43d7-9ca2-3847eab4e846.jpg'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
@@ -431,6 +455,66 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"mdn17trc4y"},{"Name":"integrity","Value":"sha256-ZihZPuyuVRWOjSkWi94tR5nRnZ2qdIJZLFLvw/JOHYE="},{"Name":"label","Value":"_content/TourismWeb/images/avatars/407cad9c-e6bf-43d7-9ca2-3847eab4e846.jpg"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"24689"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022ZihZPuyuVRWOjSkWi94tR5nRnZ2qdIJZLFLvw/JOHYE=\u0022"},{"Name":"Last-Modified","Value":"Tue, 06 May 2025 16:45:08 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/65b4abf1-5390-427e-8892-5fb3994e44d2.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\65b4abf1-5390-427e-8892-5fb3994e44d2.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-ntvpX/n1U7S8XEv\u002Bnh\u002Bv9tKanowsanBqrOwXiUPVWVc="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"21167"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022ntvpX/n1U7S8XEv\u002Bnh\u002Bv9tKanowsanBqrOwXiUPVWVc=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 16:22:08 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/65b4abf1-5390-427e-8892-5fb3994e44d2.y8y8duyhth.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\65b4abf1-5390-427e-8892-5fb3994e44d2.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"y8y8duyhth"},{"Name":"integrity","Value":"sha256-ntvpX/n1U7S8XEv\u002Bnh\u002Bv9tKanowsanBqrOwXiUPVWVc="},{"Name":"label","Value":"_content/TourismWeb/images/avatars/65b4abf1-5390-427e-8892-5fb3994e44d2.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"21167"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022ntvpX/n1U7S8XEv\u002Bnh\u002Bv9tKanowsanBqrOwXiUPVWVc=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 16:22:08 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/6722bb51-a20b-4ed0-9e36-0facf202b7c5.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\6722bb51-a20b-4ed0-9e36-0facf202b7c5.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-rUa24Ir1gEvS3rJ7vf3t4/VE5YTi2rsfOWBPGAGfIw4="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"30007"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022rUa24Ir1gEvS3rJ7vf3t4/VE5YTi2rsfOWBPGAGfIw4=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 16:17:54 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/6722bb51-a20b-4ed0-9e36-0facf202b7c5.nzxtwy84tu.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\6722bb51-a20b-4ed0-9e36-0facf202b7c5.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"nzxtwy84tu"},{"Name":"integrity","Value":"sha256-rUa24Ir1gEvS3rJ7vf3t4/VE5YTi2rsfOWBPGAGfIw4="},{"Name":"label","Value":"_content/TourismWeb/images/avatars/6722bb51-a20b-4ed0-9e36-0facf202b7c5.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"30007"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022rUa24Ir1gEvS3rJ7vf3t4/VE5YTi2rsfOWBPGAGfIw4=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 16:17:54 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/771bc780-a236-4981-9717-7f7b5db904a0.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\771bc780-a236-4981-9717-7f7b5db904a0.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Dt0Q5OSTIQAFO2sXznohUIjFId\u002BeGizSHQZ9XF3b\u002Bbk="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"23973"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022Dt0Q5OSTIQAFO2sXznohUIjFId\u002BeGizSHQZ9XF3b\u002Bbk=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 16:36:13 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/771bc780-a236-4981-9717-7f7b5db904a0.yftc9hjc7j.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\771bc780-a236-4981-9717-7f7b5db904a0.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"yftc9hjc7j"},{"Name":"integrity","Value":"sha256-Dt0Q5OSTIQAFO2sXznohUIjFId\u002BeGizSHQZ9XF3b\u002Bbk="},{"Name":"label","Value":"_content/TourismWeb/images/avatars/771bc780-a236-4981-9717-7f7b5db904a0.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"23973"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022Dt0Q5OSTIQAFO2sXznohUIjFId\u002BeGizSHQZ9XF3b\u002Bbk=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 16:36:13 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/852e97f1-2abf-4492-b904-cacf9368d7c1.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\852e97f1-2abf-4492-b904-cacf9368d7c1.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-ZihZPuyuVRWOjSkWi94tR5nRnZ2qdIJZLFLvw/JOHYE="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"24689"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022ZihZPuyuVRWOjSkWi94tR5nRnZ2qdIJZLFLvw/JOHYE=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 16:17:30 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/852e97f1-2abf-4492-b904-cacf9368d7c1.mdn17trc4y.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\852e97f1-2abf-4492-b904-cacf9368d7c1.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"mdn17trc4y"},{"Name":"integrity","Value":"sha256-ZihZPuyuVRWOjSkWi94tR5nRnZ2qdIJZLFLvw/JOHYE="},{"Name":"label","Value":"_content/TourismWeb/images/avatars/852e97f1-2abf-4492-b904-cacf9368d7c1.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"24689"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022ZihZPuyuVRWOjSkWi94tR5nRnZ2qdIJZLFLvw/JOHYE=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 16:17:30 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/adfb9ef5-973a-4e43-b8f3-0ea50912a146.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\adfb9ef5-973a-4e43-b8f3-0ea50912a146.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-2YJc73Uf/e9tMgsVCjInfd4LNnw5H/Sk/G53o7DUFjs="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"40270"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u00222YJc73Uf/e9tMgsVCjInfd4LNnw5H/Sk/G53o7DUFjs=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 16:17:40 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/adfb9ef5-973a-4e43-b8f3-0ea50912a146.t3h5ly2m1b.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\adfb9ef5-973a-4e43-b8f3-0ea50912a146.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"t3h5ly2m1b"},{"Name":"integrity","Value":"sha256-2YJc73Uf/e9tMgsVCjInfd4LNnw5H/Sk/G53o7DUFjs="},{"Name":"label","Value":"_content/TourismWeb/images/avatars/adfb9ef5-973a-4e43-b8f3-0ea50912a146.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"40270"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u00222YJc73Uf/e9tMgsVCjInfd4LNnw5H/Sk/G53o7DUFjs=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 16:17:40 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TourismWeb/images/avatars/b35539e2-8b44-48e9-a443-b43a52e1c1fd.jpg">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\b35539e2-8b44-48e9-a443-b43a52e1c1fd.jpg'))</AssetFile>
@@ -1139,6 +1223,30 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"k7ih1r0b5g"},{"Name":"integrity","Value":"sha256-kNx4sVX7xTGgWtfg95ag2lD8oKUSeCaFLirsj0fJMtg="},{"Name":"label","Value":"_content/TourismWeb/images/reviews/8a814a00-adf9-4ec1-8c4c-25f7c2ebd351.jpg"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"121066"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022kNx4sVX7xTGgWtfg95ag2lD8oKUSeCaFLirsj0fJMtg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 02 May 2025 18:33:54 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/reviews/a55a3b32-f41f-4302-92e1-6fdc2c037957.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\reviews\a55a3b32-f41f-4302-92e1-6fdc2c037957.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-uZb8lx9lzHoiVHYS4T2O6y\u002BKPRKAh1h9eaTyfkEtVbo="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"191269"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022uZb8lx9lzHoiVHYS4T2O6y\u002BKPRKAh1h9eaTyfkEtVbo=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 06:12:46 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/reviews/a55a3b32-f41f-4302-92e1-6fdc2c037957.xydg8148ff.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\reviews\a55a3b32-f41f-4302-92e1-6fdc2c037957.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"xydg8148ff"},{"Name":"integrity","Value":"sha256-uZb8lx9lzHoiVHYS4T2O6y\u002BKPRKAh1h9eaTyfkEtVbo="},{"Name":"label","Value":"_content/TourismWeb/images/reviews/a55a3b32-f41f-4302-92e1-6fdc2c037957.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"191269"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022uZb8lx9lzHoiVHYS4T2O6y\u002BKPRKAh1h9eaTyfkEtVbo=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 06:12:46 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/reviews/e3a52050-148b-4cf6-be6a-0246ed61a8e5.lfpuzg4lq8.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\reviews\e3a52050-148b-4cf6-be6a-0246ed61a8e5.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"lfpuzg4lq8"},{"Name":"integrity","Value":"sha256-QZ8S6Zy4luhvCLuwM1Gu3K0lzajBglh0Cdjjl0zWxl8="},{"Name":"label","Value":"_content/TourismWeb/images/reviews/e3a52050-148b-4cf6-be6a-0246ed61a8e5.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"693849"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022QZ8S6Zy4luhvCLuwM1Gu3K0lzajBglh0Cdjjl0zWxl8=\u0022"},{"Name":"Last-Modified","Value":"Wed, 07 May 2025 15:14:21 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/reviews/e3a52050-148b-4cf6-be6a-0246ed61a8e5.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\reviews\e3a52050-148b-4cf6-be6a-0246ed61a8e5.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-QZ8S6Zy4luhvCLuwM1Gu3K0lzajBglh0Cdjjl0zWxl8="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"693849"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022QZ8S6Zy4luhvCLuwM1Gu3K0lzajBglh0Cdjjl0zWxl8=\u0022"},{"Name":"Last-Modified","Value":"Wed, 07 May 2025 15:14:21 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TourismWeb/images/sacmaudanang.am0ujevkdq.webp">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\sacmaudanang.webp'))</AssetFile>

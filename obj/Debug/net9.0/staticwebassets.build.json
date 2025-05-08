@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "UJB+9DYos+yE/VGKMev5ii3snboxLzuBHhkayadl9p8=",
+  "Hash": "oXfSNnLT2JX3M+Ji7IoBTcYmVoB8WNLTNGfJ+JTyB2M=",
   "Source": "TourismWeb",
   "BasePath": "_content/TourismWeb",
   "Mode": "Default",
@@ -2831,6 +2831,48 @@
       "OriginalItemSpec": "wwwroot\\images\\avatar3.png"
     },
     {
+      "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\128c0a5d-3fe6-4248-81f6-6b351e1303a7.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/avatars/128c0a5d-3fe6-4248-81f6-6b351e1303a7#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "xydg8148ff",
+      "Integrity": "uZb8lx9lzHoiVHYS4T2O6y+KPRKAh1h9eaTyfkEtVbo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\avatars\\128c0a5d-3fe6-4248-81f6-6b351e1303a7.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\344e12c3-1cf4-464a-a88a-4f2628175ea4.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/avatars/344e12c3-1cf4-464a-a88a-4f2628175ea4#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "y8y8duyhth",
+      "Integrity": "ntvpX/n1U7S8XEv+nh+v9tKanowsanBqrOwXiUPVWVc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\avatars\\344e12c3-1cf4-464a-a88a-4f2628175ea4.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\407cad9c-e6bf-43d7-9ca2-3847eab4e846.jpg",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
@@ -2850,6 +2892,111 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\avatars\\407cad9c-e6bf-43d7-9ca2-3847eab4e846.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\65b4abf1-5390-427e-8892-5fb3994e44d2.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/avatars/65b4abf1-5390-427e-8892-5fb3994e44d2#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "y8y8duyhth",
+      "Integrity": "ntvpX/n1U7S8XEv+nh+v9tKanowsanBqrOwXiUPVWVc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\avatars\\65b4abf1-5390-427e-8892-5fb3994e44d2.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\6722bb51-a20b-4ed0-9e36-0facf202b7c5.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/avatars/6722bb51-a20b-4ed0-9e36-0facf202b7c5#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "nzxtwy84tu",
+      "Integrity": "rUa24Ir1gEvS3rJ7vf3t4/VE5YTi2rsfOWBPGAGfIw4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\avatars\\6722bb51-a20b-4ed0-9e36-0facf202b7c5.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\771bc780-a236-4981-9717-7f7b5db904a0.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/avatars/771bc780-a236-4981-9717-7f7b5db904a0#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "yftc9hjc7j",
+      "Integrity": "Dt0Q5OSTIQAFO2sXznohUIjFId+eGizSHQZ9XF3b+bk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\avatars\\771bc780-a236-4981-9717-7f7b5db904a0.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\852e97f1-2abf-4492-b904-cacf9368d7c1.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/avatars/852e97f1-2abf-4492-b904-cacf9368d7c1#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "mdn17trc4y",
+      "Integrity": "ZihZPuyuVRWOjSkWi94tR5nRnZ2qdIJZLFLvw/JOHYE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\avatars\\852e97f1-2abf-4492-b904-cacf9368d7c1.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\adfb9ef5-973a-4e43-b8f3-0ea50912a146.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/avatars/adfb9ef5-973a-4e43-b8f3-0ea50912a146#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "t3h5ly2m1b",
+      "Integrity": "2YJc73Uf/e9tMgsVCjInfd4LNnw5H/Sk/G53o7DUFjs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\avatars\\adfb9ef5-973a-4e43-b8f3-0ea50912a146.jpg"
     },
     {
       "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\b35539e2-8b44-48e9-a443-b43a52e1c1fd.jpg",
@@ -4089,6 +4236,48 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\reviews\\8a814a00-adf9-4ec1-8c4c-25f7c2ebd351.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\reviews\\a55a3b32-f41f-4302-92e1-6fdc2c037957.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/reviews/a55a3b32-f41f-4302-92e1-6fdc2c037957#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "xydg8148ff",
+      "Integrity": "uZb8lx9lzHoiVHYS4T2O6y+KPRKAh1h9eaTyfkEtVbo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\reviews\\a55a3b32-f41f-4302-92e1-6fdc2c037957.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\reviews\\e3a52050-148b-4cf6-be6a-0246ed61a8e5.png",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/reviews/e3a52050-148b-4cf6-be6a-0246ed61a8e5#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "lfpuzg4lq8",
+      "Integrity": "QZ8S6Zy4luhvCLuwM1Gu3K0lzajBglh0Cdjjl0zWxl8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\reviews\\e3a52050-148b-4cf6-be6a-0246ed61a8e5.png"
     },
     {
       "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\sacmaudanang.webp",
@@ -14622,6 +14811,170 @@
       ]
     },
     {
+      "Route": "images/avatars/128c0a5d-3fe6-4248-81f6-6b351e1303a7.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\128c0a5d-3fe6-4248-81f6-6b351e1303a7.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "191269"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uZb8lx9lzHoiVHYS4T2O6y+KPRKAh1h9eaTyfkEtVbo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 16:36:21 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-uZb8lx9lzHoiVHYS4T2O6y+KPRKAh1h9eaTyfkEtVbo="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatars/128c0a5d-3fe6-4248-81f6-6b351e1303a7.xydg8148ff.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\128c0a5d-3fe6-4248-81f6-6b351e1303a7.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "191269"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uZb8lx9lzHoiVHYS4T2O6y+KPRKAh1h9eaTyfkEtVbo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 16:36:21 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "xydg8148ff"
+        },
+        {
+          "Name": "label",
+          "Value": "images/avatars/128c0a5d-3fe6-4248-81f6-6b351e1303a7.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-uZb8lx9lzHoiVHYS4T2O6y+KPRKAh1h9eaTyfkEtVbo="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatars/344e12c3-1cf4-464a-a88a-4f2628175ea4.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\344e12c3-1cf4-464a-a88a-4f2628175ea4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21167"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ntvpX/n1U7S8XEv+nh+v9tKanowsanBqrOwXiUPVWVc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 16:36:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ntvpX/n1U7S8XEv+nh+v9tKanowsanBqrOwXiUPVWVc="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatars/344e12c3-1cf4-464a-a88a-4f2628175ea4.y8y8duyhth.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\344e12c3-1cf4-464a-a88a-4f2628175ea4.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21167"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ntvpX/n1U7S8XEv+nh+v9tKanowsanBqrOwXiUPVWVc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 16:36:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "y8y8duyhth"
+        },
+        {
+          "Name": "label",
+          "Value": "images/avatars/344e12c3-1cf4-464a-a88a-4f2628175ea4.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ntvpX/n1U7S8XEv+nh+v9tKanowsanBqrOwXiUPVWVc="
+        }
+      ]
+    },
+    {
       "Route": "images/avatars/407cad9c-e6bf-43d7-9ca2-3847eab4e846.jpg",
       "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\407cad9c-e6bf-43d7-9ca2-3847eab4e846.jpg",
       "Selectors": [],
@@ -14700,6 +15053,416 @@
         {
           "Name": "integrity",
           "Value": "sha256-ZihZPuyuVRWOjSkWi94tR5nRnZ2qdIJZLFLvw/JOHYE="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatars/65b4abf1-5390-427e-8892-5fb3994e44d2.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\65b4abf1-5390-427e-8892-5fb3994e44d2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21167"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ntvpX/n1U7S8XEv+nh+v9tKanowsanBqrOwXiUPVWVc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 16:22:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ntvpX/n1U7S8XEv+nh+v9tKanowsanBqrOwXiUPVWVc="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatars/65b4abf1-5390-427e-8892-5fb3994e44d2.y8y8duyhth.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\65b4abf1-5390-427e-8892-5fb3994e44d2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21167"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ntvpX/n1U7S8XEv+nh+v9tKanowsanBqrOwXiUPVWVc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 16:22:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "y8y8duyhth"
+        },
+        {
+          "Name": "label",
+          "Value": "images/avatars/65b4abf1-5390-427e-8892-5fb3994e44d2.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ntvpX/n1U7S8XEv+nh+v9tKanowsanBqrOwXiUPVWVc="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatars/6722bb51-a20b-4ed0-9e36-0facf202b7c5.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\6722bb51-a20b-4ed0-9e36-0facf202b7c5.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "30007"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"rUa24Ir1gEvS3rJ7vf3t4/VE5YTi2rsfOWBPGAGfIw4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 16:17:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-rUa24Ir1gEvS3rJ7vf3t4/VE5YTi2rsfOWBPGAGfIw4="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatars/6722bb51-a20b-4ed0-9e36-0facf202b7c5.nzxtwy84tu.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\6722bb51-a20b-4ed0-9e36-0facf202b7c5.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "30007"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"rUa24Ir1gEvS3rJ7vf3t4/VE5YTi2rsfOWBPGAGfIw4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 16:17:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "nzxtwy84tu"
+        },
+        {
+          "Name": "label",
+          "Value": "images/avatars/6722bb51-a20b-4ed0-9e36-0facf202b7c5.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-rUa24Ir1gEvS3rJ7vf3t4/VE5YTi2rsfOWBPGAGfIw4="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatars/771bc780-a236-4981-9717-7f7b5db904a0.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\771bc780-a236-4981-9717-7f7b5db904a0.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "23973"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Dt0Q5OSTIQAFO2sXznohUIjFId+eGizSHQZ9XF3b+bk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 16:36:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Dt0Q5OSTIQAFO2sXznohUIjFId+eGizSHQZ9XF3b+bk="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatars/771bc780-a236-4981-9717-7f7b5db904a0.yftc9hjc7j.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\771bc780-a236-4981-9717-7f7b5db904a0.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "23973"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Dt0Q5OSTIQAFO2sXznohUIjFId+eGizSHQZ9XF3b+bk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 16:36:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yftc9hjc7j"
+        },
+        {
+          "Name": "label",
+          "Value": "images/avatars/771bc780-a236-4981-9717-7f7b5db904a0.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Dt0Q5OSTIQAFO2sXznohUIjFId+eGizSHQZ9XF3b+bk="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatars/852e97f1-2abf-4492-b904-cacf9368d7c1.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\852e97f1-2abf-4492-b904-cacf9368d7c1.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "24689"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ZihZPuyuVRWOjSkWi94tR5nRnZ2qdIJZLFLvw/JOHYE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 16:17:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ZihZPuyuVRWOjSkWi94tR5nRnZ2qdIJZLFLvw/JOHYE="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatars/852e97f1-2abf-4492-b904-cacf9368d7c1.mdn17trc4y.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\852e97f1-2abf-4492-b904-cacf9368d7c1.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "24689"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ZihZPuyuVRWOjSkWi94tR5nRnZ2qdIJZLFLvw/JOHYE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 16:17:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "mdn17trc4y"
+        },
+        {
+          "Name": "label",
+          "Value": "images/avatars/852e97f1-2abf-4492-b904-cacf9368d7c1.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ZihZPuyuVRWOjSkWi94tR5nRnZ2qdIJZLFLvw/JOHYE="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatars/adfb9ef5-973a-4e43-b8f3-0ea50912a146.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\adfb9ef5-973a-4e43-b8f3-0ea50912a146.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "40270"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2YJc73Uf/e9tMgsVCjInfd4LNnw5H/Sk/G53o7DUFjs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 16:17:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-2YJc73Uf/e9tMgsVCjInfd4LNnw5H/Sk/G53o7DUFjs="
+        }
+      ]
+    },
+    {
+      "Route": "images/avatars/adfb9ef5-973a-4e43-b8f3-0ea50912a146.t3h5ly2m1b.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\avatars\\adfb9ef5-973a-4e43-b8f3-0ea50912a146.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "40270"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2YJc73Uf/e9tMgsVCjInfd4LNnw5H/Sk/G53o7DUFjs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 16:17:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "t3h5ly2m1b"
+        },
+        {
+          "Name": "label",
+          "Value": "images/avatars/adfb9ef5-973a-4e43-b8f3-0ea50912a146.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-2YJc73Uf/e9tMgsVCjInfd4LNnw5H/Sk/G53o7DUFjs="
         }
       ]
     },
@@ -19538,6 +20301,170 @@
         {
           "Name": "integrity",
           "Value": "sha256-kNx4sVX7xTGgWtfg95ag2lD8oKUSeCaFLirsj0fJMtg="
+        }
+      ]
+    },
+    {
+      "Route": "images/reviews/a55a3b32-f41f-4302-92e1-6fdc2c037957.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\reviews\\a55a3b32-f41f-4302-92e1-6fdc2c037957.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "191269"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uZb8lx9lzHoiVHYS4T2O6y+KPRKAh1h9eaTyfkEtVbo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 06:12:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-uZb8lx9lzHoiVHYS4T2O6y+KPRKAh1h9eaTyfkEtVbo="
+        }
+      ]
+    },
+    {
+      "Route": "images/reviews/a55a3b32-f41f-4302-92e1-6fdc2c037957.xydg8148ff.jpg",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\reviews\\a55a3b32-f41f-4302-92e1-6fdc2c037957.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "191269"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uZb8lx9lzHoiVHYS4T2O6y+KPRKAh1h9eaTyfkEtVbo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 08 May 2025 06:12:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "xydg8148ff"
+        },
+        {
+          "Name": "label",
+          "Value": "images/reviews/a55a3b32-f41f-4302-92e1-6fdc2c037957.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-uZb8lx9lzHoiVHYS4T2O6y+KPRKAh1h9eaTyfkEtVbo="
+        }
+      ]
+    },
+    {
+      "Route": "images/reviews/e3a52050-148b-4cf6-be6a-0246ed61a8e5.lfpuzg4lq8.png",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\reviews\\e3a52050-148b-4cf6-be6a-0246ed61a8e5.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "693849"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"QZ8S6Zy4luhvCLuwM1Gu3K0lzajBglh0Cdjjl0zWxl8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 07 May 2025 15:14:21 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "lfpuzg4lq8"
+        },
+        {
+          "Name": "label",
+          "Value": "images/reviews/e3a52050-148b-4cf6-be6a-0246ed61a8e5.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-QZ8S6Zy4luhvCLuwM1Gu3K0lzajBglh0Cdjjl0zWxl8="
+        }
+      ]
+    },
+    {
+      "Route": "images/reviews/e3a52050-148b-4cf6-be6a-0246ed61a8e5.png",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\images\\reviews\\e3a52050-148b-4cf6-be6a-0246ed61a8e5.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "693849"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"QZ8S6Zy4luhvCLuwM1Gu3K0lzajBglh0Cdjjl0zWxl8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 07 May 2025 15:14:21 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-QZ8S6Zy4luhvCLuwM1Gu3K0lzajBglh0Cdjjl0zWxl8="
         }
       ]
     },
