@@ -67,9 +67,6 @@
                     <a href="#" class="share-btn" data-platform="Twitter" data-spot-id="@Model.SpotId">
                         <i class="fab fa-twitter"></i> Twitter
                     </a>
-                    @* <a href="#" class="share-btn" data-platform="Instagram" data-spot-id="@Model.SpotId">
-                        <i class="fab fa-instagram"></i> Instagram
-                    </a> *@
                     <a href="#" class="share-btn" data-platform="Email" data-spot-id="@Model.SpotId">
                         <i class="fas fa-envelope"></i> Email
                     </a>
@@ -110,46 +107,76 @@
     <!-- Spot Details -->
     <div class="spot-content">
         <div class="spot-info">
-            <section class="spot-description">
+            @* <section class="spot-description">
                 <h2>Giới thiệu</h2>
                 <p>@Model.Description</p>
-            </section>
+            </section> *@
+            @if (!string.IsNullOrEmpty(Model.Description))
+            {
+                <section class="spot-description mb-4 card">
+                    <div class="card-header"><h2><i class="fas fa-info-circle me-2"></i>Giới thiệu</h2></div>
+                    <div class="card-body">
+                        @Html.Raw(Model.Description.Replace("\n", "<br />"))
+                    </div>
+                </section>
+            }
 
             <section class="spot-details-info">
                 <h2>Thông tin chi tiết</h2>
                 <div class="details-grid">
                     <div class="detail-item">
-                        <i class="fas fa-map-marker-alt"></i>
+                        <i class="fas fa-map-marker-alt fa-fw text-primary"></i>
                         <div>
                             <h3>Địa chỉ</h3>
                             <p>@Model.Address</p>
                         </div>
                     </div>
-                    <div class="detail-item">
+                    @* <div class="detail-item">
                         <i class="fas fa-clock"></i>
                         <div>
                             <h3>Thời gian tham quan lý tưởng</h3>
                             <p>Tháng 2 - Tháng 5 và Tháng 9 - Tháng 10</p>
                         </div>
-                    </div>
+                    </div> *@
+                    @if (!string.IsNullOrEmpty(Model.IdealVisitTime))
+                        {
+                            <div class="detail-item">
+                                <i class="fas fa-clock fa-fw text-primary"></i>
+                                <div>
+                                    <h3>Thời gian tham quan lý tưởng</h3>
+                                    <p>@Model.IdealVisitTime</p>
+                                </div>
+                            </div>
+                        }
                     <div class="detail-item">
-                        <i class="fas fa-calendar"></i>
+                        <i class="fas fa-calendar fa-fw text-primary"></i>
                         <div>
                             <h3>Ngày tạo</h3>
                             <p>@Model.CreatedAt.ToString("dd/MM/yyyy")</p>
                         </div>
                     </div>
-                    <div class="detail-item">
+                    @* <div class="detail-item">
                         <i class="fas fa-concierge-bell"></i>
                         <div>
                             <h3>Dịch vụ</h3>
                             <p>Resort, Khách sạn, Nhà hàng, Tour du lịch, Thể thao biển, Mua sắm</p>
                         </div>
-                    </div>
+                    </div> *@
+                    
+                        @if (!string.IsNullOrEmpty(Model.AvailableServices))
+                        {
+                            <div class="detail-item">
+                                <i class="fas fa-concierge-bell fa-fw text-primary"></i>
+                                <div>
+                                    <h3>Dịch vụ có sẵn</h3>
+                                    <p>@Model.AvailableServices</p>
+                                </div>
+                            </div>
+                        }
                 </div>
             </section>
 
-            <section class="spot-map">
+            @* <section class="spot-map">
                 <h2>Bản đồ</h2>
                 <div class="map-container">
                     <iframe 
@@ -160,7 +187,23 @@
                         referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
                 </div>
-            </section>
+            </section> *@
+            @if (!string.IsNullOrEmpty(Model.MapEmbedUrl))
+            {
+                <section class="spot-map mb-4 card">
+                    <div class="card-header"><h2><i class="fas fa-map-marked-alt me-2"></i>Bản đồ</h2></div>
+                    <div class="card-body">
+                        <div class="map-container">
+                            <iframe src="@Model.MapEmbedUrl"
+                                    style="border:0;"
+                                    allowfullscreen=""
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </section>
+            }
 
             @if (Model.Images != null && Model.Images.Count > 6)
             {
@@ -177,7 +220,7 @@
                 </section>
             }
 
-            <section class="spot-videos">
+            @* <section class="spot-videos">
                 <h2>Video</h2>
                 <div class="videos-container">
                     <div class="video-item">
@@ -188,7 +231,27 @@
                         <p>Khám phá vẻ đẹp @Model.Name từ trên cao</p>
                     </div>
                 </div>
-            </section>
+            </section> *@
+            @if (!string.IsNullOrEmpty(Model.VideoEmbedUrl))
+            {
+                <section class="spot-videos mb-4 card">
+                    <div class="card-header"><h2><i class="fab fa-youtube me-2"></i>Video</h2></div>
+                    <div class="card-body">
+                        <div class="videos-container">
+                            <div class="video-item">
+                                <iframe src="@Model.VideoEmbedUrl"
+                                        title="Video về @Model.Name"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                        @* Optional: Add description for video if needed *@
+                        @* <p class="mt-2 text-center">Khám phá vẻ đẹp @Model.Name.</p> *@
+                    </div>
+                </section>
+            }
         </div>
 
         <aside class="spot-sidebar">
@@ -222,13 +285,22 @@
                 </div>
             </div>
 
-            <div class="sidebar-widget">
+            @* <div class="sidebar-widget">
                 <h3><i class="fas fa-calendar-alt"></i> Thời điểm tốt nhất để đến</h3>
                 <p>Tháng 2 đến tháng 5 và tháng 9 đến tháng 10 là thời điểm lý tưởng để thăm @Model.Name với thời tiết
                     dễ chịu, ít mưa.</p>
-            </div>
+            </div> *@
+            @if (!string.IsNullOrEmpty(Model.IdealVisitTime))
+            {
+                <div class="sidebar-widget card mb-3">
+                    <div class="card-header"><h3 class="h5 mb-0"><i class="fas fa-calendar-check me-2"></i>Thời điểm tốt nhất</h3></div>
+                    <div class="card-body">
+                        <p>@Model.IdealVisitTime là thời điểm lý tưởng để thăm @Model.Name.</p>
+                    </div>
+                </div>
+            }
 
-            <div class="sidebar-widget">
+            @* <div class="sidebar-widget">
                 <h3><i class="fas fa-info-circle"></i> Mẹo du lịch</h3>
                 <ul class="tips-list">
                     <li>Thuê xe máy là cách thuận tiện để khám phá khu vực</li>
@@ -236,7 +308,21 @@
                     <li>Thử các món đặc sản địa phương</li>
                     <li>Tham khảo thời tiết trước khi đến</li>
                 </ul>
-            </div>
+            </div> *@
+            @if (!string.IsNullOrEmpty(Model.TravelTips))
+            {
+                <div class="sidebar-widget card mb-3">
+                    <div class="card-header"><h3 class="h5 mb-0"><i class="fas fa-lightbulb me-2"></i>Mẹo du lịch</h3></div>
+                    <div class="card-body">
+                        <ul class="tips-list list-unstyled ps-0 mb-0">
+                            @foreach (var tip in Model.TravelTips.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                <li><i class="fas fa-check-circle text-success me-2"></i>@tip</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
 
             <div class="sidebar-widget">
                 <h3><i class="fas fa-map-signs"></i> Địa điểm lân cận</h3>
@@ -383,39 +469,7 @@
 
         <div class="review-actions-bar">
             <button class="btn primary" id="writeReviewBtn"><i class="fas fa-pen"></i> Viết đánh giá</button>
-            @* <!-- Form đánh giá, mặc định ẩn -->
-            <div id="reviewForm" style="display:none;">
-                <h3>Viết đánh giá cho địa điểm</h3>
-
-                <form asp-action="Create" asp-controller="Reviews" method="post" enctype="multipart/form-data">
-                    @Html.AntiForgeryToken()
-
-                    <!-- Điền SpotId vào form -->
-                    <input type="hidden" name="SpotId" value="@Model.SpotId" />
-
-                    <div class="form-group">
-                        <label>Đánh giá</label>
-                        <select name="Rating" class="form-control" required>
-                            @for (int i = 5; i >= 1; i--)
-                            {
-                                <option value="@i">@i sao</option>
-                            }
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Bình luận</label>
-                        <textarea name="Comment" class="form-control" required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Ảnh minh họa (tùy chọn)</label>
-                        <input type="file" name="imageFile" class="form-control" accept=".jpg,.jpeg,.png,.gif" />
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
-                </form>
-            </div> *@
+            
 
 
             <div class="review-filters">
@@ -631,14 +685,7 @@
             document.querySelector('.share-options').classList.toggle('show');
         });
 
-        @* // Filter reviews
-        document.querySelectorAll('.filter-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                // Add filter logic here
-            });
-        }); *@
+        
     </script>
     <script>
         document.querySelectorAll('.share-btn').forEach(btn => {
@@ -705,12 +752,7 @@
             });
         });
     </script>
-    @* <script>
-        document.getElementById('writeReviewBtn').addEventListener('click', function() {
-            var reviewForm = document.getElementById('reviewForm');
-            reviewForm.style.display = (reviewForm.style.display === 'none' || reviewForm.style.display === '') ? 'block' : 'none';
-        });
-    </script> *@
+   
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const reviewsListContainer = document.querySelector('.reviews-list');

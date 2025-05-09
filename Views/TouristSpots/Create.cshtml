@@ -1,4 +1,4 @@
-@model TourismWeb.Models.TouristSpot
+@* @model TourismWeb.Models.TouristSpot
 
 @{
     ViewData["Title"] = "Thêm địa điểm du lịch mới";
@@ -110,6 +110,220 @@
                     document.getElementById('imagePreview').src = event.target.result;
                 }
                 reader.readAsDataURL(file);
+            }
+        });
+    </script>
+} *@
+@model TourismWeb.Models.TouristSpot
+
+@{
+    ViewData["Title"] = "Thêm địa điểm du lịch mới";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-gradient-primary text-white">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-map-marker-alt me-3 fs-4"></i>
+                        <h3 class="mb-0">Thêm địa điểm du lịch mới</h3>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <!-- Tên địa điểm -->
+                                <div class="mb-3">
+                                    <label asp-for="Name" class="form-label fw-bold">Tên địa điểm</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-signature"></i></span>
+                                        <input asp-for="Name" class="form-control" placeholder="Nhập tên địa điểm du lịch" />
+                                    </div>
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+
+                                <!-- Địa chỉ -->
+                                <div class="mb-3">
+                                    <label asp-for="Address" class="form-label fw-bold">Địa chỉ</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
+                                        <input asp-for="Address" class="form-control" placeholder="Nhập địa chỉ chi tiết" />
+                                    </div>
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+
+                                <!-- Danh mục -->
+                                <div class="mb-3">
+                                    <label asp-for="CategoryId" class="form-label fw-bold">Danh mục</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-tag"></i></span>
+                                        <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryList">
+                                            <option value="">-- Chọn danh mục --</option>
+                                        </select>
+                                    </div>
+                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <!-- Hình ảnh đại diện -->
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Hình ảnh đại diện</label>
+                                    <div class="text-center mb-2">
+                                        <div class="image-preview-container border rounded p-2" style="height: 200px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                                            <img id="imagePreview" src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/default-spotImage.png" : Model.ImageUrl)" class="img-fluid" style="max-height: 100%; max-width: 100%; object-fit: contain;" alt="Xem trước ảnh" />
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="file" id="imageUpload" name="imageFile" class="form-control" accept="image/*" />
+                                        <label class="input-group-text" for="imageUpload"><i class="fas fa-upload"></i></label>
+                                    </div>
+                                    <small class="form-text text-muted">Hoặc dán URL ảnh bên dưới (nếu không chọn file).</small>
+                                    <input asp-for="ImageUrl" class="form-control mt-1" placeholder="URL ảnh đại diện (nếu có)" />
+                                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                                    <!-- Client-side validation message for imageFile (if needed separately from model state) -->
+                                    <span id="imageFileValidation" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mô tả -->
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label fw-bold">Mô tả</label>
+                            <textarea asp-for="Description" class="form-control" rows="5" placeholder="Nhập mô tả chi tiết về địa điểm du lịch..."></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <hr class="my-4" />
+                        <h4 class="mb-3">Thông tin bổ sung</h4>
+
+                        <div class="row">
+                            <!-- Thời gian tham quan lý tưởng -->
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="IdealVisitTime" class="form-label fw-bold">Thời gian tham quan lý tưởng</label>
+                                <input asp-for="IdealVisitTime" class="form-control" placeholder="VD: Tháng 3 - Tháng 5" />
+                                <span asp-validation-for="IdealVisitTime" class="text-danger"></span>
+                            </div>
+
+                            <!-- Các dịch vụ có sẵn -->
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="AvailableServices" class="form-label fw-bold">Các dịch vụ có sẵn</label>
+                                <input asp-for="AvailableServices" class="form-control" placeholder="VD: Khách sạn, Nhà hàng (cách nhau bởi dấu phẩy)" />
+                                <span asp-validation-for="AvailableServices" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Mẹo du lịch -->
+                        <div class="mb-3">
+                            <label asp-for="TravelTips" class="form-label fw-bold">Mẹo du lịch</label>
+                            <textarea asp-for="TravelTips" class="form-control" rows="3" placeholder="Nhập các mẹo du lịch, mỗi mẹo một dòng..."></textarea>
+                            <span asp-validation-for="TravelTips" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <!-- URL nhúng bản đồ -->
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="MapEmbedUrl" class="form-label fw-bold">URL nhúng bản đồ (Google Maps)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+                                    <input asp-for="MapEmbedUrl" type="url" class="form-control" placeholder="Dán thẻ src từ iframe của Google Maps" />
+                                </div>
+                                <span asp-validation-for="MapEmbedUrl" class="text-danger"></span>
+                            </div>
+
+                            <!-- URL nhúng video -->
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="VideoEmbedUrl" class="form-label fw-bold">URL nhúng video (YouTube)</label>
+                                <div class="input-group">
+                                     <span class="input-group-text"><i class="fab fa-youtube"></i></span>
+                                    <input asp-for="VideoEmbedUrl" type="url" class="form-control" placeholder="Dán thẻ src từ iframe của YouTube" />
+                                </div>
+                                <span asp-validation-for="VideoEmbedUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-4 pt-3 border-top">
+                            <div class="col-md-6 mb-2 mb-md-0">
+                                <div class="d-grid">
+                                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                                        <i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-save me-2"></i>Tạo địa điểm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const imageUploadInput = document.getElementById('imageUpload');
+            const imagePreview = document.getElementById('imagePreview');
+            const defaultImageUrl = "/images/default-spotImage.png"; // Model.ImageUrl will be empty on fresh create
+            const imageUrlInput = document.querySelector('input[name="ImageUrl"]'); // The hidden input for ImageUrl
+
+            imageUploadInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                const imageFileValidationSpan = document.getElementById('imageFileValidation');
+                imageFileValidationSpan.textContent = ''; // Clear previous error
+
+                if (file) {
+                    // Basic client-side validation (optional, server-side is primary)
+                    if (file.size > 5 * 1024 * 1024) { // 5MB
+                        imageFileValidationSpan.textContent = 'Kích thước file không được vượt quá 5MB.';
+                        imageUploadInput.value = ''; // Reset file input
+                        imagePreview.src = imageUrlInput.value || defaultImageUrl; // Revert to original or default
+                        return;
+                    }
+                    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+                    if (!allowedExtensions.exec(file.name)) {
+                        imageFileValidationSpan.textContent = 'Chỉ chấp nhận file ảnh: .jpg, .jpeg, .png, .gif.';
+                        imageUploadInput.value = ''; // Reset file input
+                        imagePreview.src = imageUrlInput.value || defaultImageUrl; // Revert to original or default
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        imagePreview.src = event.target.result;
+                        // When a file is selected, we might want to clear any manually entered ImageUrl
+                        // or let the controller logic handle precedence.
+                        // For now, let's assume file upload takes precedence.
+                        // imageUrlInput.value = ""; // Optional: clear manual URL if file is chosen
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                     // If no file is selected (e.g., user clears the selection)
+                     // revert to the value in ImageUrl input or the default.
+                    imagePreview.src = imageUrlInput.value || defaultImageUrl;
+                }
+            });
+
+            // If there's an initial value in ImageUrl (e.g. validation failed and page reloaded)
+            // make sure the preview shows it if no file was re-selected.
+            if (imageUrlInput.value && !imageUploadInput.files.length) {
+                 imagePreview.src = imageUrlInput.value;
+            } else if (!imageUploadInput.files.length) {
+                 imagePreview.src = defaultImageUrl;
             }
         });
     </script>
