@@ -269,42 +269,6 @@ namespace TourismWeb.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("TourismWeb.Models.SpotComment", b =>
-                {
-                    b.Property<int>("CommentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SpotId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CommentId");
-
-                    b.HasIndex("SpotId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("SpotComments");
-                });
-
             modelBuilder.Entity("TourismWeb.Models.SpotFavorite", b =>
                 {
                     b.Property<int>("FavoriteId")
@@ -666,25 +630,6 @@ namespace TourismWeb.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TourismWeb.Models.SpotComment", b =>
-                {
-                    b.HasOne("TourismWeb.Models.TouristSpot", "Spot")
-                        .WithMany("Comments")
-                        .HasForeignKey("SpotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TourismWeb.Models.User", "User")
-                        .WithMany("SpotComments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Spot");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("TourismWeb.Models.SpotFavorite", b =>
                 {
                     b.HasOne("TourismWeb.Models.TouristSpot", "Spot")
@@ -799,8 +744,6 @@ namespace TourismWeb.Migrations
 
             modelBuilder.Entity("TourismWeb.Models.TouristSpot", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("Favorites");
 
                     b.Navigation("Images");
@@ -827,8 +770,6 @@ namespace TourismWeb.Migrations
                     b.Navigation("Posts");
 
                     b.Navigation("Reviews");
-
-                    b.Navigation("SpotComments");
 
                     b.Navigation("SpotFavorites");
 
