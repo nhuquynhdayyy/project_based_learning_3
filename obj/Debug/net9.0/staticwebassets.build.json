@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "IiRriBswiWA1AiNRo8wKVP1uprCdWkZ5pppSS7xn3Tg=",
+  "Hash": "f6i7ekz+6+9zJx4iNFFsBgV75KlaFGg82iaScqL7+zg=",
   "Source": "TourismWeb",
   "BasePath": "_content/TourismWeb",
   "Mode": "Default",
@@ -2724,6 +2724,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\331caed1-b9da-4f78-98af-77fc9c5a5d90_du-lich-Istanbul-nhung-dieu-thu-vi-4.jpg"
+    },
+    {
+      "Identity": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\3850fe75-a7d5-437a-9761-d484e4ce123e_images.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/3850fe75-a7d5-437a-9761-d484e4ce123e_images#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2pkxe3glql",
+      "Integrity": "+h4XjxiqVUGRUALsrPCdHvLhcfTEVQygRydnXcEyexs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\3850fe75-a7d5-437a-9761-d484e4ce123e_images.jpg"
     },
     {
       "Identity": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\52947839-0a55-4591-bd82-03c66fa9ae43_nhatho.webp",
@@ -14296,6 +14317,88 @@
       ]
     },
     {
+      "Route": "images/3850fe75-a7d5-437a-9761-d484e4ce123e_images.2pkxe3glql.jpg",
+      "AssetFile": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\3850fe75-a7d5-437a-9761-d484e4ce123e_images.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13943"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+h4XjxiqVUGRUALsrPCdHvLhcfTEVQygRydnXcEyexs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 13:50:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2pkxe3glql"
+        },
+        {
+          "Name": "label",
+          "Value": "images/3850fe75-a7d5-437a-9761-d484e4ce123e_images.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-+h4XjxiqVUGRUALsrPCdHvLhcfTEVQygRydnXcEyexs="
+        }
+      ]
+    },
+    {
+      "Route": "images/3850fe75-a7d5-437a-9761-d484e4ce123e_images.jpg",
+      "AssetFile": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\3850fe75-a7d5-437a-9761-d484e4ce123e_images.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13943"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+h4XjxiqVUGRUALsrPCdHvLhcfTEVQygRydnXcEyexs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 13:50:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-+h4XjxiqVUGRUALsrPCdHvLhcfTEVQygRydnXcEyexs="
+        }
+      ]
+    },
+    {
       "Route": "images/52947839-0a55-4591-bd82-03c66fa9ae43_nhatho.6aztemtail.webp",
       "AssetFile": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\images\\52947839-0a55-4591-bd82-03c66fa9ae43_nhatho.webp",
       "Selectors": [],
@@ -22020,7 +22123,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 08:01:02 GMT"
+          "Value": "Fri, 09 May 2025 08:03:29 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22073,7 +22176,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 08:01:02 GMT"
+          "Value": "Fri, 09 May 2025 08:03:29 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22110,7 +22213,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 08:01:02 GMT"
+          "Value": "Fri, 09 May 2025 08:03:29 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22157,7 +22260,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 08:01:02 GMT"
+          "Value": "Fri, 09 May 2025 08:03:29 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22218,7 +22321,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 08:01:02 GMT"
+          "Value": "Fri, 09 May 2025 08:03:29 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22263,7 +22366,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 08:01:02 GMT"
+          "Value": "Fri, 09 May 2025 08:03:29 GMT"
         },
         {
           "Name": "Cache-Control",

@@ -360,6 +360,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"jue727npf4"},{"Name":"integrity","Value":"sha256-67Sw/7C5r98oGRCDihhdSOucXBPx7ziZmmj\u002BnIWyVM4="},{"Name":"label","Value":"_content/TourismWeb/images/331caed1-b9da-4f78-98af-77fc9c5a5d90_du-lich-Istanbul-nhung-dieu-thu-vi-4.jpg"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"64049"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u002267Sw/7C5r98oGRCDihhdSOucXBPx7ziZmmj\u002BnIWyVM4=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 00:53:20 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/3850fe75-a7d5-437a-9761-d484e4ce123e_images.2pkxe3glql.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\3850fe75-a7d5-437a-9761-d484e4ce123e_images.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"2pkxe3glql"},{"Name":"integrity","Value":"sha256-\u002Bh4XjxiqVUGRUALsrPCdHvLhcfTEVQygRydnXcEyexs="},{"Name":"label","Value":"_content/TourismWeb/images/3850fe75-a7d5-437a-9761-d484e4ce123e_images.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"13943"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022\u002Bh4XjxiqVUGRUALsrPCdHvLhcfTEVQygRydnXcEyexs=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 13:50:39 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/images/3850fe75-a7d5-437a-9761-d484e4ce123e_images.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\3850fe75-a7d5-437a-9761-d484e4ce123e_images.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-\u002Bh4XjxiqVUGRUALsrPCdHvLhcfTEVQygRydnXcEyexs="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"13943"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022\u002Bh4XjxiqVUGRUALsrPCdHvLhcfTEVQygRydnXcEyexs=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 13:50:39 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TourismWeb/images/52947839-0a55-4591-bd82-03c66fa9ae43_nhatho.6aztemtail.webp">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\52947839-0a55-4591-bd82-03c66fa9ae43_nhatho.webp'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
@@ -1396,13 +1408,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\interactions.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"6681"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 08:01:02 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"6681"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 08:03:29 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TourismWeb/js/jsadmin/interactions.ww0rv946j9.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\interactions.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"ww0rv946j9"},{"Name":"integrity","Value":"sha256-oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8="},{"Name":"label","Value":"_content/TourismWeb/js/jsadmin/interactions.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6681"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 08:01:02 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6681"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 08:03:29 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TourismWeb/js/jsadmin/login.gm7spnxbrq.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\login.js'))</AssetFile>
