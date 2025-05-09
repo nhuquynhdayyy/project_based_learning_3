@@ -1,9 +1,6 @@
 @section Styles {
     <link rel="stylesheet" href="~/cssadmin/interactions.css">
-
-    @* <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 }
 
 @{
@@ -16,11 +13,108 @@
 @section Scripts {
     <script src="~/js/jsadmin/interactions.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Biểu đồ tương tác theo thời gian (dạng cột)
+            const interactionsCtx = document.getElementById('interactionsChart').getContext('2d');
+            const interactionsChart = new Chart(interactionsCtx, {
+                type: 'bar',
+                data: {
+                    labels: @Html.Raw(Json.Serialize(ViewBag.DateLabels)),
+                    datasets: [
+                        {
+                            label: 'Lượt thích bài viết',
+                            data: @Html.Raw(Json.Serialize(ViewBag.PostFavoritesData)),
+                            backgroundColor: 'rgba(231, 76, 60, 0.7)',
+                            borderColor: '#e74c3c',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Lượt chia sẻ bài viết',
+                            data: @Html.Raw(Json.Serialize(ViewBag.PostSharesData)),
+                            backgroundColor: 'rgba(46, 204, 113, 0.7)',
+                            borderColor: '#2ecc71',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Lượt thích địa điểm',
+                            data: @Html.Raw(Json.Serialize(ViewBag.SpotFavoritesData)),
+                            backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                            borderColor: '#3498db',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Lượt chia sẻ địa điểm',
+                            data: @Html.Raw(Json.Serialize(ViewBag.SpotSharesData)),
+                            backgroundColor: 'rgba(243, 156, 18, 0.7)',
+                            borderColor: '#f39c12',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Tương tác theo thời gian'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Biểu đồ phân bố tương tác (doughnut chart)
+            const distributionCtx = document.getElementById('distributionChart').getContext('2d');
+            const distributionChart = new Chart(distributionCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Thích bài viết', 'Chia sẻ bài viết', 'Thích địa điểm', 'Chia sẻ địa điểm'],
+                    datasets: [{
+                        data: [
+                            @ViewBag.TotalPostFavorites,
+                            @ViewBag.TotalPostShares,
+                            @ViewBag.TotalSpotFavorites,
+                            @ViewBag.TotalSpotShares
+                        ],
+                        backgroundColor: [
+                            '#e74c3c',
+                            '#2ecc71',
+                            '#3498db',
+                            '#f39c12'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Phân bố tương tác'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 }
 
 <div class="app-container">
-    <!-- Sidebar -->
-
     <!-- Main Content -->
     <div class="main-content">
         <main class="content-wrapper">
@@ -29,11 +123,36 @@
                 <div class="page-actions">
                     <div class="filter-group">
                         <label for="time-range">Thời gian:</label>
-                        <select id="time-range" class="select-control">
-                            <option value="7">7 ngày</option>
-                            <option value="30" selected>30 ngày</option>
-                            <option value="90">90 ngày</option>
-                            <option value="all">Tất cả</option>
+                        @{
+                            var options = new[] { 7, 30, -1 }; // -1 đại diện cho "Tất cả"
+                            int selectedDays = ViewBag.SelectedDays ?? 7;
+                        }
+                        <select id="time-range" class="select-control" onchange="window.location.href='@Url.Action("Index", "Interactions")?timeRange=' + this.value">
+                            @foreach (var days in options)
+                            {
+                                if (days == -1) 
+                                {
+                                    if (selectedDays == -1)
+                                    {
+                                        <option value="-1" selected>Tất cả</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="-1">Tất cả</option>
+                                    }
+                                }
+                                else 
+                                {
+                                    if (days == selectedDays)
+                                    {
+                                        <option value="@days" selected>@days ngày</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@days">@days ngày</option>
+                                    }
+                                }
+                            }
                         </select>
                     </div>
                 </div>
@@ -44,60 +163,92 @@
                 <div class="stats-card">
                     <div class="stats-card-content">
                         <div>
-                            <p class="stats-card-label">Tổng lượt xem</p>
-                            <p class="stats-card-value">82</p>
-                        </div>
-                        <div class="stats-card-icon blue">
-                            <i class="fas fa-eye"></i>
-                        </div>
-                    </div>
-                    <div class="stats-card-footer">
-                        <span class="stats-trend positive">+15%</span> so với tuần trước
-                    </div>
-                </div>
-
-                <div class="stats-card">
-                    <div class="stats-card-content">
-                        <div>
-                            <p class="stats-card-label">Lượt thích</p>
-                            <p class="stats-card-value">48</p>
+                            <p class="stats-card-label">Tổng lượt thích bài viết</p>
+                            <p class="stats-card-value">@ViewBag.TotalPostFavorites</p>
                         </div>
                         <div class="stats-card-icon red">
                             <i class="fas fa-heart"></i>
                         </div>
                     </div>
                     <div class="stats-card-footer">
-                        <span class="stats-trend positive">+8%</span> so với tuần trước
+                        @if (ViewBag.PostFavoritesGrowth > 0)
+                        {
+                            <span class="stats-trend positive">+@ViewBag.PostFavoritesGrowth%</span>
+                        }
+                        else
+                        {
+                            <span class="stats-trend negative">@ViewBag.PostFavoritesGrowth%</span>
+                        }
+                        so với kỳ trước
                     </div>
                 </div>
 
                 <div class="stats-card">
                     <div class="stats-card-content">
                         <div>
-                            <p class="stats-card-label">Lượt lưu</p>
-                            <p class="stats-card-value">56</p>
-                        </div>
-                        <div class="stats-card-icon amber">
-                            <i class="fas fa-bookmark"></i>
-                        </div>
-                    </div>
-                    <div class="stats-card-footer">
-                        <span class="stats-trend positive">+12%</span> so với tuần trước
-                    </div>
-                </div>
-
-                <div class="stats-card">
-                    <div class="stats-card-content">
-                        <div>
-                            <p class="stats-card-label">Lượt chia sẻ</p>
-                            <p class="stats-card-value">32</p>
+                            <p class="stats-card-label">Tổng lượt chia sẻ bài viết</p>
+                            <p class="stats-card-value">@ViewBag.TotalPostShares</p>
                         </div>
                         <div class="stats-card-icon green">
                             <i class="fas fa-share-alt"></i>
                         </div>
                     </div>
                     <div class="stats-card-footer">
-                        <span class="stats-trend positive">+5%</span> so với tuần trước
+                        @if (ViewBag.PostSharesGrowth > 0)
+                        {
+                            <span class="stats-trend positive">+@ViewBag.PostSharesGrowth%</span>
+                        }
+                        else
+                        {
+                            <span class="stats-trend negative">@ViewBag.PostSharesGrowth%</span>
+                        }
+                        so với kỳ trước
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Tổng lượt thích địa điểm</p>
+                            <p class="stats-card-value">@ViewBag.TotalSpotFavorites</p>
+                        </div>
+                        <div class="stats-card-icon blue">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="stats-card-footer">
+                        @if (ViewBag.SpotFavoritesGrowth > 0)
+                        {
+                            <span class="stats-trend positive">+@ViewBag.SpotFavoritesGrowth%</span>
+                        }
+                        else
+                        {
+                            <span class="stats-trend negative">@ViewBag.SpotFavoritesGrowth%</span>
+                        }
+                        so với kỳ trước
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <div class="stats-card-content">
+                        <div>
+                            <p class="stats-card-label">Tổng lượt chia sẻ địa điểm</p>
+                            <p class="stats-card-value">@ViewBag.TotalSpotShares</p>
+                        </div>
+                        <div class="stats-card-icon amber">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                    </div>
+                    <div class="stats-card-footer">
+                        @if (ViewBag.SpotSharesGrowth > 0)
+                        {
+                            <span class="stats-trend positive">+@ViewBag.SpotSharesGrowth%</span>
+                        }
+                        else
+                        {
+                            <span class="stats-trend negative">@ViewBag.SpotSharesGrowth%</span>
+                        }
+                        so với kỳ trước
                     </div>
                 </div>
             </div>
@@ -123,7 +274,7 @@
             <div class="table-card">
                 <div class="table-header">
                     <h2 class="table-title">Bài viết có nhiều tương tác nhất</h2>
-                    <a href="posts.html" class="view-all">Xem tất cả</a>
+                    <a href="@Url.Action("Index", "Posts")" class="view-all">Xem tất cả</a>
                 </div>
                 <div class="table-responsive">
                     <table class="data-table">
@@ -131,104 +282,83 @@
                             <tr>
                                 <th>Tiêu đề</th>
                                 <th>Loại</th>
-                                <th>Lượt xem</th>
                                 <th>Lượt thích</th>
-                                <th>Lượt lưu</th>
                                 <th>Lượt chia sẻ</th>
                                 <th>Tổng tương tác</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach (var post in ViewBag.TopPosts)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="table-title-cell">
+                                            <a href="@Url.Action("Details", "Posts", new { id = post.PostId })">@post.Title</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @{
+                                            string badgeClass = post.TypeOfPost == "Địa điểm" ? "blue" : 
+                                                               post.TypeOfPost == "Cẩm nang" ? "green" : "amber";
+                                            string icon = post.TypeOfPost == "Địa điểm" ? "map-marker-alt" : 
+                                                         post.TypeOfPost == "Cẩm nang" ? "book" : "star";
+                                        }
+                                        <span class="badge @badgeClass">
+                                            <i class="fas fa-@icon"></i>
+                                            @post.TypeOfPost
+                                        </span>
+                                    </td>
+                                    <td>@post.FavoritesCount</td>
+                                    <td>@post.SharesCount</td>
+                                    <td>
+                                        <span class="total-interactions">@(post.FavoritesCount + post.SharesCount)</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Top Tourist Spots -->
+            <div class="table-card">
+                <div class="table-header">
+                    <h2 class="table-title">Địa điểm du lịch có nhiều tương tác nhất</h2>
+                    <a href="@Url.Action("Index", "TouristSpots")" class="view-all">Xem tất cả</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
                             <tr>
-                                <td>
-                                    <div class="table-title-cell">Khám phá Đà Lạt mùa hoa</div>
-                                </td>
-                                <td>
-                                    <span class="badge blue">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        Địa điểm
-                                    </span>
-                                </td>
-                                <td>2</td>
-                                <td>5</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>
-                                    <span class="total-interactions">24</span>
-                                </td>
+                                <th>Tên địa điểm</th>
+                                <th>Danh mục</th>
+                                <th>Lượt thích</th>
+                                <th>Lượt chia sẻ</th>
+                                <th>Tổng tương tác</th>
                             </tr>
-                            <tr>
-                                <td>
-                                    <div class="table-title-cell">Cẩm nang du lịch Hội An tự túc</div>
-                                </td>
-                                <td>
-                                    <span class="badge green">
-                                        <i class="fas fa-book"></i>
-                                        Cẩm nang
-                                    </span>
-                                </td>
-                                <td>5</td>
-                                <td>8</td>
-                                <td>6</td>
-                                <td>2</td>
-                                <td>
-                                    <span class="total-interactions">21</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="table-title-cell">Bãi biển đẹp nhất Phú Quốc</div>
-                                </td>
-                                <td>
-                                    <span class="badge blue">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        Địa điểm
-                                    </span>
-                                </td>
-                                <td>1</td>
-                                <td>7</td>
-                                <td>2</td>
-                                <td>8</td>
-                                <td>
-                                    <span class="total-interactions">18</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="table-title-cell">Trải nghiệm leo núi Fansipan</div>
-                                </td>
-                                <td>
-                                    <span class="badge amber">
-                                        <i class="fas fa-star"></i>
-                                        Trải nghiệm
-                                    </span>
-                                </td>
-                                <td>7</td>
-                                <td>6</td>
-                                <td>8</td>
-                                <td>4</td>
-                                <td>
-                                    <span class="total-interactions">25</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="table-title-cell">Kinh nghiệm du lịch Sapa mùa đông</div>
-                                </td>
-                                <td>
-                                    <span class="badge green">
-                                        <i class="fas fa-book"></i>
-                                        Cẩm nang
-                                    </span>
-                                </td>
-                                <td>4</td>
-                                <td>2</td>
-                                <td>7</td>
-                                <td>5</td>
-                                <td>
-                                    <span class="total-interactions">18</span>
-                                </td>
-                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var spot in ViewBag.TopSpots)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="table-title-cell">
+                                            <a href="@Url.Action("Details", "TouristSpots", new { id = spot.SpotId })">@spot.Name</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge blue">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            @spot.CategoryName
+                                        </span>
+                                    </td>
+                                    <td>@spot.FavoritesCount</td>
+                                    <td>@spot.SharesCount</td>
+                                    <td>
+                                        <span class="total-interactions">@(spot.FavoritesCount + spot.SharesCount)</span>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -238,127 +368,44 @@
             <div class="table-card">
                 <div class="table-header">
                     <h2 class="table-title">Người dùng tương tác nhiều nhất</h2>
-                    <a href="users.html" class="view-all">Xem tất cả</a>
+                    <a href="@Url.Action("Index", "Users")" class="view-all">Xem tất cả</a>
                 </div>
                 <div class="table-responsive">
                     <table class="data-table">
                         <thead>
                             <tr>
                                 <th>Người dùng</th>
-                                <th>Lượt xem</th>
-                                <th>Lượt thích</th>
-                                <th>Lượt lưu</th>
-                                <th>Lượt chia sẻ</th>
-                                <th>Bình luận</th>
+                                <th>Thích bài viết</th>
+                                <th>Chia sẻ bài viết</th>
+                                <th>Thích địa điểm</th>
+                                <th>Chia sẻ địa điểm</th>
                                 <th>Tổng tương tác</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=1" alt="Avatar">
+                            @foreach (var user in ViewBag.TopUsers)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar">
+                                                <img src="@(string.IsNullOrEmpty(user.AvatarUrl) ? "/images/default-avatar.png" : user.AvatarUrl)" alt="Avatar">
+                                            </div>
+                                            <div class="user-info">
+                                                <div class="user-name">@user.FullName</div>
+                                                <div class="user-email">@user.Email</div>
+                                            </div>
                                         </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Nguyễn Văn A</div>
-                                            <div class="user-email">nguyenvana@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>5</td>
-                                <td>7</td>
-                                <td>2</td>
-                                <td>8</td>
-                                <td>4</td>
-                                <td>
-                                    <span class="total-interactions">26</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=2" alt="Avatar">
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Trần Thị B</div>
-                                            <div class="user-email">tranthib@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>8</td>
-                                <td>6</td>
-                                <td>8</td>
-                                <td>5</td>
-                                <td>9</td>
-                                <td>
-                                    <span class="total-interactions">36</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=3" alt="Avatar">
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Lê Văn C</div>
-                                            <div class="user-email">levanc@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>6</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>7</td>
-                                <td>
-                                    <span class="total-interactions">22</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=4" alt="Avatar">
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Phạm Thị D</div>
-                                            <div class="user-email">phamthid@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>4</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>0</td>
-                                <td>5</td>
-                                <td>
-                                    <span class="total-interactions">26</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=5" alt="Avatar">
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Hoàng Văn E</div>
-                                            <div class="user-email">hoangvane@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>2</td>
-                                <td>8</td>
-                                <td>4</td>
-                                <td>8</td>
-                                <td>2</td>
-                                <td>
-                                    <span class="total-interactions">24</span>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>@user.PostFavoritesCount</td>
+                                    <td>@user.PostSharesCount</td>
+                                    <td>@user.SpotFavoritesCount</td>
+                                    <td>@user.SpotSharesCount</td>
+                                    <td>
+                                        <span class="total-interactions">@(user.PostFavoritesCount + user.PostSharesCount + user.SpotFavoritesCount + user.SpotSharesCount)</span>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
