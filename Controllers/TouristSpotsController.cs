@@ -10,6 +10,10 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Security.Claims;
 using System.Collections.Generic; // Cho List
+using System.Net.Http; // Required for HttpClient
+using System.Text.Json; // Required for System.Text.Json
+using Microsoft.Extensions.Configuration; // Required for IConfiguration
+using TourismWeb.Models.Weather; // Namespace cho Weather DTOs
 
 namespace TourismWeb.Controllers
 {
@@ -17,11 +21,84 @@ namespace TourismWeb.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
-
-        public TouristSpotsController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
+        public TouristSpotsController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, IHttpClientFactory httpClientFactory,
+                                      IConfiguration configuration)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
+        }
+
+        private async Task<WeatherViewModel> GetWeatherInfoAsync(string cityName)
+        {
+            if (string.IsNullOrWhiteSpace(cityName))
+            {
+                return new WeatherViewModel { ErrorMessage = "Không có tên thành phố để lấy thời tiết." };
+            }
+
+            // Cố gắng lấy tên thành phố từ địa chỉ (ví dụ: "Hà Nội, Việt Nam" -> "Hà Nội")
+            // Đây là một cách đơn giản, có thể cần cải thiện tùy thuộc vào định dạng địa chỉ của bạn.
+            var cityQuery = cityName.Split(',').FirstOrDefault()?.Trim();
+            if (string.IsNullOrWhiteSpace(cityQuery))
+            {
+                 return new WeatherViewModel { ErrorMessage = "Không thể xác định tên thành phố từ địa chỉ." };
+            }
+
+
+            var apiKey = _configuration["WeatherApi:ApiKey"];
+            var baseUrl = _configuration["WeatherApi:BaseUrl"];
+
+            if (string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(baseUrl))
+            {
+                return new WeatherViewModel { ErrorMessage = "Chưa cấu hình API Key hoặc Base URL cho thời tiết." };
+            }
+
+            var requestUrl = $"{baseUrl}?q={Uri.EscapeDataString(cityQuery)}&appid={apiKey}&units=metric&lang=vi";
+            // units=metric để lấy nhiệt độ Celsius, lang=vi để lấy mô tả tiếng Việt nếu có
+
+            try
+            {
+                var client = _httpClientFactory.CreateClient();
+                var response = await client.GetAsync(requestUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                    var weatherData = JsonSerializer.Deserialize<WeatherApiResponse>(jsonString, options);
+
+                    if (weatherData != null && weatherData.Cod == 200)
+                    {
+                        return new WeatherViewModel
+                        {
+                            CityName = weatherData.Name,
+                            Description = weatherData.Weather.FirstOrDefault()?.Description,
+                            IconUrl = $"http://openweathermap.org/img/wn/{weatherData.Weather.FirstOrDefault()?.Icon}@2x.png",
+                            TemperatureCelsius = Math.Round(weatherData.Main.Temp, 1),
+                            Humidity = weatherData.Main.Humidity,
+                            WindSpeed = Math.Round(weatherData.Wind.Speed, 1)
+                        };
+                    }
+                    else
+                    {
+                         return new WeatherViewModel { ErrorMessage = $"Không tìm thấy dữ liệu thời tiết cho {cityQuery}. ({weatherData?.Cod})" };
+                    }
+                }
+                else
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Weather API Error: {response.StatusCode} - {errorContent}");
+                    return new WeatherViewModel { ErrorMessage = $"Lỗi khi gọi API thời tiết: {response.ReasonPhrase}" };
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception fetching weather: {ex.Message}");
+                return new WeatherViewModel { ErrorMessage = "Lỗi hệ thống khi lấy dữ liệu thời tiết." };
+            }
         }
         // GET: TouristSpots
         public async Task<IActionResult> Index(int? categoryId, int? tagId, string sortBy = "default")
@@ -235,6 +312,8 @@ namespace TourismWeb.Controllers
             var touristSpot = await _context.TouristSpots
                 .Include(t => t.Category)
                 .Include(t => t.Favorites)
+                .Include(t => t.Images)
+                .Include(t => t.Posts)
                 .Include(s => s.Reviews)
                     .ThenInclude(r => r.User)
                 .FirstOrDefaultAsync(m => m.SpotId == id);
@@ -261,6 +340,16 @@ namespace TourismWeb.Controllers
                 {
                     ratingCounts[ratingIndex]++;
                 }
+            }
+            
+            // Lấy thông tin thời tiết
+            if (!string.IsNullOrEmpty(touristSpot.Address))
+            {
+                ViewBag.WeatherInfo = await GetWeatherInfoAsync(touristSpot.Address);
+            }
+            else
+            {
+                ViewBag.WeatherInfo = new WeatherViewModel { ErrorMessage = "Địa điểm không có địa chỉ để lấy thời tiết." };
             }
 
             // Tổng số lượng đánh giá

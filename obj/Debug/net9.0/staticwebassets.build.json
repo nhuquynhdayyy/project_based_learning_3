@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pTKOGP5T0m6B7l3qnfOheO/au5h9qHdY2FDXiHGBO/o=",
+  "Hash": "b1DOmS4/aeoKS+kk8Euqn0wIgts4Y/7CbrYzJzRPYaw=",
   "Source": "TourismWeb",
   "BasePath": "_content/TourismWeb",
   "Mode": "Default",
@@ -4299,6 +4299,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\sontraa.jpg"
+    },
+    {
+      "Identity": "D:\\PBL3\\PBL3\\wwwroot\\images\\spots\\65b9a5fd-e606-4029-a877-9baeb7f5267c.jpg",
+      "SourceId": "TourismWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\PBL3\\PBL3\\wwwroot\\",
+      "BasePath": "_content/TourismWeb",
+      "RelativePath": "images/spots/65b9a5fd-e606-4029-a877-9baeb7f5267c#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "oqy96f113s",
+      "Integrity": "IMqgzzFwPSwzSDWFtvpZk3fALNG/luQ8wJLVUnJDl0A=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\spots\\65b9a5fd-e606-4029-a877-9baeb7f5267c.jpg"
     },
     {
       "Identity": "D:\\PBL3\\PBL3\\wwwroot\\images\\vinpear.jpg",
@@ -20442,6 +20463,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-H5cOKxnFrETWFfpi6R+8Ej2PrM6kSzJ4ODVMYhUKE5E="
+        }
+      ]
+    },
+    {
+      "Route": "images/spots/65b9a5fd-e606-4029-a877-9baeb7f5267c.jpg",
+      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\spots\\65b9a5fd-e606-4029-a877-9baeb7f5267c.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "152025"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IMqgzzFwPSwzSDWFtvpZk3fALNG/luQ8wJLVUnJDl0A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 08:32:12 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-IMqgzzFwPSwzSDWFtvpZk3fALNG/luQ8wJLVUnJDl0A="
+        }
+      ]
+    },
+    {
+      "Route": "images/spots/65b9a5fd-e606-4029-a877-9baeb7f5267c.oqy96f113s.jpg",
+      "AssetFile": "D:\\PBL3\\PBL3\\wwwroot\\images\\spots\\65b9a5fd-e606-4029-a877-9baeb7f5267c.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "152025"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IMqgzzFwPSwzSDWFtvpZk3fALNG/luQ8wJLVUnJDl0A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 08:32:12 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "oqy96f113s"
+        },
+        {
+          "Name": "label",
+          "Value": "images/spots/65b9a5fd-e606-4029-a877-9baeb7f5267c.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-IMqgzzFwPSwzSDWFtvpZk3fALNG/luQ8wJLVUnJDl0A="
         }
       ]
     },

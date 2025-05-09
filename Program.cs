@@ -17,6 +17,11 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDistributedMemoryCache();
 
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+// THÊM DÒNG NÀY ĐỂ ĐĂNG KÝ IHttpClientFactory
+builder.Services.AddHttpClient();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TourismDB")));
 
@@ -33,8 +38,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.SlidingExpiration = true;       // Gia hạn tự động khi còn hoạt động
     });
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole(options =>

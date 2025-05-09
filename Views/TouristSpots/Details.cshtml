@@ -255,7 +255,7 @@
         </div>
 
         <aside class="spot-sidebar">
-            <div class="sidebar-widget weather-widget">
+            @* <div class="sidebar-widget weather-widget">
                 <h3><i class="fas fa-cloud-sun"></i> Thời tiết</h3>
                 <div class="weather-info">
                     <div class="current-weather">
@@ -283,7 +283,61 @@
                         </div>
                     </div>
                 </div>
+            </div> *@
+            @* Weather Widget - Dynamic from API *@
+<div class="sidebar-widget card mb-3">
+    <div class="card-header"><h3 class="h5 mb-0"><i class="fas fa-cloud-sun me-2"></i>Thời tiết</h3></div>
+    <div class="card-body">
+        @{
+            var weatherInfo = ViewBag.WeatherInfo as TourismWeb.Models.Weather.WeatherViewModel;
+        }
+        @if (weatherInfo != null && string.IsNullOrEmpty(weatherInfo.ErrorMessage))
+        {
+            <div class="weather-info">
+                <h5 class="text-center mb-2">@weatherInfo.CityName</h5>
+                <div class="current-weather d-flex align-items-center mb-2">
+                    @if (!string.IsNullOrEmpty(weatherInfo.IconUrl))
+                    {
+                        <img src="@weatherInfo.IconUrl" alt="@weatherInfo.Description" class="me-3" style="width: 50px; height: 50px;"/>
+                    }
+                    else
+                    {
+                        <i class="fas fa-question-circle fs-2 text-muted me-3"></i> <!-- Fallback icon -->
+                    }
+                    <div>
+                        <span class="temperature fs-4 fw-bold">@weatherInfo.TemperatureCelsius°C</span><br/>
+                        <span class="condition text-muted text-capitalize">@weatherInfo.Description</span>
+                    </div>
+                </div>
+                <div class="extra-weather-details">
+                    <small class="d-block"><i class="fas fa-tint me-1"></i> Độ ẩm: @weatherInfo.Humidity%</small>
+                    <small class="d-block"><i class="fas fa-wind me-1"></i> Gió: @weatherInfo.WindSpeed m/s</small>
+                </div>
+                @* 
+                // Phần dự báo các ngày tới sẽ phức tạp hơn, 
+                // API thời tiết hiện tại (current weather) không cung cấp trực tiếp.
+                // Bạn cần gọi API khác của OpenWeatherMap (VD: One Call API - có thể tốn phí) 
+                // hoặc một API dự báo 3-5 ngày.
+                <div class="forecast d-flex justify-content-between mt-3 border-top pt-2">
+                    <div class="forecast-day text-center"><small>T2</small><br/><i class="fas fa-cloud-sun"></i><br/><small>29°</small></div>
+                    <div class="forecast-day text-center"><small>T3</small><br/><i class="fas fa-cloud"></i><br/><small>28°</small></div>
+                    <div class="forecast-day text-center"><small>T4</small><br/><i class="fas fa-sun"></i><br/><small>31°</small></div>
+                </div>
+                *@
             </div>
+        }
+        else if (weatherInfo != null && !string.IsNullOrEmpty(weatherInfo.ErrorMessage))
+        {
+            <div class="alert alert-warning" role="alert">
+                <i class="fas fa-exclamation-triangle me-1"></i> @weatherInfo.ErrorMessage
+            </div>
+        }
+        else
+        {
+            <p class="text-muted">Không có thông tin thời tiết.</p>
+        }
+    </div>
+</div>
 
             @* <div class="sidebar-widget">
                 <h3><i class="fas fa-calendar-alt"></i> Thời điểm tốt nhất để đến</h3>
