@@ -8,11 +8,12 @@
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/spot.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="~/css/spot.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
     <style>
         .location-favorite {
-            cursor: pointer; /* Thêm con trỏ để người dùng biết có thể click */
+            cursor: pointer;
+            /* Thêm con trỏ để người dùng biết có thể click */
         }
     </style>
 }
@@ -35,10 +36,14 @@
 
         <!-- Sort options -->
         <div class="sort-options">
-            <a asp-action="Index" asp-route-sortBy="default" class="sort-option @(currentSort == "default" ? "active" : "")">Mặc định</a>
-            <a asp-action="Index" asp-route-sortBy="latest" class="sort-option @(currentSort == "latest" ? "active" : "")">Mới nhất</a>
-            <a asp-action="Index" asp-route-sortBy="mostLiked" class="sort-option @(currentSort == "mostLiked" ? "active" : "")">Yêu thích nhất</a>
-            <a asp-action="Index" asp-route-sortBy="popular" class="sort-option @(currentSort == "popular" ? "active" : "")">Phổ biến</a>
+            <a asp-action="Index" asp-route-sortBy="default"
+                class="sort-option @(currentSort == "default" ? "active" : "")">Mặc định</a>
+            <a asp-action="Index" asp-route-sortBy="latest"
+                class="sort-option @(currentSort == "latest" ? "active" : "")">Mới nhất</a>
+            <a asp-action="Index" asp-route-sortBy="mostLiked"
+                class="sort-option @(currentSort == "mostLiked" ? "active" : "")">Yêu thích nhất</a>
+            <a asp-action="Index" asp-route-sortBy="popular"
+                class="sort-option @(currentSort == "popular" ? "active" : "")">Phổ biến</a>
         </div>
 
         @* <!-- Locations grid -->
@@ -139,7 +144,8 @@
                             </div>
                         </div>
                         <div class="location-tags">
-                            <a asp-action="Index" asp-route-categoryId="@item.CategoryId" class="tag">@item.Category.Name</a>
+                            <a asp-action="Index" asp-route-categoryId="@item.CategoryId"
+                                class="tag">@item.Category.Name</a>
                             @if (item.SpotTags != null && item.SpotTags.Any())
                             {
                                 @foreach (var tag in item.SpotTags.Take(2))
@@ -184,24 +190,27 @@
                 @{
                     // Lấy categoryId hiện tại từ query string để đánh dấu danh mục đang được chọn
                     var currentCategoryId = Context.Request.Query["categoryId"].ToString();
-                    
+
                     // Giả định rằng bạn có thể truy cập danh sách danh mục từ ViewBag hoặc một nguồn khác
-                    var categories = ViewBag.Categories as List<TourismWeb.Models.Category> ?? new List<TourismWeb.Models.Category>();
-                    
+                    var categories = ViewBag.Categories as List<TourismWeb.Models.Category> ?? new
+                    List<TourismWeb.Models.Category>();
+
                     if (categories.Any())
                     {
                         <li class="category-item">
                             <a asp-action="Index" class="@(string.IsNullOrEmpty(currentCategoryId) ? "active" : "")">
                                 <span>Tất cả</span>
                                 @* <span class="category-count">@Model.Count()</span> *@
-                                <span class="category-count">@ViewBag.AllTouristSpotsCount</span> <!-- Hiển thị tổng số địa điểm -->
+                                <span class="category-count">@ViewBag.AllTouristSpotsCount</span>
+                                <!-- Hiển thị tổng số địa điểm -->
                             </a>
                         </li>
-                        
+
                         foreach (var category in categories)
                         {
                             <li class="category-item">
-                                <a asp-action="Index" asp-route-categoryId="@category.CategoryId" class="@(currentCategoryId == category.CategoryId.ToString() ? "active" : "")">
+                                <a asp-action="Index" asp-route-categoryId="@category.CategoryId"
+                                    class="@(currentCategoryId == category.CategoryId.ToString() ? "active" : "")">
                                     <span>@category.Name</span>
                                     <span class="category-count">@(category.TouristSpots?.Count ?? 0)</span>
                                 </a>
@@ -240,8 +249,9 @@
 
             @{
                 // Sử dụng dữ liệu từ ViewBag.PopularSpots thay vì xử lý trong View
-                var popularSpots = ViewBag.PopularSpots as List<TourismWeb.Models.TouristSpot> ?? new List<TourismWeb.Models.TouristSpot>();
-                
+                var popularSpots = ViewBag.PopularSpots as List<TourismWeb.Models.TouristSpot> ?? new
+                List<TourismWeb.Models.TouristSpot>();
+
                 if (popularSpots.Any())
                 {
                     foreach (var spot in popularSpots)
@@ -293,7 +303,7 @@
             @{
                 // Giả định rằng bạn có thể truy cập danh sách bài viết gần đây từ ViewBag hoặc một nguồn khác
                 var recentPosts = ViewBag.RecentPosts as List<TourismWeb.Models.Post> ?? new List<TourismWeb.Models.Post>();
-                
+
                 if (recentPosts.Any())
                 {
                     foreach (var post in recentPosts)
@@ -350,77 +360,606 @@
 </div>
 
 @section Scripts {
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const antiForgeryToken = document.querySelector('#antiForgeryForm input[name="__RequestVerificationToken"]').value;
-        const currentUserId = parseInt('@currentUserIdForJs'); // Lấy userId từ C#
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const antiForgeryToken = document.querySelector('#antiForgeryForm input[name="__RequestVerificationToken"]').value;
+            const currentUserId = parseInt('@currentUserIdForJs'); // Lấy userId từ C#
 
-        document.querySelectorAll('.location-favorite').forEach(favoriteDiv => {
-            favoriteDiv.addEventListener('click', async function () {
-                if (currentUserId === 0) {
-                    // Hoặc chuyển hướng đến trang đăng nhập
-                    alert('Vui lòng đăng nhập để yêu thích địa điểm này.');
-                    window.location.href = '/Identity/Account/Login'; // Điều chỉnh đường dẫn nếu cần
-                    return;
-                }
-
-                const spotId = this.dataset.spotId;
-                const heartIconSpan = this.querySelector('.heart-icon');
-                const likeCountSpan = document.getElementById(`like-count-${spotId}`);
-
-                // Tạm thời thay đổi icon để người dùng thấy phản hồi ngay
-                const isCurrentlyLiked = heartIconSpan.textContent === '❤️';
-                heartIconSpan.textContent = isCurrentlyLiked ? '🤍' : '❤️';
-
-
-                try {
-                    const response = await fetch(`/TouristSpots/ToggleFavoriteSpot?spotId=${spotId}`, {
-                        method: 'POST',
-                        headers: {
-                            // 'Content-Type': 'application/json', // Không cần nếu chỉ gửi spotId qua query string
-                            'RequestVerificationToken': antiForgeryToken // Gửi token
-                        },
-                        // body: JSON.stringify({ spotId: parseInt(spotId) }) // Nếu bạn gửi dưới dạng JSON body
-                    });
-
-                    if (!response.ok) {
-                        // Hoàn tác lại icon nếu lỗi
-                        heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
-                        const errorData = await response.json().catch(() => null);
-                        if (errorData && errorData.aniauth) {
-                            alert(errorData.message || 'Vui lòng đăng nhập để thực hiện thao tác này.');
-                             window.location.href = '/Identity/Account/Login';
-                        } else {
-                            alert(errorData ? errorData.message : 'Có lỗi xảy ra, vui lòng thử lại.');
-                        }
+            document.querySelectorAll('.location-favorite').forEach(favoriteDiv => {
+                favoriteDiv.addEventListener('click', async function () {
+                    if (currentUserId === 0) {
+                        // Hoặc chuyển hướng đến trang đăng nhập
+                        alert('Vui lòng đăng nhập để yêu thích địa điểm này.');
+                        window.location.href = '/Identity/Account/Login'; // Điều chỉnh đường dẫn nếu cần
                         return;
                     }
 
-                    const data = await response.json();
+                    const spotId = this.dataset.spotId;
+                    const heartIconSpan = this.querySelector('.heart-icon');
+                    const likeCountSpan = document.getElementById(`like-count-${spotId}`);
 
-                    if (data.success) {
-                        heartIconSpan.textContent = data.favorited ? '❤️' : '🤍';
-                        if (likeCountSpan) {
-                            likeCountSpan.textContent = data.likeCount;
+                    // Tạm thời thay đổi icon để người dùng thấy phản hồi ngay
+                    const isCurrentlyLiked = heartIconSpan.textContent === '❤️';
+                    heartIconSpan.textContent = isCurrentlyLiked ? '🤍' : '❤️';
+
+
+                    try {
+                        const response = await fetch(`/TouristSpots/ToggleFavoriteSpot?spotId=${spotId}`, {
+                            method: 'POST',
+                            headers: {
+                                // 'Content-Type': 'application/json', // Không cần nếu chỉ gửi spotId qua query string
+                                'RequestVerificationToken': antiForgeryToken // Gửi token
+                            },
+                            // body: JSON.stringify({ spotId: parseInt(spotId) }) // Nếu bạn gửi dưới dạng JSON body
+                        });
+
+                        if (!response.ok) {
+                            // Hoàn tác lại icon nếu lỗi
+                            heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
+                            const errorData = await response.json().catch(() => null);
+                            if (errorData && errorData.aniauth) {
+                                alert(errorData.message || 'Vui lòng đăng nhập để thực hiện thao tác này.');
+                                window.location.href = '/Identity/Account/Login';
+                            } else {
+                                alert(errorData ? errorData.message : 'Có lỗi xảy ra, vui lòng thử lại.');
+                            }
+                            return;
                         }
-                    } else {
-                        // Hoàn tác lại icon nếu server báo lỗi logic
-                        heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
-                        if (data.aniauth) {
-                             alert(data.message || 'Vui lòng đăng nhập để thực hiện thao tác này.');
-                             window.location.href = '/Identity/Account/Login';
+
+                        const data = await response.json();
+
+                        if (data.success) {
+                            heartIconSpan.textContent = data.favorited ? '❤️' : '🤍';
+                            if (likeCountSpan) {
+                                likeCountSpan.textContent = data.likeCount;
+                            }
                         } else {
-                            alert(data.message || 'Có lỗi xảy ra khi cập nhật yêu thích.');
+                            // Hoàn tác lại icon nếu server báo lỗi logic
+                            heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
+                            if (data.aniauth) {
+                                alert(data.message || 'Vui lòng đăng nhập để thực hiện thao tác này.');
+                                window.location.href = '/Identity/Account/Login';
+                            } else {
+                                alert(data.message || 'Có lỗi xảy ra khi cập nhật yêu thích.');
+                            }
                         }
+                    } catch (error) {
+                        // Hoàn tác lại icon nếu lỗi mạng
+                        heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
+                        console.error('Lỗi khi toggle favorite:', error);
+                        alert('Có lỗi kết nối, vui lòng thử lại.');
                     }
-                } catch (error) {
-                    // Hoàn tác lại icon nếu lỗi mạng
-                    heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
-                    console.error('Lỗi khi toggle favorite:', error);
-                    alert('Có lỗi kết nối, vui lòng thử lại.');
-                }
+                });
             });
         });
-    });
-</script>
+    </script>
 }
+<style>
+    /* Main layout */
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 30px;
+        @* max-width: 1200px; *@
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Header section */
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .page-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #333;
+        margin: 0;
+    }
+
+    .create-button {
+        display: inline-flex;
+        align-items: center;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background-color 0.3s;
+    }
+
+    .create-button i {
+        margin-right: 8px;
+    }
+
+    .create-button:hover {
+        background-color: #3e8e41;
+        color: white;
+    }
+
+    /* Sort options */
+    .sort-options {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    .sort-option {
+        padding: 8px 15px;
+        cursor: pointer;
+        border-radius: 20px;
+        font-weight: 500;
+        transition: all 0.3s;
+    }
+
+    .sort-option:hover {
+        background-color: #f0f0f0;
+    }
+
+    .sort-option.active {
+        background-color: #e6f7ff;
+        color: #1890ff;
+        font-weight: 600;
+    }
+
+    /* Locations grid */
+    .locations-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    .location-card {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        background-color: white;
+    }
+
+    .location-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .location-image {
+        position: relative;
+        height: 180px;
+    }
+
+    .location-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .location-highlight {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: #ff4757;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        z-index: 1;
+    }
+
+    .location-favorite {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .location-favorite:hover {
+        transform: scale(1.1);
+    }
+
+    .location-details {
+        padding: 15px;
+    }
+
+    .location-name {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0 0 10px 0;
+        color: #333;
+    }
+
+    .location-meta {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 12px;
+        font-size: 14px;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .location-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .tag {
+        background-color: #f0f0f0;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        color: #666;
+    }
+
+    .location-actions {
+        display: flex;
+        gap: 10px;
+        border-top: 1px solid #eee;
+        padding-top: 12px;
+    }
+
+    .action-link {
+        font-size: 13px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 10px;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+    }
+
+    .action-link.details {
+        color: #1890ff;
+    }
+
+    .action-link.edit {
+        color: #52c41a;
+    }
+
+    .action-link.delete {
+        color: #f5222d;
+    }
+
+    .action-link:hover {
+        background-color: #f5f5f5;
+    }
+
+    /* Empty state */
+    .empty-state {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 50px 20px;
+        background-color: #f9f9f9;
+        border-radius: 12px;
+    }
+
+    .empty-icon {
+        font-size: 60px;
+        margin-bottom: 20px;
+    }
+
+    .empty-state h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .empty-state p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .btn-add-first {
+        display: inline-block;
+        background-color: #1890ff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.3s;
+    }
+
+    .btn-add-first:hover {
+        background-color: #096dd9;
+        color: white;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        position: sticky;
+        top: 20px;
+        align-self: start;
+    }
+
+    .sidebar-section {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 25px;
+        overflow: hidden;
+    }
+
+    .sidebar-title {
+        font-size: 18px;
+        font-weight: 600;
+        padding: 15px;
+        margin: 0;
+        border-bottom: 1px solid #eee;
+        color: #333;
+    }
+
+    /* Categories */
+    .category-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .category-item {
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .category-item:last-child {
+        border-bottom: none;
+    }
+
+    .category-item a {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 15px;
+        text-decoration: none;
+        color: #333;
+        transition: background-color 0.2s;
+    }
+
+    .category-item a:hover {
+        background-color: #f5f5f5;
+    }
+
+    .category-count {
+        background-color: #f0f0f0;
+        border-radius: 20px;
+        padding: 2px 8px;
+        font-size: 12px;
+        color: #666;
+    }
+
+    /* Popular locations */
+    .popular-location {
+        display: flex;
+        padding: 12px 15px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .popular-location:last-child {
+        border-bottom: none;
+    }
+
+    .popular-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-right: 12px;
+        flex-shrink: 0;
+    }
+
+    .popular-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .popular-details h4 {
+        font-size: 14px;
+        margin: 0 0 5px 0;
+        color: #333;
+    }
+
+    .popular-meta {
+        font-size: 12px;
+        color: #666;
+    }
+
+    /* Recent posts */
+    .recent-post {
+        display: flex;
+        padding: 12px 15px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .recent-post:last-child {
+        border-bottom: none;
+    }
+
+    .recent-image {
+        width: 70px;
+        height: 70px;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-right: 12px;
+        flex-shrink: 0;
+    }
+
+    .recent-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .recent-details h4 {
+        font-size: 14px;
+        margin: 0 0 5px 0;
+        color: #333;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .post-date {
+        font-size: 12px;
+        color: #666;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .view-more {
+        display: block;
+        text-align: center;
+        padding: 10px;
+        background-color: #f5f5f5;
+        color: #1890ff;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.2s;
+    }
+
+    .view-more:hover {
+        background-color: #e6f7ff;
+    }
+
+    /* Responsive */
+    media (max-width: 992px) {
+        .container {
+            grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+            display: none;
+        }
+    }
+
+    media (max-width: 768px) {
+        .locations-grid {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        }
+    }
+
+    media (max-width: 576px) {
+        .locations-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .header-section {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .sort-options {
+            overflow-x: auto;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+    }
+
+    /* Thêm vào cuối file CSS hiện tại */
+
+    /* Cải thiện responsive cho layout */
+    media (max-width: 992px) {
+        .container {
+            grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+            margin-top: 30px;
+        }
+    }
+
+    media (max-width: 768px) {
+        .locations-grid {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        }
+
+        .header-section {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .create-button {
+            width: 100%;
+            text-align: center;
+        }
+
+        .sort-options {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 10px;
+        }
+
+        .sort-option {
+            display: inline-block;
+        }
+    }
+
+    media (max-width: 576px) {
+        .locations-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Cải thiện hiển thị cho danh mục */
+    .category-list a.active {
+        background-color: #e6f7ff;
+        color: #1890ff;
+        font-weight: 600;
+    }
+
+    /* Cải thiện hiển thị cho tag */
+    .location-tags .tag {
+        text-decoration: none;
+        transition: background-color 0.2s;
+    }
+
+    .location-tags .tag:hover {
+        background-color: #e6f7ff;
+        color: #1890ff;
+    }
+
+    /* Cải thiện hiển thị cho nút thích */
+    .location-favorite {
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .location-favorite:hover {
+        transform: scale(1.2);
+    }
+
+    /* Cải thiện hiển thị cho các liên kết trong sidebar */
+    .popular-details h4 a,
+    .recent-details h4 a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .popular-details h4 a:hover,
+    .recent-details h4 a:hover {
+        color: #1890ff;
+    }
+</style>
