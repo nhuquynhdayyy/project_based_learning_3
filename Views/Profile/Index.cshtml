@@ -11,27 +11,38 @@
 
 }
 
-@if (!string.IsNullOrEmpty(successMessage))
+@* @if (!string.IsNullOrEmpty(successMessage))
 {
-    <div class="alert alert-success">@successMessage</div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @successMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 }
 @if (!string.IsNullOrEmpty(errorMessage))
 {
-    <div class="alert alert-danger">@errorMessage</div>
-}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @errorMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+} *@
 
 <main>
     <div class="profile-container">
         <div class="profile-sidebar">
-            @* <img src="@Model.AvatarUrl" alt="@Model.FullName"> *@
             <div class="card-body p-4">
-       <div class="text-center mb-4">
-            <div class="avatar-container position-relative mx-auto" style="width: 150px; height: 150px;">
-                <!-- Current avatar display -->
+               <div class="text-center mb-4">
+                   <div class="avatar-container position-relative mx-auto" style="width: 150px; height: 150px;">
+                      <!-- Current avatar display -->
                 <div class="rounded-circle overflow-hidden border border-3 border-light shadow-sm" style="width: 150px; height: 150px;">
                     <img src="@Model.AvatarUrl" alt="@Model.FullName" class="w-100 h-100 object-fit-cover" id="avatarPreview">
                 </div>
                 
+                <!-- Camera icon button -->
+                    <div class="position-absolute bottom-0 end-0 bg-primary text-white p-2 rounded-circle shadow cursor-pointer" 
+                                 style="cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; right: 5px; bottom: 5px; z-index: 10;" 
+                                 onclick="document.getElementById('avatarFile').click()">
+                                <i class="bi bi-camera-fill" style="font-size: 1.2rem;"></i>
+                    </div>
                 <!-- Hover overlay -->
                 <div class="avatar-overlay position-absolute top-0 start-0 w-100 h-100 rounded-circle d-flex align-items-center justify-content-center" 
                      style="background: rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.2s ease;"
@@ -41,24 +52,14 @@
             </div>
         </div>
 
-        <form asp-controller="Profile" asp-action="UploadAvatar" method="post" enctype="multipart/form-data">
-            <div class="mb-3">
-                <!-- Smaller, more compact upload area -->
-                <div class="upload-area border border-1 border-dashed rounded-3 py-2 px-3 text-center bg-light cursor-pointer hover-bg mx-auto" 
-                     style="max-width: 220px;"
-                     onclick="document.getElementById('avatarFile').click()">
-                    <i class="bi bi-upload text-secondary fs-5"></i>
-                    <p class="text-secondary mb-0 small">
-                        <span class="fw-medium">Nhấn để chọn ảnh</span> hoặc kéo thả vào đây
-                    </p>
-                </div>
-                <input type="file" id="avatarFile" name="avatarFile" accept="image/*" class="d-none" 
-                       onchange="previewImage(this)">
-            </div>
-            
-            <button type="submit" class="btn btn-primary w-100">Cập nhật ảnh đại diện</button>
-        </form>
+        <form asp-controller="Profile" asp-action="UploadAvatar" method="post" enctype="multipart/form-data" id="avatarForm">
+        <input type="file" id="avatarFile" name="avatarFile" accept="image/*" class="d-none" onchange="handleFileChange(this)">
+            <div id="uploadingMessage" class="text-center mb-3 text-muted small d-none">
+                            Đang cập nhật ảnh đại diện...
+                        </div>
+                    </form>
     </div>
+
             <h2 class="profile-name">@Model.FullName</h2>
 
             <div class="profile-stats">
@@ -82,11 +83,17 @@
         <div class="profile-content">
             @if (!string.IsNullOrEmpty(successMessage))
              {
-                 <div class="alert alert-success" role="alert">@successMessage</div>
+                 <div class="alert alert-success alert-dismissible fade show" role="alert">
+                           @successMessage
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                 </div>
              }
              @if (!string.IsNullOrEmpty(errorMessage))
              {
-                 <div class="alert alert-danger" role="alert">@errorMessage</div>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            @errorMessage
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
              }
              @* Hiển thị tóm tắt lỗi validation từ ModelState *@
              <div asp-validation-summary="ModelOnly" class="text-danger alert alert-danger"></div>
@@ -94,9 +101,11 @@
                 <div class="tab active" data-tab="account">Thông tin tài khoản</div>
                 <div class="tab" data-tab="security">Mật khẩu & Bảo mật</div>
             </div>
+
             <div id="account-tab" class="tab-content active">
     <form asp-controller="Profile" asp-action="UpdateProfile" method="post">
         @Html.AntiForgeryToken()
+
         <div class="content-section" id="thongtin-tai-khoan">
             <h3 class="section-title">Dữ liệu cá nhân</h3>
             <div class="form-group">
@@ -161,7 +170,7 @@
         <div class="content-section">
             <h3 class="section-title">Email</h3>
             <div class="email-item">
-                <p class="email-title">@Model.Email</p>
+                <p class="email-title" style="margin: 0;">@Model.Email</p>
                 <span class="notification-badge">Nơi nhận thông báo</span>
             </div>
             @if (string.IsNullOrEmpty(Model.Email))
@@ -186,6 +195,26 @@
         </div>
     </form>
 </div>
+
+
+                    @* @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+                    {
+                        <div class="email-item">
+                            <div>
+                                <p class="email-title">@Model.PhoneNumber</p>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="button-group">
+                        <button class="btn btn-outline">
+                            <i class="icon-plus"></i>
+                            Thêm số di động
+                        </button>
+                    </div>
+                </div>
+            </div> *@
+
             <div id="security-tab" class="tab-content @(ViewData["ActiveTab"] as string == "security" ? "active" : "")">
                 <form asp-controller="Profile" asp-action="UpdatePassword" method="post">
                      @Html.AntiForgeryToken()
@@ -220,32 +249,101 @@
                     </div>
                 </form>
             </div>
+
+                @* <div class="content-section">
+                    <h3 class="section-title">Xác thực hai yếu tố</h3>
+                    <p class="card-description">Tăng cường bảo mật cho tài khoản của bạn</p>
+
+                    <div class="toggle-item">
+                        <div>
+                            <p class="toggle-title">Xác thực qua SMS</p>
+                            <p class="toggle-description">Nhận mã xác thực qua tin nhắn SMS</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-item">
+                        <div>
+                            <p class="toggle-title">Xác thực qua ứng dụng</p>
+                            <p class="toggle-description">Sử dụng ứng dụng xác thực như Google Authenticator</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div> *@
+ @{
+    var defaultPostImageUrl = "/images/default-postImage.png";
+    var defaultReviewImageUrl = "/images/default-postImage.png";
+
+    List<object> allGalleryImageObjects = new List<object>();
+
+     // 1. Lấy ảnh từ Model.Reviews của User
+    if (Model?.Reviews != null && Model.Reviews.Any())
+    {
+         allGalleryImageObjects.AddRange(Model.Reviews
+            .Where(review => review.ImageUrl != null &&
+                             !string.IsNullOrEmpty(review.ImageUrl.Trim()) &&
+                             review.ImageUrl.Trim().ToLower() != defaultReviewImageUrl.ToLower())
+            .Select(review => new { // Tạo đối tượng ẩn danh
+                SourceType = "Review", // Thêm để dễ debug nếu cần
+                ImageUrl = review.ImageUrl,
+                AltText = $"Ảnh từ đánh giá cho {review.Spot?.Name ?? "Địa điểm"}",
+                CreatedAt = review.CreatedAt
+            }));
+    }
+    // 2. Lấy ảnh từ Model.Posts của User
+    if (Model?.Posts != null)
+    {
+        allGalleryImageObjects.AddRange(Model.Posts
+            .Where(post => post.ImageUrl != null &&
+                           !string.IsNullOrEmpty(post.ImageUrl.Trim()) &&
+                           post.ImageUrl.Trim().ToLower() != defaultPostImageUrl.ToLower())
+            .Select(post => new { // Tạo đối tượng ẩn danh
+                SourceType = "Post", // Thêm để dễ debug nếu cần
+                ImageUrl = post.ImageUrl,
+                AltText = $"Ảnh từ bài viết: {post.Title ?? (post.Spot?.Name ?? "Nội dung")}",
+                CreatedAt = post.CreatedAt
+            }));
+    }
+
+    // 3. Sắp xếp tất cả ảnh và lấy tối đa 8 ảnh
+    var imagesToDisplayInGallery = allGalleryImageObjects
+                                    .OrderByDescending(obj => (DateTime)obj.GetType().GetProperty("CreatedAt").GetValue(obj, null))
+                                    .Take(8)
+                                    .ToList();
+}
+
+
             <div class="content-section" id="bo-suu-tap">
                 <h3 class="section-title">Bộ sưu tập ảnh</h3>
-                <div class="photo-grid">
-                    @foreach (var image in Model.SpotImages.Take(8))
-                    {
-                        <div class="photo-item">
-                            <img src="@image.ImageUrl" alt="Hình ảnh du lịch">
-                        </div>
-                    }
-                    @if (Model.SpotImages.Count == 0)
-                    {
-                        <div class="photo-item">
-                            <img src="/images/nguhanhson.png" alt="Hình ảnh du lịch">
-                        </div>
-                        <div class="photo-item">
-                            <img src="/images/nhatrang.jpg" alt="Hình ảnh du lịch">
-                        </div>
-                        <div class="photo-item">
-                            <img src="/images/sanho.jpg" alt="Hình ảnh du lịch">
-                        </div>
-                        <div class="photo-item">
-                            <img src="/images/sontra.jpg" alt="Hình ảnh du lịch">
-                        </div>
-                    }
+                @if (imagesToDisplayInGallery.Any())
+                {
+        <div class="photo-grid" style="display: flex; flex-wrap: wrap; gap: 10px;">
+            @foreach (var galleryItemObj in imagesToDisplayInGallery)
+            {
+                var imageUrl = (string)galleryItemObj.GetType().GetProperty("ImageUrl").GetValue(galleryItemObj, null);
+                var altText = (string)galleryItemObj.GetType().GetProperty("AltText").GetValue(galleryItemObj, null);
+
+                <div class="photo-item" style="flex: 1 1 150px; max-width: 200px;">
+                    <img src="@(Url.Content(imageUrl))"
+                         alt="@altText"
+                         class="square-image" 
+                         onclick="openLightbox(this.src)" />
                 </div>
-            </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p style="text-align: center; margin-top: 20px;">Chưa có ảnh nào từ bài viết hoặc đánh giá của bạn để hiển thị trong bộ sưu tập.</p>
+    }
+</div>
+
 
             <div class="content-section" id="bai-viet"> @* ID khớp với href trong menu *@
                 <h3 class="section-title">Bài viết của tôi</h3>
@@ -311,37 +409,33 @@
             <div class="content-section" id="danh-gia">
                 <h3 class="section-title">Đánh giá của tôi</h3>
                 <div class="blog-list">
-                    @foreach (var review in Model.Reviews.Take(3))
-                    {
-                        <div class="blog-item">
-                            <img src="@review.Spot.ImageUrl" alt="@review.Spot.Name">
+                @if (Model?.Reviews != null && Model.Reviews.Any())
+                     {
+                        @foreach (var review in Model.Reviews)
+                     {
+                               <div class="blog-item">
+                            
+                            <img src="@(Url.Content(review.ImageUrl))" 
+                         alt="@review?.Spot?.Name" style="width: 100px; height: 100px;">
                             <div class="blog-content">
-                                <div class="blog-title">@review.Rating</div>
-                                <div class="blog-preview">@review.Comment.Substring(0, Math.Min(review.Comment.Length, 100))...</div>
-                                <div class="blog-meta">
-                                    <span>Đăng ngày: @review.CreatedAt.ToString("dd/MM/yyyy")</span>
-                                    @* <span>@review.ViewCount lượt xem</span> *@
-                                </div>
-                            </div>
-                        </div>
+                            <div class="blog-title">@review?.Rating</div>
+                            <div class="blog-preview">@review?.Comment?.Substring(0, Math.Min(review.Comment.Length, 100))...</div>
+                            <div class="blog-meta">
+                            <span>Đăng ngày: @review?.CreatedAt.ToString("dd/MM/yyyy")</span>
+                               </div>
+                                 </div>
+                                     </div>
+                       }
                     }
-                    @if (Model.Reviews.Count == 0)
-                    {
-                        <div class="blog-item">
-                            <img src="/images/hoian.jpg" alt="Ẩm thực Hội An">
-                            <div class="blog-content">
-                                <div class="blog-title">Top 10 món ăn nhất định phải thử khi đến Hội An</div>
-                                <div class="blog-preview">Từ Cao lầu đến Bánh mì Phượng, hãy cùng khám phá những món ăn
-                                    tuyệt vời nhất của phố cổ...</div>
-                                <div class="blog-meta">
-                                    <span>Đăng ngày: 15/12/2024</span>
-                                    <span>325 lượt xem</span>
-                                </div>
-                            </div>
-                        </div>
+                else
+                  {
+                          <div class="alert alert-info text-center">Bạn chưa viết đánh giá nào.</div>
                     }
                 </div>
             </div>
+
+
+
             @* Phần bình luận của tôi *@
                  <div class="content-section" id="binh-luan">
     <h3 class="section-title">
@@ -389,6 +483,9 @@
         }
     </div>
 </div>
+                    
+
+
             <div class="content-section" id="dia-diem-yeu-thich">
                 <h3 class="section-title">Địa điểm yêu thích</h3>
                 <div class="travel-inspiration">
@@ -408,6 +505,7 @@
                     }
                     @if (Model.SpotFavorites.Count == 0)
                     {
+                        @* <div class="alert alert-info text-center">Bạn chưa có địa điểm yêu thích.</div> *@
                         <div class="empty-state-favorites text-center p-4">
                             <div class="empty-icon mb-3" style="font-size: 3rem; color: #6c757d;">🗺️</div> @* Hoặc 🧳 *@
                             <h4>Bộ sưu tập yêu thích của bạn đang chờ!</h4>
@@ -440,33 +538,20 @@
                     }
                     @if (Model.PostFavorites.Count == 0)
                     {
-                        <div class="favorite-post-card">
-                            <img src="/images/hoian2.jpg" alt="Điểm tham quan Hội An">
-                            <div class="favorite-post-content">
-                                <div class="favorite-post-title">Top 10 điểm tham quan không thể bỏ lỡ ở Hội An</div>
-                                <div class="favorite-post-author">
-                                    <img src="/images/avatar3.png" alt="Lê Thị B">
-                                    <div class="favorite-post-author-name">Lê Thị B • 18/01/2025</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="favorite-post-card">
-                            <img src="/images/haunuong.jpg" alt="Ẩm thực đường phố miền Trung">
-                            <div class="favorite-post-content">
-                                <div class="favorite-post-title">Ẩm thực đường phố miền Trung: Hành trình khám phá hương
-                                    vị cay nồng</div>
-                                <div class="favorite-post-author">
-                                    <img src="/images/avatar3.png" alt="Trần Văn C">
-                                    <div class="favorite-post-author-name">Trần Văn C • 05/03/2025</div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="alert alert-info text-center">Bạn chưa có bài viết yêu thích.</div>
                     }
                 </div>
             </div>
         </div>
     </div>
 </main>
+
+<!-- Lightbox for images -->
+<div id="lightbox" class="lightbox">
+    <span class="close-lightbox">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+    <div class="lightbox-caption"></div>
+</div>
 
 @section Scripts {
 <script>
@@ -525,14 +610,93 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+            // Open lightbox when clicking on image
+        function openLightbox(src) {
+                var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightbox-img');
+            document.getElementById('lightbox').style.display = 'flex';
+            document.getElementById('lightbox-img').src = src;
+        }
+        document.addEventListener('click', function(e) {
+    var lightbox = document.getElementById('lightbox');
+    if (e.target.id === 'lightbox') {
+        lightbox.style.display = 'none';
+    }
+});
+// Handle drag and drop
+        const avatarContainer = document.querySelector('.avatar-container');
+        
+        avatarContainer.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('drag-over');
+        });
+        
+        avatarContainer.addEventListener('dragleave', function() {
+            this.classList.remove('drag-over');
+        });
+        
+        avatarContainer.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('drag-over');
+            
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                document.getElementById('avatarFile').files = e.dataTransfer.files;
+                handleFileChange(document.getElementById('avatarFile'));
+            }
+        });
+        
+        // Handle file selection
+        function handleFileChange(input) {
+            if (input.files && input.files[0]) {
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+                
+                // Show uploading message
+                document.getElementById('uploadingMessage').classList.remove('d-none');
+                
+                // Submit the form automatically
+                setTimeout(() => {
+                    document.getElementById('avatarForm').submit();
+                }, 500);
+            }
+        }
+        
+        // Add tooltip
+        const cameraButton = document.querySelector('.avatar-container .position-absolute');
+        cameraButton.setAttribute('title', 'Nhấn để chọn ảnh hoặc kéo thả vào đây');
+        
+        // Initialize Bootstrap tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
 </script>
 }
-
 <style>
     .avatar-container:hover .avatar-overlay {
         opacity: 1;
         cursor: pointer;
+        transition: all 0.2s ease;
     }
+
+    .avatar-container.drag-over:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     
     .hover-bg:hover {
         background-color: #f0f0f0 !important;
@@ -546,4 +710,29 @@
     .object-fit-cover {
         object-fit: cover;
     }
+    .square-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    }
+    #lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 4px;
+}
 </style>

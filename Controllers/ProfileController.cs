@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;   
 using Microsoft.AspNetCore.Mvc;
@@ -29,13 +30,15 @@ namespace TourismWeb.Controllers
                 // Lấy thông tin người dùng từ database, bao gồm các collection liên quan
                 var user = await _context.Users
                     .Include(u => u.Posts)
-                    .Include(u => u.Reviews) 
-                        .ThenInclude(r => r.Spot) // << --- THÊM DÒNG NÀY RẤT QUAN TRỌNG
-                    .Include(u => u.PostComments)
-                        .ThenInclude(pc => pc.Post)
+                        .ThenInclude(p => p.Spot)
+                    .Include(u => u.Reviews)
+                       .ThenInclude(r => r.Spot)
                     .Include(u => u.SpotImages)
+                       .ThenInclude(si => si.Spot)
                     .Include(u => u.SpotFavorites)
                         .ThenInclude(sf => sf.Spot)
+                    .Include(u => u.PostComments)      // Nạp danh sách bình luận của user này
+                        .ThenInclude(c => c.Post)
                     .Include(u => u.PostFavorites)
                         .ThenInclude(pf => pf.Post)
                             .ThenInclude(p => p.User)
@@ -105,6 +108,7 @@ public async Task<IActionResult> UploadAvatar(IFormFile avatarFile)
     TempData["SuccessMessage"] = "Ảnh đại diện đã được cập nhật.";
     return RedirectToAction("Index");
 }
+
 
         // POST: /Profile/UpdateProfile
         [HttpPost]
@@ -297,6 +301,8 @@ public async Task<IActionResult> UploadAvatar(IFormFile avatarFile)
             TempData["SuccessMessage"] = "Đã đổi mật khẩu thành công.";
             return RedirectToAction(nameof(Index));
         }
+
+        
 
 
     }
