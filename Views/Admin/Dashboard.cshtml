@@ -218,14 +218,22 @@
             <div class="page-header">
                 <h1 class="page-title">Tổng Quan</h1>
                 <div class="page-actions">
-                    <div class="filter-group">
+                    @* <div class="filter-group">
                         <label for="time-range">Thời gian:</label>
                         <select id="time-range" class="select-control">
                             <option value="7" selected="@(ViewContext.RouteData.Values["timeRange"]?.ToString() == "7")">7 ngày</option>
                             <option value="30" selected="@(ViewContext.RouteData.Values["timeRange"]?.ToString() == "30" || ViewContext.RouteData.Values["timeRange"] == null)">30 ngày</option>
                             <option value="all" selected="@(ViewContext.RouteData.Values["timeRange"]?.ToString() == "all")">Tất cả</option>
                         </select>
-                    </div>
+                    </div> *@
+                    <div class="filter-group">
+    <label for="time-range">Thời gian:</label>
+    <select id="time-range" class="select-control">
+        <option value="7" selected="@(ViewBag.SelectedTimeRange == "7")">7 ngày</option>
+        <option value="30" selected="@(ViewBag.SelectedTimeRange == "30")">30 ngày</option>
+        <option value="all" selected="@(ViewBag.SelectedTimeRange == "all")">Tất cả</option>
+    </select>
+</div>
                 </div>
             </div>
 

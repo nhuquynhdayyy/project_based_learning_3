@@ -56,10 +56,11 @@ public class AdminController : Controller
             startDate = DateTime.Today.AddDays(-29);
             break;
     }
+    ViewBag.SelectedTimeRange = timeRange; // Truyền giá trị đã chọn vào ViewBag
 
     // --- Lấy dữ liệu cho Stats Cards ---
     viewModel.TotalPosts = await _context.Posts
-                                        .Where(p => p.CreatedAt >= startDate && p.Status == PostStatus.Approved)
+                                        .Where(p => p.CreatedAt >= startDate ) //&& p.Status == PostStatus.Approved
                                         .CountAsync();
 
     // Số lượng này vẫn có thể hữu ích cho mục đích khác, nhưng không cho biểu đồ phân bố này
@@ -68,13 +69,13 @@ public class AdminController : Controller
     //                                          .CountAsync();
 
     viewModel.PostsInGuidebookCategory = await _context.Posts
-                                                .Where(p => p.TypeOfPost == "Cẩm nang" && p.CreatedAt >= startDate && p.Status == PostStatus.Approved)
+                                                .Where(p => p.TypeOfPost == "Cẩm nang" && p.CreatedAt >= startDate )
                                                 .CountAsync();
     viewModel.PostsInExperienceCategory = await _context.Posts
-                                                 .Where(p => p.TypeOfPost == "Trải nghiệm" && p.CreatedAt >= startDate && p.Status == PostStatus.Approved)
+                                                 .Where(p => p.TypeOfPost == "Trải nghiệm" && p.CreatedAt >= startDate )
                                                  .CountAsync();
     viewModel.PostsInLocationCategory = await _context.Posts // Đây là bài viết có TypeOfPost == "Địa điểm"
-                                                 .Where(p => p.TypeOfPost == "Địa điểm" && p.CreatedAt >= startDate && p.Status == PostStatus.Approved)
+                                                 .Where(p => p.TypeOfPost == "Địa điểm" && p.CreatedAt >= startDate )
                                                  .CountAsync();
 
     // --- Dữ liệu cho Biểu đồ Số bài viết trong X ngày qua ---
