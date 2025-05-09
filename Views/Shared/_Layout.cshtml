@@ -57,7 +57,7 @@
                             <i class="fas fa-walking"></i> Trải nghiệm
                         </a>
                     </li> *@
-                    <li class="nav-item"></li>
+                    @* <li class="nav-item"></li>
                         <a class="nav-link" asp-controller="Posts" asp-action="Category" asp-route-type="Cẩm nang">
                             <i class="fas fa-book"></i> Cẩm nang du lịch
                         </a>
@@ -73,7 +73,30 @@
                         <a class="nav-link" asp-controller="Posts" asp-action="Category" asp-route-type="Trải nghiệm">
                             <i class="fas fa-compass"></i> Trải nghiệm
                         </a>
-                    </li>
+                    </li> *@
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="postDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-file-alt"></i> Bài viết <i class="fas fa-caret-down ms-1"></i>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="postDropdown">
+        <li>
+            <a class="dropdown-item" asp-controller="Posts" asp-action="Category" asp-route-type="Cẩm nang">
+                <i class="fas fa-book me-2"></i> Cẩm nang du lịch
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item" asp-controller="Posts" asp-action="Category" asp-route-type="Địa điểm">
+                <i class="fas fa-map-marker-alt me-2"></i> Địa điểm
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item" asp-controller="Posts" asp-action="Category" asp-route-type="Trải nghiệm">
+                <i class="fas fa-compass me-2"></i> Trải nghiệm
+            </a>
+        </li>
+    </ul>
+</li>
 
                     <li class="nav-item"></li>
                     @if (User.Identity?.IsAuthenticated == true)
@@ -227,11 +250,17 @@
                     <ul>
                         <li><a href="/">Trang chủ</a></li>
                         <li><a href="/TouristSpots">Địa điểm</a></li>
-                        <li><a href="/Posts/Category?type=Cẩm nang">Cẩm nang du lịch</a></li>
-                        <li><a href="/Posts/Category?type=Địa điểm">Địa điểm</a></li>
-                        <li><a href="/Posts/Category?type=Trải nghiệm">Trải nghiệm</a></li>
-                        @* <li><a href="/Guide">Cẩm nang du lịch</a></li>
-                        <li><a href="/Experience">Trải nghiệm</a></li> *@
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Bài viết <i class="fas fa-caret-down ms-1"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/Posts/Category?type=Cẩm nang"><i class="fas fa-book me-2"></i> Cẩm nang du lịch</a></li>
+                <li><a class="dropdown-item" href="/Posts/Category?type=Địa điểm"><i class="fas fa-map-marker-alt me-2"></i> Địa điểm</a></li>
+                <li><a class="dropdown-item" href="/Posts/Category?type=Trải nghiệm"><i class="fas fa-compass me-2"></i> Trải nghiệm</a></li>
+            </ul>
+        </li>
                         <li><a href="/Posts/Create">Đăng bài</a></li>
                         <li><a href="/Home/Contact">Liên hệ</a></li>
                     </ul>

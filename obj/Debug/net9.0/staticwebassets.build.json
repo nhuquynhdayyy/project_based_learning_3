@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YPSr1STErrYKLpaT4hnlXN0U9ZAR2u77f0n8akBQZhU=",
+  "Hash": "LgiUXRdRkMaTRL9TedR9nhabxZNZ8fozFM26yKIDnMw=",
   "Source": "TourismWeb",
   "BasePath": "_content/TourismWeb",
   "Mode": "Default",
@@ -1697,12 +1697,12 @@
       "OriginalItemSpec": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-39jkcux8l7.gz",
+      "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-rdxyzufjpn.gz",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/TourismWeb",
-      "RelativePath": "css/layout#[.{fingerprint=39jkcux8l7}]?.css.gz",
+      "RelativePath": "css/layout#[.{fingerprint=rdxyzufjpn}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -1711,8 +1711,8 @@
       "RelatedAsset": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\css\\layout.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "q6qqn0f2qm",
-      "Integrity": "Eu4QLl886hh1dAm2t2E48IQ6fEz2sJs/uJ2o6wRoQYk=",
+      "Fingerprint": "h66moxtlxc",
+      "Integrity": "N+voufI6NUTdGcYu5DgOHzkNEnIIgucJY/qSJGqL4II=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\css\\layout.css"
@@ -2257,8 +2257,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "39jkcux8l7",
-      "Integrity": "d3JF7rY4B/smwx7+qyCdYwluSG9p5jppOtf22e6Gubs=",
+      "Fingerprint": "rdxyzufjpn",
+      "Integrity": "f8g+9S5zWVZKBAlvUYvy37lINA7Z/cXcbhb6HaW1au0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\layout.css"
@@ -8237,13 +8237,13 @@
       ]
     },
     {
-      "Route": "css/layout.39jkcux8l7.css",
-      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-39jkcux8l7.gz",
+      "Route": "css/layout.css",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-rdxyzufjpn.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000372995151"
+          "Quality": "0.000363901019"
         }
       ],
       "ResponseHeaders": [
@@ -8253,19 +8253,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2680"
+          "Value": "2747"
         },
         {
           "Name": "ETag",
-          "Value": "\"Eu4QLl886hh1dAm2t2E48IQ6fEz2sJs/uJ2o6wRoQYk=\""
+          "Value": "\"N+voufI6NUTdGcYu5DgOHzkNEnIIgucJY/qSJGqL4II=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 02 May 2025 18:33:53 GMT"
+          "Value": "Fri, 09 May 2025 08:02:43 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -8281,26 +8281,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"d3JF7rY4B/smwx7+qyCdYwluSG9p5jppOtf22e6Gubs=\""
+          "Value": "W/\"f8g+9S5zWVZKBAlvUYvy37lINA7Z/cXcbhb6HaW1au0=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "39jkcux8l7"
-        },
-        {
-          "Name": "label",
-          "Value": "css/layout.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-d3JF7rY4B/smwx7+qyCdYwluSG9p5jppOtf22e6Gubs="
+          "Value": "sha256-f8g+9S5zWVZKBAlvUYvy37lINA7Z/cXcbhb6HaW1au0="
         }
       ]
     },
     {
-      "Route": "css/layout.39jkcux8l7.css",
+      "Route": "css/layout.css",
       "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\css\\layout.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -8310,7 +8302,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "10394"
+          "Value": "10796"
         },
         {
           "Name": "Content-Type",
@@ -8318,11 +8310,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"d3JF7rY4B/smwx7+qyCdYwluSG9p5jppOtf22e6Gubs=\""
+          "Value": "\"f8g+9S5zWVZKBAlvUYvy37lINA7Z/cXcbhb6HaW1au0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 02 May 2025 18:33:53 GMT"
+          "Value": "Fri, 09 May 2025 08:02:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-f8g+9S5zWVZKBAlvUYvy37lINA7Z/cXcbhb6HaW1au0="
+        }
+      ]
+    },
+    {
+      "Route": "css/layout.css.gz",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-rdxyzufjpn.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2747"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"N+voufI6NUTdGcYu5DgOHzkNEnIIgucJY/qSJGqL4II=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 08:02:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-N+voufI6NUTdGcYu5DgOHzkNEnIIgucJY/qSJGqL4II="
+        }
+      ]
+    },
+    {
+      "Route": "css/layout.rdxyzufjpn.css",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-rdxyzufjpn.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000363901019"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2747"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"N+voufI6NUTdGcYu5DgOHzkNEnIIgucJY/qSJGqL4II=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 08:02:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"f8g+9S5zWVZKBAlvUYvy37lINA7Z/cXcbhb6HaW1au0=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "rdxyzufjpn"
+        },
+        {
+          "Name": "label",
+          "Value": "css/layout.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-f8g+9S5zWVZKBAlvUYvy37lINA7Z/cXcbhb6HaW1au0="
+        }
+      ]
+    },
+    {
+      "Route": "css/layout.rdxyzufjpn.css",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\css\\layout.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10796"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"f8g+9S5zWVZKBAlvUYvy37lINA7Z/cXcbhb6HaW1au0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 08:02:43 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8332,7 +8469,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "39jkcux8l7"
+          "Value": "rdxyzufjpn"
         },
         {
           "Name": "label",
@@ -8340,13 +8477,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-d3JF7rY4B/smwx7+qyCdYwluSG9p5jppOtf22e6Gubs="
+          "Value": "sha256-f8g+9S5zWVZKBAlvUYvy37lINA7Z/cXcbhb6HaW1au0="
         }
       ]
     },
     {
-      "Route": "css/layout.39jkcux8l7.css.gz",
-      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-39jkcux8l7.gz",
+      "Route": "css/layout.rdxyzufjpn.css.gz",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-rdxyzufjpn.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -8355,7 +8492,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2680"
+          "Value": "2747"
         },
         {
           "Name": "Content-Type",
@@ -8363,11 +8500,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Eu4QLl886hh1dAm2t2E48IQ6fEz2sJs/uJ2o6wRoQYk=\""
+          "Value": "\"N+voufI6NUTdGcYu5DgOHzkNEnIIgucJY/qSJGqL4II=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 02 May 2025 18:33:53 GMT"
+          "Value": "Fri, 09 May 2025 08:02:43 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8385,7 +8522,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "39jkcux8l7"
+          "Value": "rdxyzufjpn"
         },
         {
           "Name": "label",
@@ -8393,144 +8530,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-Eu4QLl886hh1dAm2t2E48IQ6fEz2sJs/uJ2o6wRoQYk="
-        }
-      ]
-    },
-    {
-      "Route": "css/layout.css",
-      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-39jkcux8l7.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000372995151"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2680"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Eu4QLl886hh1dAm2t2E48IQ6fEz2sJs/uJ2o6wRoQYk=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 02 May 2025 18:33:53 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"d3JF7rY4B/smwx7+qyCdYwluSG9p5jppOtf22e6Gubs=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-d3JF7rY4B/smwx7+qyCdYwluSG9p5jppOtf22e6Gubs="
-        }
-      ]
-    },
-    {
-      "Route": "css/layout.css",
-      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\css\\layout.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "10394"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"d3JF7rY4B/smwx7+qyCdYwluSG9p5jppOtf22e6Gubs=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 02 May 2025 18:33:53 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-d3JF7rY4B/smwx7+qyCdYwluSG9p5jppOtf22e6Gubs="
-        }
-      ]
-    },
-    {
-      "Route": "css/layout.css.gz",
-      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\tk080zu9jp-39jkcux8l7.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "2680"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Eu4QLl886hh1dAm2t2E48IQ6fEz2sJs/uJ2o6wRoQYk=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 02 May 2025 18:33:53 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-Eu4QLl886hh1dAm2t2E48IQ6fEz2sJs/uJ2o6wRoQYk="
+          "Value": "sha256-N+voufI6NUTdGcYu5DgOHzkNEnIIgucJY/qSJGqL4II="
         }
       ]
     },

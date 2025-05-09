@@ -54,7 +54,7 @@ img {
     align-items: center;
     gap: 15px;
     flex-wrap: nowrap;
-    overflow-x: auto;
+    overflow-x: visible !important;
     white-space: nowrap;
     padding: 0 10px;
   
@@ -484,3 +484,22 @@ footer {
 .bg-gradient-primary {
     background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
 }
+
+    .footer-links .dropdown-menu {
+        position: absolute;
+        background-color: #333;
+        border-radius: 4px;
+        display: none;
+    }
+
+    .footer-links .dropdown-menu.show {
+        display: block;
+    }
+
+    .footer-links .dropdown-item {
+        color: #fff;
+    }
+
+    .footer-links .dropdown-item:hover {
+        background-color: #555;
+    }
