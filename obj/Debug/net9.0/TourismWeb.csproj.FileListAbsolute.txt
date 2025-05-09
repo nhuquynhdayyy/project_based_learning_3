@@ -2623,10 +2623,8 @@ D:\PBL3\PBL3\obj\Debug\net9.0\compressed\ogv4y7luj1-mr486atlrb.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\yuz2a1cczz-yus26ym32d.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\mmfoti1uct-0bhqbbqhrl.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\bq74799m76-2e0zi6qmxj.gz
-D:\PBL3\PBL3\obj\Debug\net9.0\compressed\tk080zu9jp-ntraendrol.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\3zhvn2qyo5-kqz8sfdhpm.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\jiphz1fxu8-oxu4evx4ew.gz
-D:\PBL3\PBL3\obj\Debug\net9.0\compressed\e1nq74b8jn-ijt0v88mlb.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\wn098pqtzw-2wemt4i2iz.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\3q40iqapdf-qyi0subut2.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\0ms5h4vd6a-z5iyphqp29.gz
@@ -2720,3 +2718,7 @@ D:\PBL3\PBL3\obj\Debug\net9.0\compressed\tttflme4c5-fqouhe6rop.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\offfdvndc2-1e1vq9ooi3.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\m3bprnhyu6-h3bbl6p0d8.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\yljvie71jl-9e1lnn6ogl.gz
+D:\PBL3\PBL3\bin\Debug\net9.0\DotNetEnv.dll
+D:\PBL3\PBL3\bin\Debug\net9.0\Sprache.dll
+D:\PBL3\PBL3\obj\Debug\net9.0\compressed\tk080zu9jp-a68h1hhxx2.gz
+D:\PBL3\PBL3\obj\Debug\net9.0\compressed\e1nq74b8jn-t8zibm30yb.gz

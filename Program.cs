@@ -17,6 +17,7 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDistributedMemoryCache();
 
+DotNetEnv.Env.Load();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 // THÊM DÒNG NÀY ĐỂ ĐĂNG KÝ IHttpClientFactory
@@ -49,6 +50,7 @@ builder.Logging.AddConsole(options =>
 
 var app = builder.Build();
 
+var apiKey = Environment.GetEnvironmentVariable("OPENWEATHERMAP_API_KEY");
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
