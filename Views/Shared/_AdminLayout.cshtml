@@ -35,7 +35,7 @@
             <div class="sidebar-menu">
                 <ul>
                     <li class="active">
-                        <a href="/Admin/Index">
+                        <a href="/Admin/Dashboard">
                             <i class="fas fa-home"></i>
                             <span>Tổng Quan</span>
                         </a>
@@ -46,17 +46,16 @@
                             <span>Thêm địa điểm</span>
                         </a>
                     </li>
-                    <li>
-                        <a asp-controller="Admin" asp-action="Posts">
-                            <i class="fas fa-file-alt"></i>
-                            <span>Quản Lý Bài Viết</span>
+                    <li class="@(ViewBag.CurrentPage == "PostReview" ? "active" : "")"> 
+                        <a asp-controller="Posts" asp-action="Moderate"> 
+                            <i class="fas fa-file-signature"></i> 
+                            <span>Kiểm Duyệt Bài Viết</span> 
                         </a>
                     </li>
                     <li>
                         <a asp-controller="Admin" asp-action="Comments">
                             <i class="fas fa-comments"></i>
                             <span>Đánh Giá & Bình Luận</span>
-                            <span class="badge">12</span>
                         </a>
                     </li>
                     <li>
@@ -69,7 +68,6 @@
                         <a asp-controller="Admin" asp-action="Reports">
                             <i class="fas fa-flag"></i>
                             <span>Báo Cáo</span>
-                            <span class="badge">5</span>
                         </a>
                     </li>
                     <li>
@@ -93,7 +91,7 @@
                 </ul>
             </div>
             <div class="sidebar-footer">
-                <form method="post" asp-controller="users" asp-action="Logout">
+                <form method="post" asp-controller="Accounts" asp-action="Logout">
                     <button type="submit" class="logout-button">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Đăng Xuất</span>
@@ -117,18 +115,20 @@
 
 @{
     Layout = null;
+    // Lấy controller và action hiện tại
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
 }
 <!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="utf-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Admin</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-        integrity="sha512-..." crossorigin="anonymous" />
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
     <script src="~/js/jsadmin/dashboard.js"></script>
@@ -148,55 +148,55 @@
             </div>
             <div class="sidebar-menu">
                 <ul>
-                    <li class="active">
-                        <a href="/Admin/Dashboard">
+                    <li class="@(currentController == "Admin" && currentAction == "Dashboard" ? "active" : "")">
+                        <a href="/Admin/Dashboard"> @* Hoặc asp-controller="Admin" asp-action="Dashboard" *@
                             <i class="fas fa-home"></i>
                             <span>Tổng Quan</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="@(currentController == "TouristSpots" && currentAction == "Create" ? "active" : "")">
                         <a asp-controller="TouristSpots" asp-action="Create">
                             <i class="fas fa-file-alt"></i>
                             <span>Thêm địa điểm</span>
                         </a>
                     </li>
-                    <li class="@(ViewBag.CurrentPage == "PostReview" ? "active" : "")"> @* Thêm kiểm tra ViewBag nếu muốn highlight active menu *@
-                        <a asp-controller="Posts" asp-action="Moderate"> @* <<< SỬA Ở ĐÂY *@
-                            <i class="fas fa-file-signature"></i> @* Icon khác cho kiểm duyệt? *@
-                            <span>Kiểm Duyệt Bài Viết</span> @* Hoặc "Quản Lý Bài Viết" tùy bạn *@
+                    <li class="@(currentController == "Posts" && currentAction == "Moderate" ? "active" : "")">
+                        <a asp-controller="Posts" asp-action="Moderate">
+                            <i class="fas fa-file-signature"></i>
+                            <span>Kiểm Duyệt Bài Viết</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="@(currentController == "Admin" && currentAction == "Comments" ? "active" : "")">
                         <a asp-controller="Admin" asp-action="Comments">
                             <i class="fas fa-comments"></i>
                             <span>Đánh Giá & Bình Luận</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="@(currentController == "Admin" && currentAction == "Interactions" ? "active" : "")">
                         <a asp-controller="Admin" asp-action="Interactions">
                             <i class="fas fa-heart"></i>
                             <span>Tương Tác</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="@(currentController == "Admin" && currentAction == "Reports" ? "active" : "")">
                         <a asp-controller="Admin" asp-action="Reports">
                             <i class="fas fa-flag"></i>
                             <span>Báo Cáo</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="@(currentController == "Admin" && currentAction == "Statistics" ? "active" : "")">
                         <a asp-controller="Admin" asp-action="Statistics">
                             <i class="fas fa-chart-bar"></i>
                             <span>Thống Kê</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="@(currentController == "Admin" && currentAction == "Users" ? "active" : "")">
                         <a asp-controller="Admin" asp-action="Users">
                             <i class="fas fa-users"></i>
                             <span>Người Dùng</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="@(currentController == "Admin" && currentAction == "Settings" ? "active" : "")">
                         <a asp-controller="Admin" asp-action="Settings">
                             <i class="fas fa-cog"></i>
                             <span>Cài Đặt</span>
