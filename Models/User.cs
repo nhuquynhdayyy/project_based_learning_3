@@ -40,7 +40,6 @@ namespace TourismWeb.Models
 
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
         public ICollection<Post> Posts { get; set; } = new List<Post>();
-        public ICollection<SpotComment> SpotComments { get; set; } = new List<SpotComment>();
         public ICollection<PostComment> PostComments { get; set; } = new List<PostComment>();
         public ICollection<SpotFavorite> SpotFavorites { get; set; } = new List<SpotFavorite>();
         public ICollection<PostFavorite> PostFavorites { get; set; } = new List<PostFavorite>();

@@ -30,7 +30,7 @@ namespace TourismWeb.Controllers
             var query = _context.TouristSpots
                 .Include(t => t.Category)
                 .Include(t => t.Favorites)
-                .Include(t => t.Comments)
+                // .Include(t => t.Comments)
                 .Include(t => t.SpotTags)
                     .ThenInclude(st => st.Tag)
                 .AsQueryable();
@@ -57,7 +57,8 @@ namespace TourismWeb.Controllers
                     query = query.OrderByDescending(t => t.Favorites.Count);
                     break;
                 case "popular":
-                    query = query.OrderByDescending(t => t.Comments.Count + t.Favorites.Count);
+                    // query = query.OrderByDescending(t => t.Comments.Count + t.Favorites.Count);
+                    query = query.OrderByDescending(t => t.Favorites.Count);
                     break;
                 default:
                     query = query.OrderBy(t => t.Name);

@@ -15,7 +15,6 @@ namespace TourismWeb.Models
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostImage> PostImages { get; set; }
-        public DbSet<SpotComment> SpotComments { get; set; }
         public DbSet<PostComment> PostComments { get; set; }
         public DbSet<SpotFavorite> SpotFavorites { get; set; }
         public DbSet<PostFavorite> PostFavorites { get; set; }
@@ -105,23 +104,6 @@ namespace TourismWeb.Models
                 .HasOne(pi => pi.Post)
                 .WithMany(p => p.Images)
                 .HasForeignKey(pi => pi.PostId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            // Quan hệ SpotComment
-            modelBuilder.Entity<SpotComment>()
-                .Property(sc => sc.CreatedAt)
-                .HasDefaultValueSql("GETDATE()");
-
-            modelBuilder.Entity<SpotComment>()
-                .HasOne(sc => sc.User)
-                .WithMany(u => u.SpotComments)
-                .HasForeignKey(sc => sc.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<SpotComment>()
-                .HasOne(sc => sc.Spot)
-                .WithMany(s => s.Comments)
-                .HasForeignKey(sc => sc.SpotId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Quan hệ PostComment

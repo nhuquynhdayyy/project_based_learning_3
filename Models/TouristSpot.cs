@@ -30,7 +30,6 @@ namespace TourismWeb.Models
         public bool IsLikedByCurrentUser { get; set; } = false;
 
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
-        public ICollection<SpotComment> Comments { get; set; } = new List<SpotComment>();
         public ICollection<SpotFavorite> Favorites { get; set; } = new List<SpotFavorite>();
         public ICollection<SpotShare> Shares { get; set; } = new List<SpotShare>();
         public ICollection<SpotImage> Images { get; set; } = new List<SpotImage>();

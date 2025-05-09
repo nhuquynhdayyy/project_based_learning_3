@@ -129,10 +129,10 @@
                                 <span class="interaction-icon">❤️</span>
                                 <span class="like-count" id="like-count-@item.SpotId">@(item.Favorites?.Count ?? 0)</span>
                             </div>
-                            <div class="meta-item">
+                            @* <div class="meta-item">
                                 <span>💬</span>
-                                <span>@(item.Comments?.Count ?? 0)</span>
-                            </div>
+                                <span> (item.Comments?.Count ?? 0)</span>
+                            </div> *@
                             <div class="meta-item">
                                 <span>📍</span>
                                 <span>@item.Address</span>
