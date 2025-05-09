@@ -550,11 +550,6 @@
 
             <div class="page-header">
                 <h1 class="page-title">Quản Lý Bài Viết</h1>
-                <div class="page-actions">
-                    <a asp-action="Create" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Thêm bài viết
-                    </a>
-                </div>
             </div>
 
             <div class="filter-card">
@@ -597,9 +592,9 @@
 
         var typeBadgeClass = item.TypeOfPost switch
         {
-            "location" => "badge blue",
-            "guide" => "badge green",
-            "experience" => "badge amber",
+            "Địa điểm" => "badge blue",
+            "Cẩm nang" => "badge green",
+            "Trải nghiệm" => "badge amber",
             _ => "badge gray"
         };
 
@@ -611,11 +606,11 @@
             </td>
             <td>
                 <span class="@typeBadgeClass">
-                    @if (item.TypeOfPost == "location")
+                    @if (item.TypeOfPost == "Địa điểm")
                     {
                         @:<i class="fas fa-map-marker-alt"></i> Địa điểm
                     }
-                    else if (item.TypeOfPost == "guide")
+                    else if (item.TypeOfPost == "Cẩm nang")
                     {
                         @:<i class="fas fa-book"></i> Cẩm nang
                     }
