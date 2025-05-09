@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Globalization; // Cho định dạng ngày tháng
 using System.Text.Json;
+using System.Collections.Generic; // Required for List
 
 [Authorize(Roles = "Admin")]
 public class AdminController : Controller
@@ -149,10 +150,60 @@ return View(viewModel);
     {
         return View();
     }
-    public IActionResult Comments()
-    {
-        return View();
-    }
+    // public IActionResult Comments()
+    // {
+    //     return View();
+    // }
+    public async Task<IActionResult> Comments()
+{
+    var reviews = await _context.Reviews
+        .Include(r => r.User)
+        .Include(r => r.Spot)
+        .Select(r => new AdminCommentViewModel
+        {
+            Id = r.ReviewId,
+            ItemType = "Review",
+            UserFullName = r.User != null ? r.User.FullName : "N/A",
+            UserEmail = r.User != null ? r.User.Email : "N/A",
+            UserAvatar = r.User != null ? r.User.AvatarUrl : "/images/default-avatar.png",
+            Content = r.Comment,
+            RelatedItemId = r.SpotId,
+            RelatedItemTitle = r.Spot.Name,
+            RelatedItemController = "TouristSpots",
+            RelatedItemTypeDetail = "Địa điểm du lịch (Đánh giá)", // GÁN GIÁ TRỊ
+            Rating = r.Rating,
+            CreatedAt = r.CreatedAt,
+            ImageUrl = r.ImageUrl
+        })
+        .ToListAsync();
+
+    var postComments = await _context.PostComments
+        .Include(pc => pc.User)
+        .Include(pc => pc.Post) // Đảm bảo Post được include
+        .Select(pc => new AdminCommentViewModel
+        {
+            Id = pc.CommentId,
+            ItemType = "PostComment",
+            UserFullName = pc.User != null ? pc.User.FullName : "N/A",
+            UserEmail = pc.User != null ? pc.User.Email : "N/A",
+            UserAvatar = pc.User != null ? pc.User.AvatarUrl : "/images/default-avatar.png",
+            Content = pc.Content,
+            RelatedItemId = pc.PostId,
+            RelatedItemTitle = pc.Post.Title,
+            RelatedItemController = "Posts",
+            RelatedItemTypeDetail = (pc.Post != null ? pc.Post.TypeOfPost : "Không rõ") + " (Bình luận)", // GÁN GIÁ TRỊ - Cần check pc.Post != null
+            Rating = null,
+            CreatedAt = pc.CreatedAt,
+            ImageUrl = pc.ImageUrl
+        })
+        .ToListAsync();
+
+    var allCommentsAndReviews = reviews.Concat(postComments)
+                                       .OrderByDescending(c => c.CreatedAt)
+                                       .ToList();
+
+    return View(allCommentsAndReviews);
+}
     public IActionResult Interactions()
     {
         return View();

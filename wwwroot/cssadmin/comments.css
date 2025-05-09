@@ -211,5 +211,193 @@
   background: none;
   cursor: pointer;
   color: var(--text-muted);
-  transition: all 0.2s;
+  transition: all 0.2s; /* Trong file cssadmin/comments.css hoặc file css dùng chung cho admin layout */
+
+  .modal {
+    display: none; /* Ẩn theo mặc định */
+    position: fixed; /* Hoặc absolute tùy vào cấu trúc DOM cha */
+    z-index: 1050; /* Cao hơn các element khác */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Cho phép cuộn nếu nội dung modal dài */
+    background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    /* Để căn giữa modal-content */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto; /* Căn giữa nếu không dùng flexbox trên .modal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Hoặc một giá trị cụ thể */
+    max-width: 500px; /* Giới hạn chiều rộng tối đa */
+    border-radius: 5px;
+    position: relative; /* Để modal-close có thể định vị tuyệt đối bên trong */
+  }
+
+  .modal-content.modal-sm {
+    max-width: 350px;
+  }
+
+  .modal-header {
+    padding: 10px 15px;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-title {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .modal-body {
+    padding: 15px;
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* Khoảng cách giữa các nút */
+    padding-top: 15px;
+    border-top: 1px solid #e5e5e5;
+    margin-top: 15px;
+  }
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  overflow: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-dialog {
+  background-color: #fff;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  margin: 30px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: modalFadeIn 0.3s ease;
+}
+
+.modal-content {
+  position: relative;
+}
+
+.modal-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* CSS để hiển thị tab theo hàng ngang */
+.tab-list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.tab-list li {
+  margin-right: 10px;
+}
+
+.tab-list li a,
+.tab-list li button {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid transparent;
+  background-color: #f8f9fa;
+  color: #495057;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.tab-list li a:hover,
+.tab-list li button:hover {
+  background-color: #e9ecef;
+  border-color: #e9ecef #e9ecef #dee2e6;
+}
+
+.tab-list li a.active,
+.tab-list li button.active {
+  color: #0d6efd;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+  font-weight: 600;
+}
+
+.tab-list li i {
+  margin-right: 8px;
 }

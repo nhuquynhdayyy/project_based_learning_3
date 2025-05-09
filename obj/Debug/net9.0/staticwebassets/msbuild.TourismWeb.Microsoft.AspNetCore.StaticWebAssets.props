@@ -264,8 +264,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>o3qr8kx4z7</Fingerprint>
-      <Integrity>5KQeE+40j4RHeCfRZgiD3I4PaNUm7qBpAqY4Xf/k3a0=</Integrity>
+      <Fingerprint>fqouhe6rop</Fingerprint>
+      <Integrity>SV7675dXCVvkCg31JujiOAMXfHqvEXWId99/2JRIn2U=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\cssadmin\comments.css'))</OriginalItemSpec>
@@ -737,6 +737,24 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\ab162e25-4fd3-4963-bb4f-ee59f409ef76.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\de46adb0-e1bb-4724-aa60-30f877add93a.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>TourismWeb</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TourismWeb</BasePath>
+      <RelativePath>images/avatars/de46adb0-e1bb-4724-aa60-30f877add93a.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>20ifr52pg6</Fingerprint>
+      <Integrity>HmgBBurPYC61jtZzdYqpwLxT9qXFRkoqBY9eEzrjVCs=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\avatars\de46adb0-e1bb-4724-aa60-30f877add93a.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\bachma.webp'))">
       <SourceType>Package</SourceType>
@@ -1974,8 +1992,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>6wzwx3p2r6</Fingerprint>
-      <Integrity>SsWyH6PNXZvwf3abIO/gKbPpZrx9YfvjI1zpNc+WSjc=</Integrity>
+      <Fingerprint>1e1vq9ooi3</Fingerprint>
+      <Integrity>ybbtWStAgCsraPuXXwXzLv9hQ1pO8XzNjgIzNvls5No=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\comments.js'))</OriginalItemSpec>

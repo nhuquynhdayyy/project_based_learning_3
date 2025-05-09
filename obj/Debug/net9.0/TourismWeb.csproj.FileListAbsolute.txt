@@ -2607,7 +2607,6 @@ D:\PBL3\PBL3\obj\Debug\net9.0\TourismWeb.RazorAssemblyInfo.cs
 D:\PBL3\PBL3\obj\Debug\net9.0\TourismWeb.sourcelink.json
 D:\PBL3\PBL3\obj\Debug\net9.0\scopedcss\bundle\TourismWeb.styles.css
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\e6g4i39jr6-59fb5v71re.gz
-D:\PBL3\PBL3\obj\Debug\net9.0\compressed\tttflme4c5-o3qr8kx4z7.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\xpu4n0dz2y-cihadb3bhn.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\jfl8ogsjll-savuemudaj.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\6znzsnols5-dveiuze4ge.gz
@@ -2633,7 +2632,6 @@ D:\PBL3\PBL3\obj\Debug\net9.0\compressed\wn098pqtzw-2wemt4i2iz.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\3q40iqapdf-qyi0subut2.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\0ms5h4vd6a-z5iyphqp29.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\4yfxfhdncb-61n19gt1b8.gz
-D:\PBL3\PBL3\obj\Debug\net9.0\compressed\offfdvndc2-6wzwx3p2r6.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\du5yu0es0a-klzy6qd0hu.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\ncat4yc4jn-cmg85s24sk.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\b9u5n0k1w5-gm7spnxbrq.gz
@@ -2720,3 +2718,5 @@ D:\PBL3\PBL3\obj\Debug\net9.0\TourismWeb.pdb
 D:\PBL3\PBL3\obj\Debug\net9.0\TourismWeb.genruntimeconfig.cache
 D:\PBL3\PBL3\obj\Debug\net9.0\ref\TourismWeb.dll
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\m3bprnhyu6-ijtvu1vnab.gz
+D:\PBL3\PBL3\obj\Debug\net9.0\compressed\tttflme4c5-fqouhe6rop.gz
+D:\PBL3\PBL3\obj\Debug\net9.0\compressed\offfdvndc2-1e1vq9ooi3.gz
