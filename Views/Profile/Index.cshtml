@@ -11,21 +11,6 @@
 
 }
 
-@* @if (!string.IsNullOrEmpty(successMessage))
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @successMessage
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
-@if (!string.IsNullOrEmpty(errorMessage))
-{
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        @errorMessage
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-} *@
-
 <main>
     <div class="profile-container">
         <div class="profile-sidebar">
@@ -668,6 +653,31 @@
 </script>
 }
 <style>
+    .profile-sidebar {
+    max-height: 100vh;
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+    scrollbar-width: thin; /* Dành cho Firefox */
+    scrollbar-color: transparent transparent; /* Dành cho Firefox */
+    }
+
+    .profile-sidebar::-webkit-scrollbar {
+    width: 5px; /* Giảm độ rộng thanh cuộn */
+    }
+
+    .profile-sidebar::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Trong suốt hoàn toàn */
+    }
+
+    .profile-sidebar::-webkit-scrollbar-track {
+    background-color: transparent; /* Trong suốt hoàn toàn */
+    }
+
+    .profile-sidebar:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1); /* Xuất hiện mờ nhẹ khi hover */
+    }
+
     .avatar-container:hover .avatar-overlay {
         opacity: 1;
         cursor: pointer;
