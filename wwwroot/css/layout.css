@@ -503,3 +503,7 @@ footer {
     .footer-links .dropdown-item:hover {
         background-color: #555;
     }
+#postDropdown::after {
+    display: none !important;
+    content: none !important;
+}

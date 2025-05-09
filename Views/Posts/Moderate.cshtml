@@ -1,132 +1,141 @@
+
+
 @model IEnumerable<TourismWeb.Models.Post>
 
 @{
-    ViewData["Title"] = "Moderate Posts";
+    ViewData["Title"] = "Quản Lý Bài Viết";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Post Moderation</h1>
+@section Styles {
+    <link rel="stylesheet" href="~/cssadmin/posts.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+}
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
+@section Scripts {
+    <script src="~/js/jsadmin/posts.js"></script>
+}
 
-<div class="mb-3">
-    <div class="btn-group" role="group">
-        <a asp-action="Moderate" class="btn btn-outline-primary active">All Posts</a>
-        <a asp-action="Moderate" asp-route-status="Pending" class="btn btn-outline-warning">Pending</a>
-        <a asp-action="Moderate" asp-route-status="Approved" class="btn btn-outline-success">Approved</a>
-        <a asp-action="Moderate" asp-route-status="Rejected" class="btn btn-outline-danger">Rejected</a>
+<div class="app-container">
+    <div class="main-content">
+        <main class="content-wrapper">
+            <button class="toggle-sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="page-header">
+                <h1 class="page-title">Quản Lý Bài Viết</h1>
+   
+            </div>
+
+            <div class="filter-card">
+                <div class="btn-group" role="group">
+                    <a asp-action="Moderate" class="btn btn-outline-primary @(ViewContext.RouteData.Values["status"] == null ? "active" : "")">Tất cả</a>
+                    <a asp-action="Moderate" asp-route-status="Pending" class="btn btn-outline-warning @(ViewContext.RouteData.Values["status"]?.ToString() == "Pending" ? "active" : "")">Chờ duyệt</a>
+                    <a asp-action="Moderate" asp-route-status="Approved" class="btn btn-outline-success @(ViewContext.RouteData.Values["status"]?.ToString() == "Approved" ? "active" : "")">Đã duyệt</a>
+                    <a asp-action="Moderate" asp-route-status="Rejected" class="btn btn-outline-danger @(ViewContext.RouteData.Values["status"]?.ToString() == "Rejected" ? "active" : "")">Từ chối</a>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tiêu đề</th>
+                                <th>Loại</th>
+                                <th>Địa điểm</th>
+                                <th>Tác giả</th>
+                                <th>Ngày đăng</th>
+                                <th>Trạng thái</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                var badgeClass = item.Status switch
+                                {
+                                    TourismWeb.Models.PostStatus.Pending => "badge yellow",
+                                    TourismWeb.Models.PostStatus.Approved => "badge green",
+                                    TourismWeb.Models.PostStatus.Rejected => "badge red",
+                                    _ => "badge gray"
+                                };
+
+                                var typeBadgeClass = item.TypeOfPost switch
+                                {
+                                    "location" => "badge blue",
+                                    "guide" => "badge green",
+                                    "experience" => "badge amber",
+                                    _ => "badge gray"
+                                };
+
+                                <tr class="data-row">
+                                    <td>@item.PostId</td>
+                                    <td>
+                                        <div class="table-title-cell">@item.Title</div>
+                                        <div class="table-content-preview">@item.Content?.Substring(0, Math.Min(100, item.Content.Length))...</div>
+                                    </td>
+                                    <td>
+                                        <span class="@typeBadgeClass">
+                                            @if (item.TypeOfPost == "location")
+                                            {
+                                                @:<i class="fas fa-map-marker-alt"></i> Địa điểm
+                                            }
+                                            else if (item.TypeOfPost == "guide")
+                                            {
+                                                @:<i class="fas fa-book"></i> Cẩm nang
+                                            }
+                                            else
+                                            {
+                                                @:<i class="fas fa-star"></i> Trải nghiệm
+                                            }
+                                        </span>
+                                    </td>
+                                    <td>@item.Spot?.Name</td>
+                                    <td>@item.User?.FullName</td>
+                                    <td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                    <td><span class="@badgeClass">@item.Status</span></td>
+                                    <td class="actions-cell">
+                                        <a asp-action="Details" asp-route-id="@item.PostId" class="action-btn view-btn" title="Xem"><i class="fas fa-eye"></i></a>
+                                        <a asp-action="Edit" asp-route-id="@item.PostId" class="action-btn edit-btn" title="Sửa"><i class="fas fa-edit"></i></a>
+
+                                        @if (item.Status == TourismWeb.Models.PostStatus.Pending)
+                                        {
+                                            <form asp-action="Approve" asp-route-id="@item.PostId" method="post" style="display: inline;">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="action-btn approve-btn" title="Duyệt"><i class="fas fa-check"></i></button>
+                                            </form>
+                                            <form asp-action="Reject" asp-route-id="@item.PostId" method="post" style="display: inline;">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="action-btn reject-btn" title="Từ chối"><i class="fas fa-times"></i></button>
+                                            </form>
+                                        }
+                                        else if (item.Status == TourismWeb.Models.PostStatus.Approved)
+                                        {
+                                            <form asp-action="Reject" asp-route-id="@item.PostId" method="post" style="display: inline;">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="action-btn reject-btn" title="Từ chối"><i class="fas fa-times"></i></button>
+                                            </form>
+                                        }
+                                        else if (item.Status == TourismWeb.Models.PostStatus.Rejected)
+                                        {
+                                            <form asp-action="Approve" asp-route-id="@item.PostId" method="post" style="display: inline;">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="action-btn approve-btn" title="Duyệt"><i class="fas fa-check"></i></button>
+                                            </form>
+                                        }
+
+                                        <a asp-action="Delete" asp-route-id="@item.PostId" class="action-btn delete-btn" title="Xóa"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
     </div>
 </div>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PostId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TypeOfPost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Spot)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TypeOfPost)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Spot.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedAt)
-                </td>
-                <td>
-                    @{
-                        string badgeClass = item.Status == TourismWeb.Models.PostStatus.Pending
-                        ? "badge bg-warning"
-                        : (item.Status == TourismWeb.Models.PostStatus.Approved
-                        ? "badge bg-success"
-                        : "badge bg-danger");
-                    }
-                    <span class="@badgeClass">@item.Status</span>
-                </td>
-                <td>
-                    <div class="btn-group">
-                        <a asp-action="Details" asp-route-id="@item.PostId" class="btn btn-sm btn-info">
-                            <i class="bi bi-eye"></i> View
-                        </a>
-                        <a asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-sm btn-primary">
-                            <i class="bi bi-pencil"></i> Edit
-                        </a>
-
-                        @if (item.Status == TourismWeb.Models.PostStatus.Pending)
-                        {
-                            <form asp-action="Approve" asp-route-id="@item.PostId" method="post" style="display: inline;">
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-sm btn-success">
-                                    <i class="bi bi-check-circle"></i> Approve
-                                </button>
-                            </form>
-                            <form asp-action="Reject" asp-route-id="@item.PostId" method="post" style="display: inline;">
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-sm btn-danger">
-                                    <i class="bi bi-x-circle"></i> Reject
-                                </button>
-                            </form>
-                        }
-                        else if (item.Status == TourismWeb.Models.PostStatus.Approved)
-                        {
-                            <form asp-action="Reject" asp-route-id="@item.PostId" method="post" style="display: inline;">
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-sm btn-danger">
-                                    <i class="bi bi-x-circle"></i> Reject
-                                </button>
-                            </form>
-                        }
-                        else if (item.Status == TourismWeb.Models.PostStatus.Rejected)
-                        {
-                            <form asp-action="Approve" asp-route-id="@item.PostId" method="post" style="display: inline;">
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-sm btn-success">
-                                    <i class="bi bi-check-circle"></i> Approve
-                                </button>
-                            </form>
-                        }
-
-                        <a asp-action="Delete" asp-route-id="@item.PostId" class="btn btn-sm btn-danger">
-                            <i class="bi bi-trash"></i> Delete
-                        </a>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
