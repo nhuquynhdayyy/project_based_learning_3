@@ -3321,7 +3321,6 @@ E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\0ms5h4vd6a-z5iyp
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\4yfxfhdncb-61n19gt1b8.gz
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\du5yu0es0a-klzy6qd0hu.gz
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\m3bprnhyu6-x94jbl2hd1.gz
-E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\ncat4yc4jn-cmg85s24sk.gz
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\b9u5n0k1w5-gm7spnxbrq.gz
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\fd1rya53s7-kduo2nmz8y.gz
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\o2chbz81b1-sy43zuo609.gz
@@ -3407,3 +3406,4 @@ E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\TourismWeb.genruntimeconfig
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\ref\TourismWeb.dll
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\tttflme4c5-pw7jyhqltp.gz
 E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\offfdvndc2-vmf823ecs0.gz
+E:\cd pbl3\project_based_learning_3\obj\Debug\net9.0\compressed\ncat4yc4jn-ww0rv946j9.gz

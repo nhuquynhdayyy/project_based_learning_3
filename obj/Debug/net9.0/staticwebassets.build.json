@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8ksEZuDPlSu75NJDz9HBngFOs7VztgPI7YHBI6B9qmY=",
+  "Hash": "IiRriBswiWA1AiNRo8wKVP1uprCdWkZ5pppSS7xn3Tg=",
   "Source": "TourismWeb",
   "BasePath": "_content/TourismWeb",
   "Mode": "Default",
@@ -1361,12 +1361,12 @@
       "OriginalItemSpec": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Identity": "E:\\cd pbl3\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\ncat4yc4jn-cmg85s24sk.gz",
+      "Identity": "E:\\cd pbl3\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\ncat4yc4jn-ww0rv946j9.gz",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
       "ContentRoot": "E:\\cd pbl3\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/TourismWeb",
-      "RelativePath": "js/jsadmin/interactions#[.{fingerprint=cmg85s24sk}]?.js.gz",
+      "RelativePath": "js/jsadmin/interactions#[.{fingerprint=ww0rv946j9}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -1375,8 +1375,8 @@
       "RelatedAsset": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\js\\jsadmin\\interactions.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "hq5xgm3ck1",
-      "Integrity": "SfPrS06a/r9D/gP6QkzJlhTtXzZbsWofdralnFgLFhU=",
+      "Fingerprint": "o6vadtetho",
+      "Integrity": "YJ2qctF9laEx+23uhxadAwA17d34Oc9WGCBjItA1Y7k=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\js\\jsadmin\\interactions.js"
@@ -4546,8 +4546,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "cmg85s24sk",
-      "Integrity": "JDtz3p41p/VD9fOkpSP5PK0zKKyJ1lLS6YPD5xasgyU=",
+      "Fingerprint": "ww0rv946j9",
+      "Integrity": "oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\jsadmin\\interactions.js"
@@ -21996,13 +21996,13 @@
       ]
     },
     {
-      "Route": "js/jsadmin/interactions.cmg85s24sk.js",
-      "AssetFile": "E:\\cd pbl3\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\ncat4yc4jn-cmg85s24sk.gz",
+      "Route": "js/jsadmin/interactions.js",
+      "AssetFile": "E:\\cd pbl3\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\ncat4yc4jn-ww0rv946j9.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000670690812"
+          "Quality": "0.000736377025"
         }
       ],
       "ResponseHeaders": [
@@ -22012,19 +22012,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1490"
+          "Value": "1357"
         },
         {
           "Name": "ETag",
-          "Value": "\"SfPrS06a/r9D/gP6QkzJlhTtXzZbsWofdralnFgLFhU=\""
+          "Value": "\"YJ2qctF9laEx+23uhxadAwA17d34Oc9WGCBjItA1Y7k=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 00:32:50 GMT"
+          "Value": "Fri, 09 May 2025 08:01:02 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -22040,26 +22040,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"JDtz3p41p/VD9fOkpSP5PK0zKKyJ1lLS6YPD5xasgyU=\""
+          "Value": "W/\"oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "cmg85s24sk"
-        },
-        {
-          "Name": "label",
-          "Value": "js/jsadmin/interactions.js"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-JDtz3p41p/VD9fOkpSP5PK0zKKyJ1lLS6YPD5xasgyU="
+          "Value": "sha256-oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8="
         }
       ]
     },
     {
-      "Route": "js/jsadmin/interactions.cmg85s24sk.js",
+      "Route": "js/jsadmin/interactions.js",
       "AssetFile": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\js\\jsadmin\\interactions.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -22069,7 +22061,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4552"
+          "Value": "6681"
         },
         {
           "Name": "Content-Type",
@@ -22077,11 +22069,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"JDtz3p41p/VD9fOkpSP5PK0zKKyJ1lLS6YPD5xasgyU=\""
+          "Value": "\"oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 00:32:50 GMT"
+          "Value": "Fri, 09 May 2025 08:01:02 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8="
+        }
+      ]
+    },
+    {
+      "Route": "js/jsadmin/interactions.js.gz",
+      "AssetFile": "E:\\cd pbl3\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\ncat4yc4jn-ww0rv946j9.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1357"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"YJ2qctF9laEx+23uhxadAwA17d34Oc9WGCBjItA1Y7k=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 08:01:02 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-YJ2qctF9laEx+23uhxadAwA17d34Oc9WGCBjItA1Y7k="
+        }
+      ]
+    },
+    {
+      "Route": "js/jsadmin/interactions.ww0rv946j9.js",
+      "AssetFile": "E:\\cd pbl3\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\ncat4yc4jn-ww0rv946j9.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000736377025"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1357"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"YJ2qctF9laEx+23uhxadAwA17d34Oc9WGCBjItA1Y7k=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 08:01:02 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ww0rv946j9"
+        },
+        {
+          "Name": "label",
+          "Value": "js/jsadmin/interactions.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8="
+        }
+      ]
+    },
+    {
+      "Route": "js/jsadmin/interactions.ww0rv946j9.js",
+      "AssetFile": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\js\\jsadmin\\interactions.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6681"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 08:01:02 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22091,7 +22228,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "cmg85s24sk"
+          "Value": "ww0rv946j9"
         },
         {
           "Name": "label",
@@ -22099,13 +22236,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-JDtz3p41p/VD9fOkpSP5PK0zKKyJ1lLS6YPD5xasgyU="
+          "Value": "sha256-oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8="
         }
       ]
     },
     {
-      "Route": "js/jsadmin/interactions.cmg85s24sk.js.gz",
-      "AssetFile": "E:\\cd pbl3\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\ncat4yc4jn-cmg85s24sk.gz",
+      "Route": "js/jsadmin/interactions.ww0rv946j9.js.gz",
+      "AssetFile": "E:\\cd pbl3\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\ncat4yc4jn-ww0rv946j9.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -22114,7 +22251,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1490"
+          "Value": "1357"
         },
         {
           "Name": "Content-Type",
@@ -22122,11 +22259,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"SfPrS06a/r9D/gP6QkzJlhTtXzZbsWofdralnFgLFhU=\""
+          "Value": "\"YJ2qctF9laEx+23uhxadAwA17d34Oc9WGCBjItA1Y7k=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 00:32:50 GMT"
+          "Value": "Fri, 09 May 2025 08:01:02 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22144,7 +22281,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "cmg85s24sk"
+          "Value": "ww0rv946j9"
         },
         {
           "Name": "label",
@@ -22152,144 +22289,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-SfPrS06a/r9D/gP6QkzJlhTtXzZbsWofdralnFgLFhU="
-        }
-      ]
-    },
-    {
-      "Route": "js/jsadmin/interactions.js",
-      "AssetFile": "E:\\cd pbl3\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\ncat4yc4jn-cmg85s24sk.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000670690812"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1490"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"SfPrS06a/r9D/gP6QkzJlhTtXzZbsWofdralnFgLFhU=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 00:32:50 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"JDtz3p41p/VD9fOkpSP5PK0zKKyJ1lLS6YPD5xasgyU=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-JDtz3p41p/VD9fOkpSP5PK0zKKyJ1lLS6YPD5xasgyU="
-        }
-      ]
-    },
-    {
-      "Route": "js/jsadmin/interactions.js",
-      "AssetFile": "E:\\cd pbl3\\project_based_learning_3\\wwwroot\\js\\jsadmin\\interactions.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "4552"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"JDtz3p41p/VD9fOkpSP5PK0zKKyJ1lLS6YPD5xasgyU=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 00:32:50 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-JDtz3p41p/VD9fOkpSP5PK0zKKyJ1lLS6YPD5xasgyU="
-        }
-      ]
-    },
-    {
-      "Route": "js/jsadmin/interactions.js.gz",
-      "AssetFile": "E:\\cd pbl3\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\ncat4yc4jn-cmg85s24sk.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1490"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"SfPrS06a/r9D/gP6QkzJlhTtXzZbsWofdralnFgLFhU=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 00:32:50 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-SfPrS06a/r9D/gP6QkzJlhTtXzZbsWofdralnFgLFhU="
+          "Value": "sha256-YJ2qctF9laEx+23uhxadAwA17d34Oc9WGCBjItA1Y7k="
         }
       ]
     },

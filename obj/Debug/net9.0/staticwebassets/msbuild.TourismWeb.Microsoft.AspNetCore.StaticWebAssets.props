@@ -2100,8 +2100,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>cmg85s24sk</Fingerprint>
-      <Integrity>JDtz3p41p/VD9fOkpSP5PK0zKKyJ1lLS6YPD5xasgyU=</Integrity>
+      <Fingerprint>ww0rv946j9</Fingerprint>
+      <Integrity>oL/5K4rGhC7hZ4yKXdeAuWnqmw33HBM4kGHRISoP4y8=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\interactions.js'))</OriginalItemSpec>
