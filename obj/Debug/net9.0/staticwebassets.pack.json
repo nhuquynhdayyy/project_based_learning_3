@@ -761,6 +761,18 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.map"
     },
     {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\uploads\\posts\\20d77faf-27cb-4672-be40-3c2fbc11decc.jpg",
+      "PackagePath": "staticwebassets\\uploads\\posts\\20d77faf-27cb-4672-be40-3c2fbc11decc.jpg"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\uploads\\posts\\af6d7f9d-b68c-4660-b022-832109035958.jpg",
+      "PackagePath": "staticwebassets\\uploads\\posts\\af6d7f9d-b68c-4660-b022-832109035958.jpg"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\uploads\\posts\\fef71f08-dca5-4943-a5f3-d95b37d3e4cf.png",
+      "PackagePath": "staticwebassets\\uploads\\posts\\fef71f08-dca5-4943-a5f3-d95b37d3e4cf.png"
+    },
+    {
       "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.TourismWeb.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },

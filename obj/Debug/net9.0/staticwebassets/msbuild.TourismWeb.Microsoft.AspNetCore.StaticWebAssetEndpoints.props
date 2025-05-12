@@ -2280,5 +2280,41 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-hjIBkvmgxQXbNXK3B9YQ3t06RwLuQSQzC/dpvuB/lMk="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1117"},{"Name":"Content-Type","Value":"text/plain"},{"Name":"ETag","Value":"\u0022hjIBkvmgxQXbNXK3B9YQ3t06RwLuQSQzC/dpvuB/lMk=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Apr 2025 03:32:56 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/uploads/posts/20d77faf-27cb-4672-be40-3c2fbc11decc.4i8qw3ocsj.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\posts\20d77faf-27cb-4672-be40-3c2fbc11decc.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"4i8qw3ocsj"},{"Name":"integrity","Value":"sha256-dMZslsDkMxjBItFjWXyfgkavG5OYwylDe/HqoaTL\u002BOU="},{"Name":"label","Value":"_content/TourismWeb/uploads/posts/20d77faf-27cb-4672-be40-3c2fbc11decc.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"7999"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022dMZslsDkMxjBItFjWXyfgkavG5OYwylDe/HqoaTL\u002BOU=\u0022"},{"Name":"Last-Modified","Value":"Mon, 12 May 2025 17:24:24 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/uploads/posts/20d77faf-27cb-4672-be40-3c2fbc11decc.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\posts\20d77faf-27cb-4672-be40-3c2fbc11decc.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-dMZslsDkMxjBItFjWXyfgkavG5OYwylDe/HqoaTL\u002BOU="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"7999"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022dMZslsDkMxjBItFjWXyfgkavG5OYwylDe/HqoaTL\u002BOU=\u0022"},{"Name":"Last-Modified","Value":"Mon, 12 May 2025 17:24:24 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/uploads/posts/af6d7f9d-b68c-4660-b022-832109035958.8nl6a7r2aj.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\posts\af6d7f9d-b68c-4660-b022-832109035958.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"8nl6a7r2aj"},{"Name":"integrity","Value":"sha256-FKm41CSvJMlYdto6xA1ewLTt2GZoUXi1nPM3yzKEETY="},{"Name":"label","Value":"_content/TourismWeb/uploads/posts/af6d7f9d-b68c-4660-b022-832109035958.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1765206"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022FKm41CSvJMlYdto6xA1ewLTt2GZoUXi1nPM3yzKEETY=\u0022"},{"Name":"Last-Modified","Value":"Mon, 12 May 2025 17:18:58 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/uploads/posts/af6d7f9d-b68c-4660-b022-832109035958.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\posts\af6d7f9d-b68c-4660-b022-832109035958.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-FKm41CSvJMlYdto6xA1ewLTt2GZoUXi1nPM3yzKEETY="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"1765206"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022FKm41CSvJMlYdto6xA1ewLTt2GZoUXi1nPM3yzKEETY=\u0022"},{"Name":"Last-Modified","Value":"Mon, 12 May 2025 17:18:58 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/uploads/posts/fef71f08-dca5-4943-a5f3-d95b37d3e4cf.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\posts\fef71f08-dca5-4943-a5f3-d95b37d3e4cf.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-e1dVKIgy5\u002Bo2CnYpZTb\u002B941SoUrM1Uq6C9QWKFQI3js="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"1227982"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022e1dVKIgy5\u002Bo2CnYpZTb\u002B941SoUrM1Uq6C9QWKFQI3js=\u0022"},{"Name":"Last-Modified","Value":"Mon, 12 May 2025 16:47:52 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/uploads/posts/fef71f08-dca5-4943-a5f3-d95b37d3e4cf.ze2t21ky5n.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\posts\fef71f08-dca5-4943-a5f3-d95b37d3e4cf.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"ze2t21ky5n"},{"Name":"integrity","Value":"sha256-e1dVKIgy5\u002Bo2CnYpZTb\u002B941SoUrM1Uq6C9QWKFQI3js="},{"Name":"label","Value":"_content/TourismWeb/uploads/posts/fef71f08-dca5-4943-a5f3-d95b37d3e4cf.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1227982"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022e1dVKIgy5\u002Bo2CnYpZTb\u002B941SoUrM1Uq6C9QWKFQI3js=\u0022"},{"Name":"Last-Modified","Value":"Mon, 12 May 2025 16:47:52 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
   </ItemGroup>
 </Project>

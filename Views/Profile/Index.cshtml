@@ -62,6 +62,35 @@
 
             <h2 class="profile-name">@Model.FullName</h2>
 
+            <!-- === PHẦN THÊM MỚI CHO BIO === -->
+    <div class="profile-bio-container text-center px-3 mb-3">
+        <!-- Hiển thị Bio hiện tại hoặc placeholder -->
+        <p class="profile-bio text-muted mb-1" id="displayBio">
+            @if (!string.IsNullOrEmpty(Model.Bio))
+            {
+                @Html.Raw(Model.Bio.Replace("\n", "<br />")) @* Hiển thị xuống dòng nếu có *@
+            }
+            else
+            {
+                <span class="fst-italic">Chưa có tiểu sử.</span>
+            }
+            <i class="bi bi-pencil-square ms-2 text-primary cursor-pointer" id="editBioIcon" title="Chỉnh sửa tiểu sử"></i>
+        </p>
+
+        <!-- Form chỉnh sửa Bio (ẩn ban đầu) -->
+        <div id="editBioForm" style="display: none;">
+            @Html.AntiForgeryToken() @* Thêm token ở đây cho AJAX *@
+            <textarea id="bioEditTextarea" class="form-control form-control-sm mb-2" rows="3" placeholder="Nhập tiểu sử của bạn...">@Model.Bio</textarea>
+            <div class="d-flex justify-content-center gap-2">
+                <button type="button" class="btn btn-sm btn-secondary" id="cancelBioBtn">Hủy</button>
+                <button type="button" class="btn btn-sm btn-primary" id="saveBioBtn">Lưu</button>
+            </div>
+             <div id="bioSavingMessage" class="text-center mt-2 text-muted small d-none">Đang lưu...</div>
+             <div id="bioErrorMessage" class="text-center mt-2 text-danger small d-none"></div>
+        </div>
+    </div>
+    <!-- === KẾT THÚC PHẦN BIO === -->
+
             <div class="profile-stats">
                 <div class="stat-item">
                     <div class="stat-number">@Model.Posts.Count</div>
@@ -676,6 +705,115 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
 </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // ... (code xử lý cuộn trang và tab giữ nguyên) ...
+
+            // === CODE MỚI CHO EDIT BIO ===
+            const displayBioElement = document.getElementById('displayBio');
+            const editBioIcon = document.getElementById('editBioIcon');
+            const editBioForm = document.getElementById('editBioForm');
+            const bioTextarea = document.getElementById('bioEditTextarea');
+            const saveBioBtn = document.getElementById('saveBioBtn');
+            const cancelBioBtn = document.getElementById('cancelBioBtn');
+            const bioSavingMessage = document.getElementById('bioSavingMessage');
+            const bioErrorMessage = document.getElementById('bioErrorMessage');
+
+            // --- Hàm chuyển sang chế độ xem ---
+            function showDisplayMode() {
+                displayBioElement.style.display = 'block'; // Hoặc 'inline'/'flex' tùy thuộc vào CSS ban đầu
+                editBioForm.style.display = 'none';
+                bioErrorMessage.classList.add('d-none'); // Ẩn thông báo lỗi
+                bioSavingMessage.classList.add('d-none'); // Ẩn thông báo đang lưu
+            }
+
+            // --- Hàm chuyển sang chế độ sửa ---
+            function showEditMode() {
+                displayBioElement.style.display = 'none';
+                editBioForm.style.display = 'block';
+                bioTextarea.value = '@Html.Raw(Model.Bio?.Replace("'", "\\'").Replace("\r\n", "\\n").Replace("\n", "\\n") ?? "")'; // Lấy giá trị bio gốc, escape ký tự đặc biệt cho JS
+                bioTextarea.focus(); // Focus vào textarea
+            }
+
+            // --- Sự kiện click vào icon sửa ---
+            if (editBioIcon) {
+                editBioIcon.addEventListener('click', showEditMode);
+            }
+
+            // --- Sự kiện click nút Hủy ---
+            if (cancelBioBtn) {
+                cancelBioBtn.addEventListener('click', showDisplayMode);
+            }
+
+            // --- Sự kiện click nút Lưu ---
+            if (saveBioBtn) {
+                saveBioBtn.addEventListener('click', function () {
+                    const newBio = bioTextarea.value.trim();
+                    const tokenInput = editBioForm.querySelector('input[name="__RequestVerificationToken"]'); // Lấy token từ form ẩn
+                    const token = tokenInput ? tokenInput.value : '';
+
+                    if (!token) {
+                         console.error('CSRF token not found!');
+                         bioErrorMessage.textContent = 'Lỗi bảo mật. Vui lòng tải lại trang.';
+                         bioErrorMessage.classList.remove('d-none');
+                         return;
+                    }
+
+                    bioSavingMessage.classList.remove('d-none'); // Hiển thị đang lưu
+                    bioErrorMessage.classList.add('d-none'); // Ẩn lỗi cũ
+                    saveBioBtn.disabled = true; // Vô hiệu hóa nút lưu tạm thời
+                    cancelBioBtn.disabled = true;
+
+                    // Gọi API để cập nhật bio
+                    fetch('/Profile/UpdateBio', { // <<<=== THAY ĐỔI URL API NẾU CẦN
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': token
+                        },
+                        body: JSON.stringify({ bio: newBio }) // Gửi dữ liệu dạng JSON
+                    })
+                    .then(response => {
+                         if (!response.ok) {
+                            // Xử lý lỗi HTTP (ví dụ: 400, 401, 500)
+                            return response.json().then(err => { throw err; }); // Ném lỗi để catch xử lý
+                         }
+                         return response.json(); // Parse JSON nếu thành công
+                    })
+                    .then(data => {
+                        if (data && data.success) {
+                            // Cập nhật lại nội dung hiển thị
+                            const displayContent = newBio ? newBio.replace(/\n/g, '<br />') : '<span class="fst-italic">Chưa có tiểu sử.</span>';
+                            // Tách icon ra khỏi nội dung để dễ cập nhật
+                            displayBioElement.innerHTML = displayContent + ' <i class="bi bi-pencil-square ms-2 text-primary cursor-pointer" id="editBioIcon" title="Chỉnh sửa tiểu sử"></i>';
+                            // Gắn lại sự kiện cho icon mới tạo
+                             const newEditIcon = document.getElementById('editBioIcon');
+                             if(newEditIcon) { newEditIcon.addEventListener('click', showEditMode); }
+
+                            showDisplayMode(); // Chuyển về chế độ hiển thị
+                            // Có thể thêm thông báo thành công ngắn gọn (ví dụ: Toastr)
+                            // alert('Cập nhật tiểu sử thành công!');
+                        } else {
+                            // Hiển thị lỗi từ server
+                            throw new Error(data?.message || 'Lưu thất bại.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Lỗi khi cập nhật bio:', error);
+                        const errorMessageText = error?.message || 'Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.';
+                        bioErrorMessage.textContent = errorMessageText;
+                        bioErrorMessage.classList.remove('d-none');
+                    })
+                    .finally(() => {
+                        // Luôn luôn bật lại các nút và ẩn thông báo loading
+                        bioSavingMessage.classList.add('d-none');
+                        saveBioBtn.disabled = false;
+                        cancelBioBtn.disabled = false;
+                    });
+                });
+            }
+        });
+    </script>
 <style>
     .avatar-container:hover .avatar-overlay {
         opacity: 1;

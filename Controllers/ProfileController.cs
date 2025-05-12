@@ -303,7 +303,56 @@ public async Task<IActionResult> UploadAvatar(IFormFile avatarFile)
         }
 
         
+        // Action mới để xử lý cập nhật Bio qua AJAX
+    [HttpPost]
+    [ValidateAntiForgeryToken] // Kiểm tra token
+    public async Task<IActionResult> UpdateBio([FromBody] UpdateBioRequestModel model) // Nhận dữ liệu từ body AJAX
+    {
+        if (model == null) {
+             return BadRequest(new { success = false, message = "Dữ liệu không hợp lệ." });
+        }
 
+        var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (!int.TryParse(userIdString, out int userId))
+        {
+            // Thông thường [Authorize] đã xử lý, nhưng kiểm tra lại cho chắc
+            return Unauthorized(new { success = false, message = "Người dùng không hợp lệ." });
+        }
+
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null)
+        {
+            return NotFound(new { success = false, message = "Không tìm thấy người dùng." });
+        }
+
+        try
+        {
+            // Cập nhật bio, trim khoảng trắng thừa
+            user.Bio = model.Bio?.Trim();
+
+            _context.Users.Update(user); // Đánh dấu là đã thay đổi
+            await _context.SaveChangesAsync(); // Lưu vào DB
+
+            // Trả về kết quả thành công cùng với bio mới (đã trim)
+            return Ok(new { success = true, newBio = user.Bio });
+        }
+        catch (DbUpdateException ex) // Bắt lỗi cụ thể từ DB nếu có
+        {
+            // Log lỗi ex
+            return StatusCode(500, new { success = false, message = "Lỗi khi lưu dữ liệu. Vui lòng thử lại." });
+        }
+        catch (Exception ex) // Bắt lỗi chung khác
+        {
+             // Log lỗi ex
+             return StatusCode(500, new { success = false, message = "Đã xảy ra lỗi không mong muốn." });
+        }
+    }
 
     }
+}
+
+// Model đơn giản để nhận dữ liệu từ AJAX
+public class UpdateBioRequestModel
+{
+    public string? Bio { get; set; }
 }
