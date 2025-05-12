@@ -687,17 +687,24 @@ using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using TourismWeb.Utilities; // Namespace chứa FileHelper (nếu bạn tạo)
 
 namespace TourismWeb.Controllers
 {
     public class PostsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment; // Để xử lý upload file
 
-        public PostsController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        // public PostsController(ApplicationDbContext context)
+        // {
+        //     _context = context;
+        // }
+        public PostsController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
+    {
+        _context = context;
+        _webHostEnvironment = webHostEnvironment;
+    }
 
         // GET: Posts - Show only approved posts for regular view
         public async Task<IActionResult> Index()
@@ -757,77 +764,138 @@ namespace TourismWeb.Controllers
             return View(new Post()); // Trả về một đối tượng Post mới
         }
 
+        // // POST: Posts/Create
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // [Authorize]
+        // public async Task<IActionResult> Create([Bind("SpotId,TypeOfPost,Title,ImageUrl,Content")] Post post, IFormFile imageFile)
+        // {
+        //     if (ModelState.IsValid)
+        //     {
+        //         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        //         if (userIdClaim == null)
+        //         {
+        //             return Unauthorized();
+        //         }
+
+        //         post.UserId = int.Parse(userIdClaim.Value);
+        //         post.CreatedAt = DateTime.Now;
+
+        //         // if (string.IsNullOrEmpty(post.ImageUrl))
+        //         // {
+        //         //     post.ImageUrl = "/images/default-postImage.png";
+        //         // }
+        //         // Xử lý ảnh upload
+        //         if (imageFile != null && imageFile.Length > 0)
+        //         {
+        //             var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+        //             if (!Directory.Exists(uploadsFolder))
+        //             {
+        //                 Directory.CreateDirectory(uploadsFolder);
+        //             }
+
+        //             var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(imageFile.FileName);
+        //             var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+        //             using (var fileStream = new FileStream(filePath, FileMode.Create))
+        //             {
+        //                 await imageFile.CopyToAsync(fileStream);
+        //             }
+
+        //             post.ImageUrl = "/images/" + uniqueFileName;
+        //         }
+        //         else
+        //         {
+        //             post.ImageUrl = "/images/default-postImage.png";
+        //         }
+
+        //         // Set status based on role
+        //         bool isAdmin = User.IsInRole("Admin");
+        //         post.Status = isAdmin ? PostStatus.Approved : PostStatus.Pending;
+
+        //         _context.Add(post);
+        //         await _context.SaveChangesAsync();
+
+        //         if (isAdmin)
+        //         {
+        //             return RedirectToAction(nameof(Index));
+        //         }
+        //         else
+        //         {
+        //             // Redirect to appropriate category page based on post type
+        //             if (!string.IsNullOrEmpty(post.TypeOfPost))
+        //             {
+        //                 return RedirectToAction(nameof(Category), new { type = post.TypeOfPost });
+        //             }
+        //             // Redirect to "MyPosts" for regular users to see their pending posts
+        //             return RedirectToAction(nameof(MyPosts));
+        //         }
+        //     }
+
+        //     ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", post.SpotId);
+        //     return View(post);
+        // }
         // POST: Posts/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> Create([Bind("SpotId,TypeOfPost,Title,ImageUrl,Content")] Post post, IFormFile imageFile)
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    // Thêm tham số IFormFile để nhận file ảnh upload
+    public async Task<IActionResult> Create([Bind("PostId,SpotId,TypeOfPost,Title,Content,ImageUrl,EstimatedVisitTime,TicketPriceInfo,LocationRating,SuggestedItinerary,GuidebookSummary,TravelTips,PackingListSuggestions,EstimatedCosts,UsefulDocumentsHtml,ExperienceEndDate,Companions,ApproximateCost,OverallExperienceRating,RatingLandscape,RatingFood,RatingService,RatingPrice,ExperienceHighlights,ExperienceItinerarySummary,Advice")] Post post, IFormFile? imageFile)
+    {
+        // Lấy UserId của người dùng đang đăng nhập
+        var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out int userId))
         {
-            if (ModelState.IsValid)
-            {
-                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-                if (userIdClaim == null)
-                {
-                    return Unauthorized();
-                }
-
-                post.UserId = int.Parse(userIdClaim.Value);
-                post.CreatedAt = DateTime.Now;
-
-                // if (string.IsNullOrEmpty(post.ImageUrl))
-                // {
-                //     post.ImageUrl = "/images/default-postImage.png";
-                // }
-                // Xử lý ảnh upload
-                if (imageFile != null && imageFile.Length > 0)
-                {
-                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
-                    if (!Directory.Exists(uploadsFolder))
-                    {
-                        Directory.CreateDirectory(uploadsFolder);
-                    }
-
-                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(imageFile.FileName);
-                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await imageFile.CopyToAsync(fileStream);
-                    }
-
-                    post.ImageUrl = "/images/" + uniqueFileName;
-                }
-                else
-                {
-                    post.ImageUrl = "/images/default-postImage.png";
-                }
-
-                // Set status based on role
-                bool isAdmin = User.IsInRole("Admin");
-                post.Status = isAdmin ? PostStatus.Approved : PostStatus.Pending;
-
-                _context.Add(post);
-                await _context.SaveChangesAsync();
-
-                if (isAdmin)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    // Redirect to appropriate category page based on post type
-                    if (!string.IsNullOrEmpty(post.TypeOfPost))
-                    {
-                        return RedirectToAction(nameof(Category), new { type = post.TypeOfPost });
-                    }
-                    // Redirect to "MyPosts" for regular users to see their pending posts
-                    return RedirectToAction(nameof(MyPosts));
-                }
-            }
-
+            // Xử lý lỗi nếu không tìm thấy UserId hoặc không parse được
+            ModelState.AddModelError("", "Không thể xác định người dùng. Vui lòng đăng nhập lại.");
             ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", post.SpotId);
             return View(post);
         }
+
+        post.UserId = userId; // Gán UserId cho bài viết
+        post.CreatedAt = DateTime.Now; // Đảm bảo ngày tạo được đặt
+        post.Status = PostStatus.Pending; // Trạng thái chờ duyệt mặc định
+
+        // Xử lý upload ảnh nếu có
+        if (imageFile != null && imageFile.Length > 0)
+        {
+            // Sử dụng một helper hoặc viết trực tiếp logic lưu file
+            // Ví dụ sử dụng FileHelper (bạn cần tạo class này)
+            try
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", "posts");
+                post.ImageUrl = await FileHelper.SaveFileAsync(imageFile, uploadsFolder);
+                 // Url lưu vào db sẽ là dạng /uploads/posts/tenfile_random.jpg
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("ImageUrl", $"Lỗi khi tải ảnh lên: {ex.Message}");
+                // Log the exception ex
+            }
+        }
+        else if (string.IsNullOrEmpty(post.ImageUrl)) // Nếu không upload ảnh mới và ImageUrl rỗng thì dùng ảnh mặc định
+        {
+             post.ImageUrl = "/images/default-postImage.png";
+        }
+        // Else: Nếu có ImageUrl cũ (trường hợp edit) và không upload ảnh mới thì giữ nguyên ImageUrl cũ (đã bind)
+
+        // Loại bỏ các trường không liên quan khỏi ModelState nếu cần (thường không cần thiết nếu dùng JS ẩn)
+        // Ví dụ: Nếu TypeOfPost là "Địa điểm", các trường của "Cẩm nang", "Trải nghiệm" sẽ là null và không gây lỗi validation trừ khi chúng có [Required]
+        // if (post.TypeOfPost == "Địa điểm") { ... remove validation for other types ... }
+
+        if (ModelState.IsValid)
+        {
+            _context.Add(post);
+            await _context.SaveChangesAsync();
+            // Có thể thêm TempData để thông báo thành công
+            TempData["SuccessMessage"] = "Tạo bài viết thành công! Bài viết đang chờ duyệt.";
+            return RedirectToAction(nameof(Index)); // Hoặc chuyển đến trang Details của bài vừa tạo
+        }
+
+        // Nếu ModelState không hợp lệ, quay lại view Create với dữ liệu đã nhập và lỗi validation
+        // Cần load lại ViewBag SpotId
+        ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", post.SpotId);
+        return View(post);
+    }
 
         // // GET: Posts/Edit/5
         // [Authorize]

@@ -37,7 +37,9 @@ namespace TourismWeb.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime? LastLoginAt { get; set; }
-
+        // --- Thuộc tính MỚI cho Thông tin Tác giả ---
+        [Display(Name = "Tiểu sử")]
+        public string? Bio { get; set; } // ví dụ: "Travel Blogger chuyên về Đông Nam Á."
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
         public ICollection<Post> Posts { get; set; } = new List<Post>();
         public ICollection<PostComment> PostComments { get; set; } = new List<PostComment>();

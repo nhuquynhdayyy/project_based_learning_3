@@ -48,6 +48,15 @@ namespace TourismWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostId"));
 
+                    b.Property<string>("Advice")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ApproximateCost")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Companions")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -57,9 +66,48 @@ namespace TourismWeb.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
+                    b.Property<string>("EstimatedCosts")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EstimatedVisitTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ExperienceEndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ExperienceHighlights")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExperienceItinerarySummary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GuidebookSummary")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("LocationRating")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("OverallExperienceRating")
+                        .HasColumnType("float");
+
+                    b.Property<string>("PackingListSuggestions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("RatingFood")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("RatingLandscape")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("RatingPrice")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("RatingService")
+                        .HasColumnType("float");
 
                     b.Property<int>("SpotId")
                         .HasColumnType("int");
@@ -67,15 +115,27 @@ namespace TourismWeb.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<string>("SuggestedItinerary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TicketPriceInfo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("TravelTips")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TypeOfPost")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("UsefulDocumentsHtml")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -467,6 +527,9 @@ namespace TourismWeb.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
                         .HasDefaultValue("default-avatar.png");
+
+                    b.Property<string>("Bio")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
