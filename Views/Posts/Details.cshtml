@@ -74,7 +74,7 @@
         
         /* Experience theme - Green */
         .experience-theme .section-title,
-        .experience-theme .meta-item i,
+        .experience-theme .page-header .meta-item i, /* Giữ màu icon meta */
         .experience-theme .sidebar-widget h4,
         .experience-theme .toc-list a:hover,
         .experience-theme .info-item i {
@@ -82,10 +82,28 @@
         }
         
         .experience-theme .btn-primary-custom,
-        .experience-theme .btn-primary,
-        .experience-theme .page-header {
+        .experience-theme .btn-primary { /* Giữ lại để các nút primary khác vẫn có màu theme */
             background-color: #4CAF50 !important;
             border-color: #4CAF50 !important;
+        }
+        
+        .experience-theme .page-header {
+            /* background-color: #4CAF50 !important; */ /* ĐÃ BỎ */
+            /* border-color: #4CAF50 !important; */ /* Tùy chọn bỏ nếu không muốn border theme */
+        }
+        .experience-theme .page-header .theme-header-icon { /* Icon tiêu đề chính giữ màu theme */
+             color: #4CAF50;
+        }
+        .experience-theme .page-header .post-actions .btn {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: #388e3c;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        .experience-theme .page-header .post-actions .btn.favorite.active,
+        .experience-theme .page-header .post-actions .btn:hover {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
         }
         
         .experience-theme .sidebar-widget {
@@ -99,7 +117,7 @@
         
         /* Guidebook theme - Blue */
         .guidebook-theme .section-title,
-        .guidebook-theme .meta-item i,
+        .guidebook-theme .page-header .meta-item i, /* Giữ màu icon meta */
         .guidebook-theme .sidebar-widget h4,
         .guidebook-theme .toc-list a:hover,
         .guidebook-theme .info-item i {
@@ -107,10 +125,28 @@
         }
         
         .guidebook-theme .btn-primary-custom,
-        .guidebook-theme .btn-primary,
-        .guidebook-theme .page-header {
+        .guidebook-theme .btn-primary {
             background-color: #2196F3 !important;
             border-color: #2196F3 !important;
+        }
+        
+        .guidebook-theme .page-header {
+            /* background-color: #2196F3 !important; */ /* ĐÃ BỎ */
+            /* border-color: #2196F3 !important; */
+        }
+        .guidebook-theme .page-header .theme-header-icon { /* Icon tiêu đề chính giữ màu theme */
+             color: #2196F3;
+        }
+        .guidebook-theme .page-header .post-actions .btn {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: #1976d2;
+            border: 1px solid rgba(33, 150, 243, 0.3);
+        }
+        .guidebook-theme .page-header .post-actions .btn.favorite.active,
+        .guidebook-theme .page-header .post-actions .btn:hover {
+            background-color: #2196F3;
+            color: white;
+            border-color: #2196F3;
         }
         
         .guidebook-theme .sidebar-widget {
@@ -124,7 +160,7 @@
         
         /* Article theme - Orange */
         .article-theme .section-title,
-        .article-theme .meta-item i,
+        .article-theme .page-header .meta-item i, /* Giữ màu icon meta */
         .article-theme .sidebar-widget h4,
         .article-theme .toc-list a:hover,
         .article-theme .info-item i {
@@ -132,10 +168,26 @@
         }
         
         .article-theme .btn-primary-custom,
-        .article-theme .btn-primary,
-        .article-theme .page-header {
+        .article-theme .btn-primary {
             background-color: #FF9800 !important;
             border-color: #FF9800 !important;
+        }
+        
+        .article-theme .page-header {
+            /* background-color: #FF9800 !important; */ /* ĐÃ BỎ */
+            /* border-color: #FF9800 !important; */
+        }
+        /* Icon orange-icon tự có màu, không cần .theme-header-icon ở đây */
+        .article-theme .page-header .post-actions .btn {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: #f57c00;
+            border: 1px solid rgba(255, 152, 0, 0.3);
+        }
+        .article-theme .page-header .post-actions .btn.favorite.active,
+        .article-theme .page-header .post-actions .btn:hover {
+            background-color: #FF9800;
+            color: white;
+            border-color: #FF9800;
         }
         
         .article-theme .sidebar-widget {
@@ -151,10 +203,32 @@
         .page-header {
             padding: 30px 0;
             margin-bottom: 30px;
-            color: white;
+            color: #333; /* Đổi màu chữ mặc định cho header */
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background-color: transparent; /* Nền trong suốt */
         }
         
+        /* Màu chữ cho các thành phần trong .page-header */
+        .page-header .breadcrumb li a,
+        .page-header .breadcrumb li {
+            color: #555; /* Màu cho breadcrumb */
+        }
+        .page-header .breadcrumb li a:hover {
+            color: #007bff; /* Màu hover cho link breadcrumb */
+        }
+        .page-header .breadcrumb-item.active { /* Breadcrumb item hiện tại */
+            color: #777; 
+        }
+        .page-header .post-title {
+             color: #222; /* Màu cho tiêu đề chính */
+        }
+        .page-header .post-meta .meta-item span {
+            color: #555; /* Màu cho text trong meta */
+        }
+        /* Icon trong meta (.meta-item i) vẫn sẽ lấy màu từ các theme-specific classes */
+        /* Icon tiêu đề chính (.theme-header-icon) cũng lấy màu từ theme-specific classes */
+
+
         .content-wrapper {
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -188,7 +262,7 @@
             left: 0;
             width: 50px;
             height: 3px;
-            background-color: currentColor;
+            background-color: currentColor; /* Sẽ lấy màu từ .section-title của theme */
         }
         
         .tag-item {
@@ -252,9 +326,8 @@
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
             <li class="breadcrumb-item"><a asp-action="Index">Bài viết</a></li>
-            <li class="breadcrumb-item">@Model.Title</li>
+            <li class="breadcrumb-item active">@Model.Title</li> @* Thêm class active cho breadcrumb cuối *@
         </ul>
-        @* <h1 class="post-title">@Model.Title</h1> *@
         <h1 class="post-title">
             @if (postType == "Trải nghiệm")
             {
@@ -293,11 +366,11 @@
             <button class="btn favorite @(isFavorited ? "active" : "")" id="favoriteBtn" data-post-id="@Model.PostId">
                 <i class="@(isFavorited ? "fas" : "far") fa-heart"></i> @(isFavorited ? "Đã yêu thích" : "Yêu thích")
             </button>
-            <div class="share-dropdown position-relative"> @* Keep position-relative on the parent *@
-                <button type="button" class="btn share" onclick="toggleShareOptions(this)"> @* Added type and onclick *@
+            <div class="share-dropdown position-relative"> 
+                <button type="button" class="btn share" onclick="toggleShareOptions(this)"> 
                     <i class="fas fa-share-alt"></i> Chia sẻ
                 </button>
-                <div class="share-options bg-white border rounded shadow p-2 mt-2"> @* Removed d-none, added Bootstrap styling classes directly *@
+                <div class="share-options bg-white border rounded shadow p-2 mt-2"> 
                     <a href="#" class="share-btn" data-platform="Facebook" data-post-id="@Model.PostId">
                         <i class="fab fa-facebook-f"></i> Facebook
                     </a>

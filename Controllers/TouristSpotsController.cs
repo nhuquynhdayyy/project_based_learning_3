@@ -134,7 +134,7 @@ namespace TourismWeb.Controllers
                     break;
                 case "popular":
                     // query = query.OrderByDescending(t => t.Comments.Count + t.Favorites.Count);
-                    query = query.OrderByDescending(t => t.Favorites.Count);
+                    query = query.OrderByDescending(t => t.Favorites.Count + t.Shares.Count);
                     break;
                 default:
                     query = query.OrderBy(t => t.Name);
