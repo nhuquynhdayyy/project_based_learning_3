@@ -288,17 +288,17 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"cx2gfxyzwn"},{"Name":"integrity","Value":"sha256-0OW5Diihk94Aa9AQNTajO0OugclJyKQ6o\u002BwY7dP\u002BBio="},{"Name":"label","Value":"_content/TourismWeb/cssadmin/statistics.css"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"5914"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00220OW5Diihk94Aa9AQNTajO0OugclJyKQ6o\u002BwY7dP\u002BBio=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Apr 2025 18:47:37 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/cssadmin/styles.aaarbli20r.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\cssadmin\styles.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"aaarbli20r"},{"Name":"integrity","Value":"sha256-0mu0PupA0ZUNXrmIhArv4MNZBKDaGDnLMGSSwW3x50M="},{"Name":"label","Value":"_content/TourismWeb/cssadmin/styles.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"9382"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00220mu0PupA0ZUNXrmIhArv4MNZBKDaGDnLMGSSwW3x50M=\u0022"},{"Name":"Last-Modified","Value":"Tue, 13 May 2025 14:33:56 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TourismWeb/cssadmin/styles.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\cssadmin\styles.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-CfDD4r903yWTw4m5ZvPXk\u002Br\u002B20pMv\u002BGXfprdg0YIKco="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"9056"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022CfDD4r903yWTw4m5ZvPXk\u002Br\u002B20pMv\u002BGXfprdg0YIKco=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 18:25:16 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/TourismWeb/cssadmin/styles.r3nolcef02.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\cssadmin\styles.css'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"r3nolcef02"},{"Name":"integrity","Value":"sha256-CfDD4r903yWTw4m5ZvPXk\u002Br\u002B20pMv\u002BGXfprdg0YIKco="},{"Name":"label","Value":"_content/TourismWeb/cssadmin/styles.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"9056"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022CfDD4r903yWTw4m5ZvPXk\u002Br\u002B20pMv\u002BGXfprdg0YIKco=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 18:25:16 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-0mu0PupA0ZUNXrmIhArv4MNZBKDaGDnLMGSSwW3x50M="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"9382"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00220mu0PupA0ZUNXrmIhArv4MNZBKDaGDnLMGSSwW3x50M=\u0022"},{"Name":"Last-Modified","Value":"Tue, 13 May 2025 14:33:56 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TourismWeb/cssadmin/users.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\cssadmin\users.css'))</AssetFile>
