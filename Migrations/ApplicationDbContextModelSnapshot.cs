@@ -567,6 +567,10 @@ namespace TourismWeb.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasDefaultValue("User");
 
+                    b.Property<string>("UserStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(50)

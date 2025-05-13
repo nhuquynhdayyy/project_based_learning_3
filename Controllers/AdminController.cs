@@ -432,8 +432,51 @@ return View(viewModel);
     {
         return View();
     }
-    public IActionResult Users()
+    // Action để hiển thị trang quản lý người dùng
+    public async Task<IActionResult> Users(int pageNumber = 1, int pageSize = 10, string searchTerm = "", string roleFilter = "all", string statusFilter = "all")
     {
+        // Truy vấn cơ bản, lấy tất cả User và include Posts để đếm
+        var query = _context.Users.Include(u => u.Posts).AsQueryable();
+
+        // TODO: Thêm logic lọc dựa trên searchTerm, roleFilter, statusFilter (sẽ phức tạp hơn)
+        // Ví dụ đơn giản cho searchTerm:
+        if (!string.IsNullOrEmpty(searchTerm))
+        {
+            query = query.Where(u => u.FullName.Contains(searchTerm) || u.Email.Contains(searchTerm) || u.Username.Contains(searchTerm));
+        }
+
+        // Ví dụ đơn giản cho roleFilter (giả sử Role là string):
+        if (!string.IsNullOrEmpty(roleFilter) && roleFilter != "all")
+        {
+            query = query.Where(u => u.Role == roleFilter);
+        }
+
+        // Ví dụ đơn giản cho statusFilter (giả sử bạn có thuộc tính UserStatus):
+        // Bạn cần thêm thuộc tính UserStatus vào model User
+        // public string UserStatus { get; set; } // Ví dụ: "Active", "Inactive", "Banned"
+        if (!string.IsNullOrEmpty(statusFilter) && statusFilter != "all")
+        {
+            // query = query.Where(u => u.UserStatus == statusFilter); // Bỏ comment khi có UserStatus
+        }
+
+        var totalUsers = await query.CountAsync();
+        var users = await query
+                            .OrderByDescending(u => u.CreatedAt) // Sắp xếp theo người dùng mới nhất
+                            .Skip((pageNumber - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToListAsync();
+
+        ViewBag.Users = users;
+        ViewBag.TotalUsers = totalUsers;
+        ViewBag.PageNumber = pageNumber;
+        ViewBag.PageSize = pageSize;
+        ViewBag.TotalPages = (int)Math.Ceiling(totalUsers / (double)pageSize);
+
+        // Truyền các giá trị filter hiện tại lại cho view để giữ trạng thái trên select box
+        ViewBag.SearchTerm = searchTerm;
+        ViewBag.RoleFilter = roleFilter;
+        ViewBag.StatusFilter = statusFilter;
+
         return View();
     }
     public IActionResult Settings()

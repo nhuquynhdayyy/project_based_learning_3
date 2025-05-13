@@ -40,6 +40,7 @@ namespace TourismWeb.Models
         // --- Thuộc tính MỚI cho Thông tin Tác giả ---
         [Display(Name = "Tiểu sử")]
         public string? Bio { get; set; } // ví dụ: "Travel Blogger chuyên về Đông Nam Á."
+        public string UserStatus { get; set; } = "Hoạt động"; // Giá trị mặc định có thể là "Hoạt động"
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
         public ICollection<Post> Posts { get; set; } = new List<Post>();
         public ICollection<PostComment> PostComments { get; set; } = new List<PostComment>();
