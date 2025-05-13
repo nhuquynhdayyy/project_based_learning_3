@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VrzggxLeH1C0V6vnHcJOnn/b0lDCw8qAKm9biCEc780=",
+  "Hash": "wwmgvuVxuoWHNORr3ezX+A0YfVOLGthyDAxTi+NSLCk=",
   "Source": "TourismWeb",
   "BasePath": "_content/TourismWeb",
   "Mode": "Default",
@@ -773,12 +773,12 @@
       "OriginalItemSpec": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\components\\ui\\chart.js"
     },
     {
-      "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\epcgl8irp2-zrz4lrte2o.gz",
+      "Identity": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\epcgl8irp2-x7uqet1ypb.gz",
       "SourceId": "TourismWeb",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/TourismWeb",
-      "RelativePath": "cssadmin/styles#[.{fingerprint=zrz4lrte2o}]?.css.gz",
+      "RelativePath": "cssadmin/styles#[.{fingerprint=x7uqet1ypb}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -787,8 +787,8 @@
       "RelatedAsset": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\cssadmin\\styles.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "8a5xhzblfp",
-      "Integrity": "AKZTXDYjX/5gRLvk4ukIUrI0D4fUWEpsekqD9GSDUEM=",
+      "Fingerprint": "uwapiwicr2",
+      "Integrity": "fvVw1wUi3wkbp30CPCJMnYCIrrrxlSuot+k70nxBtw0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\cssadmin\\styles.css"
@@ -2614,8 +2614,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "zrz4lrte2o",
-      "Integrity": "H1+7bc8DRNkMg+UXozViRbMNq8TKa0ITZgt1fUTQ684=",
+      "Fingerprint": "x7uqet1ypb",
+      "Integrity": "fQ3XSgOA/ilZFQ6wOtIhZGnb6EpAxZwK+RBo3OSMiQ8=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\cssadmin\\styles.css"
@@ -13304,12 +13304,12 @@
     },
     {
       "Route": "cssadmin/styles.css",
-      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\epcgl8irp2-zrz4lrte2o.gz",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\epcgl8irp2-x7uqet1ypb.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000458505273"
+          "Quality": "0.000467289720"
         }
       ],
       "ResponseHeaders": [
@@ -13319,15 +13319,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2180"
+          "Value": "2139"
         },
         {
           "Name": "ETag",
-          "Value": "\"AKZTXDYjX/5gRLvk4ukIUrI0D4fUWEpsekqD9GSDUEM=\""
+          "Value": "\"fvVw1wUi3wkbp30CPCJMnYCIrrrxlSuot+k70nxBtw0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 17:51:21 GMT"
+          "Value": "Mon, 12 May 2025 08:18:03 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -13347,13 +13347,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"H1+7bc8DRNkMg+UXozViRbMNq8TKa0ITZgt1fUTQ684=\""
+          "Value": "W/\"fQ3XSgOA/ilZFQ6wOtIhZGnb6EpAxZwK+RBo3OSMiQ8=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-H1+7bc8DRNkMg+UXozViRbMNq8TKa0ITZgt1fUTQ684="
+          "Value": "sha256-fQ3XSgOA/ilZFQ6wOtIhZGnb6EpAxZwK+RBo3OSMiQ8="
         }
       ]
     },
@@ -13368,7 +13368,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "9666"
+          "Value": "9416"
         },
         {
           "Name": "Content-Type",
@@ -13376,11 +13376,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"H1+7bc8DRNkMg+UXozViRbMNq8TKa0ITZgt1fUTQ684=\""
+          "Value": "\"fQ3XSgOA/ilZFQ6wOtIhZGnb6EpAxZwK+RBo3OSMiQ8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 17:51:21 GMT"
+          "Value": "Mon, 12 May 2025 08:18:03 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -13390,13 +13390,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-H1+7bc8DRNkMg+UXozViRbMNq8TKa0ITZgt1fUTQ684="
+          "Value": "sha256-fQ3XSgOA/ilZFQ6wOtIhZGnb6EpAxZwK+RBo3OSMiQ8="
         }
       ]
     },
     {
       "Route": "cssadmin/styles.css.gz",
-      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\epcgl8irp2-zrz4lrte2o.gz",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\epcgl8irp2-x7uqet1ypb.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -13405,7 +13405,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2180"
+          "Value": "2139"
         },
         {
           "Name": "Content-Type",
@@ -13413,11 +13413,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"AKZTXDYjX/5gRLvk4ukIUrI0D4fUWEpsekqD9GSDUEM=\""
+          "Value": "\"fvVw1wUi3wkbp30CPCJMnYCIrrrxlSuot+k70nxBtw0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 17:51:21 GMT"
+          "Value": "Mon, 12 May 2025 08:18:03 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -13435,18 +13435,18 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-AKZTXDYjX/5gRLvk4ukIUrI0D4fUWEpsekqD9GSDUEM="
+          "Value": "sha256-fvVw1wUi3wkbp30CPCJMnYCIrrrxlSuot+k70nxBtw0="
         }
       ]
     },
     {
-      "Route": "cssadmin/styles.zrz4lrte2o.css",
-      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\epcgl8irp2-zrz4lrte2o.gz",
+      "Route": "cssadmin/styles.x7uqet1ypb.css",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\epcgl8irp2-x7uqet1ypb.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000458505273"
+          "Quality": "0.000467289720"
         }
       ],
       "ResponseHeaders": [
@@ -13456,15 +13456,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2180"
+          "Value": "2139"
         },
         {
           "Name": "ETag",
-          "Value": "\"AKZTXDYjX/5gRLvk4ukIUrI0D4fUWEpsekqD9GSDUEM=\""
+          "Value": "\"fvVw1wUi3wkbp30CPCJMnYCIrrrxlSuot+k70nxBtw0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 17:51:21 GMT"
+          "Value": "Mon, 12 May 2025 08:18:03 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -13484,13 +13484,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"H1+7bc8DRNkMg+UXozViRbMNq8TKa0ITZgt1fUTQ684=\""
+          "Value": "W/\"fQ3XSgOA/ilZFQ6wOtIhZGnb6EpAxZwK+RBo3OSMiQ8=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "zrz4lrte2o"
+          "Value": "x7uqet1ypb"
         },
         {
           "Name": "label",
@@ -13498,12 +13498,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-H1+7bc8DRNkMg+UXozViRbMNq8TKa0ITZgt1fUTQ684="
+          "Value": "sha256-fQ3XSgOA/ilZFQ6wOtIhZGnb6EpAxZwK+RBo3OSMiQ8="
         }
       ]
     },
     {
-      "Route": "cssadmin/styles.zrz4lrte2o.css",
+      "Route": "cssadmin/styles.x7uqet1ypb.css",
       "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\wwwroot\\cssadmin\\styles.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -13513,7 +13513,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "9666"
+          "Value": "9416"
         },
         {
           "Name": "Content-Type",
@@ -13521,11 +13521,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"H1+7bc8DRNkMg+UXozViRbMNq8TKa0ITZgt1fUTQ684=\""
+          "Value": "\"fQ3XSgOA/ilZFQ6wOtIhZGnb6EpAxZwK+RBo3OSMiQ8=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 17:51:21 GMT"
+          "Value": "Mon, 12 May 2025 08:18:03 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -13535,7 +13535,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "zrz4lrte2o"
+          "Value": "x7uqet1ypb"
         },
         {
           "Name": "label",
@@ -13543,13 +13543,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-H1+7bc8DRNkMg+UXozViRbMNq8TKa0ITZgt1fUTQ684="
+          "Value": "sha256-fQ3XSgOA/ilZFQ6wOtIhZGnb6EpAxZwK+RBo3OSMiQ8="
         }
       ]
     },
     {
-      "Route": "cssadmin/styles.zrz4lrte2o.css.gz",
-      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\epcgl8irp2-zrz4lrte2o.gz",
+      "Route": "cssadmin/styles.x7uqet1ypb.css.gz",
+      "AssetFile": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\Debug\\net9.0\\compressed\\epcgl8irp2-x7uqet1ypb.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -13558,7 +13558,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "2180"
+          "Value": "2139"
         },
         {
           "Name": "Content-Type",
@@ -13566,11 +13566,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"AKZTXDYjX/5gRLvk4ukIUrI0D4fUWEpsekqD9GSDUEM=\""
+          "Value": "\"fvVw1wUi3wkbp30CPCJMnYCIrrrxlSuot+k70nxBtw0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 09 May 2025 17:51:21 GMT"
+          "Value": "Mon, 12 May 2025 08:18:03 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -13588,7 +13588,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "zrz4lrte2o"
+          "Value": "x7uqet1ypb"
         },
         {
           "Name": "label",
@@ -13596,7 +13596,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-AKZTXDYjX/5gRLvk4ukIUrI0D4fUWEpsekqD9GSDUEM="
+          "Value": "sha256-fvVw1wUi3wkbp30CPCJMnYCIrrrxlSuot+k70nxBtw0="
         }
       ]
     },

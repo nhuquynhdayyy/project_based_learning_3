@@ -10,8 +10,12 @@
     <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
         .app-container {
-            padding: 25px;
+            padding: 15px;
             background: linear-gradient(135deg, #f2f7ff 0%, #e6f7ff 100%);
             min-height: 100vh;
         }
@@ -25,14 +29,14 @@
         }
         
         .content-wrapper {
-            padding: 30px;
+            padding: 50px;
             position: relative;
         }
         
         .toggle-sidebar {
             position: absolute;
-            left: 30px;
-            top: 30px;
+            left: 50px;
+            top: 50px;
             background: #6e47ef;
             border: none;
             font-size: 18px;
@@ -58,8 +62,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
             border-bottom: 2px solid #f0f3f9;
             margin-left: 60px;
         }
@@ -80,26 +84,6 @@
             gap: 15px;
         }
         
-        .btn-primary {
-            background: linear-gradient(45deg, #6e47ef, #7f69fa);
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(110, 71, 239, 0.3);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(110, 71, 239, 0.4);
-            background: linear-gradient(45deg, #5d3bd7, #6e47ef);
-        }
-        
         .filter-card {
             background-color: #fff;
             padding: 20px;
@@ -108,6 +92,11 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.04);
             border: 1px solid #f0f3f9;
         }
+
+        .filter-card .btn {
+    text-decoration: none !important;
+}
+
         
         .btn-group {
             display: flex;
@@ -121,6 +110,8 @@
             font-weight: 600;
             transition: all 0.3s;
         }
+
+        
         
         .btn-outline-primary {
             color: #6e47ef;
@@ -220,10 +211,14 @@
         }
         
         .data-table td {
-            padding: 18px;
+            padding: 5px;
             vertical-align: middle;
             border-bottom: 1px solid #f0f3f9;
             transition: all 0.3s;
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
+    height: 100%; /* Đảm bảo đồng bộ chiều cao */
         }
         
         .data-row {
@@ -259,11 +254,11 @@
         .badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 6px 12px;
+            gap: 0px;
+            padding: 4px 8px;
             border-radius: 50px;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 500;
             letter-spacing: 0.5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
@@ -304,13 +299,18 @@
             border: 1px solid rgba(108, 117, 125, 0.2);
         }
         
-        .actions-cell {
-            white-space: nowrap;
-            display: flex;
-            gap: 8px;
-            justify-content: flex-start;
-        }
-        
+.actions-cell {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    padding: 18px; /* Đồng bộ với các ô khác */
+    vertical-align: middle; /* Đảm bảo căn giữa dọc */
+    text-align: center; /* Giống với các ô khác */
+    height: 100%; /* Giữ nguyên chiều cao với các ô */
+    box-sizing: border-box; /* Đảm bảo không bị co lại */
+}
+
         .action-btn {
             width: 36px;
             height: 36px;
@@ -553,12 +553,17 @@
             </div>
 
             <div class="filter-card">
-                <div class="btn-group" role="group">
-                    <a asp-action="Moderate" class="btn btn-outline-primary @(ViewContext.RouteData.Values["status"] == null ? "active" : "")">Tất cả</a>
-                    <a asp-action="Moderate" asp-route-status="Pending" class="btn btn-outline-warning @(ViewContext.RouteData.Values["status"]?.ToString() == "Pending" ? "active" : "")">Chờ duyệt</a>
-                    <a asp-action="Moderate" asp-route-status="Approved" class="btn btn-outline-success @(ViewContext.RouteData.Values["status"]?.ToString() == "Approved" ? "active" : "")">Đã duyệt</a>
-                    <a asp-action="Moderate" asp-route-status="Rejected" class="btn btn-outline-danger @(ViewContext.RouteData.Values["status"]?.ToString() == "Rejected" ? "active" : "")">Từ chối</a>
-                </div>
+                @{
+    var currentStatus = ViewContext.RouteData.Values["status"]?.ToString();
+}
+<div class="btn-group" role="group">
+    <a asp-action="Moderate" asp-route-status="" class="btn btn-outline-primary text-decoration-none @(string.IsNullOrEmpty(currentStatus) ? "hover" : "")">Tất cả</a>
+    <a asp-action="Moderate" asp-route-status="Pending" class="btn btn-outline-warning text-decoration-none @(currentStatus == "Pending" ? "hover" : "")">Chờ duyệt</a>
+    <a asp-action="Moderate" asp-route-status="Approved" class="btn btn-outline-success text-decoration-none @(currentStatus == "Approved" ? "hover" : "")">Đã duyệt</a>
+    <a asp-action="Moderate" asp-route-status="Rejected" class="btn btn-outline-danger text-decoration-none @(currentStatus == "Rejected" ? "hover" : "")">Từ chối</a>
+</div>
+
+                
             </div>
 
             <div class="table-card">
@@ -566,14 +571,14 @@
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th style="width: 5%">STT</th>
-                                <th style="width: 20%">Tiêu đề</th>
-                                <th style="width: 12%">Loại</th>
+                                <th style="width: 2%">STT</th>
+                                <th style="width: 15%">Tiêu đề</th>
+                                <th style="width: 5%">Loại</th>
                                 <th style="width: 15%">Địa điểm</th>
                                 <th style="width: 18%">Tác giả</th>
                                 <th style="width: 10%">Ngày đăng</th>
                                 <th style="width: 10%">Trạng thái</th>
-                                <th style="width: 10%">Hành động</th>
+                                <th style="width: 25%">Hành động</th>
                             </tr>
                         </thead>
                        <tbody>
@@ -590,6 +595,14 @@
             _ => "badge gray"
         };
 
+        var badgeText = item.Status switch
+        {
+        TourismWeb.Models.PostStatus.Pending => "Chờ duyệt",
+        TourismWeb.Models.PostStatus.Approved => "Đã duyệt",
+        TourismWeb.Models.PostStatus.Rejected => "Từ chối",
+        _ => "Không xác định"
+       };
+
         var typeBadgeClass = item.TypeOfPost switch
         {
             "Địa điểm" => "badge blue",
@@ -602,7 +615,7 @@
             <td>@index</td> <!-- Hiển thị số thứ tự -->
             <td>
                 <div class="table-title-cell">@item.Title</div>
-                <div class="table-content-preview">@item.Content?.Substring(0, Math.Min(100, item.Content.Length))...</div>
+                <div class="table-content-preview">@Html.Raw(item.Content?.Substring(0, Math.Min(100, item.Content?.Length ?? 0)))@((item.Content?.Length ?? 0) > 100 ? "..." : "")</div>
             </td>
             <td>
                 <span class="@typeBadgeClass">
@@ -623,8 +636,9 @@
             <td>@item.Spot?.Name</td>
             <td>@item.User?.FullName</td>
             <td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
-            <td><span class="@badgeClass">@item.Status</span></td>
-            <td class="actions-cell">
+            @* <td><span class="@badgeClass">@item.Status</span></td> *@
+             <td><span class="@badgeClass">@badgeText</span></td>
+            <td>
                 <a asp-action="Details" asp-route-id="@item.PostId" class="action-btn view-btn" title="Xem"><i class="fas fa-eye"></i></a>
                 <a asp-action="Edit" asp-route-id="@item.PostId" class="action-btn edit-btn" title="Sửa"><i class="fas fa-edit"></i></a>
 
@@ -654,7 +668,7 @@
                     </form>
                 }
 
-                <a asp-action="Delete" asp-route-id="@item.PostId" class="action-btn delete-btn" title="Xóa"><i class="fas fa-trash"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.PostId" class="action-btn delete-btn" title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?');"><i class="fas fa-trash"></i></a>
             </td>
         </tr>
         index++; // Tăng số thứ tự sau mỗi bài viết

@@ -189,7 +189,8 @@ body {
 }
 
 .content-wrapper {
-  padding: 1.5rem;
+  margin: 0 !important;
+    padding: 20px;
   max-width: 2000px;
   position: relative;
 }
@@ -452,26 +453,6 @@ body {
   border-radius: 9999px;
   font-size: 0.75rem;
   font-weight: 500;
-}
-
-.badge i {
-  margin-right: 0.25rem;
-  font-size: 0.75rem;
-}
-
-.badge.blue {
-  background-color: #eff6ff;
-  color: #2563eb;
-}
-
-.badge.green {
-  background-color: #ecfdf5;
-  color: #059669;
-}
-
-.badge.amber {
-  background-color: #fffbeb;
-  color: #d97706;
 }
 
 .date-cell {
