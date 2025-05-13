@@ -109,7 +109,7 @@ else
 }
     </div>
 
-    <section>
+    @* <section>
         <div class="swiper-container">
             <h2 class="text-center">Bài viết gần đây</h2>
             <div class="swiper-wrapper">
@@ -127,6 +127,7 @@ else
                                     <div class="slider-content">
                                         <div class="article-author">
                                             <span class="author-name">@post.User.FullName</span>
+                                            <span class="post-date text-muted" style="font-size: 0.8em;"> - @post.CreatedAt.ToString("dd/MM/yyyy HH:mm")</span>
                                         </div>
                                         <h3 class="slider-title">@post.Title</h3>
                                         <p class="slider-description">
@@ -163,7 +164,65 @@ else
             <!-- Chấm tròn pagination -->
             <div class="swiper-pagination"></div>
         </div>
-    </section>
+    </section> *@
+    <section>
+    <div class="swiper-container">
+        <h2 class="text-center">Bài viết gần đây</h2>
+        <div class="swiper-wrapper">
+            @if (ViewBag.RecentPosts != null && ((List<TourismWeb.Models.Post>)ViewBag.RecentPosts).Any())
+            {
+                @foreach (var post in ViewBag.RecentPosts)
+                {
+                    <div class="swiper-slide">
+                        <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.PostId" class="text-decoration-none text-dark">
+                            <div class="slider-card clickable-card">
+                                <div class="slider-image-wrapper">
+                                    <img src="@(string.IsNullOrEmpty(post.ImageUrl) ? "/images/default-postImage.png" : post.ImageUrl)" alt="@post.Title">
+                                    <span class="slider-category @GetCategoryClass(post.TypeOfPost)">@post.TypeOfPost</span>
+                                </div>
+                                <div class="slider-content">
+                                    <div class="article-author">
+                                        <span class="author-name">@post.User.FullName</span>
+                                        @* THÊM DÒNG NÀY ĐỂ HIỂN THỊ THỜI GIAN *@
+                                        <span class="post-date text-muted" style="font-size: 0.8em;"> - @post.CreatedAt.ToString("dd/MM/yyyy HH:mm")</span>
+                                    </div>
+                                    <h3 class="slider-title">@post.Title</h3>
+                                    <p class="slider-description">
+                                        @(post.Content.Length > 100 ? post.Content.Substring(0, 100) + "..." : post.Content)
+                                    </p>
+                                    <div class="slider-location">📍 @post.Spot.Name</div>
+                                    <div class="article-interactions">
+                                        <div class="interaction-item me-3 d-inline-block">
+                                            <span class="interaction-icon">❤️</span>
+                                            <span>@(post.PostFavorites?.Count ?? 0)</span>
+                                        </div>
+                                        <div class="interaction-item d-inline-block">
+                                            <span class="interaction-icon">💬</span>
+                                            <span>@(post.Comments?.Count ?? 0)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="swiper-slide">
+                    <div class="slider-card">
+                        <div class="slider-content text-center">
+                            <p>Chưa có bài viết nào đã được duyệt.</p> @* Cập nhật thông báo *@
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- Chấm tròn pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+
     @await Html.PartialAsync("_Review")
     <section class="guide-wrapper">
         <div class="guide-section">
@@ -192,7 +251,7 @@ else
                                         <img src="@post.ImageUrl" class="card-img-top" alt="@post.Title">
                                         <div class="card-body">
                                             <h5 class="card-title"><b>@post.Title</b></h5>
-                                            <p class="guide-date">@post.CreatedAt.ToString("dd MMMM, yyyy")</p>
+                                            <p class="guide-date">@post.CreatedAt.ToString("dd/MM/yyyy HH:mm")</p>
                                             <p class="card-text">@(post.Content.Length > 100 ? post.Content.Substring(0, 100) + "..." : post.Content)</p>
                                         </div>
                                     </div>

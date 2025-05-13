@@ -1,135 +1,3 @@
-@* @{
-    ViewData["Title"] = "Đánh giá của mọi người";
-}
-
-<style>
-    .review-section {
-        font-family: Arial, sans-serif;
-    }
-
-    .review-section .testimonials {
-        position: relative;
-        background: url('background.jpg') no-repeat center center/cover;
-        color: white;
-        text-align: center;
-        padding: 80px 20px;
-    }
-
-    .review-section .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-    }
-
-    .review-section .container {
-        position: relative;
-        z-index: 1;
-        max-width: 1000px;
-        margin: auto;
-    }
-
-    .review-section .title {
-        font-size: 32px;
-        font-weight: bold;
-    }
-
-    .review-section .subtitle {
-        font-size: 18px;
-        margin-bottom: 40px;
-    }
-
-    .review-section .reviews {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-    }
-
-    .review-section .review {
-        background: rgba(24, 133, 196, 0.388);
-        padding: 20px;
-        border-radius: 10px;
-        width: 30%;
-    }
-
-    .review-section .avatar {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        margin-bottom: 10px;
-    }
-
-    .review-section .stars {
-        color: orange;
-        font-size: 20px;
-        margin-bottom: 10px;
-    }
-
-    .review-section .comment {
-        font-style: italic;
-        font-size: 14px;
-    }
-
-    .review-section .author {
-        font-size: 14px;
-        margin-top: 10px;
-        color: #FFD700;
-    }
-
-    .review-section {
-        background-image: url('/images/xinchao5.jpg');
-        /* Đường dẫn ảnh */
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        padding: 50px 0;
-    }
-
-    .review {
-        background: rgba(0, 0, 0, 0.5);
-        /* Làm mờ nền để chữ dễ đọc hơn */
-        padding: 20px;
-        border-radius: 10px;
-        color: white;
-        text-align: center;
-    }
-</style>
-
-<div class="review-section">
-    <section class="testimonials">
-        <div class="overlay"></div>
-        <div class="container">
-            <h2 class="title">ĐÁNH GIÁ CỦA MỌI NGƯỜI</h2>
-            <p class="subtitle">Cùng nhau tạo nên những chuyến đi đáng nhớ</p>
-            <div class="reviews">
-                <div class="review">
-                    <img src="~/images/avatar3.png" alt="Khách hàng 1" class="avatar">
-                    <div class="stars">★★★★★</div>
-                    <p class="comment">Tôi đi Huế dịp hè ni, dịch vụ rất chu đáo, từ khách sạn cho tới đồ ăn. Điểm tham
-                        quan
-                        đẹp, hướng dẫn viên nhiệt tình. Nhất định sẽ quay lại.</p>
-                    <p class="author"><strong>Nguyễn Văn Hòa</strong> / Tour Huế</p>
-                </div>
-                <div class="review">
-                    <img src="~/images/avatar1.png" alt="Khách hàng 2" class="avatar">
-                    <div class="stars">★★★★★</div>
-                    <p class="comment">Mới đi tour Đà Nẵng với bạn bè, mọi thứ đều rất ổn. Đặc biệt là đồ ăn ngon,
-                        răng mực, bánh tráng cuốn thịt heo phải nói là hết sẩy. Cảm ơn công ty nhiều nghe!</p>
-                    <p class="author"><strong>Trần Thị Minh</strong> / Tour Đà Nẵng</p>
-                </div>
-                <div class="review">
-                    <img src="~/images/avatar2.jpg" alt="Khách hàng 3" class="avatar">
-                    <div class="stars">★★★★★</div>
-                    <p class="comment">Tôi vừa đi Hội An về, phố cổ đẹp lắm. Dịch vụ bên công ty rất chu đáo, hướng
-                        dẫn viên thân thiện, nhiệt tình. Mong công ty tiếp tục phát triển!</p>
-                    <p class="author"><strong>Lê Quốc Bảo</strong> / Tour Hội An</p>
-                </div>
-            </div>
-        </div>
-    </section>
-</div> *@
 @using TourismWeb.Models 
 @using TourismWeb.Models.ViewModels;
 
@@ -217,7 +85,8 @@
         min-height: 80px;
     }
 
-    .review-section .author {
+    .review-section .author .review-date{
+        display: block;
         font-size: 14px;
         margin-top: 10px;
         color: #FFD700;
@@ -256,7 +125,12 @@
                                 }
                             </div>
                             <p class="comment">@reviewData.Comment</p>
-                            <p class="author"><strong>@reviewData.AuthorName</strong> / @reviewData.TourName</p>
+                            <p class="author">
+                                <strong>@reviewData.AuthorName</strong> / @reviewData.TourName
+                                <span class="review-date">
+                                    @reviewData.ReviewDate.ToString("dd/MM/yyyy HH:mm")
+                                </span>
+                            </p>
                         </div>
                     }
                 }

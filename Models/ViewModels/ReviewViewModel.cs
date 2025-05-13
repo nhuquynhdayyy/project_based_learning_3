@@ -15,7 +15,7 @@ namespace TourismWeb.Models.ViewModels
         public string TourName { get; set; } // Tên của tour hoặc địa điểm được đánh giá
 
         // Bạn có thể thêm các thuộc tính khác nếu cần cho view, ví dụ:
-        // public DateTime ReviewDate { get; set; }
+        public DateTime ReviewDate { get; set; }
         // public int ReviewId { get; set; } // Nếu bạn cần ID của review trong view
     }
 }

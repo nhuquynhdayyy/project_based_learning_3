@@ -37,7 +37,7 @@ public class HomeController : Controller
                                         Comment = r.Comment,
                                         AuthorName = r.User.FullName, // Lấy FullName từ User
                                         TourName = r.Spot.Name, // Lấy Name từ Spot
-                                        // CreatedAt = r.CreatedAt // ViewModel của bạn không có CreatedAt
+                                        ReviewDate = r.CreatedAt 
                                     })
                                     .ToListAsync();
 
@@ -45,13 +45,17 @@ public class HomeController : Controller
 
         // Get recent posts from all categories for the slider section
         var recentPosts = await _context.Posts
+            .Where(p => p.Status == PostStatus.Approved) // Chỉ lấy các bài viết đã được duyệt
             .Include(p => p.User)
             .Include(p => p.Spot)
+            .Include(p => p.PostFavorites) // <-- THÊM DÒNG NÀY
+            .Include(p => p.Comments)      // <-- VÀ DÒNG NÀY
             .OrderByDescending(p => p.CreatedAt)
-            .Take(8)  // Limiting to 8 posts for the slider
+            .Take(5)  // Limiting to 8 posts for the slider
             .ToListAsync();
         // Lấy 3 bài viết cẩm nang mới nhất
         var guidebookPosts = await _context.Posts
+            .Where(p => p.Status == PostStatus.Approved)
             .Include(p => p.Spot)
             .Include(p => p.User)
             .Where(p => p.TypeOfPost == "Cẩm nang")
