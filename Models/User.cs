@@ -37,10 +37,12 @@ namespace TourismWeb.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime? LastLoginAt { get; set; }
-
+        // --- Thuộc tính MỚI cho Thông tin Tác giả ---
+        [Display(Name = "Tiểu sử")]
+        public string? Bio { get; set; } // ví dụ: "Travel Blogger chuyên về Đông Nam Á."
+        public string UserStatus { get; set; } = "Hoạt động"; // Giá trị mặc định có thể là "Hoạt động"
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
         public ICollection<Post> Posts { get; set; } = new List<Post>();
-        public ICollection<SpotComment> SpotComments { get; set; } = new List<SpotComment>();
         public ICollection<PostComment> PostComments { get; set; } = new List<PostComment>();
         public ICollection<SpotFavorite> SpotFavorites { get; set; } = new List<SpotFavorite>();
         public ICollection<PostFavorite> PostFavorites { get; set; } = new List<PostFavorite>();

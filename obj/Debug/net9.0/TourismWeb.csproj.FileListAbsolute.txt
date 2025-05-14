@@ -3398,3 +3398,16 @@ C:\Users\Ut\OneDrive - The University of Technology\Apps\project_based_learning_
 C:\Users\Ut\OneDrive - The University of Technology\Apps\project_based_learning_3\obj\Debug\net9.0\ref\TourismWeb.dll
 C:\Users\Ut\OneDrive - The University of Technology\Apps\project_based_learning_3\obj\Debug\net9.0\compressed\tk080zu9jp-d6r4m6h7cs.gz
 C:\Users\Ut\OneDrive - The University of Technology\Apps\project_based_learning_3\obj\Debug\net9.0\compressed\epcgl8irp2-x7uqet1ypb.gz
+C:\Users\Ut\OneDrive - The University of Technology\Microsoft Copilot Chat Files\project_based_learning_3\obj\Debug\net9.0\TourismWeb.csproj.AssemblyReference.cache
+C:\Users\Ut\OneDrive - The University of Technology\Microsoft Copilot Chat Files\project_based_learning_3\obj\Debug\net9.0\TourismWeb.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ut\OneDrive - The University of Technology\Microsoft Copilot Chat Files\project_based_learning_3\obj\Debug\net9.0\TourismWeb.AssemblyInfoInputs.cache
+C:\Users\Ut\OneDrive - The University of Technology\Microsoft Copilot Chat Files\project_based_learning_3\obj\Debug\net9.0\TourismWeb.AssemblyInfo.cs
+C:\Users\Ut\OneDrive - The University of Technology\Microsoft Copilot Chat Files\project_based_learning_3\obj\Debug\net9.0\TourismWeb.csproj.CoreCompileInputs.cache
+C:\Users\Ut\OneDrive - The University of Technology\Microsoft Copilot Chat Files\project_based_learning_3\obj\Debug\net9.0\TourismWeb.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Ut\OneDrive - The University of Technology\Microsoft Copilot Chat Files\project_based_learning_3\obj\Debug\net9.0\TourismWeb.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Ut\OneDrive - The University of Technology\Microsoft Copilot Chat Files\project_based_learning_3\obj\Debug\net9.0\TourismWeb.RazorAssemblyInfo.cache
+C:\Users\Ut\OneDrive - The University of Technology\Microsoft Copilot Chat Files\project_based_learning_3\obj\Debug\net9.0\TourismWeb.RazorAssemblyInfo.cs
+C:\Users\Ut\OneDrive - The University of Technology\Microsoft Copilot Chat Files\project_based_learning_3\obj\Debug\net9.0\TourismWeb.sourcelink.json
+C:\Users\Ut\OneDrive - The University of Technology\Microsoft Copilot Chat Files\project_based_learning_3\obj\Debug\net9.0\TourismWeb.dll
+C:\Users\Ut\OneDrive - The University of Technology\Microsoft Copilot Chat Files\project_based_learning_3\obj\Debug\net9.0\refint\TourismWeb.dll
+C:\Users\Ut\OneDrive - The University of Technology\Microsoft Copilot Chat Files\project_based_learning_3\obj\Debug\net9.0\TourismWeb.pdb

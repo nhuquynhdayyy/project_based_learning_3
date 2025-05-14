@@ -1,956 +1,341 @@
+@{
+    ViewData["Title"] = "Cài Đặt - Hệ Thống Quản Trị";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    string siteName = ViewData["SiteName"] as string ?? "";
+    string siteDescription = ViewData["SiteDescription"] as string ?? "";
+    string siteUrlReadOnly = ViewData["SiteUrl_ReadOnly"] as string ?? "https://chua-cau-hinh.com"; // Lấy URL chỉ đọc
+    string adminPanelLanguage = ViewData["AdminPanelLanguage"] as string ?? "vi";
+    string timezone = ViewData["Timezone"] as string ?? "Asia/Ho_Chi_Minh";
+    string dateFormat = ViewData["DateFormat"] as string ?? "dd/MM/yyyy";
+    int postsPerPage = Convert.ToInt32(ViewData["PostsPerPage"] ?? 10);
+    int commentsPerPage = Convert.ToInt32(ViewData["CommentsPerPage"] ?? 10);
+    int? defaultCategoryId = ViewData["DefaultCategoryId"] as int?;
+    bool autoApproveCommentsRegisteredUsers = Convert.ToBoolean(ViewData["AutoApproveCommentsRegisteredUsers"] ?? true);
+    string adminTheme = ViewData["AdminTheme"] as string ?? "system";
+    string adminPrimaryColor = ViewData["AdminPrimaryColor"] as string ?? "#3B82F6";
+    string adminFontFamily = ViewData["AdminFontFamily"] as string ?? "Roboto, sans-serif";
+    bool notifyInAppNewComment = Convert.ToBoolean(ViewData["NotifyInAppNewComment"] ?? true);
+    bool notifyEmailNewUser = Convert.ToBoolean(ViewData["NotifyEmailNewUser"] ?? false);
+    bool requireCommentApprovalGlobal = Convert.ToBoolean(ViewData["RequireCommentApprovalGlobal"] ?? true);
+    bool requireEmailVerification = Convert.ToBoolean(ViewData["RequireEmailVerification"] ?? true);
+    string systemVersion = ViewData["SystemVersion"] as string ?? "1.0.0";
+}
+
 @section Styles {
     <link rel="stylesheet" href="~/cssadmin/settings.css">
     <link rel="stylesheet" href="~/cssadmin/dark-mode.css">
-
-    <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-}
-
-@{
-    ViewData["Title"] = "Cài Đặt - Hệ Thống Quản Trị";
-}
-@{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-}
-
-@section Scripts {
-    <script src="~/js/jsadmin/settings.js"></script>
-    <script src="~/js/jsadmin/common.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 }
 
 <div class="app-container">
-    <!-- Sidebar -->
-
-
-    <!-- Main Content -->
     <div class="main-content">
         <main class="content-wrapper">
             <div class="page-header">
                 <h1 class="page-title">Cài Đặt</h1>
             </div>
 
-            <div class="settings-container">
-                <div class="settings-sidebar">
-                    <div class="settings-nav">
-                        <button class="settings-nav-item active" data-tab="general">
-                            <i class="fas fa-sliders-h"></i>
-                            <span>Cài đặt chung</span>
-                        </button>
-                        <button class="settings-nav-item" data-tab="appearance">
-                            <i class="fas fa-palette"></i>
-                            <span>Giao diện</span>
-                        </button>
-                        <button class="settings-nav-item" data-tab="notifications">
-                            <i class="fas fa-bell"></i>
-                            <span>Thông báo</span>
-                        </button>
-                        <button class="settings-nav-item" data-tab="privacy">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>Quyền riêng tư</span>
-                        </button>
-                        <button class="settings-nav-item" data-tab="backup">
-                            <i class="fas fa-database"></i>
-                            <span>Sao lưu & Khôi phục</span>
-                        </button>
-                        <button class="settings-nav-item" data-tab="api">
-                            <i class="fas fa-code"></i>
-                            <span>API & Tích hợp</span>
-                        </button>
-                        <button class="settings-nav-item" data-tab="about">
-                            <i class="fas fa-info-circle"></i>
-                            <span>Thông tin hệ thống</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="settings-content">
-                    <!-- General Settings -->
-                    <div class="settings-tab active" id="general">
-                        <h2 class="settings-title">Cài đặt chung</h2>
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+            }
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+            }
 
-                        <div class="settings-section">
-                            <h3 class="section-title">Thông tin trang web</h3>
-                            <div class="settings-form">
-                                <div class="form-group">
-                                    <label for="site-name">Tên trang web</label>
-                                    <input type="text" id="site-name" value="Hệ Thống Quản Trị Bài Viết Du Lịch">
-                                </div>
-                                <div class="form-group">
-                                    <label for="site-description">Mô tả</label>
-                                    <textarea id="site-description"
-                                        rows="3">Hệ thống quản trị bài viết du lịch giúp bạn quản lý nội dung, người dùng và tương tác một cách hiệu quả.</textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="site-url">URL trang web</label>
-                                    <input type="url" id="site-url" value="https://example.com">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">Ngôn ngữ & Khu vực</h3>
-                            <div class="settings-form">
-                                <div class="form-group">
-                                    <label for="language">Ngôn ngữ</label>
-                                    <select id="language">
-                                        <option value="vi" selected>Tiếng Việt</option>
-                                        <option value="en">English</option>
-                                        <option value="fr">Français</option>
-                                        <option value="de">Deutsch</option>
-                                        <option value="ja">日本語</option>
-                                        <option value="zh">中文</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="timezone">Múi giờ</label>
-                                    <select id="timezone">
-                                        <option value="Asia/Ho_Chi_Minh" selected>(GMT+7:00) Hà Nội, Bangkok,
-                                            Jakarta</option>
-                                        <option value="Asia/Tokyo">(GMT+9:00) Tokyo, Seoul</option>
-                                        <option value="Europe/London">(GMT+0:00) London, Dublin</option>
-                                        <option value="Europe/Paris">(GMT+1:00) Paris, Berlin, Rome</option>
-                                        <option value="America/New_York">(GMT-5:00) New York, Miami</option>
-                                        <option value="America/Los_Angeles">(GMT-8:00) Los Angeles, Seattle</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="date-format">Định dạng ngày</label>
-                                    <select id="date-format">
-                                        <option value="dd/mm/yyyy" selected>DD/MM/YYYY</option>
-                                        <option value="mm/dd/yyyy">MM/DD/YYYY</option>
-                                        <option value="yyyy-mm-dd">YYYY-MM-DD</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">Cài đặt nội dung</h3>
-                            <div class="settings-form">
-                                <div class="form-group">
-                                    <label for="posts-per-page">Số bài viết trên mỗi trang</label>
-                                    <input type="number" id="posts-per-page" value="10" min="5" max="50">
-                                </div>
-                                <div class="form-group">
-                                    <label for="comments-per-page">Số bình luận trên mỗi trang</label>
-                                    <input type="number" id="comments-per-page" value="10" min="5" max="50">
-                                </div>
-                                <div class="form-group">
-                                    <label for="default-category">Danh mục mặc định</label>
-                                    <select id="default-category">
-                                        <option value="location" selected>Địa điểm</option>
-                                        <option value="guide">Cẩm nang du lịch</option>
-                                        <option value="experience">Trải nghiệm</option>
-                                    </select>
-                                </div>
-                                <div class="form-group checkbox-group">
-                                    <input type="checkbox" id="auto-approve-comments" checked>
-                                    <label for="auto-approve-comments">Tự động duyệt bình luận từ người dùng đã đăng
-                                        ký</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-actions">
-                            <button type="button" class="btn btn-secondary">Khôi phục mặc định</button>
-                            <button type="button" class="btn btn-primary">Lưu thay đổi</button>
+            <form asp-controller="Admin" asp-action="SaveSettings" method="post">
+                @Html.AntiForgeryToken()
+                <div class="settings-container">
+                    <div class="settings-sidebar">
+                         <div class="settings-nav">
+                            <button type="button" class="settings-nav-item active" data-tab="general">
+                                <i class="fas fa-sliders-h"></i>
+                                <span>Cài đặt chung</span>
+                            </button>
+                            @* <button type="button" class="settings-nav-item" data-tab="appearance">
+                                <i class="fas fa-palette"></i>
+                                <span>Giao diện</span>
+                            </button> *@
+                            <button type="button" class="settings-nav-item" data-tab="notifications">
+                                <i class="fas fa-bell"></i>
+                                <span>Thông báo</span>
+                            </button>
+                            <button type="button" class="settings-nav-item" data-tab="privacy">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Quyền riêng tư</span>
+                            </button>
+                            <button type="button" class="settings-nav-item" data-tab="about">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Thông tin hệ thống</span>
+                            </button>
                         </div>
                     </div>
-
-                    <!-- Appearance Settings -->
-                    <div class="settings-tab" id="appearance">
-                        <h2 class="settings-title">Giao diện</h2>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">Chủ đề</h3>
-                            <div class="theme-options">
-                                <div class="theme-option">
-                                    <div class="theme-preview light-theme">
-                                        <div class="theme-preview-header"></div>
-                                        <div class="theme-preview-sidebar"></div>
-                                        <div class="theme-preview-content"></div>
-                                    </div>
-                                    <div class="theme-option-radio">
-                                        <input type="radio" id="theme-light" name="theme" value="light" checked>
-                                        <label for="theme-light">Sáng</label>
-                                    </div>
-                                </div>
-                                <div class="theme-option">
-                                    <div class="theme-preview dark-theme">
-                                        <div class="theme-preview-header"></div>
-                                        <div class="theme-preview-sidebar"></div>
-                                        <div class="theme-preview-content"></div>
-                                    </div>
-                                    <div class="theme-option-radio">
-                                        <input type="radio" id="theme-dark" name="theme" value="dark">
-                                        <label for="theme-dark">Tối</label>
-                                    </div>
-                                </div>
-                                <div class="theme-option">
-                                    <div class="theme-preview system-theme">
-                                        <div class="theme-preview-header"></div>
-                                        <div class="theme-preview-sidebar"></div>
-                                        <div class="theme-preview-content"></div>
-                                    </div>
-                                    <div class="theme-option-radio">
-                                        <input type="radio" id="theme-system" name="theme" value="system">
-                                        <label for="theme-system">Theo hệ thống</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">Màu sắc</h3>
-                            <div class="settings-form">
-                                <div class="form-group">
-                                    <label for="primary-color">Màu chính</label>
-                                    <div class="color-picker">
-                                        <input type="color" id="primary-color" value="#3b82f6">
-                                        <input type="text" value="#3b82f6">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="secondary-color">Màu phụ</label>
-                                    <div class="color-picker">
-                                        <input type="color" id="secondary-color" value="#10b981">
-                                        <input type="text" value="#10b981">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="accent-color">Màu nhấn</label>
-                                    <div class="color-picker">
-                                        <input type="color" id="accent-color" value="#f59e0b">
-                                        <input type="text" value="#f59e0b">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">Phông chữ</h3>
-                            <div class="settings-form">
-                                <div class="form-group">
-                                    <label for="font-family">Phông chữ</label>
-                                    <select id="font-family">
-                                        <option value="system-ui" selected>Mặc định hệ thống</option>
-                                        <option value="Roboto, sans-serif">Roboto</option>
-                                        <option value="Open Sans, sans-serif">Open Sans</option>
-                                        <option value="Montserrat, sans-serif">Montserrat</option>
-                                        <option value="Poppins, sans-serif">Poppins</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="font-size">Kích thước chữ</label>
-                                    <select id="font-size">
-                                        <option value="small">Nhỏ</option>
-                                        <option value="medium" selected>Vừa</option>
-                                        <option value="large">Lớn</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-actions">
-                            <button type="button" class="btn btn-secondary">Khôi phục mặc định</button>
-                            <button type="button" class="btn btn-primary">Lưu thay đổi</button>
-                        </div>
-                    </div>
-
-                    <!-- Notifications Settings -->
-                    <div class="settings-tab" id="notifications">
-                        <h2 class="settings-title">Thông báo</h2>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">Thông báo trong ứng dụng</h3>
-                            <div class="settings-form">
-                                <div class="form-group toggle-group">
-                                    <div class="toggle-header">
-                                        <div>
-                                            <label for="notify-new-comment">Bình luận mới</label>
-                                            <p class="toggle-description">Nhận thông báo khi có bình luận mới</p>
-                                        </div>
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="notify-new-comment" checked>
-                                            <label for="notify-new-comment"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group toggle-group">
-                                    <div class="toggle-header">
-                                        <div>
-                                            <label for="notify-new-user">Người dùng mới</label>
-                                            <p class="toggle-description">Nhận thông báo khi có người dùng mới đăng
-                                                ký</p>
-                                        </div>
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="notify-new-user" checked>
-                                            <label for="notify-new-user"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group toggle-group">
-                                    <div class="toggle-header">
-                                        <div>
-                                            <label for="notify-new-report">Báo cáo mới</label>
-                                            <p class="toggle-description">Nhận thông báo khi có báo cáo mới</p>
-                                        </div>
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="notify-new-report" checked>
-                                            <label for="notify-new-report"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">Thông báo qua email</h3>
-                            <div class="settings-form">
-                                <div class="form-group toggle-group">
-                                    <div class="toggle-header">
-                                        <div>
-                                            <label for="email-new-comment">Bình luận mới</label>
-                                            <p class="toggle-description">Nhận email khi có bình luận mới</p>
-                                        </div>
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="email-new-comment">
-                                            <label for="email-new-comment"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group toggle-group">
-                                    <div class="toggle-header">
-                                        <div>
-                                            <label for="email-new-user">Người dùng mới</label>
-                                            <p class="toggle-description">Nhận email khi có người dùng mới đăng ký
-                                            </p>
-                                        </div>
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="email-new-user">
-                                            <label for="email-new-user"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group toggle-group">
-                                    <div class="toggle-header">
-                                        <div>
-                                            <label for="email-new-report">Báo cáo mới</label>
-                                            <p class="toggle-description">Nhận email khi có báo cáo mới</p>
-                                        </div>
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="email-new-report" checked>
-                                            <label for="email-new-report"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group toggle-group">
-                                    <div class="toggle-header">
-                                        <div>
-                                            <label for="email-system">Thông báo hệ thống</label>
-                                            <p class="toggle-description">Nhận email về các cập nhật và bảo trì hệ
-                                                thống</p>
-                                        </div>
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="email-system" checked>
-                                            <label for="email-system"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-actions">
-                            <button type="button" class="btn btn-secondary">Khôi phục mặc định</button>
-                            <button type="button" class="btn btn-primary">Lưu thay đổi</button>
-                        </div>
-                    </div>
-
-                    <!-- Privacy Settings -->
-                    <div class="settings-tab" id="privacy">
-                        <h2 class="settings-title">Quyền riêng tư</h2>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">Cài đặt quyền riêng tư</h3>
-                            <div class="settings-form">
-                                <div class="form-group toggle-group">
-                                    <div class="toggle-header">
-                                        <div>
-                                            <label for="privacy-comments">Yêu cầu phê duyệt bình luận</label>
-                                            <p class="toggle-description">Tất cả bình luận phải được phê duyệt trước
-                                                khi hiển thị</p>
-                                        </div>
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="privacy-comments" checked>
-                                            <label for="privacy-comments"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group toggle-group">
-                                    <div class="toggle-header">
-                                        <div>
-                                            <label for="privacy-registration">Yêu cầu xác minh email khi đăng
-                                                ký</label>
-                                            <p class="toggle-description">Người dùng phải xác minh email trước khi
-                                                có thể đăng nhập</p>
-                                        </div>
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="privacy-registration" checked>
-                                            <label for="privacy-registration"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group toggle-group">
-                                    <div class="toggle-header">
-                                        <div>
-                                            <label for="privacy-analytics">Thu thập dữ liệu phân tích</label>
-                                            <p class="toggle-description">Thu thập dữ liệu phân tích để cải thiện
-                                                trải nghiệm người dùng</p>
-                                        </div>
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="privacy-analytics" checked>
-                                            <label for="privacy-analytics"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">Chính sách bảo mật</h3>
-                            <div class="settings-form">
-                                <div class="form-group">
-                                    <label for="privacy-policy">Chính sách bảo mật</label>
-                                    <textarea id="privacy-policy"
-                                        rows="6">Chính sách bảo mật này mô tả cách chúng tôi thu thập, sử dụng và chia sẻ thông tin cá nhân của bạn khi bạn sử dụng trang web của chúng tôi.
-
-Khi bạn truy cập trang web, chúng tôi thu thập một số thông tin nhất định về thiết bị của bạn, bao gồm thông tin về trình duyệt web, địa chỉ IP, múi giờ và một số cookie được cài đặt trên thiết bị của bạn.
-
-Chúng tôi sử dụng thông tin cá nhân của bạn để cung cấp dịch vụ, cải thiện trang web và liên lạc với bạn khi cần thiết.</textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="terms-of-service">Điều khoản dịch vụ</label>
-                                    <textarea id="terms-of-service"
-                                        rows="6">Bằng cách truy cập hoặc sử dụng trang web của chúng tôi, bạn đồng ý bị ràng buộc bởi các điều khoản và điều kiện này.
-
-Bạn không được sử dụng trang web của chúng tôi cho bất kỳ mục đích bất hợp pháp hoặc bị cấm nào, hoặc gây hại đến bất kỳ cá nhân hoặc tổ chức nào.
-
-Chúng tôi có quyền từ chối dịch vụ, chấm dứt tài khoản, xóa hoặc chỉnh sửa nội dung theo quyết định riêng của chúng tôi.</textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-actions">
-                            <button type="button" class="btn btn-secondary">Khôi phục mặc định</button>
-                            <button type="button" class="btn btn-primary">Lưu thay đổi</button>
-                        </div>
-                    </div>
-
-                    <!-- Backup & Restore Settings -->
-                    <div class="settings-tab" id="backup">
-                        <h2 class="settings-title">Sao lưu & Khôi phục</h2>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">Sao lưu dữ liệu</h3>
-                            <div class="settings-form">
-                                <div class="form-group">
-                                    <label>Sao lưu thủ công</label>
-                                    <p class="form-description">Tạo bản sao lưu đầy đủ của tất cả dữ liệu hệ thống.
-                                    </p>
-                                    <div class="backup-options">
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" id="backup-posts" checked>
-                                            <label for="backup-posts">Bài viết</label>
-                                        </div>
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" id="backup-comments" checked>
-                                            <label for="backup-comments">Bình luận</label>
-                                        </div>
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" id="backup-users" checked>
-                                            <label for="backup-users">Người dùng</label>
-                                        </div>
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" id="backup-settings" checked>
-                                            <label for="backup-settings">Cài đặt</label>
-                                        </div>
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" id="backup-media" checked>
-                                            <label for="backup-media">Thư viện media</label>
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-primary">
-                                        <i class="fas fa-download"></i>
-                                        Tạo bản sao lưu
-                                    </button>
-                                </div>
-                                <div class="form-group">
-                                    <label>Sao lưu tự động</label>
-                                    <p class="form-description">Tự động tạo bản sao lưu theo lịch trình.</p>
-                                    <div class="toggle-group">
-                                        <div class="toggle-header">
-                                            <div>
-                                                <label for="auto-backup">Bật sao lưu tự động</label>
-                                            </div>
-                                            <div class="toggle-switch">
-                                                <input type="checkbox" id="auto-backup" checked>
-                                                <label for="auto-backup"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="backup-frequency">Tần suất</label>
-                                            <select id="backup-frequency">
-                                                <option value="daily">Hàng ngày</option>
-                                                <option value="weekly" selected>Hàng tuần</option>
-                                                <option value="monthly">Hàng tháng</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="backup-time">Thời gian</label>
-                                            <input type="time" id="backup-time" value="02:00">
-                                        </div>
+                    <div class="settings-content">
+                        <!-- General Settings Tab -->
+                        <div class="settings-tab active" id="general">
+                            <h2 class="settings-title">Cài đặt chung</h2>
+                            <div class="settings-section">
+                                <h3 class="section-title">Thông tin trang web</h3>
+                                <div class="settings-form">
+                                    <div class="form-group">
+                                        <label for="SiteName">Tên trang web</label>
+                                        <input type="text" id="SiteName" name="SiteName" value="@siteName" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="backup-retention">Giữ bản sao lưu trong</label>
-                                        <select id="backup-retention">
-                                            <option value="7">7 ngày</option>
-                                            <option value="30" selected>30 ngày</option>
-                                            <option value="90">90 ngày</option>
-                                            <option value="365">365 ngày</option>
+                                        <label for="SiteDescription">Mô tả</label>
+                                        <textarea id="SiteDescription" name="SiteDescription" rows="3" class="form-control">@siteDescription</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>URL trang web (Cấu hình hệ thống)</label>
+                                        <p class="form-control-static"><strong>@siteUrlReadOnly</strong></p>
+                                        @* Hoặc: <input type="text" value="@siteUrlReadOnly" class="form-control" readonly> *@
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h3 class="section-title">Ngôn ngữ & Khu vực</h3>
+                                <div class="settings-form">
+                                    <div class="form-group">
+                                        <label for="AdminPanelLanguage">Ngôn ngữ</label>
+                                        <select id="AdminPanelLanguage" name="AdminPanelLanguage" class="form-control">
+                                            <option value="vi" selected="@(adminPanelLanguage == "vi")">Tiếng Việt</option>
+                                            <option value="en" selected="@(adminPanelLanguage == "en")">English</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Timezone">Múi giờ</label>
+                                        <select id="Timezone" name="Timezone" class="form-control">
+                                            <option value="Asia/Ho_Chi_Minh" selected="@(timezone == "Asia/Ho_Chi_Minh")">(GMT+7:00) Hà Nội, Bangkok, Jakarta</option>
+                                            <option value="Asia/Tokyo" selected="@(timezone == "Asia/Tokyo")">(GMT+9:00) Tokyo, Seoul</option>
+                                        </select>
+                                    </div>
+                                     <div class="form-group">
+                                        <label for="DateFormat">Định dạng ngày</label>
+                                        <select id="DateFormat" name="DateFormat" class="form-control">
+                                            <option value="dd/MM/yyyy" selected="@(dateFormat == "dd/MM/yyyy")">DD/MM/YYYY</option>
+                                            <option value="MM/dd/yyyy" selected="@(dateFormat == "MM/dd/yyyy")">MM/DD/YYYY</option>
+                                            <option value="yyyy-MM-dd" selected="@(dateFormat == "yyyy-MM-dd")">YYYY-MM-DD</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="settings-section">
-                            <h3 class="section-title">Khôi phục dữ liệu</h3>
-                            <div class="settings-form">
-                                <div class="form-group">
-                                    <label>Khôi phục từ bản sao lưu</label>
-                                    <p class="form-description">Tải lên bản sao lưu để khôi phục dữ liệu hệ thống.
-                                    </p>
-                                    <div class="file-upload">
-                                        <input type="file" id="restore-file" accept=".zip,.sql,.json">
-                                        <label for="restore-file">
-                                            <i class="fas fa-upload"></i>
-                                            <span>Chọn tệp sao lưu</span>
-                                        </label>
+                             <div class="settings-section">
+                                <h3 class="section-title">Cài đặt nội dung</h3>
+                                <div class="settings-form">
+                                    <div class="form-group">
+                                        <label for="PostsPerPage">Số bài viết trên mỗi trang</label>
+                                        <input type="number" id="PostsPerPage" name="PostsPerPage" value="@postsPerPage" class="form-control" min="5" max="50">
                                     </div>
-                                    <button class="btn btn-secondary" disabled>
-                                        <i class="fas fa-undo"></i>
-                                        Khôi phục
-                                    </button>
+                                    <div class="form-group">
+                                        <label for="CommentsPerPage">Số bình luận trên mỗi trang</label>
+                                        <input type="number" id="CommentsPerPage" name="CommentsPerPage" value="@commentsPerPage" class="form-control" min="5" max="50">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="DefaultCategoryId">Danh mục mặc định (ID)</label>
+                                        <input type="number" id="DefaultCategoryId" name="DefaultCategoryId" value="@(defaultCategoryId.HasValue ? defaultCategoryId.Value.ToString() : "")" placeholder="Nhập Category ID" class="form-control">
+                                    </div>
+                                    <div class="form-group checkbox-group">
+                                        <input type="checkbox" id="AutoApproveCommentsRegisteredUsers" name="AutoApproveCommentsRegisteredUsers" value="true" checked="@autoApproveCommentsRegisteredUsers">
+                                        <label for="AutoApproveCommentsRegisteredUsers">Tự động duyệt bình luận từ người dùng đã đăng ký</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="settings-section">
-                            <h3 class="section-title">Lịch sử sao lưu</h3>
-                            <div class="backup-history">
-                                <div class="backup-item">
-                                    <div class="backup-info">
-                                        <div class="backup-name">
-                                            <i class="fas fa-file-archive"></i>
-                                            <span>backup-20230410-020000.zip</span>
+                        <!-- Appearance Settings Tab (Giữ nguyên như trước) -->
+                        @* <div class="settings-tab" id="appearance">
+                             <h2 class="settings-title">Giao diện</h2>
+                             <div class="settings-section">
+                                <h3 class="section-title">Chủ đề</h3>
+                                 <div class="form-group">
+                                    <label for="AdminTheme">Chủ đề</label>
+                                    <select id="AdminTheme" name="AdminTheme" class="form-control">
+                                        <option value="light" selected="@(adminTheme == "light")">Sáng</option>
+                                        <option value="dark" selected="@(adminTheme == "dark")">Tối</option>
+                                        <option value="system" selected="@(adminTheme == "system")">Theo hệ thống</option>
+                                    </select>
+                                </div>
+                            </div>
+                             <div class="settings-section">
+                                <h3 class="section-title">Màu sắc</h3>
+                                <div class="settings-form">
+                                    <div class="form-group">
+                                        <label for="AdminPrimaryColor">Màu chính</label>
+                                        <div class="color-picker">
+                                            <input type="color" id="AdminPrimaryColorColor" value="@adminPrimaryColor" onchange="$('#AdminPrimaryColor').val(this.value)">
+                                            <input type="text" id="AdminPrimaryColor" name="AdminPrimaryColor" value="@adminPrimaryColor" onchange="$('#AdminPrimaryColorColor').val(this.value)">
                                         </div>
-                                        <div class="backup-meta">
-                                            <span>10/04/2023 02:00</span>
-                                            <span>•</span>
-                                            <span>25.4 MB</span>
-                                            <span>•</span>
-                                            <span>Tự động</span>
-                                        </div>
-                                    </div>
-                                    <div class="backup-actions">
-                                        <button class="btn btn-icon" title="Tải xuống">
-                                            <i class="fas fa-download"></i>
-                                        </button>
-                                        <button class="btn btn-icon" title="Khôi phục">
-                                            <i class="fas fa-undo"></i>
-                                        </button>
-                                        <button class="btn btn-icon" title="Xóa">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
                                     </div>
                                 </div>
-                                <div class="backup-item">
-                                    <div class="backup-info">
-                                        <div class="backup-name">
-                                            <i class="fas fa-file-archive"></i>
-                                            <span>backup-20230403-020000.zip</span>
-                                        </div>
-                                        <div class="backup-meta">
-                                            <span>03/04/2023 02:00</span>
-                                            <span>•</span>
-                                            <span>24.8 MB</span>
-                                            <span>•</span>
-                                            <span>Tự động</span>
-                                        </div>
-                                    </div>
-                                    <div class="backup-actions">
-                                        <button class="btn btn-icon" title="Tải xuống">
-                                            <i class="fas fa-download"></i>
-                                        </button>
-                                        <button class="btn btn-icon" title="Khôi phục">
-                                            <i class="fas fa-undo"></i>
-                                        </button>
-                                        <button class="btn btn-icon" title="Xóa">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                            </div>
+                             <div class="settings-section">
+                                <h3 class="section-title">Phông chữ</h3>
+                                <div class="settings-form">
+                                    <div class="form-group">
+                                        <label for="AdminFontFamily">Phông chữ</label>
+                                        <select id="AdminFontFamily" name="AdminFontFamily" class="form-control">
+                                            <option value="system-ui" selected="@(adminFontFamily == "system-ui")">Mặc định hệ thống</option>
+                                            <option value="Roboto, sans-serif" selected="@(adminFontFamily == "Roboto, sans-serif")">Roboto</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="backup-item">
-                                    <div class="backup-info">
-                                        <div class="backup-name">
-                                            <i class="fas fa-file-archive"></i>
-                                            <span>backup-20230401-143022.zip</span>
-                                        </div>
-                                        <div class="backup-meta">
-                                            <span>01/04/2023 14:30</span>
-                                            <span>•</span>
-                                            <span>24.5 MB</span>
-                                            <span>•</span>
-                                            <span>Thủ công</span>
+                            </div>
+                        </div> *@
+
+                        <!-- Notifications Settings Tab (Giữ nguyên như trước) -->
+                        <div class="settings-tab" id="notifications">
+                            <h2 class="settings-title">Thông báo</h2>
+                             <div class="settings-section">
+                                <h3 class="section-title">Thông báo</h3>
+                                <div class="settings-form">
+                                    <div class="form-group toggle-group">
+                                        <div class="toggle-header">
+                                            <div>
+                                                <label for="NotifyInAppNewComment">Bình luận mới (In-app)</label>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <input type="checkbox" id="NotifyInAppNewComment" name="NotifyInAppNewComment" value="true" checked="@notifyInAppNewComment">
+                                                <label for="NotifyInAppNewComment"></label>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="backup-actions">
-                                        <button class="btn btn-icon" title="Tải xuống">
-                                            <i class="fas fa-download"></i>
-                                        </button>
-                                        <button class="btn btn-icon" title="Khôi phục">
-                                            <i class="fas fa-undo"></i>
-                                        </button>
-                                        <button class="btn btn-icon" title="Xóa">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                     <div class="form-group toggle-group">
+                                        <div class="toggle-header">
+                                            <div>
+                                                <label for="NotifyEmailNewUser">Người dùng mới (Email)</label>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <input type="checkbox" id="NotifyEmailNewUser" name="NotifyEmailNewUser" value="true" checked="@notifyEmailNewUser">
+                                                <label for="NotifyEmailNewUser"></label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- API & Integrations Settings -->
-                    <div class="settings-tab" id="api">
-                        <h2 class="settings-title">API & Tích hợp</h2>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">API Keys</h3>
-                            <div class="settings-form">
-                                <div class="form-group toggle-group">
-                                    <div class="toggle-header">
-                                        <div>
-                                            <label for="enable-api">Bật API</label>
-                                            <p class="toggle-description">Cho phép ứng dụng bên ngoài truy cập dữ
-                                                liệu thông qua API</p>
+                        <!-- Privacy Settings Tab -->
+                        <div class="settings-tab" id="privacy">
+                             <h2 class="settings-title">Quyền riêng tư</h2>
+                             <div class="settings-section">
+                                <h3 class="section-title">Cài đặt</h3>
+                                <div class="settings-form">
+                                    <div class="form-group toggle-group">
+                                        <div class="toggle-header">
+                                            <div>
+                                                <label for="RequireCommentApprovalGlobal">Yêu cầu phê duyệt bình luận</label>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <input type="checkbox" id="RequireCommentApprovalGlobal" name="RequireCommentApprovalGlobal" value="true" checked="@requireCommentApprovalGlobal">
+                                                <label for="RequireCommentApprovalGlobal"></label>
+                                            </div>
                                         </div>
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="enable-api" checked>
-                                            <label for="enable-api"></label>
+                                    </div>
+                                     <div class="form-group toggle-group">
+                                        <div class="toggle-header">
+                                            <div>
+                                                <label for="RequireEmailVerification">Yêu cầu xác minh email khi đăng ký</label>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <input type="checkbox" id="RequireEmailVerification" name="RequireEmailVerification" value="true" checked="@requireEmailVerification">
+                                                <label for="RequireEmailVerification"></label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="api-keys">
-                                    <div class="api-key-item">
-                                        <div class="api-key-info">
-                                            <div class="api-key-name">
-                                                <span>Mobile App</span>
-                                                <span class="badge green">Hoạt động</span>
-                                            </div>
-                                            <div class="api-key-value">
-                                                <code>sk_live_51KjH2nGhTr7Y9Jx2Zs8Y6H5T4R3E2W1Q0P9O8I7U6Y5T4R3E2W1Q</code>
-                                            </div>
-                                            <div class="api-key-meta">
-                                                <span>Tạo: 10/03/2023</span>
-                                                <span>•</span>
-                                                <span>Hết hạn: Không bao giờ</span>
-                                            </div>
-                                        </div>
-                                        <div class="api-key-actions">
-                                            <button class="btn btn-secondary btn-sm">
-                                                <i class="fas fa-sync-alt"></i>
-                                                Tạo lại
-                                            </button>
-                                            <button class="btn btn-danger btn-sm">
-                                                <i class="fas fa-trash"></i>
-                                                Xóa
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="api-key-item">
-                                        <div class="api-key-info">
-                                            <div class="api-key-name">
-                                                <span>Website Integration</span>
-                                                <span class="badge green">Hoạt động</span>
-                                            </div>
-                                            <div class="api-key-value">
-                                                <code>sk_live_51LkI3oHiUs8Z9Kx3At9Z7H6U5S4R3E2W1Q0P9O8I7U6Y5T4R3E2W1Q</code>
-                                            </div>
-                                            <div class="api-key-meta">
-                                                <span>Tạo: 15/03/2023</span>
-                                                <span>•</span>
-                                                <span>Hết hạn: Không bao giờ</span>
-                                            </div>
-                                        </div>
-                                        <div class="api-key-actions">
-                                            <button class="btn btn-secondary btn-sm">
-                                                <i class="fas fa-sync-alt"></i>
-                                                Tạo lại
-                                            </button>
-                                            <button class="btn btn-danger btn-sm">
-                                                <i class="fas fa-trash"></i>
-                                                Xóa
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-plus"></i>
-                                    Tạo API Key mới
-                                </button>
+                            </div>
+                             <div class="settings-section">
+                                <h3 class="section-title">Chính sách & Điều khoản</h3>
+                                 <div class="policy-content" style="white-space: pre-line; overflow-y: auto; max-height: 300px;">
+                                <h4>Chính sách Bảo mật</h4>
+        <p>
+            Chúng tôi cam kết bảo vệ thông tin cá nhân của bạn. Dữ liệu cá nhân sẽ được thu thập, sử dụng và bảo vệ 
+            theo đúng quy định pháp luật hiện hành. Thông tin mà chúng tôi thu thập bao gồm: tên, địa chỉ email, số điện thoại, 
+            địa chỉ IP, và các thông tin cần thiết khác nhằm cung cấp dịch vụ tốt nhất cho bạn.
+            
+            Việc thu thập dữ liệu được thực hiện minh bạch và có sự đồng ý từ phía người dùng. Chúng tôi không chia sẻ 
+            thông tin cá nhân của bạn với bên thứ ba nếu không có sự đồng ý rõ ràng từ bạn, trừ khi được pháp luật yêu cầu. 
+            Các biện pháp bảo mật như mã hóa dữ liệu, xác thực hai yếu tố, và tường lửa được áp dụng để bảo vệ dữ liệu của bạn.
+
+            Người dùng có quyền yêu cầu truy cập, chỉnh sửa hoặc xóa dữ liệu cá nhân của mình bất kỳ lúc nào. 
+            Nếu có bất kỳ thắc mắc hoặc khiếu nại nào liên quan đến việc xử lý dữ liệu, vui lòng liên hệ với chúng tôi qua email hỗ trợ.
+        </p>
+
+        <h4>Điều khoản Dịch vụ</h4>
+        <p>
+            Việc sử dụng dịch vụ của chúng tôi đồng nghĩa với việc bạn chấp nhận tuân thủ các quy định và điều kiện dưới đây:
+            
+            1. Quyền sử dụng: Bạn được phép sử dụng dịch vụ cho các mục đích cá nhân, phi thương mại. 
+               Mọi hành vi sử dụng sai mục đích hoặc vi phạm pháp luật đều bị nghiêm cấm.
+               
+            2. Nội dung người dùng: Bạn hoàn toàn chịu trách nhiệm về nội dung mình đăng tải, bao gồm văn bản, hình ảnh, video và 
+               các tài liệu khác. Không đăng tải nội dung vi phạm bản quyền, xúc phạm, hoặc vi phạm pháp luật.
+               
+            3. Bảo mật tài khoản: Bạn phải tự bảo mật thông tin đăng nhập và không chia sẻ với người khác. 
+               Trong trường hợp tài khoản bị xâm nhập trái phép, hãy thông báo cho chúng tôi ngay lập tức.
+               
+            4. Chấm dứt dịch vụ: Chúng tôi có quyền chấm dứt hoặc đình chỉ tài khoản của bạn nếu phát hiện vi phạm chính sách 
+               hoặc sử dụng dịch vụ vào mục đích xấu.
+               
+            5. Giới hạn trách nhiệm: Chúng tôi không chịu trách nhiệm về bất kỳ thiệt hại trực tiếp hoặc gián tiếp nào 
+               phát sinh từ việc sử dụng dịch vụ, kể cả khi chúng tôi đã được thông báo về khả năng xảy ra thiệt hại đó.
+        </p>
+                                <p class="form-description">
+                                    Nội dung này được quản lý bởi quản trị viên hệ thống và không thể sửa đổi tại đây.
+                                </p>
+                                 @* XÓA CÁC Ô INPUT ID CHO CHÍNH SÁCH VÀ ĐIỀU KHOẢN *@
+                            </div>
                             </div>
                         </div>
 
-                        <div class="settings-section">
-                            <h3 class="section-title">Tích hợp</h3>
-                            <div class="settings-form">
-                                <div class="integration-item">
-                                    <div class="integration-info">
-                                        <div class="integration-logo">
-                                            <i class="fab fa-google"></i>
-                                        </div>
-                                        <div>
-                                            <h4>Google Analytics</h4>
-                                            <p>Theo dõi lưu lượng truy cập và hành vi người dùng</p>
-                                        </div>
-                                    </div>
-                                    <div class="integration-actions">
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="integration-ga" checked>
-                                            <label for="integration-ga"></label>
-                                        </div>
-                                        <button class="btn btn-text">Cấu hình</button>
+                        <!-- About System Tab (Giữ nguyên phần hiển thị SystemVersion và thông tin server) -->
+                        <div class="settings-tab" id="about">
+                             <h2 class="settings-title">Thông tin hệ thống</h2>
+                             <div class="settings-section">
+                                <h3 class="section-title">Phiên bản</h3>
+                                <div class="settings-form">
+                                     <div class="form-group">
+                                        <label for="SystemVersion">Phiên bản hệ thống</label>
+                                        <input type="text" id="SystemVersion" name="SystemVersion" value="@systemVersion" class="form-control">
                                     </div>
                                 </div>
-                                <div class="integration-item">
-                                    <div class="integration-info">
-                                        <div class="integration-logo">
-                                            <i class="fab fa-facebook"></i>
-                                        </div>
-                                        <div>
-                                            <h4>Facebook</h4>
-                                            <p>Chia sẻ nội dung và đăng nhập bằng Facebook</p>
-                                        </div>
-                                    </div>
-                                    <div class="integration-actions">
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="integration-fb" checked>
-                                            <label for="integration-fb"></label>
-                                        </div>
-                                        <button class="btn btn-text">Cấu hình</button>
-                                    </div>
-                                </div>
-                                <div class="integration-item">
-                                    <div class="integration-info">
-                                        <div class="integration-logo">
-                                            <i class="fab fa-mailchimp"></i>
-                                        </div>
-                                        <div>
-                                            <h4>Mailchimp</h4>
-                                            <p>Quản lý danh sách email và gửi bản tin</p>
-                                        </div>
-                                    </div>
-                                    <div class="integration-actions">
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="integration-mailchimp">
-                                            <label for="integration-mailchimp"></label>
-                                        </div>
-                                        <button class="btn btn-text">Cấu hình</button>
-                                    </div>
-                                </div>
-                                <div class="integration-item">
-                                    <div class="integration-info">
-                                        <div class="integration-logo">
-                                            <i class="fab fa-stripe"></i>
-                                        </div>
-                                        <div>
-                                            <h4>Stripe</h4>
-                                            <p>Xử lý thanh toán trực tuyến</p>
-                                        </div>
-                                    </div>
-                                    <div class="integration-actions">
-                                        <div class="toggle-switch">
-                                            <input type="checkbox" id="integration-stripe">
-                                            <label for="integration-stripe"></label>
-                                        </div>
-                                        <button class="btn btn-text">Cấu hình</button>
+                                <div class="system-info">
+                                    <div class="info-item">
+                                        <div class="info-label">.NET Version</div>
+                                        <div class="info-value">@Environment.Version</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-actions">
-                            <button type="button" class="btn btn-secondary">Khôi phục mặc định</button>
-                            <button type="button" class="btn btn-primary">Lưu thay đổi</button>
-                        </div>
-                    </div>
-
-                    <!-- About System -->
-                    <div class="settings-tab" id="about">
-                        <h2 class="settings-title">Thông tin hệ thống</h2>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">Phiên bản</h3>
-                            <div class="system-info">
-                                <div class="info-item">
-                                    <div class="info-label">Phiên bản hệ thống</div>
-                                    <div class="info-value">1.0.0</div>
-                                </div>
-                                <div class="info-item">
-                                    <div class="info-label">Ngày phát hành</div>
-                                    <div class="info-value">01/04/2023</div>
-                                </div>
-                                <div class="info-item">
-                                    <div class="info-label">Trạng thái</div>
-                                    <div class="info-value">
-                                        <span class="badge green">Cập nhật mới nhất</span>
-                                    </div>
-                                </div>
-                                <div class="info-item">
-                                    <div class="info-label">Kiểm tra cập nhật</div>
-                                    <div class="info-value">
-                                        <button class="btn btn-secondary">
-                                            <i class="fas fa-sync-alt"></i>
-                                            Kiểm tra cập nhật
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">Thông tin máy chủ</h3>
-                            <div class="system-info">
-                                <div class="info-item">
-                                    <div class="info-label">Hệ điều hành</div>
-                                    <div class="info-value">Linux Ubuntu 20.04 LTS</div>
-                                </div>
-                                <div class="info-item">
-                                    <div class="info-label">Phiên bản PHP</div>
-                                    <div class="info-value">8.1.0</div>
-                                </div>
-                                <div class="info-item">
-                                    <div class="info-label">Phiên bản MySQL</div>
-                                    <div class="info-value">8.0.28</div>
-                                </div>
-                                <div class="info-item">
-                                    <div class="info-label">Phiên bản Apache</div>
-                                    <div class="info-value">2.4.52</div>
-                                </div>
-                                <div class="info-item">
-                                    <div class="info-label">Giới hạn tải lên</div>
-                                    <div class="info-value">64 MB</div>
-                                </div>
-                                <div class="info-item">
-                                    <div class="info-label">Giới hạn bộ nhớ</div>
-                                    <div class="info-value">256 MB</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">Thông tin cơ sở dữ liệu</h3>
-                            <div class="system-info">
-                                <div class="info-item">
-                                    <div class="info-label">Kích thước cơ sở dữ liệu</div>
-                                    <div class="info-value">125.4 MB</div>
-                                </div>
-                                <div class="info-item">
-                                    <div class="info-label">Số lượng bảng</div>
-                                    <div class="info-value">24</div>
-                                </div>
-                                <div class="info-item">
-                                    <div class="info-label">Bản sao lưu gần nhất</div>
-                                    <div class="info-value">10/04/2023 02:00</div>
-                                </div>
-                                <div class="info-item">
-                                    <div class="info-label">Tối ưu hóa cơ sở dữ liệu</div>
-                                    <div class="info-value">
-                                        <button class="btn btn-secondary">
-                                            <i class="fas fa-database"></i>
-                                            Tối ưu hóa
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="settings-section">
-                            <h3 class="section-title">Nhật ký hệ thống</h3>
-                            <div class="system-logs">
-                                <div class="log-controls">
-                                    <select class="select-control">
-                                        <option value="all">Tất cả nhật ký</option>
-                                        <option value="error">Lỗi</option>
-                                        <option value="warning">Cảnh báo</option>
-                                        <option value="info">Thông tin</option>
-                                    </select>
-                                    <button class="btn btn-secondary">
-                                        <i class="fas fa-sync-alt"></i>
-                                        Làm mới
-                                    </button>
-                                    <button class="btn btn-secondary">
-                                        <i class="fas fa-download"></i>
-                                        Tải xuống
-                                    </button>
-                                </div>
-                                <div class="log-viewer">
-                                    <div class="log-entry">
-                                        <div class="log-level info">INFO</div>
-                                        <div class="log-content">
-                                            <div class="log-message">Người dùng 'admin' đã đăng nhập</div>
-                                            <div class="log-meta">10/04/2023 09:15:22 | IP: 192.168.1.1</div>
-                                        </div>
-                                    </div>
-                                    <div class="log-entry">
-                                        <div class="log-level info">INFO</div>
-                                        <div class="log-content">
-                                            <div class="log-message">Bài viết 'Khám phá Đà Lạt mùa hoa' đã được cập
-                                                nhật</div>
-                                            <div class="log-meta">10/04/2023 09:10:45 | Người dùng: admin</div>
-                                        </div>
-                                    </div>
-                                    <div class="log-entry">
-                                        <div class="log-level warning">WARN</div>
-                                        <div class="log-content">
-                                            <div class="log-message">Đăng nhập thất bại cho tài khoản 'user123'
-                                            </div>
-                                            <div class="log-meta">10/04/2023 08:45:12 | IP: 203.0.113.1</div>
-                                        </div>
-                                    </div>
-                                    <div class="log-entry">
-                                        <div class="log-level error">ERROR</div>
-                                        <div class="log-content">
-                                            <div class="log-message">Không thể kết nối đến máy chủ email</div>
-                                            <div class="log-meta">10/04/2023 08:30:05 | Mã lỗi: E_MAIL_001</div>
-                                        </div>
-                                    </div>
-                                    <div class="log-entry">
-                                        <div class="log-level info">INFO</div>
-                                        <div class="log-content">
-                                            <div class="log-message">Sao lưu tự động đã hoàn tất</div>
-                                            <div class="log-meta">10/04/2023 02:00:00 | Kích thước: 25.4 MB</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </main>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/jsadmin/settings.js"></script>
+    <script>
+        // JS cho color picker (ví dụ đơn giản)
+        document.querySelectorAll('.color-picker input[type="color"]').forEach(colorInput => {
+            colorInput.addEventListener('input', function() {
+                document.getElementById(this.id.replace('Color', '')).value = this.value;
+            });
+        });
+        document.querySelectorAll('.color-picker input[type="text"]').forEach(textInput => {
+            textInput.addEventListener('input', function() {
+                try {
+                    document.getElementById(this.id + 'Color').value = this.value;
+                } catch (e) { /* Bỏ qua lỗi nếu không hợp lệ */ }
+            });
+        });
+    </script>
+}

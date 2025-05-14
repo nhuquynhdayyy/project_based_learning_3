@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\TourismWeb.csproj": {}
+    "C:\\Users\\Ut\\OneDrive - The University of Technology\\Microsoft Copilot Chat Files\\project_based_learning_3\\TourismWeb.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\TourismWeb.csproj": {
+    "C:\\Users\\Ut\\OneDrive - The University of Technology\\Microsoft Copilot Chat Files\\project_based_learning_3\\TourismWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\TourismWeb.csproj",
+        "projectUniqueName": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Microsoft Copilot Chat Files\\project_based_learning_3\\TourismWeb.csproj",
         "projectName": "TourismWeb",
-        "projectPath": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\TourismWeb.csproj",
+        "projectPath": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Microsoft Copilot Chat Files\\project_based_learning_3\\TourismWeb.csproj",
         "packagesPath": "C:\\Users\\Ut\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Apps\\project_based_learning_3\\obj\\",
+        "outputPath": "C:\\Users\\Ut\\OneDrive - The University of Technology\\Microsoft Copilot Chat Files\\project_based_learning_3\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
