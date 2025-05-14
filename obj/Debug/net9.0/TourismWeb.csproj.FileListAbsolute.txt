@@ -2608,7 +2608,6 @@ D:\PBL3\PBL3\obj\Debug\net9.0\TourismWeb.sourcelink.json
 D:\PBL3\PBL3\obj\Debug\net9.0\scopedcss\bundle\TourismWeb.styles.css
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\e6g4i39jr6-59fb5v71re.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\xpu4n0dz2y-cihadb3bhn.gz
-D:\PBL3\PBL3\obj\Debug\net9.0\compressed\jfl8ogsjll-savuemudaj.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\6znzsnols5-dveiuze4ge.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\lypfx3vwpe-3mo00pofj6.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\61b1f5ocpc-hftl9uts4v.gz
@@ -2720,5 +2719,6 @@ D:\PBL3\PBL3\bin\Debug\net9.0\Sprache.dll
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\e1nq74b8jn-t8zibm30yb.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\tk080zu9jp-i8p8e3s8dk.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\ncat4yc4jn-q7kfrr518p.gz
-D:\PBL3\PBL3\obj\Debug\net9.0\compressed\epcgl8irp2-aaarbli20r.gz
 D:\PBL3\PBL3\obj\Debug\net9.0\compressed\4c5w76o872-mqg9uktq06.gz
+D:\PBL3\PBL3\obj\Debug\net9.0\compressed\jfl8ogsjll-wn0j4xj23i.gz
+D:\PBL3\PBL3\obj\Debug\net9.0\compressed\epcgl8irp2-2fd4cihlz8.gz

@@ -40,50 +40,79 @@ public class AdminController : Controller
     // {
     //     return View();
     // }
-    public async Task<IActionResult> Dashboard(string timeRange = "30")
+    public async Task<IActionResult> Dashboard(string timeRange = "30", DateTime? fromDate = null, DateTime? toDate = null)
 {
     var viewModel = new DashboardViewModel();
     DateTime startDate;
 
-    // Xác định ngày bắt đầu dựa trên timeRange
-    switch (timeRange)
+    // Kiểm tra xem có đang sử dụng bộ lọc tùy chỉnh không
+    if (fromDate.HasValue && toDate.HasValue)
     {
-        case "7":
-            startDate = DateTime.Today.AddDays(-6);
-            break;
-        case "all":
-            startDate = DateTime.MinValue;
-            break;
-        case "30":
-        default:
-            startDate = DateTime.Today.AddDays(-29);
-            break;
+        // Đảm bảo toDate không sớm hơn fromDate
+        if (toDate < fromDate)
+        {
+            var temp = fromDate;
+            fromDate = toDate;
+            toDate = temp;
+        }
+        
+        // Sử dụng khoảng thời gian tùy chỉnh
+        startDate = fromDate.Value;
+        
+        // Thêm 1 ngày vào toDate để bao gồm cả ngày kết thúc
+        toDate = toDate.Value.AddDays(1).AddTicks(-1);
+        
+        // Truyền giá trị đã chọn vào ViewBag
+        ViewBag.FromDate = fromDate.Value.ToString("yyyy-MM-dd");
+        ViewBag.ToDate = toDate.Value.ToString("yyyy-MM-dd");
     }
-    ViewBag.SelectedTimeRange = timeRange; // Truyền giá trị đã chọn vào ViewBag
+    else
+    {
+        // Xác định ngày bắt đầu dựa trên timeRange
+        switch (timeRange)
+        {
+            case "7":
+                startDate = DateTime.Today.AddDays(-6);
+                break;
+            case "all":
+                startDate = DateTime.MinValue;
+                break;
+            case "30":
+            default:
+                startDate = DateTime.Today.AddDays(-29);
+                break;
+        }
+        ViewBag.SelectedTimeRange = timeRange; // Truyền giá trị đã chọn vào ViewBag
+    }
 
     // --- Lấy dữ liệu cho Stats Cards ---
     viewModel.TotalPosts = await _context.Posts
-                                        .Where(p => p.CreatedAt >= startDate ) //&& p.Status == PostStatus.Approved
+                                        .Where(p => (!fromDate.HasValue && !toDate.HasValue && p.CreatedAt >= startDate) || 
+                                                   (fromDate.HasValue && toDate.HasValue && p.CreatedAt >= fromDate && p.CreatedAt <= toDate))
                                         .CountAsync();
 
-    // Số lượng này vẫn có thể hữu ích cho mục đích khác, nhưng không cho biểu đồ phân bố này
-    // viewModel.TotalTouristSpots = await _context.TouristSpots
-    //                                          .Where(ts => ts.CreatedAt >= startDate)
-    //                                          .CountAsync();
-
     viewModel.PostsInGuidebookCategory = await _context.Posts
-                                                .Where(p => p.TypeOfPost == "Cẩm nang" && p.CreatedAt >= startDate )
+                                                .Where(p => p.TypeOfPost == "Cẩm nang" && 
+                                                          ((!fromDate.HasValue && !toDate.HasValue && p.CreatedAt >= startDate) || 
+                                                           (fromDate.HasValue && toDate.HasValue && p.CreatedAt >= fromDate && p.CreatedAt <= toDate)))
                                                 .CountAsync();
+                                                
     viewModel.PostsInExperienceCategory = await _context.Posts
-                                                 .Where(p => p.TypeOfPost == "Trải nghiệm" && p.CreatedAt >= startDate )
-                                                 .CountAsync();
-    viewModel.PostsInLocationCategory = await _context.Posts // Đây là bài viết có TypeOfPost == "Địa điểm"
-                                                 .Where(p => p.TypeOfPost == "Địa điểm" && p.CreatedAt >= startDate )
-                                                 .CountAsync();
+                                                .Where(p => p.TypeOfPost == "Trải nghiệm" && 
+                                                          ((!fromDate.HasValue && !toDate.HasValue && p.CreatedAt >= startDate) || 
+                                                           (fromDate.HasValue && toDate.HasValue && p.CreatedAt >= fromDate && p.CreatedAt <= toDate)))
+                                                .CountAsync();
+                                                
+    viewModel.PostsInLocationCategory = await _context.Posts
+                                                .Where(p => p.TypeOfPost == "Địa điểm" && 
+                                                          ((!fromDate.HasValue && !toDate.HasValue && p.CreatedAt >= startDate) || 
+                                                           (fromDate.HasValue && toDate.HasValue && p.CreatedAt >= fromDate && p.CreatedAt <= toDate)))
+                                                .CountAsync();
 
     // --- Dữ liệu cho Biểu đồ Số bài viết trong X ngày qua ---
     var postsByDay = await _context.Posts
-                            .Where(p => p.CreatedAt >= startDate)
+                            .Where(p => (!fromDate.HasValue && !toDate.HasValue && p.CreatedAt >= startDate) || 
+                                       (fromDate.HasValue && toDate.HasValue && p.CreatedAt >= fromDate && p.CreatedAt <= toDate))
                             .GroupBy(p => p.CreatedAt.Date)
                             .Select(g => new { Date = g.Key, Count = g.Count() })
                             .OrderBy(x => x.Date)
@@ -98,43 +127,37 @@ public class AdminController : Controller
         viewModel.PostChartData.Add(dayData.Count);
     }
 
-
     // --- Dữ liệu cho Biểu đồ Tỷ lệ phân bố bài viết ---
-    // Xây dựng trực tiếp từ các giá trị PostsIn...Category đã tính
     viewModel.DistributionChartLabels.Clear(); // Xóa dữ liệu cũ nếu có
     viewModel.DistributionChartData.Clear();   // Xóa dữ liệu cũ nếu có
 
     // Tổng bài viết từ 3 loại
-int totalPosts = viewModel.PostsInGuidebookCategory +
-                 viewModel.PostsInExperienceCategory +
-                 viewModel.PostsInLocationCategory;
+    int totalPosts = viewModel.PostsInGuidebookCategory +
+                    viewModel.PostsInExperienceCategory +
+                    viewModel.PostsInLocationCategory;
 
-// Tránh chia cho 0
-if (totalPosts > 0)
-{
-    if (viewModel.PostsInGuidebookCategory > 0)
+    // Tránh chia cho 0
+    if (totalPosts > 0)
     {
-        viewModel.DistributionChartLabels.Add("Cẩm nang");
-        viewModel.DistributionChartData.Add(
-            (int)Math.Round(viewModel.PostsInGuidebookCategory * 100.0 / totalPosts));
+        if (viewModel.PostsInGuidebookCategory > 0)
+        {
+            viewModel.DistributionChartLabels.Add("Cẩm nang");
+            viewModel.DistributionChartData.Add(
+                (int)Math.Round(viewModel.PostsInGuidebookCategory * 100.0 / totalPosts));
+        }
+        if (viewModel.PostsInExperienceCategory > 0)
+        {
+            viewModel.DistributionChartLabels.Add("Trải nghiệm");
+            viewModel.DistributionChartData.Add(
+                (int)Math.Round(viewModel.PostsInExperienceCategory * 100.0 / totalPosts));
+        }
+        if (viewModel.PostsInLocationCategory > 0)
+        {
+            viewModel.DistributionChartLabels.Add("Bài viết về Địa điểm");
+            viewModel.DistributionChartData.Add(
+                (int)Math.Round(viewModel.PostsInLocationCategory * 100.0 / totalPosts));
+        }
     }
-    if (viewModel.PostsInExperienceCategory > 0)
-    {
-        viewModel.DistributionChartLabels.Add("Trải nghiệm");
-        viewModel.DistributionChartData.Add(
-            (int)Math.Round(viewModel.PostsInExperienceCategory * 100.0 / totalPosts));
-    }
-    if (viewModel.PostsInLocationCategory > 0)
-    {
-        viewModel.DistributionChartLabels.Add("Bài viết về Địa điểm");
-        viewModel.DistributionChartData.Add(
-            (int)Math.Round(viewModel.PostsInLocationCategory * 100.0 / totalPosts));
-    }
-}
-
-
-    // Loại bỏ phần code truy vấn `postsDistribution` và thêm `TotalTouristSpots` vào biểu đồ, vì nó không còn cần thiết
-    // cho yêu cầu này.
 
     // --- Hoạt động gần đây (5 bài viết mới nhất) ---
     viewModel.RecentActivities = await _context.Posts
@@ -144,11 +167,11 @@ if (totalPosts > 0)
                                         .ToListAsync();
 
     _logger.LogInformation($"PostsInGuidebookCategory: {viewModel.PostsInGuidebookCategory}");
-_logger.LogInformation($"PostsInExperienceCategory: {viewModel.PostsInExperienceCategory}");
-_logger.LogInformation($"PostsInLocationCategory: {viewModel.PostsInLocationCategory}");
-_logger.LogInformation($"DistributionChartData before view: {JsonSerializer.Serialize(viewModel.DistributionChartData)}");
+    _logger.LogInformation($"PostsInExperienceCategory: {viewModel.PostsInExperienceCategory}");
+    _logger.LogInformation($"PostsInLocationCategory: {viewModel.PostsInLocationCategory}");
+    _logger.LogInformation($"DistributionChartData before view: {JsonSerializer.Serialize(viewModel.DistributionChartData)}");
 
-return View(viewModel);
+    return View(viewModel);
 }
     public IActionResult Posts()
     {
@@ -212,70 +235,99 @@ return View(viewModel);
     // {
     //     return View();
     // }
-    public async Task<IActionResult> Interactions(string timeRange = "30")
+    public async Task<IActionResult> Interactions(string timeRange = "30", DateTime? fromDate = null, DateTime? toDate = null)
 {
     // Convert timeRange to int for easier handling
-    int days;
+    int days = 30; // Initialize with default value
     bool isAllTime = false;
+    bool isCustomRange = false;
     
-    switch (timeRange)
+    // Kiểm tra xem có đang sử dụng bộ lọc tùy chỉnh không
+    if (fromDate.HasValue && toDate.HasValue)
     {
-        case "7":
-            days = 7;
-            break;
-        case "-1":
-            days = int.MaxValue; // Use a large value for "All time"
-            isAllTime = true;
-            break;
-        case "30":
-        default:
-            days = 30;
-            break;
+        isCustomRange = true;
+        // Đảm bảo toDate không sớm hơn fromDate
+        if (toDate < fromDate)
+        {
+            var temp = fromDate;
+            fromDate = toDate;
+            toDate = temp;
+        }
+        // Thêm 1 ngày vào toDate để bao gồm cả ngày kết thúc
+        toDate = toDate.Value.AddDays(1).AddTicks(-1);
+    }
+    else
+    {
+        switch (timeRange)
+        {
+            case "7":
+                days = 7;
+                break;
+            case "-1":
+                // Thay đổi ở đây: Thay vì đặt ngày bắt đầu từ năm 2000,
+                // đặt ngày bắt đầu từ 12 tháng trước đến nay
+                days = 365; // Khoảng 1 năm
+                isAllTime = true;
+                break;
+            case "30":
+            default:
+                days = 30;
+                break;
+        }
+        
+        // Determine the start date based on selected time range
+        fromDate = isAllTime 
+            ? DateTime.Now.AddDays(-days) // Thay đổi ở đây: Thay vì new DateTime(2000, 1, 1)
+            : DateTime.Now.AddDays(-days);
+            
+        toDate = DateTime.Now;
     }
     
-    ViewBag.SelectedDays = isAllTime ? -1 : days;
-    
-    // Determine the start date based on selected time range
-    DateTime startDate = isAllTime 
-        ? new DateTime(2000, 1, 1) // Use a very old date for "All time"
-        : DateTime.Now.AddDays(-days);
+    ViewBag.SelectedDays = isCustomRange ? 0 : (isAllTime ? -1 : int.Parse(timeRange));
+    ViewBag.FromDate = fromDate?.ToString("yyyy-MM-dd");
+    ViewBag.ToDate = toDate?.ToString("yyyy-MM-dd");
         
-    DateTime previousPeriodStart = isAllTime
-        ? new DateTime(2000, 1, 1)
-        : startDate.AddDays(-days);
+    DateTime previousPeriodStart = isCustomRange
+        ? fromDate.Value.AddDays(-(toDate.Value - fromDate.Value).Days)
+        : (isAllTime ? fromDate.Value.AddDays(-days) : fromDate.Value.AddDays(-(toDate.Value - fromDate.Value).Days));
     
+    DateTime previousPeriodEnd = isCustomRange
+        ? fromDate.Value.AddTicks(-1)
+        : (isAllTime ? fromDate.Value.AddTicks(-1) : fromDate.Value.AddTicks(-1));
+    
+    // Rest of the method remains unchanged
     // Tính tổng số lượt thích và chia sẻ trong khoảng thời gian đã chọn
     int totalPostFavorites = await _context.PostFavorites
-        .Where(f => f.CreatedAt >= startDate)
+        .Where(f => f.CreatedAt >= fromDate && f.CreatedAt <= toDate)
         .CountAsync();
         
     int totalPostShares = await _context.PostShares
-        .Where(s => s.SharedAt >= startDate)
+        .Where(s => s.SharedAt >= fromDate && s.SharedAt <= toDate)
         .CountAsync();
         
     int totalSpotFavorites = await _context.SpotFavorites
-        .Where(f => f.CreatedAt >= startDate)
+        .Where(f => f.CreatedAt >= fromDate && f.CreatedAt <= toDate)
         .CountAsync();
         
     int totalSpotShares = await _context.SpotShares
-        .Where(s => s.SharedAt >= startDate)
+        .Where(s => s.SharedAt >= fromDate && s.SharedAt <= toDate)
         .CountAsync();
         
     // Tính tổng số lượt thích và chia sẻ trong khoảng thời gian trước đó để tính tỷ lệ tăng trưởng
     int previousPostFavorites = await _context.PostFavorites
-        .Where(f => f.CreatedAt >= previousPeriodStart && f.CreatedAt < startDate)
+        .Where(f => f.CreatedAt >= previousPeriodStart && f.CreatedAt < previousPeriodEnd)
         .CountAsync();
         
     int previousPostShares = await _context.PostShares
-        .Where(s => s.SharedAt >= previousPeriodStart && s.SharedAt < startDate)
+        .Where(s => s.SharedAt >= previousPeriodStart && s.SharedAt < previousPeriodEnd)
         .CountAsync();
         
     int previousSpotFavorites = await _context.SpotFavorites
-        .Where(f => f.CreatedAt >= previousPeriodStart && f.CreatedAt < startDate)
+        .Where(f => f.CreatedAt >= previousPeriodStart && f.CreatedAt < previousPeriodEnd)
         .CountAsync();
         
     int previousSpotShares = await _context.SpotShares
-        .Where(s => s.SharedAt >= previousPeriodStart && s.SharedAt < startDate)
+        .Where(s => s.SharedAt >= previousPeriodStart && s.SharedAt < previousPeriodEnd)
         .CountAsync();
         
     // Tính tỷ lệ tăng trưởng
@@ -308,63 +360,94 @@ return View(viewModel);
     List<int> spotFavoritesData = new List<int>();
     List<int> spotSharesData = new List<int>();
     
-    // Tính số ngày hiển thị trên biểu đồ (tối đa 30 điểm dữ liệu)
-    int displayDays = isAllTime ? 30 : days;
-    int interval = displayDays <= 30 ? 1 : displayDays / 30;
+    TimeSpan timeSpan = toDate.Value - fromDate.Value;
+    int totalDays = (int)timeSpan.TotalDays;
+
     
-    // Nếu là "Tất cả", lấy dữ liệu theo tháng thay vì theo ngày
-    if (isAllTime)
+    // Xác định khoảng thời gian cho biểu đồ
+    if (totalDays <= 31) // Hiển thị theo ngày nếu dưới 31 ngày
     {
-        // Lấy dữ liệu theo tháng cho "Tất cả"
-        var currentDate = DateTime.Now;
-        for (int i = 0; i < 12; i++) // Hiển thị 12 tháng gần nhất
+        // Lấy dữ liệu theo ngày
+        for (DateTime date = fromDate.Value.Date; date <= toDate.Value.Date; date = date.AddDays(1))
         {
-            var monthStart = new DateTime(currentDate.Year, currentDate.Month, 1).AddMonths(-i);
-            var monthEnd = monthStart.AddMonths(1);
+            DateTime nextDay = date.AddDays(1);
             
-            dateLabels.Insert(0, monthStart.ToString("MM/yyyy"));
-            
-            postFavoritesData.Insert(0, await _context.PostFavorites
-                .Where(f => f.CreatedAt >= monthStart && f.CreatedAt < monthEnd)
-                .CountAsync());
-                
-            postSharesData.Insert(0, await _context.PostShares
-                .Where(s => s.SharedAt >= monthStart && s.SharedAt < monthEnd)
-                .CountAsync());
-                
-            spotFavoritesData.Insert(0, await _context.SpotFavorites
-                .Where(f => f.CreatedAt >= monthStart && f.CreatedAt < monthEnd)
-                .CountAsync());
-                
-            spotSharesData.Insert(0, await _context.SpotShares
-                .Where(s => s.SharedAt >= monthStart && s.SharedAt < monthEnd)
-                .CountAsync());
-        }
-    }
-    else
-    {
-        // Lấy dữ liệu theo ngày cho 7 hoặc 30 ngày
-        for (int i = 0; i < displayDays; i += interval)
-        {
-            DateTime currentDate = DateTime.Now.AddDays(-(displayDays - i - 1));
-            DateTime endDate = currentDate.AddDays(1);
-            
-            dateLabels.Add(currentDate.ToString("dd/MM"));
+            dateLabels.Add(date.ToString("dd/MM"));
             
             postFavoritesData.Add(await _context.PostFavorites
-                .Where(f => f.CreatedAt >= currentDate && f.CreatedAt < endDate)
+                .Where(f => f.CreatedAt >= date && f.CreatedAt < nextDay)
                 .CountAsync());
                 
             postSharesData.Add(await _context.PostShares
-                .Where(s => s.SharedAt >= currentDate && s.SharedAt < endDate)
+                .Where(s => s.SharedAt >= date && s.SharedAt < nextDay)
                 .CountAsync());
                 
             spotFavoritesData.Add(await _context.SpotFavorites
-                .Where(f => f.CreatedAt >= currentDate && f.CreatedAt < endDate)
+                .Where(f => f.CreatedAt >= date && f.CreatedAt < nextDay)
                 .CountAsync());
                 
             spotSharesData.Add(await _context.SpotShares
-                .Where(s => s.SharedAt >= currentDate && s.SharedAt < endDate)
+                .Where(s => s.SharedAt >= date && s.SharedAt < nextDay)
+                .CountAsync());
+        }
+    }
+    else if (totalDays <= 90) // Hiển thị theo tuần nếu từ 31-90 ngày
+    {
+        // Tính toán ngày bắt đầu tuần (Thứ Hai)
+        DateTime startOfWeek = fromDate.Value.Date.AddDays(-(int)fromDate.Value.DayOfWeek + 1);
+        if ((int)fromDate.Value.DayOfWeek == 0) // Chủ nhật
+            startOfWeek = fromDate.Value.Date.AddDays(-6);
+            
+        // Lấy dữ liệu theo tuần
+        for (DateTime weekStart = startOfWeek; weekStart <= toDate.Value; weekStart = weekStart.AddDays(7))
+        {
+            DateTime weekEnd = weekStart.AddDays(7);
+            
+            dateLabels.Add($"{weekStart.ToString("dd/MM")} - {weekStart.AddDays(6).ToString("dd/MM")}");
+            
+            postFavoritesData.Add(await _context.PostFavorites
+                .Where(f => f.CreatedAt >= weekStart && f.CreatedAt < weekEnd)
+                .CountAsync());
+                
+            postSharesData.Add(await _context.PostShares
+                .Where(s => s.SharedAt >= weekStart && s.SharedAt < weekEnd)
+                .CountAsync());
+                
+            spotFavoritesData.Add(await _context.SpotFavorites
+                .Where(f => f.CreatedAt >= weekStart && f.CreatedAt < weekEnd)
+                .CountAsync());
+                
+            spotSharesData.Add(await _context.SpotShares
+                .Where(s => s.SharedAt >= weekStart && s.SharedAt < weekEnd)
+                .CountAsync());
+        }
+    }
+    else // Hiển thị theo tháng nếu trên 90 ngày
+    {
+        // Tìm ngày đầu tiên của tháng
+        DateTime startOfMonth = new DateTime(fromDate.Value.Year, fromDate.Value.Month, 1);
+        
+        // Lấy dữ liệu theo tháng
+        for (DateTime monthStart = startOfMonth; monthStart <= toDate.Value; monthStart = monthStart.AddMonths(1))
+        {
+            DateTime monthEnd = monthStart.AddMonths(1);
+            
+            dateLabels.Add(monthStart.ToString("MM/yyyy"));
+            
+            postFavoritesData.Add(await _context.PostFavorites
+                .Where(f => f.CreatedAt >= monthStart && f.CreatedAt < monthEnd)
+                .CountAsync());
+                
+            postSharesData.Add(await _context.PostShares
+                .Where(s => s.SharedAt >= monthStart && s.SharedAt < monthEnd)
+                .CountAsync());
+                
+            spotFavoritesData.Add(await _context.SpotFavorites
+                .Where(f => f.CreatedAt >= monthStart && f.CreatedAt < monthEnd)
+                .CountAsync());
+                
+            spotSharesData.Add(await _context.SpotShares
+                .Where(s => s.SharedAt >= monthStart && s.SharedAt < monthEnd)
                 .CountAsync());
         }
     }
@@ -381,8 +464,8 @@ return View(viewModel);
             p.PostId,
             p.Title,
             p.TypeOfPost,
-            FavoritesCount = p.PostFavorites.Count(f => f.CreatedAt >= startDate),
-            SharesCount = p.Shares.Count(s => s.SharedAt >= startDate)
+            FavoritesCount = p.PostFavorites.Count(f => f.CreatedAt >= fromDate && f.CreatedAt <= toDate),
+            SharesCount = p.Shares.Count(s => s.SharedAt >= fromDate && s.SharedAt <= toDate)
         })
         .OrderByDescending(p => p.FavoritesCount + p.SharesCount)
         .Take(5)
@@ -396,8 +479,8 @@ return View(viewModel);
             s.SpotId,
             s.Name,
             CategoryName = s.Category.Name,
-            FavoritesCount = s.Favorites.Count(f => f.CreatedAt >= startDate),
-            SharesCount = s.Shares.Count(sh => sh.SharedAt >= startDate)
+            FavoritesCount = s.Favorites.Count(f => f.CreatedAt >= fromDate && f.CreatedAt <= toDate),
+            SharesCount = s.Shares.Count(sh => sh.SharedAt >= fromDate && sh.SharedAt <= toDate)
         })
         .OrderByDescending(s => s.FavoritesCount + s.SharesCount)
         .Take(5)
@@ -412,10 +495,10 @@ return View(viewModel);
             u.FullName,
             u.Email,
             u.AvatarUrl,
-            PostFavoritesCount = u.PostFavorites.Count(f => f.CreatedAt >= startDate),
-            PostSharesCount = u.PostShares.Count(s => s.SharedAt >= startDate),
-            SpotFavoritesCount = u.SpotFavorites.Count(f => f.CreatedAt >= startDate),
-            SpotSharesCount = u.SpotShares.Count(s => s.SharedAt >= startDate)
+            PostFavoritesCount = u.PostFavorites.Count(f => f.CreatedAt >= fromDate && f.CreatedAt <= toDate),
+            PostSharesCount = u.PostShares.Count(s => s.SharedAt >= fromDate && s.SharedAt <= toDate),
+            SpotFavoritesCount = u.SpotFavorites.Count(f => f.CreatedAt >= fromDate && f.CreatedAt <= toDate),
+            SpotSharesCount = u.SpotShares.Count(s => s.SharedAt >= fromDate && s.SharedAt <= toDate)
         })
         .OrderByDescending(u => 
             u.PostFavoritesCount + u.PostSharesCount + u.SpotFavoritesCount + u.SpotSharesCount)

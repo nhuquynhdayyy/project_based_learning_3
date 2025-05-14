@@ -1,17 +1,8 @@
-@model TourismWeb.Models.ViewModels.DashboardViewModel // Thay bằng namespace đúng của bạn
+@model TourismWeb.Models.ViewModels.DashboardViewModel
 
 @section Styles {
     <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Thêm style để chart không bị quá lớn và giữ tỷ lệ */
-        .chart-container {
-            position: relative;
-            margin: auto;
-            height: 350px; /* Hoặc kích thước phù hợp với layout của bạn */
-            width: 100%;   /* Hoặc kích thước phù hợp */
-        }
-    </style>
 }
 
 @{
@@ -39,18 +30,77 @@
         document.addEventListener('DOMContentLoaded', function () {
             // Xử lý thay đổi time-range
             const timeRangeSelect = document.getElementById('time-range');
+            const dateFiltersSection = document.getElementById('dateFiltersSection');
+            
+            // Kiểm tra nếu đang ở chế độ tùy chỉnh (custom) hoặc có thông tin ngày
+            function checkCustomDateMode() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const hasDateParams = urlParams.has('fromDate') || urlParams.has('toDate');
+                
+                if (timeRangeSelect.value === 'custom' || hasDateParams) {
+                    dateFiltersSection.style.display = 'block';
+                    // Nếu có date params nhưng không phải custom, chọn custom
+                    if (hasDateParams && timeRangeSelect.value !== 'custom') {
+                        timeRangeSelect.value = 'custom';
+                    }
+                } else {
+                    dateFiltersSection.style.display = 'none';
+                }
+            }
+            
+            // Kiểm tra ban đầu
+            checkCustomDateMode();
+            
+            // Xử lý khi người dùng thay đổi lựa chọn time range
             if (timeRangeSelect) {
                 timeRangeSelect.addEventListener('change', function () {
                     const selectedValue = this.value;
-                    let currentUrlPath = window.location.pathname;
-                    window.location.href = `${currentUrlPath}?timeRange=${selectedValue}`;
+                    
+                    // Nếu chọn tùy chỉnh, hiển thị form date range
+                    if (selectedValue === 'custom') {
+                        dateFiltersSection.style.display = 'block';
+                        // Focus vào input đầu tiên để cải thiện UX
+                        setTimeout(() => document.getElementById('fromDate').focus(), 100);
+                    } else {
+                        dateFiltersSection.style.display = 'none';
+                        // Khi chọn time range khác, reset date inputs
+                        document.getElementById('fromDate').value = '';
+                        document.getElementById('toDate').value = '';
+                        
+                        // Chuyển trang với timeRange được chọn
+                        applyTimeRange(selectedValue);
+                    }
                 });
             }
-
-            // ĐĂNG KÝ PLUGIN DATALABELS (quan trọng cho Chart.js v3+)
-            // Plugin được đăng ký tự động nếu bạn dùng bản 'dist' hoàn chỉnh.
-            // Nếu dùng bản module, bạn cần Chart.register(ChartDataLabels);
-            // Với CDN 'dist', thường không cần gọi register thủ công.
+            
+            // Xử lý form date range
+            const dateRangeForm = document.getElementById('dateRangeForm');
+            if (dateRangeForm) {
+                dateRangeForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const fromDate = document.getElementById('fromDate').value;
+                    const toDate = document.getElementById('toDate').value;
+                    
+                    if (fromDate && toDate) {
+                        // Chuyển hướng với tham số date range
+                        let currentUrlPath = window.location.pathname;
+                        window.location.href = `${currentUrlPath}?fromDate=${fromDate}&toDate=${toDate}&timeRange=custom`;
+                    } else {
+                        alert('Vui lòng chọn cả ngày bắt đầu và ngày kết thúc');
+                    }
+                });
+            }
+            
+            // Xử lý nút đặt lại
+            const resetButton = document.getElementById('resetButton');
+            if (resetButton) {
+                resetButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Reset về mặc định 30 ngày
+                    let currentUrlPath = window.location.pathname;
+                    window.location.href = currentUrlPath;
+                });
+            }
 
             // Khởi tạo biểu đồ số bài viết
             if (document.getElementById('postsChart')) {
@@ -62,6 +112,14 @@
                 initDistributionChart();
             }
         });
+        
+        // Hàm áp dụng time range khi thay đổi select box
+        function applyTimeRange(value) {
+            if (value !== 'custom') {
+                let currentUrlPath = window.location.pathname;
+                window.location.href = `${currentUrlPath}?timeRange=${value}`;
+            }
+        }
 
         // HÀM KHỞI TẠO BIỂU ĐỒ SỐ BÀI VIẾT
         function initPostsChart() {
@@ -98,8 +156,7 @@
                             position: 'top',
                         },
                         title: {
-                            display: false, // Đã có H2 bên ngoài
-                            // text: 'Số bài viết trong ... ngày qua'
+                            display: false,
                         }
                     }
                 }
@@ -110,45 +167,43 @@
         function initDistributionChart() {
             const ctxDistribution = document.getElementById('distributionChart').getContext('2d');
             new Chart(ctxDistribution, {
-                type: 'doughnut', // HOẶC 'pie' NẾU MUỐN BIỂU ĐỒ TRÒN ĐẶC
+                type: 'doughnut',
                 data: {
-                    labels: distributionChartLabels, // Ví dụ: ["Cẩm nang", "Trải nghiệm", "Bài viết về Địa điểm"]
+                    labels: distributionChartLabels,
                     datasets: [{
                         label: 'Tỷ lệ phân bố',
-                        data: distributionChartData, // Ví dụ: [3, 1, 1]
+                        data: distributionChartData,
                         backgroundColor: [
-                            '#FF6384', // Màu cho Cẩm nang (Hồng) - khớp với legend trong hình
-                            '#36A2EB', // Màu cho Trải nghiệm (Xanh dương) - khớp với legend trong hình
-                            '#FFCE56'  // Màu cho Bài viết về Địa điểm (Vàng) - khớp với legend trong hình
-                            // Thêm các màu khác nếu có thêm loại
+                            '#FF6384',
+                            '#36A2EB',
+                            '#FFCE56'
                         ],
-                        borderColor: [ // Thêm viền để đẹp hơn
+                        borderColor: [
                             '#FFFFFF',
                             '#FFFFFF',
                             '#FFFFFF'
                         ],
-                        borderWidth: 2, // Độ dày viền
+                        borderWidth: 2,
                         hoverOffset: 4
                     }]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false, // Quan trọng để chart co giãn theo container
-                    cutout: '50%', // Chỉ áp dụng cho 'doughnut', tạo độ dày cho vòng. '0%' sẽ giống 'pie'
+                    maintainAspectRatio: false,
+                    cutout: '50%',
                     plugins: {
                         legend: {
-                            display: true, // Hiển thị chú thích (Cẩm nang, Trải nghiệm,...)
-                            position: 'top', // Vị trí chú thích, có thể là 'bottom', 'left', 'right'
+                            display: true,
+                            position: 'top',
                             labels: {
-                                usePointStyle: true, // Sử dụng hình tròn nhỏ cho legend thay vì hình chữ nhật
-                                padding: 20 // Khoảng cách giữa các mục legend
+                                usePointStyle: true,
+                                padding: 20
                             }
                         },
                         title: {
-                            display: false, // Đã có H2 bên ngoài
-                            // text: 'Tỷ lệ phân bố bài viết'
+                            display: false,
                         },
-                        tooltip: { // Cấu hình tooltip khi hover
+                        tooltip: {
                             callbacks: {
                                 label: function(context) {
                                     let label = context.label || '';
@@ -156,7 +211,6 @@
                                         label += ': ';
                                     }
                                     if (context.parsed !== null) {
-                                        // Hiển thị cả số lượng và phần trăm trong tooltip
                                         const value = context.raw;
                                         const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
                                         const percentage = total > 0 ? ((value / total) * 100).toFixed(1) + '%' : '0%';
@@ -166,39 +220,34 @@
                                 }
                             }
                         },
-                        datalabels: { // Cấu hình cho plugin chartjs-plugin-datalabels
-                            display: true, // Đặt là true để hiển thị
+                        datalabels: {
+                            display: true,
                             formatter: (value, ctx) => {
                                 let sum = 0;
                                 let dataArr = ctx.chart.data.datasets[0].data;
                                 dataArr.map(data => {
                                     sum += data;
                                 });
-                                if (sum === 0) return ''; // Không hiển thị gì nếu tổng là 0
+                                if (sum === 0) return '';
                                 let percentage = (value * 100 / sum).toFixed(1) + "%";
-                                // Chỉ hiển thị phần trăm nếu giá trị > 0 để tránh lộn xộn
                                 return value > 0 ? percentage : '';
                             },
-                            color: (context) => { // Màu chữ có thể tự động điều chỉnh dựa trên màu nền
+                            color: (context) => {
                                 const bgColor = context.dataset.backgroundColor[context.dataIndex];
-                                // Hàm đơn giản để quyết định màu chữ (đen hoặc trắng)
-                                // Bạn có thể cần một logic phức tạp hơn cho độ tương phản tốt
-                                const colorThreshold = 128; // Ngưỡng độ sáng
+                                const colorThreshold = 128;
                                 const rgb = bgColor.match(/\d+/g);
                                 if (rgb) {
                                      const brightness = (parseInt(rgb[0]) * 299 + parseInt(rgb[1]) * 587 + parseInt(rgb[2]) * 114) / 1000;
                                      return brightness > colorThreshold ? '#000000' : '#FFFFFF';
                                 }
-                                return '#FFFFFF'; // Mặc định là trắng nếu không parse được màu
+                                return '#FFFFFF';
                             },
                             font: {
                                 weight: 'bold',
                                 size: 12
                             },
-                            anchor: 'center', // Vị trí của label: 'center', 'start', 'end'
-                            align: 'center',  // Căn chỉnh label
-                            // offset: 8, // Khoảng cách từ điểm neo (nếu anchor không phải center)
-                            // rotation: -45, // Xoay label
+                            anchor: 'center',
+                            align: 'center',
                         }
                     }
                 }
@@ -218,23 +267,72 @@
             <div class="page-header">
                 <h1 class="page-title">Tổng Quan</h1>
                 <div class="page-actions">
-                    @* <div class="filter-group">
-                        <label for="time-range">Thời gian:</label>
-                        <select id="time-range" class="select-control">
-                            <option value="7" selected="@(ViewContext.RouteData.Values["timeRange"]?.ToString() == "7")">7 ngày</option>
-                            <option value="30" selected="@(ViewContext.RouteData.Values["timeRange"]?.ToString() == "30" || ViewContext.RouteData.Values["timeRange"] == null)">30 ngày</option>
-                            <option value="all" selected="@(ViewContext.RouteData.Values["timeRange"]?.ToString() == "all")">Tất cả</option>
-                        </select>
-                    </div> *@
                     <div class="filter-group">
-    <label for="time-range">Thời gian:</label>
-    <select id="time-range" class="select-control">
-        <option value="7" selected="@(ViewBag.SelectedTimeRange == "7")">7 ngày</option>
-        <option value="30" selected="@(ViewBag.SelectedTimeRange == "30")">30 ngày</option>
-        <option value="all" selected="@(ViewBag.SelectedTimeRange == "all")">Tất cả</option>
-    </select>
-</div>
+                        <div class="time-filter-row">
+                            <label for="time-range">Thời gian:</label>
+                            @{
+                                var options = new[] { 7, 30, -1 }; // -1 đại diện cho "Tất cả"
+                                var selectedTimeRange = ViewBag.SelectedTimeRange ?? "30";
+                                var isCustomRange = selectedTimeRange == "custom";
+                            }
+                            <select id="time-range" class="select-control">
+                                @foreach (var days in options)
+                                {
+                                    if (days == -1) 
+                                    {
+                                        if (selectedTimeRange == "-1")
+                                        {
+                                            <option value="-1" selected>Tất cả</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="-1">Tất cả</option>
+                                        }
+                                    }
+                                    else 
+                                    {
+                                        if (selectedTimeRange == days.ToString())
+                                        {
+                                            <option value="@days" selected>@days ngày</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@days">@days ngày</option>
+                                        }
+                                    }
+                                }
+                                @if (isCustomRange)
+                                {
+                                    <option value="custom" selected>Tùy chỉnh</option>
+                                }
+                                else
+                                {
+                                    <option value="custom">Tùy chỉnh</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            
+            <!-- Phần lọc theo ngày tùy chỉnh với nút lọc và đặt lại cùng hàng, giống hình mẫu -->
+            <div id="dateFiltersSection" class="date-filters-section" style="display: @(isCustomRange ? "block" : "none");">
+                <form id="dateRangeForm" class="date-filters-form">
+                    <div class="filter-inline-container">
+                        <div class="date-label">Từ ngày:</div>
+                        <input type="date" id="fromDate" name="fromDate" class="date-input" value="@ViewBag.FromDate">
+                        
+                        <div class="date-label">Đến ngày:</div>
+                        <input type="date" id="toDate" name="toDate" class="date-input" value="@ViewBag.ToDate">
+                        
+                        <button type="submit" class="filter-button">
+                            <i class="fas fa-filter"></i> Lọc
+                        </button>
+                        <button type="button" id="resetButton" class="reset-button">
+                            <i class="fas fa-undo"></i> Đặt lại
+                        </button>
+                    </div>
+                </form>
             </div>
 
             <!-- Stats Cards -->
@@ -290,7 +388,16 @@
             <!-- Charts -->
             <div class="charts-grid">
                 <div class="chart-card large">
-                    <h2 class="chart-title">Số bài viết trong @(ViewContext.RouteData.Values["timeRange"] ?? "30") ngày qua</h2>
+                    <h2 class="chart-title">
+                        @if (ViewBag.FromDate != null && ViewBag.ToDate != null)
+                        {
+                            <span>Số bài viết từ @DateTime.Parse(ViewBag.FromDate).ToString("dd/MM/yyyy") đến @DateTime.Parse(ViewBag.ToDate).ToString("dd/MM/yyyy")</span>
+                        }
+                        else
+                        {
+                            <span>Số bài viết trong @(ViewBag.SelectedTimeRange == "-1" ? "tất cả thời gian" : ViewBag.SelectedTimeRange + " ngày qua")</span>
+                        }
+                    </h2>
                     <div class="chart-container">
                         <canvas id="postsChart"></canvas>
                     </div>

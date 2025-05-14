@@ -465,6 +465,10 @@
       "PackagePath": "staticwebassets\\images\\spots\\0f16c8ff-161b-42a3-898f-83e380506d20.jpg"
     },
     {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\spots\\14bf497a-5138-4452-8f96-4a1c71215408.jpg",
+      "PackagePath": "staticwebassets\\images\\spots\\14bf497a-5138-4452-8f96-4a1c71215408.jpg"
+    },
+    {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\spots\\15212a0a-471a-494e-918b-65db28f19bcb.jpg",
       "PackagePath": "staticwebassets\\images\\spots\\15212a0a-471a-494e-918b-65db28f19bcb.jpg"
     },
@@ -747,6 +751,10 @@
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\spots\\e79da831-b3bc-40c1-813b-ade1f100c8e4.png",
       "PackagePath": "staticwebassets\\images\\spots\\e79da831-b3bc-40c1-813b-ade1f100c8e4.png"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\spots\\eb254e83-4454-48a9-ad1f-1e330d0051c7.jpg",
+      "PackagePath": "staticwebassets\\images\\spots\\eb254e83-4454-48a9-ad1f-1e330d0051c7.jpg"
     },
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\images\\spots\\eb643345-3844-4dd5-97a3-264e81fc401b.png",
@@ -1111,6 +1119,10 @@
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\uploads\\posts\\20d77faf-27cb-4672-be40-3c2fbc11decc.jpg",
       "PackagePath": "staticwebassets\\uploads\\posts\\20d77faf-27cb-4672-be40-3c2fbc11decc.jpg"
+    },
+    {
+      "Id": "D:\\PBL3\\PBL3\\wwwroot\\uploads\\posts\\21e88b9d-149f-424f-b465-371dc049c317.jpg",
+      "PackagePath": "staticwebassets\\uploads\\posts\\21e88b9d-149f-424f-b465-371dc049c317.jpg"
     },
     {
       "Id": "D:\\PBL3\\PBL3\\wwwroot\\uploads\\posts\\af6d7f9d-b68c-4660-b022-832109035958.jpg",

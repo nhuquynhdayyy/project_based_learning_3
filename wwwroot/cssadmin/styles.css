@@ -123,38 +123,6 @@ body {
   margin-left: auto;
 }
 
-/* CSS cho các thẻ loại bài viết */
-.badge.blue {
-  background-color: #e0f2fe;
-  color: #1d4ed8;
-  padding: 5px 10px;
-  border-radius: 20px;
-  display: inline-flex;
-  align-items: center;
-}
-
-.badge.green {
-  background-color: #e8fbf3;
-  color: #0d9488;
-  padding: 5px 10px;
-  border-radius: 20px;
-  display: inline-flex;
-  align-items: center;
-}
-
-.badge.amber {
-  background-color: #fef9c3;
-  color: #ea580c;
-  padding: 5px 10px;
-  border-radius: 20px;
-  display: inline-flex;
-  align-items: center;
-}
-
-.badge i {
-  margin-right: 5px;
-}
-
 .sidebar-footer {
   padding: 1rem;
   border-top: 1px solid var(--border-color);
@@ -190,8 +158,7 @@ body {
 }
 
 .content-wrapper {
-  margin: 0 !important;
-  padding: 20px;
+  padding: 1.5rem;
   max-width: 2000px;
   position: relative;
 }
@@ -239,6 +206,26 @@ body {
 }
 
 .filter-group {
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-group label {
+  margin: 0;
+  white-space: nowrap;
+  font-weight: normal;
+}
+
+.select-control {
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #fff;
+  min-width: 120px;
+}
+
+/* .filter-group {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -250,7 +237,7 @@ body {
   border-radius: var(--border-radius);
   font-size: 0.875rem;
   background-color: white;
-}
+} */
 
 /* Stats Cards */
 .stats-grid {
@@ -456,6 +443,26 @@ body {
   font-weight: 500;
 }
 
+.badge i {
+  margin-right: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.badge.blue {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.badge.green {
+  background-color: #ecfdf5;
+  color: #059669;
+}
+
+.badge.amber {
+  background-color: #fffbeb;
+  color: #d97706;
+}
+
 .date-cell {
   display: flex;
   align-items: center;
@@ -525,4 +532,138 @@ body {
     width: 100%;
     justify-content: space-between;
   }
+}
+/* Thêm style để chart không bị quá lớn và giữ tỷ lệ */
+.chart-container {
+  position: relative;
+  margin: auto;
+  height: 350px; /* Hoặc kích thước phù hợp với layout của bạn */
+  width: 100%; /* Hoặc kích thước phù hợp */
+}
+
+/* Style cho header và filter */
+.page-header {
+  margin-bottom: 20px;
+}
+
+.page-actions {
+  margin-top: 15px;
+}
+
+.filter-group {
+  /* display: flex; */
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.time-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.date-filters-section {
+  background-color: #f9f9f9;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #eee;
+}
+
+.date-filters-form {
+  width: 100%;
+}
+
+.filter-inline-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.date-label {
+  font-weight: 500;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+.date-input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 140px;
+  margin-right: 15px;
+}
+
+.filter-button {
+  padding: 8px 15px;
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.filter-button:hover {
+  background-color: #3a5bd9;
+}
+
+.reset-button {
+  padding: 8px 15px;
+  background-color: #f1f1f1;
+  color: #555;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.reset-button:hover {
+  background-color: #e5e5e5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .filter-inline-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .date-input {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .filter-button,
+  .reset-button {
+    width: 100%;
+    margin: 5px 0;
+    justify-content: center;
+  }
+}
+.date-range-title {
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
