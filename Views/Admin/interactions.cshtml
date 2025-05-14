@@ -15,6 +15,77 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Hiển thị bộ lọc nâng cao nếu đang ở chế độ tùy chỉnh
+            const timeRangeSelect = document.getElementById('time-range');
+            const expandedFilters = document.getElementById('expanded-filters');
+            const toggleFiltersBtn = document.getElementById('toggle-filters');
+            
+            // Hiển thị bộ lọc nếu đang ở chế độ tùy chỉnh
+            if (timeRangeSelect.value === '0') {
+                expandedFilters.style.display = 'block';
+                if (toggleFiltersBtn) toggleFiltersBtn.classList.add('active');
+            }
+            
+            // Sự kiện khi click vào nút toggle bộ lọc
+            if (toggleFiltersBtn) {
+                toggleFiltersBtn.addEventListener('click', function() {
+                    if (expandedFilters.style.display === 'none' || expandedFilters.style.display === '') {
+                        expandedFilters.style.display = 'block';
+                        this.classList.add('active');
+                    } else {
+                        expandedFilters.style.display = 'none';
+                        this.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Sự kiện khi click nút đặt lại
+            const resetButton = document.getElementById('reset-filter');
+            if (resetButton) {
+                resetButton.addEventListener('click', function(e) {
+                    e.preventDefault(); // Ngăn chặn hành vi mặc định
+                    
+                    // Đặt lại các trường input ngày nếu có
+                    if (document.getElementById('fromDate')) {
+                        document.getElementById('fromDate').value = '';
+                    }
+                    if (document.getElementById('toDate')) {
+                        document.getElementById('toDate').value = '';
+                    }
+                    
+                    // Đặt lại select box thời gian về giá trị mặc định (30 ngày)
+                    if (document.getElementById('time-range')) {
+                        document.getElementById('time-range').value = '30';
+                    }
+                    
+                    // Đặt lại timeRange ẩn
+                    if (document.getElementById('timeRange')) {
+                        document.getElementById('timeRange').value = '30';
+                    }
+                    
+                    // Chuyển hướng về trang Interactions mặc định với tham số timeRange=30
+                    // Sử dụng window.location.href trực tiếp để đảm bảo chuyển hướng
+                    window.location.href = window.location.pathname + '?timeRange=30';
+                });
+            }
+        });
+    
+    // Hàm áp dụng bộ lọc thời gian
+    function applyTimeRange(value) {
+        const expandedFilters = document.getElementById('expanded-filters');
+        const toggleFiltersBtn = document.getElementById('toggle-filters');
+        
+        if (value === '0') {
+            // Nếu chọn tùy chỉnh, hiển thị bộ lọc nâng cao
+            expandedFilters.style.display = 'block';
+            toggleFiltersBtn.classList.add('active');
+            document.getElementById('timeRange').value = value;
+        } else {
+            // Nếu chọn mốc thời gian có sẵn, chuyển hướng ngay
+            window.location.href = '@Url.Action("Interactions", "Admin")?timeRange=' + value;
+        }
+    }
+        document.addEventListener('DOMContentLoaded', function() {
             // Biểu đồ tương tác theo thời gian (dạng cột)
             const interactionsCtx = document.getElementById('interactionsChart').getContext('2d');
             const interactionsChart = new Chart(interactionsCtx, {
@@ -125,9 +196,9 @@
                         <label for="time-range">Thời gian:</label>
                         @{
                             var options = new[] { 7, 30, -1 }; // -1 đại diện cho "Tất cả"
-                            int selectedDays = ViewBag.SelectedDays ?? 7;
+                            int selectedDays = ViewBag.SelectedDays ?? 30;
                         }
-                        <select id="time-range" class="select-control" onchange="window.location.href='@Url.Action("Index", "Interactions")?timeRange=' + this.value">
+                        <select id="time-range" class="select-control" onchange="applyTimeRange(this.value)">
                             @foreach (var days in options)
                             {
                                 if (days == -1) 
@@ -153,9 +224,42 @@
                                     }
                                 }
                             }
+                            @if (selectedDays != 7 && selectedDays != 30 && selectedDays != -1)
+                            {
+                                <option value="0" selected>Tùy chỉnh</option>
+                            }
+                            else
+                            {
+                                <option value="0">Tùy chỉnh</option>
+                            }
                         </select>
                     </div>
                 </div>
+            </div>
+
+            <div id="expanded-filters" class="expanded-filters" style="display: @(ViewBag.SelectedDays != 7 && ViewBag.SelectedDays != 30 && ViewBag.SelectedDays != -1 ? "block" : "none");">
+                <form id="date-filter-form" method="get" action="@Url.Action("Interactions", "Admin")">
+                    <div class="date-range-filter">
+                        <div>
+                            <span class="filter-label">Từ ngày:</span>
+                            <input type="date" id="fromDate" name="fromDate" class="date-input" value="@ViewBag.FromDate">
+                        </div>
+                        <div>
+                            <span class="filter-label">Đến ngày:</span>
+                            <input type="date" id="toDate" name="toDate" class="date-input" value="@ViewBag.ToDate">
+                        </div>
+                        <div class="filter-actions">
+                            <button type="submit" class="filter-btn">
+                                <i class="fas fa-filter"></i> Lọc
+                            </button>
+                            <button type="button" id="reset-filter" class="reset-btn">
+                                <i class="fas fa-undo"></i> Đặt lại
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Hidden input để giữ giá trị timeRange khi form được submit -->
+                    <input type="hidden" id="timeRange" name="timeRange" value="0">
+                </form>
             </div>
 
             <!-- Stats Cards -->
