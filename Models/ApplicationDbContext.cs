@@ -25,6 +25,7 @@ namespace TourismWeb.Models
         public DbSet<SpotTag> SpotTags { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Report> Reports { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -246,6 +247,24 @@ namespace TourismWeb.Models
                 .WithMany(t => t.PostTags)
                 .HasForeignKey(pt => pt.TagId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+             modelBuilder.Entity<Report>()
+                .HasOne(r => r.ReporterUser)
+                .WithMany() // Một User có thể report nhiều lần
+                .HasForeignKey(r => r.ReporterUserId)
+                .OnDelete(DeleteBehavior.Restrict); // Hoặc .ClientSetNull
+
+            modelBuilder.Entity<Report>()
+                .HasOne(r => r.ReportedUser)
+                .WithMany() // Một User có thể bị report nhiều lần
+                .HasForeignKey(r => r.ReportedUserId)
+                .OnDelete(DeleteBehavior.Restrict); // Hoặc .ClientSetNull
+
+            modelBuilder.Entity<Report>()
+                .HasOne(r => r.AdminUser)
+                .WithMany() // Một Admin có thể xử lý nhiều report
+                .HasForeignKey(r => r.AdminUserId)
+                .OnDelete(DeleteBehavior.Restrict); // Hoặc .ClientSetNull
         }
     }
 }

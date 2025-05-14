@@ -2244,8 +2244,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>nnjyquj6ju</Fingerprint>
-      <Integrity>/SUPuk/rHoawdu5DPQd6wo2pQK3zUjs3SsIxldtwqs8=</Integrity>
+      <Fingerprint>mqg9uktq06</Fingerprint>
+      <Integrity>AkWUy98FMcbwag6Wf2CQ5zMi9O5yohgOT1e0GKBi9Xs=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\reports.js'))</OriginalItemSpec>

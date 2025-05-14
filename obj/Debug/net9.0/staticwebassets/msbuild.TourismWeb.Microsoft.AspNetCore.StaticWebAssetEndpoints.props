@@ -1491,14 +1491,14 @@
     <StaticWebAssetEndpoint Include="_content/TourismWeb/js/jsadmin/reports.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\reports.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-/SUPuk/rHoawdu5DPQd6wo2pQK3zUjs3SsIxldtwqs8="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"4473"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022/SUPuk/rHoawdu5DPQd6wo2pQK3zUjs3SsIxldtwqs8=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Apr 2025 18:47:37 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-AkWUy98FMcbwag6Wf2CQ5zMi9O5yohgOT1e0GKBi9Xs="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"12928"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022AkWUy98FMcbwag6Wf2CQ5zMi9O5yohgOT1e0GKBi9Xs=\u0022"},{"Name":"Last-Modified","Value":"Wed, 14 May 2025 03:01:36 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/TourismWeb/js/jsadmin/reports.nnjyquj6ju.js">
+    <StaticWebAssetEndpoint Include="_content/TourismWeb/js/jsadmin/reports.mqg9uktq06.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\reports.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"nnjyquj6ju"},{"Name":"integrity","Value":"sha256-/SUPuk/rHoawdu5DPQd6wo2pQK3zUjs3SsIxldtwqs8="},{"Name":"label","Value":"_content/TourismWeb/js/jsadmin/reports.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"4473"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022/SUPuk/rHoawdu5DPQd6wo2pQK3zUjs3SsIxldtwqs8=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Apr 2025 18:47:37 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"mqg9uktq06"},{"Name":"integrity","Value":"sha256-AkWUy98FMcbwag6Wf2CQ5zMi9O5yohgOT1e0GKBi9Xs="},{"Name":"label","Value":"_content/TourismWeb/js/jsadmin/reports.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"12928"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022AkWUy98FMcbwag6Wf2CQ5zMi9O5yohgOT1e0GKBi9Xs=\u0022"},{"Name":"Last-Modified","Value":"Wed, 14 May 2025 03:01:36 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TourismWeb/js/jsadmin/settings.eghtpx219d.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\jsadmin\settings.js'))</AssetFile>

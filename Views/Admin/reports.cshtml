@@ -1,7 +1,5 @@
-@section Styles {
+@* @section Styles {
     <link rel="stylesheet" href="~/cssadmin/reports.css">
-    @* 
-    <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 }
@@ -445,5 +443,338 @@
                 <button type="button" class="btn btn-primary" id="submitAction">Xác nhận</button>
             </div>
         </div>
+    </div>
+</div> *@
+@using TourismWeb.Models
+@using TourismWeb.Models.ViewModels
+@using TourismWeb.Helpers
+
+@{
+    ViewData["Title"] = "Quản Lý Báo Cáo - Hệ Thống Quản Trị";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    var reports = ViewBag.Reports as List<Report> ?? new List<Report>();
+    var totalReports = (int)(ViewBag.TotalReports ?? 0);
+    var pageNumber = (int)(ViewBag.PageNumber ?? 1);
+    var pageSize = (int)(ViewBag.PageSize ?? 10);
+    var totalPages = (int)(ViewBag.TotalPages ?? 1);
+
+    var currentStatusFilter = ViewBag.CurrentStatusFilter as string ?? "Pending";
+    var currentTypeFilter = ViewBag.CurrentTypeFilter as string ?? "all";
+    var currentTargetTypeFilter = ViewBag.CurrentTargetTypeFilter as string ?? "all";
+    var currentSearchTerm = ViewBag.CurrentSearchTerm as string ?? "";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/cssadmin/reports.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+}
+
+@section Scripts {
+    <script src="~/js/jsadmin/reports.js" asp-append-version="true"></script>
+    @* <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> *@
+}
+
+<div class="app-container">
+    <div class="main-content">
+        <main class="content-wrapper">
+            <div class="page-header">
+                <h1 class="page-title">Quản Lý Báo Cáo</h1>
+                <div class="page-actions">
+                    <div class="filter-group">
+                        <label for="report-status-filter-main">Trạng thái:</label>
+                        <select id="report-status-filter-main" class="select-control">
+                            <option value="all" selected="@(currentStatusFilter.ToLower() == "all")">Tất cả</option>
+                            <option value="Pending" selected="@(currentStatusFilter == "Pending")">Chờ xử lý</option>
+                            <option value="Resolved" selected="@(currentStatusFilter == "Resolved")">Đã xử lý</option>
+                            <option value="Dismissed" selected="@(currentStatusFilter == "Dismissed")">Đã bỏ qua</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-card">
+                <form id="filterForm" asp-action="Reports" asp-controller="Admin" method="get">
+                    <div class="filter-grid">
+                        <div class="filter-item">
+                            <div class="search-input">
+                                <i class="fas fa-search"></i>
+                                <input type="text" name="searchTerm" placeholder="Tìm kiếm báo cáo..." value="@currentSearchTerm">
+                            </div>
+                        </div>
+                        <div class="filter-item">
+                            <select name="typeFilter" class="select-control">
+                                <option value="all" selected="@(currentTypeFilter == "all")">Tất cả loại báo cáo</option>
+                                @foreach (ReportType type in Enum.GetValues(typeof(ReportType)))
+                                {
+                                    <option value="@type" selected="@(currentTypeFilter == type.ToString())">@type.GetDisplayName()</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="filter-item">
+                            <select name="targetTypeFilter" class="select-control">
+                                <option value="all" selected="@(currentTargetTypeFilter == "all")">Tất cả đối tượng</option>
+                                @foreach (ReportTargetType target in Enum.GetValues(typeof(ReportTargetType)))
+                                {
+                                    <option value="@target" selected="@(currentTargetTypeFilter == target.ToString())">@target.GetDisplayName()</option>
+                                }
+                            </select>
+                        </div>
+                         <input type="hidden" name="statusFilter" id="hiddenStatusFilter" value="@currentStatusFilter" />
+                         <input type="hidden" name="pageNumber" value="1" />
+                         <input type="hidden" name="pageSize" value="@pageSize" />
+                        <div class="filter-item">
+                            <button type="submit" class="btn btn-filter">
+                                <i class="fas fa-filter"></i>
+                                Lọc
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Reports Table -->
+            <div class="table-card">
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Người báo cáo</th>
+                                <th>Loại báo cáo</th>
+                                <th>Đối tượng</th>
+                                <th>Người bị báo cáo</th>
+                                <th>Lý do (tóm tắt)</th>
+                                <th>Ngày báo cáo</th>
+                                <th>Trạng thái</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (reports.Any())
+                            {
+                                @foreach (var report in reports)
+                                {
+                                    <tr>
+                                        <td>@report.ReportId</td>
+                                        <td>
+                                            @if (report.ReporterUser != null)
+                                            {
+                                                <div class="user-cell">
+                                                    <div class="user-avatar">
+                                                        <img src="@Url.Content(report.ReporterUser.AvatarUrl ?? "~/images/default-avatar.png")" alt="Avatar">
+                                                    </div>
+                                                    <div class="user-info">
+                                                        <div class="user-name">@report.ReporterUser.FullName</div>
+                                                        <div class="user-email">@report.ReporterUser.Email</div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <text>N/A</text>
+                                            }
+                                        </td>
+                                        <td>
+                                            @* <span class="badge @GetReportTypeClass(report.TypeOfReport)">@report.TypeOfReport.GetDisplayName()</span> *@
+                                            <span class="badge @ReportViewHelper.GetReportTypeClass(report.TypeOfReport)">@report.TypeOfReport.GetDisplayName()</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge @ReportViewHelper.GetTargetTypeClass(report.TargetType)">
+                                                @report.TargetType.GetDisplayName()
+                                                @if(report.TargetId.HasValue)
+                                                {
+                                                    <small>(ID: @report.TargetId)</small>
+                                                }
+                                            </span>
+                                        </td>
+                                        <td>
+                                             @if (report.ReportedUser != null)
+                                            {
+                                                <div class="user-cell">
+                                                    <div class="user-avatar">
+                                                        <img src="@Url.Content(report.ReportedUser.AvatarUrl ?? "~/images/default-avatar.png")" alt="Avatar">
+                                                    </div>
+                                                    <div class="user-info">
+                                                        <div class="user-name">@report.ReportedUser.FullName</div>
+                                                        <div class="user-email">@report.ReportedUser.Email</div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <text>N/A</text>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="report-content" title="@report.Reason">
+                                                @(report.Reason.Length > 70 ? report.Reason.Substring(0, 70) + "..." : report.Reason)
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="date-cell">
+                                                <i class="fas fa-clock"></i>
+                                                @report.ReportedAt.ToString("dd/MM/yyyy HH:mm")
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge @ReportViewHelper.GetReportStatusClass(report.Status)">@report.Status.GetDisplayName()</span>
+                                        </td>
+                                        <td class="actions-cell">
+                                            <button class="action-btn view-btn" title="Xem chi tiết" data-report-id="@report.ReportId">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            @if (report.Status == ReportStatus.Pending)
+                                            {
+                                                <button class="action-btn process-btn" title="Xử lý" data-report-id="@report.ReportId">
+                                                    <i class="fas fa-cogs"></i> <!-- Hoặc fa-check -->
+                                                </button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="9" class="text-center">Không có báo cáo nào phù hợp.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        <span>Hiển thị
+                            <select class="select-sm" id="pageSizeSelect">
+                                <option value="5" selected="@(pageSize == 5)">5</option>
+                                <option value="10" selected="@(pageSize == 10)">10</option>
+                                <option value="25" selected="@(pageSize == 25)">25</option>
+                                <option value="50" selected="@(pageSize == 50)">50</option>
+                            </select>
+                            trên tổng số @totalReports báo cáo
+                        </span>
+                    </div>
+                    <div class="pagination">
+                        @if (totalPages > 1)
+                        {
+                            <button class="pagination-btn @(pageNumber <= 1 ? "disabled" : "")" data-page="@(pageNumber-1)" @(pageNumber <= 1 ? "disabled" : "")>
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span class="pagination-text">Trang @pageNumber / @totalPages</span>
+                            <button class="pagination-btn @(pageNumber >= totalPages ? "disabled" : "")" data-page="@(pageNumber+1)" @(pageNumber >= totalPages ? "disabled" : "")>
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        } else {
+                             <span class="pagination-text">Trang @pageNumber / @totalPages</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Report Modal (Giữ nguyên cấu trúc HTML, chỉ cần đảm bảo các ID khớp với JS) -->
+<div class="modal" id="reportModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Chi tiết báo cáo #<span id="modalReportId"></span></h2>
+            <button type="button" class="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form id="processReportForm" asp-action="ProcessReport" asp-controller="Admin" method="post">
+            @Html.AntiForgeryToken() <!-- QUAN TRỌNG -->
+            <input type="hidden" id="modalHiddenReportId" name="reportId" />
+            <input type="hidden" id="modalHiddenReportedUserId" name="reportedUserIdToActOn" />
+
+            <div class="modal-body">
+                <div class="report-detail">
+                    <div class="report-info">
+                        <div class="report-field">
+                            <div class="label">Người báo cáo:</div>
+                            <div class="value" id="modalReporterInfo">
+                                <!-- JS sẽ điền vào đây -->
+                            </div>
+                        </div>
+                        <div class="report-field">
+                            <div class="label">Loại báo cáo:</div>
+                            <div class="value"><span id="modalTypeOfReport" class="badge"></span></div>
+                        </div>
+                        <div class="report-field">
+                            <div class="label">Đối tượng:</div>
+                            <div class="value">
+                                <span id="modalTargetType" class="badge"></span>
+                                <a href="#" id="modalTargetLink" class="view-target" target="_blank">Xem đối tượng</a>
+                            </div>
+                        </div>
+                        <div class="report-field">
+                            <div class="label">Người bị báo cáo/Sở hữu:</div>
+                            <div class="value" id="modalReportedUserInfo">
+                                <!-- JS sẽ điền vào đây -->
+                            </div>
+                        </div>
+                        <div class="report-field">
+                            <div class="label">Ngày báo cáo:</div>
+                            <div class="value" id="modalReportedAt"></div>
+                        </div>
+                         <div class="report-field">
+                            <div class="label">Trạng thái xử lý:</div>
+                            <div class="value">
+                                <select id="modalNewStatus" name="newStatus" class="select-control">
+                                    <option value="Pending">Chờ xử lý</option>
+                                    <option value="Resolved">Đã xử lý</option>
+                                    <option value="Dismissed">Đã bỏ qua</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="report-content-full">
+                        <div class="label">Nội dung báo cáo (Lý do):</div>
+                        <p id="modalReason"></p>
+                    </div>
+                    <div class="reported-content" id="modalTargetContentSection" style="display:none;">
+                        <div class="label">Nội dung bị báo cáo (Tóm tắt):</div>
+                        <div class="content-box" id="modalTargetContent">
+                            <!-- JS sẽ điền vào đây -->
+                        </div>
+                    </div>
+                </div>
+                <div class="action-section">
+                    <div class="label">Hành động của Admin:</div>
+                    <div class="action-options">
+                        <div class="action-option">
+                            <input type="radio" id="action-ignore-report" name="adminAction" value="ignore_report" checked>
+                            <label for="action-ignore-report">Chỉ cập nhật trạng thái báo cáo</label>
+                        </div>
+                        <div class="action-option" id="actionDeleteContentOption" style="display:none;">
+                            <input type="radio" id="action-delete-content" name="adminAction" value="delete_content">
+                            <label for="action-delete-content">Xóa nội dung bị báo cáo</label>
+                        </div>
+                        <div class="action-option" id="actionWarnUserOption" style="display:none;">
+                            <input type="radio" id="action-warn-user" name="adminAction" value="warn_user">
+                            <label for="action-warn-user">Cảnh báo người dùng</label>
+                        </div>
+                        <div class="action-option" id="actionBanUserOption" style="display:none;">
+                            <input type="radio" id="action-ban-user" name="adminAction" value="ban_user">
+                            <label for="action-ban-user">Cấm người dùng</label>
+                        </div>
+                    </div>
+                    <div class="action-note">
+                        <div class="label">Ghi chú của Admin:</div>
+                        <textarea id="modalAdminNotes" name="adminNotes" rows="3"
+                                  placeholder="Nhập ghi chú về hành động xử lý..."></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary modal-close-btn">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Xác nhận xử lý</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
