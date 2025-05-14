@@ -275,21 +275,6 @@ namespace TourismWeb.Migrations
                     b.ToTable("PostShares");
                 });
 
-            modelBuilder.Entity("TourismWeb.Models.PostTag", b =>
-                {
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PostId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("PostTags");
-                });
-
             modelBuilder.Entity("TourismWeb.Models.Report", b =>
                 {
                     b.Property<int>("ReportId")
@@ -475,39 +460,6 @@ namespace TourismWeb.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("SpotShares");
-                });
-
-            modelBuilder.Entity("TourismWeb.Models.SpotTag", b =>
-                {
-                    b.Property<int>("SpotId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SpotId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("SpotTags");
-                });
-
-            modelBuilder.Entity("TourismWeb.Models.Tag", b =>
-                {
-                    b.Property<int>("TagId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("TagId");
-
-                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("TourismWeb.Models.TouristSpot", b =>
@@ -732,25 +684,6 @@ namespace TourismWeb.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TourismWeb.Models.PostTag", b =>
-                {
-                    b.HasOne("TourismWeb.Models.Post", "Post")
-                        .WithMany("PostTags")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TourismWeb.Models.Tag", "Tag")
-                        .WithMany("PostTags")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Post");
-
-                    b.Navigation("Tag");
-                });
-
             modelBuilder.Entity("TourismWeb.Models.Report", b =>
                 {
                     b.HasOne("TourismWeb.Models.User", "AdminUser")
@@ -852,25 +785,6 @@ namespace TourismWeb.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TourismWeb.Models.SpotTag", b =>
-                {
-                    b.HasOne("TourismWeb.Models.TouristSpot", "Spot")
-                        .WithMany("SpotTags")
-                        .HasForeignKey("SpotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TourismWeb.Models.Tag", "Tag")
-                        .WithMany("SpotTags")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Spot");
-
-                    b.Navigation("Tag");
-                });
-
             modelBuilder.Entity("TourismWeb.Models.TouristSpot", b =>
                 {
                     b.HasOne("TourismWeb.Models.Category", "Category")
@@ -895,16 +809,7 @@ namespace TourismWeb.Migrations
 
                     b.Navigation("PostFavorites");
 
-                    b.Navigation("PostTags");
-
                     b.Navigation("Shares");
-                });
-
-            modelBuilder.Entity("TourismWeb.Models.Tag", b =>
-                {
-                    b.Navigation("PostTags");
-
-                    b.Navigation("SpotTags");
                 });
 
             modelBuilder.Entity("TourismWeb.Models.TouristSpot", b =>
@@ -918,8 +823,6 @@ namespace TourismWeb.Migrations
                     b.Navigation("Reviews");
 
                     b.Navigation("Shares");
-
-                    b.Navigation("SpotTags");
                 });
 
             modelBuilder.Entity("TourismWeb.Models.User", b =>

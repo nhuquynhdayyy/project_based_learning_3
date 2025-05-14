@@ -21,22 +21,12 @@ namespace TourismWeb.Models
         public DbSet<SpotShare> SpotShares { get; set; }
         public DbSet<PostShare> PostShares { get; set; }
         public DbSet<SpotImage> SpotImages { get; set; }
-        public DbSet<Tag> Tags { get; set; }
-        public DbSet<SpotTag> SpotTags { get; set; }
-        public DbSet<PostTag> PostTags { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Report> Reports { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            // Composite keys
-            modelBuilder.Entity<SpotTag>()
-                .HasKey(st => new { st.SpotId, st.TagId });
-
-            modelBuilder.Entity<PostTag>()
-                .HasKey(pt => new { pt.PostId, pt.TagId });
 
             // Quan hệ User
             modelBuilder.Entity<User>()
@@ -221,32 +211,6 @@ namespace TourismWeb.Models
                 .WithMany(u => u.PostImages)
                 .HasForeignKey(si => si.UploadedBy)
                 .OnDelete(DeleteBehavior.NoAction); // Không xóa PostImages khi User bị xóa
-
-            // Quan hệ SpotTag
-            modelBuilder.Entity<SpotTag>()
-                .HasOne(st => st.Spot)
-                .WithMany(s => s.SpotTags)
-                .HasForeignKey(st => st.SpotId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<SpotTag>()
-                .HasOne(st => st.Tag)
-                .WithMany(t => t.SpotTags)
-                .HasForeignKey(st => st.TagId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // Quan hệ PostTag
-            modelBuilder.Entity<PostTag>()
-                .HasOne(pt => pt.Post)
-                .WithMany(p => p.PostTags)
-                .HasForeignKey(pt => pt.PostId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<PostTag>()
-                .HasOne(pt => pt.Tag)
-                .WithMany(t => t.PostTags)
-                .HasForeignKey(pt => pt.TagId)
-                .OnDelete(DeleteBehavior.Restrict);
 
              modelBuilder.Entity<Report>()
                 .HasOne(r => r.ReporterUser)

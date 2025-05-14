@@ -176,7 +176,6 @@ namespace TourismWeb.Models
         // --- Các Collection Hiện có ---
         // Sử dụng chúng tích cực hơn!
         public ICollection<PostImage> Images { get; set; } = new List<PostImage>(); // Cho các hình ảnh bổ sung
-        public ICollection<PostTag> PostTags { get; set; } = new List<PostTag>(); // Cho các tag động
         public ICollection<PostFavorite> PostFavorites { get; set; } = new List<PostFavorite>(); // Yêu thích
         public ICollection<PostComment> Comments { get; set; } = new List<PostComment>(); // Bình luận
         public ICollection<PostShare> Shares { get; set; } = new List<PostShare>(); // Lượt chia sẻ

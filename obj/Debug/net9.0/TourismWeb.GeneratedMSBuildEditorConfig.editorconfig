@@ -284,26 +284,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdHNcTXlQb3N0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PBL3/PBL3/Views/PostTags/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFRhZ3NcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/PBL3/PBL3/Views/PostTags/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFRhZ3NcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/PBL3/PBL3/Views/PostTags/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFRhZ3NcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/PBL3/PBL3/Views/PostTags/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFRhZ3NcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/PBL3/PBL3/Views/PostTags/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zdFRhZ3NcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/PBL3/PBL3/Views/Profile/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -410,46 +390,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/PBL3/PBL3/Views/SpotShares/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvdFNoYXJlc1xJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/PBL3/PBL3/Views/SpotTags/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvdFRhZ3NcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/PBL3/PBL3/Views/SpotTags/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvdFRhZ3NcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/PBL3/PBL3/Views/SpotTags/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvdFRhZ3NcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/PBL3/PBL3/Views/SpotTags/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvdFRhZ3NcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/PBL3/PBL3/Views/SpotTags/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvdFRhZ3NcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/PBL3/PBL3/Views/Tags/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/PBL3/PBL3/Views/Tags/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/PBL3/PBL3/Views/Tags/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/PBL3/PBL3/Views/Tags/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/PBL3/PBL3/Views/Tags/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFnc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/PBL3/PBL3/Views/TouristSpots/Create.cshtml]

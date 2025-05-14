@@ -1203,37 +1203,6 @@
                         @* <div class="text-center mt-2"><a href="#" class="btn btn-sm btn-link">Xem thêm</a></div> *@
                     </div>
                 </div>
-
-                <!-- Widget tags -->
-                <div class="sidebar-widget card mb-4 shadow-sm">
-                     <div class="card-header bg-light">
-                        <h4>
-                           @* Icon theo theme *@
-                            @if (postType == "Trải nghiệm") { <i class="bi bi-palm-tree me-2"></i> }
-                            else if (postType == "Cẩm nang") { <i class="bi bi-water me-2"></i> }
-                            else { <span class="orange-icon me-2"></span> }
-                           Tags
-                        </h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="post-tags d-flex flex-wrap gap-2">
-                            @if (Model.PostTags != null && Model.PostTags.Any())
-                            {
-                                foreach (var postTag in Model.PostTags)
-                                {
-                                    <a href="/Posts/Tagged/@(postTag.Tag?.Name.Replace(" ", "-").ToLower())" class="tag-item badge bg-secondary text-decoration-none">@postTag.Tag.Name</a>
-                                }
-                            }
-                            @* Thêm tag mặc định *@
-                            @if(Model.Spot != null) {
-                                <a href="#" class="tag-item badge bg-info text-decoration-none">@Model.Spot.Name</a>
-                            }
-                             <a href="#" class="tag-item badge bg-primary text-decoration-none">@Model.TypeOfPost</a>
-                             <a href="#" class="tag-item badge bg-light text-dark border text-decoration-none">Du lịch</a>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Widget đăng ký nhận tin -->
                 <div class="sidebar-widget card mb-4 shadow-sm">
                      <div class="card-header bg-light">

@@ -108,6 +108,5 @@ namespace TourismWeb.Models
         public ICollection<SpotShare> Shares { get; set; } = new List<SpotShare>();
         public ICollection<SpotImage> Images { get; set; } = new List<SpotImage>();
         public ICollection<Post> Posts { get; set; } = new List<Post>(); // Dùng cho "Cẩm nang du lịch"
-        public ICollection<SpotTag> SpotTags { get; set; } = new List<SpotTag>();
     }
 }

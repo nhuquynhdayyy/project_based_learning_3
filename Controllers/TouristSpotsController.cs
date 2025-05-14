@@ -107,20 +107,12 @@ namespace TourismWeb.Controllers
             var query = _context.TouristSpots
                 .Include(t => t.Category)
                 .Include(t => t.Favorites)
-                .Include(t => t.SpotTags)
-                    .ThenInclude(st => st.Tag)
                 .AsQueryable();
             
             // Lọc theo danh mục nếu có
             if (categoryId.HasValue)
             {
                 query = query.Where(t => t.CategoryId == categoryId.Value);
-            }
-            
-            // Lọc theo tag nếu có
-            if (tagId.HasValue)
-            {
-                query = query.Where(t => t.SpotTags.Any(st => st.TagId == tagId.Value));
             }
             
             // Sắp xếp theo tiêu chí được chọn

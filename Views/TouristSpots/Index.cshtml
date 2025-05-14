@@ -146,13 +146,6 @@
                         <div class="location-tags">
                             <a asp-action="Index" asp-route-categoryId="@item.CategoryId"
                                 class="tag">@item.Category.Name</a>
-                            @if (item.SpotTags != null && item.SpotTags.Any())
-                            {
-                                @foreach (var tag in item.SpotTags.Take(2))
-                                {
-                                    <a asp-action="Index" asp-route-tagId="@tag.TagId" class="tag">@tag.Tag.Name</a>
-                                }
-                            }
                         </div>
                         <div class="location-actions">
                             <a asp-action="Details" asp-route-id="@item.SpotId" class="action-link details">
