@@ -1,4 +1,4 @@
-@{
+@* @{
     ViewData["Title"] = "Đăng Nhập";
 }
 
@@ -58,5 +58,243 @@
                 icon.classList.add("fa-eye");
             }
         });
+    </script>
+</body> *@
+@{
+    ViewData["Title"] = "Đăng Nhập";
+    // Lấy App ID từ cấu hình hoặc đặt trực tiếp ở đây (không khuyến khích cho production)
+    // string facebookAppId = Configuration["FacebookAppId"]; // Ví dụ nếu bạn lưu trong appsettings.json
+    string facebookAppId = "1041418547323421"; // !!! ID NÀY LÀ CỦA BẠN, ĐẢM BẢO ĐÚNG !!!
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<style>
+    /* Thêm một chút style cho nút Facebook */
+    .btn-facebook {
+        background-color: #3b5998;
+        color: white;
+    }
+
+    .btn-facebook:hover {
+        background-color: #2d4373;
+        color: white;
+    }
+
+    /* Bạn có thể thêm style cho nút Google nếu muốn */
+    .btn-google-custom {
+        /* Đổi tên class nếu bạn muốn style riêng thay vì dùng btn-danger */
+        background-color: #DB4437;
+        color: white;
+    }
+
+    .btn-google-custom:hover {
+        background-color: #C23321;
+        color: white;
+    }
+</style>
+
+<body>
+    <div class="login-card">
+        <img src="/images/logo3.jpg" alt="Logo" width="120">
+        <h2>Đăng Nhập</h2>
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+        }
+        @if (TempData["FacebookLoginError"] != null)
+        {
+            <div class="alert alert-danger">@TempData["FacebookLoginError"]</div>
+        }
+        @if (TempData["GoogleLoginError"] != null) @* Thêm để hiển thị lỗi Google *@
+        {
+            <div class="alert alert-danger">@TempData["GoogleLoginError"]</div>
+        }
+
+
+        <form method="post" asp-action="Login" asp-controller="Accounts">
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                <input type="text" name="UsernameOrEmail" class="form-control" placeholder="Tên đăng nhập hoặc Email"
+                    required />
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                <input type="password" name="Password" id="password" class="form-control" placeholder="Mật khẩu"
+                    required />
+                <span class="input-group-text toggle-password"><i class="fa fa-eye"></i></span>
+            </div>
+
+            <div class="form-check text-start mb-2">
+                <input class="form-check-input" type="checkbox" name="RememberMe" id="remember" />
+                <label class="form-check-label" for="remember">Nhớ mật khẩu</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Đăng Nhập</button>
+        </form>
+
+        <div class="text-center my-3">Hoặc</div>
+
+        <!-- Nút Đăng nhập với Facebook -->
+        <button type="button" id="btnFacebookLogin" class="btn btn-facebook w-100 mb-2">
+            <i class="fab fa-facebook-square me-2"></i>Đăng nhập với Facebook
+        </button>
+        <!-- Nút Đăng nhập với Google -->
+        @* Thay đổi id của nút này nếu bạn muốn Google tự render, hoặc giữ nguyên và xử lý click thủ công *@
+        @* Cách 1: Để Google render nút vào đây (nút HTML này sẽ bị thay thế) *@
+        <div id="btnGoogleLoginRenderLocation" class="w-100 mb-2 d-flex justify-content-center"></div>
+        @* Cách 2: Giữ nút HTML và tự gọi API (ví dụ) *@
+        @* <button type="button" id="btnGoogleLoginCustom" class="btn btn-danger w-100 mb-2"> *@
+        @* <i class="fab fa-google me-2"></i>Đăng nhập với Google (Custom) *@
+        @* </button> *@
+
+        <div class="mb-2"></div>
+
+        <div class="text-center mt-2"></div>
+        <a asp-controller="Accounts" asp-action="ForgotPassword">Quên mật khẩu?</a> @* Sửa link này *@
+    </div>
+
+    <div class="text-center mt-3">
+        <a asp-controller="Accounts" asp-action="Register">Chưa có tài khoản? Đăng ký</a>
+    </div>
+    </div>
+
+    <!-- Form ẩn để gửi dữ liệu Facebook lên server -->
+    <form id="facebookLoginForm" asp-action="FacebookLogin" asp-controller="Accounts" method="post"
+        style="display:none;">
+        <input type="hidden" name="FacebookUserId" id="fbUserId" />
+        <input type="hidden" name="Email" id="fbEmail" />
+        <input type="hidden" name="FullName" id="fbFullName" />
+        <input type="hidden" name="AccessToken" id="fbAccessToken" />
+        @Html.AntiForgeryToken()
+    </form>
+    <!-- Form ẩn để gửi ID Token của Google lên server -->
+    <form id="googleLoginForm" asp-action="GoogleLogin" asp-controller="Accounts" method="post" style="display:none;">
+        <input type="hidden" name="IdToken" id="googleIdToken" />
+        @Html.AntiForgeryToken()
+    </form>
+
+    @* Đặt tất cả các script ở cuối, trước thẻ </body> *@
+    <script>
+        document.querySelector(".toggle-password").addEventListener("click", function () {
+            let passwordInput = document.getElementById("password");
+            let icon = this.querySelector("i");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        });
+
+        // --- Facebook Login Script ---
+        const facebookAppIdConst = "@facebookAppId"; // Đổi tên biến để tránh trùng lặp nếu có
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: facebookAppIdConst,
+                cookie: true,
+                xfbml: true,
+                version: 'v19.0'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        var fbButton = document.getElementById('btnFacebookLogin');
+        if (fbButton) {
+            fbButton.addEventListener('click', function () {
+                FB.login(function (response) {
+                    if (response.authResponse) {
+                        console.log('Facebook: Welcome! Fetching your information.... ');
+                        FB.api('/me', { fields: 'id,name,email' }, function (userData) {
+                            document.getElementById('fbUserId').value = userData.id;
+                            document.getElementById('fbEmail').value = userData.email || '';
+                            document.getElementById('fbFullName').value = userData.name;
+                            document.getElementById('fbAccessToken').value = response.authResponse.accessToken;
+                            document.getElementById('facebookLoginForm').submit();
+                        });
+                    } else {
+                        console.log('Facebook: User cancelled login or did not fully authorize.');
+                    }
+                }, { scope: 'email,public_profile' });
+            });
+        }
+    </script>
+
+    @* --- Google Login Script --- *@
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        // !!! THAY THẾ BẰNG CLIENT ID THẬT CỦA BẠN !!!
+        const googleClientIdConst = "74136756439-vmv7kvaot8666ga0rubg2ccn3rkdqp6j.apps.googleusercontent.com";
+
+        function handleGoogleCredentialResponse(response) {
+            console.log("Google Sign-In Response Received.");
+            console.log("Encoded JWT ID token: " + response.credential);
+            document.getElementById('googleIdToken').value = response.credential;
+            console.log("Submitting Google login form with ID Token...");
+            document.getElementById('googleLoginForm').submit();
+        }
+
+        // Đảm bảo hàm này được gọi sau khi thư viện Google được tải
+        // window.onload thường chỉ được gọi một lần, nên nếu đã dùng cho Facebook, cần cẩn thận
+        // Một cách tốt hơn là kiểm tra sự tồn tại của 'google' object
+        function initializeGoogleSignIn() {
+            if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+                console.log("Google Identity Services (GIS) library loaded. Initializing...");
+                try {
+                    google.accounts.id.initialize({
+                        client_id: googleClientIdConst,
+                        callback: handleGoogleCredentialResponse
+                    });
+                    console.log("GIS initialized with Client ID: " + googleClientIdConst);
+
+                    var googleButtonRenderDiv = document.getElementById("btnGoogleLoginRenderLocation");
+                    if (googleButtonRenderDiv) {
+                        console.log("Rendering Google Sign-In button...");
+                        google.accounts.id.renderButton(
+                            googleButtonRenderDiv,
+                            {
+                                theme: "outline", size: "large", type: "standard",
+                                shape: "rectangular", text: "signin_with", logo_alignment: "left",
+                                width: googleButtonRenderDiv.offsetWidth > 0 ? googleButtonRenderDiv.offsetWidth.toString() : "280" // Lấy chiều rộng của div cha, hoặc mặc định
+                            }
+                        );
+                        console.log("Google Sign-In button rendered or render attempt made.");
+                    } else {
+                        console.error("Element with ID 'btnGoogleLoginRenderLocation' not found for Google button.");
+                    }
+                } catch (e) {
+                    console.error("Error during Google Sign-In initialization or rendering: ", e);
+                }
+            } else {
+                console.warn("Google Identity Services (GIS) library not loaded yet. Will retry or check script import.");
+                // Có thể thử lại sau một khoảng thời gian ngắn nếu thư viện tải chậm
+                // setTimeout(initializeGoogleSignIn, 500);
+            }
+        }
+
+        // Gọi hàm khởi tạo Google sau khi trang tải xong
+        // Nếu bạn đã có window.onload cho Facebook, hãy gộp chúng lại hoặc dùng DOMContentLoaded
+        if (window.attachEvent) { // IE
+            window.attachEvent('onload', initializeGoogleSignIn);
+        } else if (window.addEventListener) { // Hầu hết các trình duyệt
+            window.addEventListener('load', initializeGoogleSignIn, false);
+        } else { // Fallback
+            document.addEventListener('load', initializeGoogleSignIn, false);
+        }
+
     </script>
 </body>

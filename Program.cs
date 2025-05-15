@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using TourismWeb.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Logging.Console;
+using TourismWeb.Services; // <<--- THÊM USING CHO SERVICE CỦA BẠN
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,8 +30,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Account/Login";     // Đường dẫn khi chưa đăng nhập
-        options.LogoutPath = "/Accout/Logout";   // Đường dẫn khi đăng xuất
+        options.LoginPath = "/Accounts/Login";     // ĐỔI Account THÀNH Accounts
+        options.LogoutPath = "/Accounts/Logout";   // ĐỔI Accout THÀNH Accounts
         options.AccessDeniedPath = "/Home/AccessDenied"; // Đường dẫn khi bị từ chối truy cập
         options.Cookie.Name = "UserAuthCookie"; // Tên cookie
         options.Cookie.HttpOnly = true;         // Bảo vệ cookie khỏi truy cập từ JavaScript
@@ -39,30 +40,37 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.SlidingExpiration = true;       // Gia hạn tự động khi còn hoạt động
     });
 
-
+// =======================================================
+// THÊM DÒNG ĐĂNG KÝ IEmailSender VÀ SmtpEmailSender Ở ĐÂY
+// =======================================================
+builder.Services.AddTransient<IEmailSender, SmtpEmailSender>();
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole(options =>
 {
-    options.FormatterName = ConsoleFormatterNames.Systemd; // Hoặc dùng JsonConsole
+    // options.FormatterName = ConsoleFormatterNames.Systemd; // Dòng này có thể gây lỗi nếu không có package tương ứng
+    // Hãy thử comment nó đi nếu gặp lỗi khi chạy
+    // Hoặc đảm bảo bạn đã cài Microsoft.Extensions.Logging.Console (thường có sẵn)
+    // và SystemdConsoleFormatter nếu bạn thực sự muốn dùng định dạng đó.
+    // Mặc định AddConsole() đã đủ dùng.
 });
 
 
 var app = builder.Build();
 
-var apiKey = Environment.GetEnvironmentVariable("OPENWEATHERMAP_API_KEY");
+// var apiKey = Environment.GetEnvironmentVariable("OPENWEATHERMAP_API_KEY"); // Dòng này nên nằm trong một service hoặc controller nếu cần
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseSession(); // Bật session
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -72,20 +80,20 @@ app.UseEndpoints(endpoints =>
         name: "admin",
         pattern: "Admin/{action=Dashboard}/{id?}",
         defaults: new { controller = "Admin" });
-        
+
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
-    endpoints.MapControllers();
+    // endpoints.MapControllers(); // Dòng này không cần thiết nếu bạn đã dùng MapControllerRoute
 });
 
-app.MapStaticAssets();
+// app.MapStaticAssets(); // Dòng này có thể không cần thiết, UseStaticFiles() đã xử lý
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+// app.MapControllerRoute( // Bạn đã có MapControllerRoute "default" ở trên rồi, dòng này lặp lại
+//     name: "default",
+//     pattern: "{controller=Home}/{action=Index}/{id?}")
+//     .WithStaticAssets();
 
-TestConnection.Run();
+// TestConnection.Run(); // Dòng này để làm gì? Nếu là test, nên có điều kiện hoặc gỡ bỏ khi deploy
 
 app.Run();

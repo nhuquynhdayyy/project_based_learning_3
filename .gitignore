@@ -1,2 +1,22 @@
-appsettings.json
+# appsettings.json
 .env
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+
+# ASP.NET files
+appsettings.json
+appsettings.Development.json
+appsettings.*.json
+
+# Launch profiles
+Properties/launchSettings.json
+
+# Others
+.vscode/
+.idea/
+*.log
