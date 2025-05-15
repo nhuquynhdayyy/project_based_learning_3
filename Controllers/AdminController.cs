@@ -724,6 +724,163 @@ public class AdminController : Controller
     {
         return View();
     }
+    [HttpGet]
+        public async Task<IActionResult> GetStatisticsData(string timeRange = "30", string trafficInterval = "month")
+        {
+            // === LOGIC LẤY DỮ LIỆU TỪ DATABASE/SERVICES DỰA VÀO timeRange VÀ trafficInterval ===
+            // Đây là dữ liệu giả lập, bạn cần thay thế bằng logic thực tế
+
+            int days = timeRange == "all" ? 365 * 5 : int.Parse(timeRange);
+
+            var newUsersCard = new StatisticCardData // Giả sử StatisticCardData đã được định nghĩa và using
+            {
+                Label = "Người dùng mới",
+                Value = (days / 10 + 5).ToString(),
+                TrendPercentage = $"+{days % 10 + 1}%",
+                IsPositiveTrend = true,
+                ComparisonText = "so với kỳ trước",
+                IconClass = "fas fa-user-plus",
+                IconColorClass = "green"
+            };
+
+            var interactionRateCard = new StatisticCardData
+            {
+                Label = "Tỷ lệ tương tác",
+                Value = $"{20 + (days % 15)}.{days % 9}%",
+                TrendPercentage = $"+{days % 3 + 0.5}%",
+                IsPositiveTrend = true,
+                ComparisonText = "so với kỳ trước",
+                IconClass = "fas fa-chart-line",
+                IconColorClass = "amber"
+            };
+
+            List<string> trafficLabels;
+            List<double> trafficVisitorsData;
+            List<double> trafficNewUsersData;
+            List<double> trafficPostsData;
+
+            if (trafficInterval == "day")
+            {
+                trafficLabels = Enumerable.Range(1, 7).Select(i => $"Ngày {i * (days / 7)}").ToList();
+                trafficVisitorsData = trafficLabels.Select(l => (double)new System.Random().Next(1000, 3000)).ToList();
+                trafficNewUsersData = trafficLabels.Select(l => (double)new System.Random().Next(200, 800)).ToList();
+                trafficPostsData = trafficLabels.Select(l => (double)new System.Random().Next(10, 50)).ToList();
+            }
+            else if (trafficInterval == "week")
+            {
+                trafficLabels = Enumerable.Range(1, 4).Select(i => $"Tuần {i}").ToList();
+                trafficVisitorsData = trafficLabels.Select(l => (double)new System.Random().Next(5000, 10000)).ToList();
+                trafficNewUsersData = trafficLabels.Select(l => (double)new System.Random().Next(1000, 3000)).ToList();
+                trafficPostsData = trafficLabels.Select(l => (double)new System.Random().Next(50, 150)).ToList();
+            }
+            else // month (default)
+            {
+                trafficLabels = new List<string> { "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12" }.Take(System.Math.Min(12, days / 25 + 1)).ToList();
+                trafficVisitorsData = trafficLabels.Select(l => (double)new System.Random().Next(1000, 5000)).ToList();
+                trafficNewUsersData = trafficLabels.Select(l => (double)new System.Random().Next(300, 1200)).ToList();
+                trafficPostsData = trafficLabels.Select(l => (double)new System.Random().Next(10, 60)).ToList();
+            }
+
+            var trafficChart = new ChartData // Giả sử ChartData và ChartDataset đã được định nghĩa và using
+            {
+                Title = "Lượt xem, người dùng và bài viết theo thời gian",
+                Labels = trafficLabels,
+                Datasets = new List<ChartDataset>
+                {
+                    new ChartDataset { Label = "Lượt xem", Data = trafficVisitorsData, BorderColor = "#3b82f6", PointBackgroundColor = "#3b82f6", BackgroundColor = "transparent" },
+                    new ChartDataset { Label = "Người dùng", Data = trafficNewUsersData, BorderColor = "#10b981", PointBackgroundColor = "#10b981", BackgroundColor = "transparent" },
+                    new ChartDataset { Label = "Bài viết", Data = trafficPostsData, BorderColor = "#f59e0b", PointBackgroundColor = "#f59e0b", BackgroundColor = "transparent" }
+                }
+            };
+            
+            var postDistributionChart = new ChartData
+            {
+                Title = "Phân bố bài viết theo loại",
+                Labels = new List<string> { "Địa điểm", "Cẩm nang", "Trải nghiệm" },
+                Datasets = new List<ChartDataset>
+                {
+                    new ChartDataset
+                    {
+                        Data = new List<double> { new System.Random().Next(20, 50), new System.Random().Next(20, 50), new System.Random().Next(20, 50) },
+                        BackgroundColors = new List<string> { "#3b82f6", "#10b981", "#f59e0b" }
+                    }
+                }
+            };
+
+            var userInteractionsLabels = new List<string> { "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12" }.Take(System.Math.Min(12, days / 25 + 1)).ToList();
+            var userInteractionsChart = new ChartData
+            {
+                Title = "Tương tác người dùng theo thời gian",
+                Labels = userInteractionsLabels,
+                Datasets = new List<ChartDataset>
+                {
+                    new ChartDataset { Label = "Lượt xem", Data = userInteractionsLabels.Select(l => (double)new System.Random().Next(1000, 4000)).ToList(), BorderColor = "#3b82f6", BackgroundColor = "rgba(59, 130, 246, 0.1)", PointBackgroundColor = "#3b82f6", Fill = true },
+                    new ChartDataset { Label = "Lượt thích", Data = userInteractionsLabels.Select(l => (double)new System.Random().Next(300, 1000)).ToList(), BorderColor = "#10b981", BackgroundColor = "transparent", PointBackgroundColor = "#10b981" },
+                    new ChartDataset { Label = "Bình luận", Data = userInteractionsLabels.Select(l => (double)new System.Random().Next(100, 500)).ToList(), BorderColor = "#f59e0b", BackgroundColor = "transparent", PointBackgroundColor = "#f59e0b" },
+                    new ChartDataset { Label = "Chia sẻ", Data = userInteractionsLabels.Select(l => (double)new System.Random().Next(50, 300)).ToList(), BorderColor = "#8b5cf6", BackgroundColor = "transparent", PointBackgroundColor = "#8b5cf6" }
+                }
+            };
+
+            var topPostsData = new List<TopPostData> // Giả sử TopPostData đã được định nghĩa và using
+            {
+                new TopPostData { PostName = "Bài viết A", Views = new System.Random().Next(5000, 15000) },
+                new TopPostData { PostName = "Bài viết B", Views = new System.Random().Next(4000, 12000) },
+                new TopPostData { PostName = "Bài viết C", Views = new System.Random().Next(3000, 10000) },
+                new TopPostData { PostName = "Bài viết D", Views = new System.Random().Next(2000, 8000) },
+                new TopPostData { PostName = "Bài viết E", Views = new System.Random().Next(1000, 7000) }
+            }.OrderByDescending(p => p.Views).ToList();
+
+            var topPostsChart = new ChartData
+            {
+                Title = "Top 5 bài viết được xem nhiều nhất",
+                Labels = topPostsData.Select(p => p.PostName).ToList(),
+                Datasets = new List<ChartDataset>
+                {
+                    new ChartDataset
+                    {
+                        Label = "Lượt xem",
+                        Data = topPostsData.Select(p => (double)p.Views).ToList(),
+                        BackgroundColor = "#4a8af4",
+                        BarThickness = 30,
+                        BorderRadius = 4
+                    }
+                }
+            };
+            
+            var locationData = new Dictionary<string, double>
+            {
+                {"Đà Lạt", new System.Random().Next(10, 20)}, {"Hội An", new System.Random().Next(10, 20)},
+                {"Quảng Bình", new System.Random().Next(5, 15)}, {"Phú Quốc", new System.Random().Next(5, 15)},
+                {"Hà Nội", new System.Random().Next(5, 10)}, {"Đà Nẵng", new System.Random().Next(5, 10)},
+                {"Khác", new System.Random().Next(20, 40)}
+            };
+            var locationDistributionChart = new ChartData
+            {
+                Title = "Phân bố bài viết theo địa điểm",
+                Labels = locationData.Keys.ToList(),
+                Datasets = new List<ChartDataset>
+                {
+                    new ChartDataset
+                    {
+                        Data = locationData.Values.ToList(),
+                        BackgroundColors = new List<string> { "#4a77ea", "#27c179", "#f89e24", "#f35b9f", "#8f7ee6", "#f44336", "#78909c" }
+                    }
+                }
+            };
+
+            var viewModel = new StatisticsViewModel // Giả sử StatisticsViewModel đã được định nghĩa và using
+            {
+                NewUsersCard = newUsersCard,
+                InteractionRateCard = interactionRateCard,
+                TrafficChart = trafficChart,
+                PostDistributionChart = postDistributionChart,
+                UserInteractionsChart = userInteractionsChart,
+                TopPostsChart = topPostsChart,
+                LocationDistributionChart = locationDistributionChart
+            };
+
+            return Json(viewModel);
+        }
     // Action để hiển thị trang quản lý người dùng
     public async Task<IActionResult> Users(int pageNumber = 1, int pageSize = 10, string searchTerm = "", string roleFilter = "all", string statusFilter = "all")
     {
