@@ -27,7 +27,7 @@ namespace TourismWeb.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            
             // Quan hệ User
             modelBuilder.Entity<User>()
                 .Property(u => u.CreatedAt)
@@ -49,6 +49,12 @@ namespace TourismWeb.Models
             modelBuilder.Entity<TouristSpot>()
                 .Property(ts => ts.CreatedAt)
                 .HasDefaultValueSql("GETDATE()");
+            // Cấu hình cho mối quan hệ giữa TouristSpot và User (Creator)
+            modelBuilder.Entity<TouristSpot>()
+                .HasOne(ts => ts.CreatorUser)       // TouristSpot có một CreatorUser
+                .WithMany()                         // User có thể tạo nhiều TouristSpot (hoặc chỉ định navigation property ngược nếu có, ví dụ: .WithMany(u => u.CreatedSpots))
+                .HasForeignKey(ts => ts.CreatorUserId) // Khóa ngoại là CreatorUserId
+            .OnDelete(DeleteBehavior.Restrict); // HOẶC .OnDelete(DeleteBehavior.NoAction);
 
             // modelBuilder.Entity<TouristSpot>()
             //     .HasOne(ts => ts.Category)

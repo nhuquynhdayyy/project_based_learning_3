@@ -578,10 +578,10 @@
                                         </td>
                                         <td>
                                             @* <span class="badge @GetReportTypeClass(report.TypeOfReport)">@report.TypeOfReport.GetDisplayName()</span> *@
-                                            <span class="badge @ReportViewHelper.GetReportTypeClass(report.TypeOfReport)">@report.TypeOfReport.GetDisplayName()</span>
+                                            <span class="badge @ReportViewHelper.GetReportTypeClass(report.TypeOfReport.Value)">@report.TypeOfReport.GetDisplayName()</span>
                                         </td>
                                         <td>
-                                            <span class="badge @ReportViewHelper.GetTargetTypeClass(report.TargetType)">
+                                            <span class="badge @ReportViewHelper.GetTargetTypeClass(report.TargetType.Value)">
                                                 @report.TargetType.GetDisplayName()
                                                 @if(report.TargetId.HasValue)
                                                 {

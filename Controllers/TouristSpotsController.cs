@@ -537,6 +537,15 @@ namespace TourismWeb.Controllers
 
             if (ModelState.IsValid)
             {
+                // Lấy ID của người dùng đang đăng nhập
+        var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(currentUserId))
+        {
+            // Xử lý trường hợp không lấy được ID người dùng (dù có [Authorize])
+            ModelState.AddModelError(string.Empty, "Không thể xác định người tạo.");
+            // Cần load lại các ViewBag/ViewData cần thiết cho view Create ở đây
+            return View(touristSpot);
+        }
                 // Xử lý tải lên hình ảnh nếu có
                 if (imageFile != null && imageFile.Length > 0)
                 {
@@ -588,7 +597,7 @@ namespace TourismWeb.Controllers
 
                 // CreatedAt is already set by default in the model.
                 // touristSpot.CreatedAt = DateTime.Now; // Or set it here if you prefer
-
+                touristSpot.CreatorUserId = int.Parse(currentUserId);
                 _context.Add(touristSpot);
                 await _context.SaveChangesAsync();
                 //TempData["success"] = "Địa điểm du lịch đã được tạo thành công!"; // Optional success message

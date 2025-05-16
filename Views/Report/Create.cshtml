@@ -1,0 +1,51 @@
+@model TourismWeb.Models.Report
+@{
+    ViewData["Title"] = "Báo cáo nội dung";
+}
+
+<h2>Báo cáo nội dung</h2>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
+    @* <input type="hidden" asp-for="TargetType" value="@ViewBag.TargetType" />
+    <input type="hidden" asp-for="TargetId" value="@ViewBag.TargetId" />
+    <input type="hidden" asp-for="ReportedUserId" value="@ViewBag.ReportedUserId" /> *@
+    <input type="hidden" asp-for="TargetType" />
+<input type="hidden" asp-for="TargetId" />
+<input type="hidden" asp-for="ReportedUserId" />
+
+
+    @* <div class="form-group">
+        <label asp-for="TypeOfReport">Loại báo cáo</label>
+        <select asp-for="TypeOfReport" asp-items="ViewBag.ReportTypes" class="form-control">
+    <option value="">-- Chọn --</option>
+</select> 
+</div>*@
+<div class="form-group">
+    <label asp-for="TypeOfReport">Loại báo cáo</label>
+    <select asp-for="TypeOfReport" asp-items="Html.GetEnumSelectList<ReportType>()" class="form-control">
+        <option value="">-- Chọn --</option>
+    </select>
+    <span asp-validation-for="TypeOfReport" class="text-danger"></span>
+</div>
+@* <div class="form-group">
+    <label asp-for="TargetType"></label>
+    <select asp-for="TargetType" asp-items="Html.GetEnumSelectList<ReportTargetType>()" class="form-control">
+        <option value="">-- Chọn mục bị báo cáo --</option>
+    </select>
+    <span asp-validation-for="TargetType" class="text-danger"></span>
+</div> *@
+
+    <div class="form-group">
+        <label asp-for="Reason">Lý do</label>
+        <textarea asp-for="Reason" class="form-control" rows="4" placeholder="Mô tả chi tiết lý do báo cáo..."></textarea>
+        <span asp-validation-for="Reason" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-danger">Gửi báo cáo</button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

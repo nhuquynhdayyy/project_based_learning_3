@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace TourismWeb.Models
 {
@@ -28,6 +29,8 @@ namespace TourismWeb.Models
         Post,
         [Display(Name = "Bình luận")]
         Comment,
+        [Display(Name = "Đánh giá")]
+        Review,
         [Display(Name = "Người dùng")]
         User,
         [Display(Name = "Địa điểm")]
@@ -50,17 +53,19 @@ namespace TourismWeb.Models
         public int ReportId { get; set; }
 
         public int ReporterUserId { get; set; }
+        [ValidateNever] // ✅ Không kiểm tra từ form
         [ForeignKey("ReporterUserId")]
         public virtual User ReporterUser { get; set; } // Người báo cáo
 
         [Required]
-        public ReportType TypeOfReport { get; set; }
+        public ReportType? TypeOfReport { get; set; }
 
         [Required]
-        public ReportTargetType TargetType { get; set; }
+        public ReportTargetType? TargetType { get; set; }
         public int? TargetId { get; set; } // ID của Post, Comment, User, Spot...
 
         public int? ReportedUserId { get; set; } // ID của người dùng bị báo cáo/sở hữu nội dung
+        [ValidateNever] // ✅ Không kiểm tra từ form
         [ForeignKey("ReportedUserId")]
         public virtual User ReportedUser { get; set; }
 
@@ -73,11 +78,13 @@ namespace TourismWeb.Models
         public ReportStatus Status { get; set; } = ReportStatus.Pending;
 
         public int? AdminUserId { get; set; } // ID của admin xử lý (cần User ID của admin hiện tại)
+        [ValidateNever] // ✅ Không kiểm tra từ form
         [ForeignKey("AdminUserId")]
         public virtual User AdminUser { get; set; } // Người dùng Admin đã xử lý
 
         public DateTime? ResolvedAt { get; set; }
         [StringLength(500)]
-        public string AdminNotes { get; set; }
+        [ValidateNever] // Ngăn ModelState kiểm tra khi không có trong form
+        public string? AdminNotes { get; set; }
     }
 }

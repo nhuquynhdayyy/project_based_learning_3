@@ -385,6 +385,14 @@
             }
         </div>
         <div class="post-actions">
+            <a asp-controller="Report" asp-action="Create" 
+            asp-route-targetType="Post" 
+            asp-route-targetId="@Model.PostId"
+            asp-route-reportedUserId="@Model.UserId"
+            class="btn btn-sm btn-warning">
+                Báo cáo
+            </a>
+
             <!-- Nút Yêu thích -->
             <button class="btn favorite @(isFavorited ? "active" : "")" id="favoriteBtn" data-post-id="@Model.PostId">
                 <i class="@(isFavorited ? "fas" : "far") fa-heart"></i> @(isFavorited ? "Đã yêu thích" : "Yêu thích")
@@ -945,6 +953,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <a asp-controller="Report" asp-action="Create" 
+            asp-route-targetType="Comment" 
+            asp-route-targetId="@comment.CommentId"
+            asp-route-reportedUserId="@comment.User.UserId"
+            class="btn btn-sm btn-warning">
+                Báo cáo
+            </a>
                             }
                         }
                         else

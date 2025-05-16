@@ -126,5 +126,6 @@ namespace TourismWeb.Models // Hoặc namespace model của bạn
         public ICollection<PostShare> PostShares { get; set; } = new List<PostShare>();
         public ICollection<SpotImage> SpotImages { get; set; } = new List<SpotImage>();
         public ICollection<PostImage> PostImages { get; set; } = new List<PostImage>();
+        public ICollection<TouristSpot> TouristSpots { get; set; } = new List<TouristSpot>();
     }
 }

@@ -76,6 +76,15 @@ namespace TourismWeb.Models
         [Display(Name = "Ngày tạo")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+        // --- THÊM THUỘC TÍNH NGƯỜI TẠO ---
+        [Required] // Quan trọng: Một địa điểm phải có người tạo
+        public int CreatorUserId { get; set; } // Lưu ID của người dùng đã tạo
+
+        [ForeignKey("CreatorUserId")]
+        [ValidateNever]
+        public virtual User CreatorUser { get; set; } // Navigation property đến User model
+        // --- KẾT THÚC THUỘC TÍNH NGƯỜI TẠO ---
+
         // Thuộc tính này nên được xác định ở Controller dựa trên User hiện tại và Favorites
         [NotMapped] // Không lưu vào DB trực tiếp, mà tính toán khi cần
         public bool IsLikedByCurrentUser { get; set; } = false;

@@ -284,7 +284,6 @@ namespace TourismWeb.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReportId"));
 
                     b.Property<string>("AdminNotes")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
@@ -486,6 +485,9 @@ namespace TourismWeb.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
+                    b.Property<int>("CreatorUserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -511,6 +513,9 @@ namespace TourismWeb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("VideoEmbedUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -518,6 +523,10 @@ namespace TourismWeb.Migrations
                     b.HasKey("SpotId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("CreatorUserId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("TouristSpots");
                 });
@@ -807,7 +816,19 @@ namespace TourismWeb.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TourismWeb.Models.User", "CreatorUser")
+                        .WithMany()
+                        .HasForeignKey("CreatorUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TourismWeb.Models.User", null)
+                        .WithMany("TouristSpots")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Category");
+
+                    b.Navigation("CreatorUser");
                 });
 
             modelBuilder.Entity("TourismWeb.Models.Category", b =>
@@ -858,6 +879,8 @@ namespace TourismWeb.Migrations
                     b.Navigation("SpotImages");
 
                     b.Navigation("SpotShares");
+
+                    b.Navigation("TouristSpots");
                 });
 #pragma warning restore 612, 618
         }
