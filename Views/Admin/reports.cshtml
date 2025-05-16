@@ -622,15 +622,15 @@
                                             <span class="badge @ReportViewHelper.GetReportStatusClass(report.Status)">@report.Status.GetDisplayName()</span>
                                         </td>
                                         <td class="actions-cell">
-                                            <button class="action-btn view-btn" title="Xem chi tiết" data-report-id="@report.ReportId">
+                                            @* <button class="action-btn view-btn" title="Xem chi tiết" data-report-id="@report.ReportId">
                                                 <i class="fas fa-eye"></i>
-                                            </button>
-                                            @if (report.Status == ReportStatus.Pending)
-                                            {
+                                            </button> *@
+                                            @* @if (report.Status == ReportStatus.Pending)
+                                            { *@
                                                 <button class="action-btn process-btn" title="Xử lý" data-report-id="@report.ReportId">
                                                     <i class="fas fa-cogs"></i> <!-- Hoặc fa-check -->
                                                 </button>
-                                            }
+                                            @* } *@
                                         </td>
                                     </tr>
                                 }
@@ -778,3 +778,4 @@
         </form>
     </div>
 </div>
+

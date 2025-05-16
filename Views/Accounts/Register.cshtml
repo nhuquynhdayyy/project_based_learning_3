@@ -1,4 +1,4 @@
-@model TourismWeb.Models.User
+@* @model TourismWeb.Models.User
 
 @{
     ViewData["Title"] = "Đăng Ký";
@@ -96,4 +96,645 @@
     .btn-primary:hover {
         background-color: #0056b3;
         border-color: #0056b3;
-    }
+    } *@
+@model TourismWeb.Models.User
+
+@{
+    ViewData["Title"] = "Đăng Ký";
+}
+@section Styles {
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            /* Giữ nguyên hoặc bạn có thể đổi màu chủ đạo nếu muốn */
+            --primary-hover: #3a56d4;
+            --primary-light: rgba(67, 97, 238, 0.1);
+            --primary-shadow: rgba(67, 97, 238, 0.2);
+            --success-color: #38b000;
+            --success-hover: #2d9200;
+            /* --facebook-color: #1877f2; -- Không cần cho trang đăng ký */
+            /* --facebook-hover: #0a58ca; -- Không cần cho trang đăng ký */
+            --text-color: #2b3044;
+            --text-secondary: #6c757d;
+            --border-radius: 16px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            /* MODIFIED: Sử dụng cùng background như trang Login */
+            background: url('/images/cau.jpg') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
+        .register-container {
+            /* Đổi tên từ login-container */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        .register-card-wrapper {
+            /* Đổi tên từ login-card-wrapper */
+            width: 100%;
+        }
+
+        .register-card {
+            /* Đổi tên từ login-card */
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 3rem;
+            /* Có thể giảm padding nếu form đăng ký dài hơn */
+            text-align: center;
+            /* width: 100%; */
+            /* Bỏ hoặc comment dòng này */
+            max-width: 50%;
+            /* MODIFIED: Giống login-card, bạn có thể tăng lên ví dụ 60% hoặc 70% nếu form dài */
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .register-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            /* background: linear-gradient(90deg, var(--primary-color), #5e60ce); */
+            /* MODIFIED: Có thể bỏ hoặc đổi màu này, ví dụ màu của nút Đăng ký */
+            background-color: #ff7e5b;
+            /* Hoặc màu --primary-color nếu nút Đăng ký dùng màu đó */
+        }
+
+        .register-card .logo-container {
+            margin-bottom: 2rem;
+        }
+
+        .register-card .logo-img {
+            border-radius: 50%;
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .register-card .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .register-card h2 {
+            color: var(--text-color);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            /* Có thể tăng margin nếu cần */
+            font-size: 28px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .register-card h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            /* background-color: var(--primary-color); */
+            /* MODIFIED: Có thể bỏ hoặc đổi màu này */
+            @* background-color: #ff9f85; *@
+            /* Hoặc màu --primary-color nếu nút Đăng ký dùng màu đó */
+            border-radius: 3px;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+            /* Giảm nhẹ margin cho form đăng ký có thể có nhiều trường hơn */
+            position: relative;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--text-color);
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            /* Hoặc màu nút đăng ký nếu khác */
+            box-shadow: 0 0 0 3px var(--primary-shadow);
+            /* Hoặc shadow màu nút đăng ký nếu khác */
+            outline: 0;
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: stretch;
+            width: 100%;
+            margin-bottom: 0;
+        }
+
+        .input-group .form-control {
+            position: relative;
+            flex: 1 1 auto;
+            width: 1%;
+            min-width: 0;
+            border-radius: 8px;
+            padding-left: 48px;
+        }
+
+        .input-group-text {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border: none;
+            z-index: 10;
+            color: var(--text-secondary);
+        }
+
+        .password-toggle {
+            /* Áp dụng cho cả hai nút toggle password */
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border: none;
+            z-index: 10;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .toggle-password,
+        .toggle-confirm-password {
+            /* Gộp chung style cho cả hai nút */
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s ease;
+        }
+
+        .toggle-password:hover,
+        .toggle-confirm-password:hover {
+            color: var(--primary-color);
+            /* Hoặc màu nút đăng ký */
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 500;
+            color: #fff;
+            text-align: center;
+            vertical-align: middle;
+            user-select: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 8px;
+            transition: all 0.15s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn-primary {
+            /* Nút Đăng ký */
+            background-color: #ff7e5b;
+            /* Màu bạn đã dùng cho nút Đăng nhập, có thể đổi nếu muốn */
+            /* background-color: var(--primary-color); /* Hoặc dùng màu chủ đạo này */
+            border: none;
+            box-shadow: 0 4px 15px rgba(255, 159, 133, 0.3);
+            /* Shadow nhạt hơn cho màu này */
+            /* box-shadow: 0 4px 15px var(--primary-shadow); /* Hoặc dùng shadow chủ đạo */
+        }
+
+        .btn-primary:hover {
+            background-color: #ff8a69;
+            /* Màu hover đậm hơn một chút */
+            /* background-color: var(--primary-hover); */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 159, 133, 0.4);
+            /* box-shadow: 0 6px 20px var(--primary-shadow); */
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(255, 159, 133, 0.3);
+            /* box-shadow: 0 4px 15px var(--primary-shadow); */
+        }
+
+        /* .btn-success { ... } /* Bỏ nếu không dùng nút success ở đây */
+
+        .w-100 {
+            width: 100%;
+        }
+
+        .alert {
+            position: relative;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+            font-weight: 500;
+            animation: slideDown 0.3s ease-in-out;
+        }
+
+        keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-danger {
+            background-color: #ff5a5f;
+            box-shadow: 0 5px 15px rgba(255, 90, 95, 0.2);
+        }
+
+        .alert-success {
+            background-color: var(--success-color);
+            box-shadow: 0 5px 15px rgba(56, 176, 0, 0.2);
+        }
+
+        .text-danger {
+            /* Dùng cho validation messages */
+            color: #ff5a5f;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        .login-link-container {
+            /* Đổi tên từ register-link-container (nếu có ở trang đăng ký, nó sẽ là link đến trang đăng nhập) */
+            margin-top: 2rem;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .login-link {
+            /* Đổi tên từ register-link */
+            color: var(--primary-color);
+            /* Hoặc màu nút đăng nhập */
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .login-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            /* Hoặc màu nút đăng nhập */
+            transition: width 0.3s ease;
+        }
+
+        .login-link:hover {
+            color: var(--primary-hover);
+            /* Hoặc màu hover nút đăng nhập */
+        }
+
+        .login-link:hover::after {
+            width: 100%;
+        }
+
+        .icon-vibrate {
+            animation: vibrate 0.5s cubic-bezier(.36, .07, .19, .97) both;
+        }
+
+        keyframes vibrate {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-2px);
+            }
+
+            40% {
+                transform: translateX(2px);
+            }
+
+            60% {
+                transform: translateX(-2px);
+            }
+
+            80% {
+                transform: translateX(2px);
+            }
+        }
+
+        /* MODIFIED: Sửa cú pháp media query và áp dụng cho register-card */
+        media (max-width: 991.98px) {
+
+            /* lg breakpoint */
+            .register-card {
+                max-width: 70%;
+                /* Tăng chiều rộng cho màn hình vừa */
+            }
+        }
+
+        media (max-width: 767.98px) {
+
+            /* md breakpoint */
+            .register-card {
+                max-width: 85%;
+                /* Tăng chiều rộng cho màn hình nhỏ hơn */
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        media (max-width: 575.98px) {
+
+            /* sm breakpoint */
+            .register-card {
+                max-width: 95%;
+                /* Gần full width cho màn hình rất nhỏ */
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+
+            .register-card h2 {
+                font-size: 24px;
+            }
+
+            .form-control {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.95rem;
+            }
+
+            .btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+}
+
+<div class="register-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 register-card-wrapper">
+                <div class="register-card">
+                    <div class="logo-container">
+                        <a asp-controller="Home" asp-action="Index">
+                            <img src="/images/logo3.jpg" alt="Logo" class="logo-img">
+                        </a>
+                    </div>
+                    <h2>Đăng Ký Tài Khoản</h2>
+
+                    @if (ViewBag.SuccessMessage != null)
+                    {
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>@ViewBag.SuccessMessage
+                        </div>
+                        <a asp-controller="Accounts" asp-action="Login" class="btn btn-success w-100">
+                            <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập ngay
+                        </a>
+                    }
+                    else
+                    {
+                        @if (ViewBag.ErrorMessage != null)
+                        {
+                            <div class="alert alert-danger">
+                                <i class="fas fa-exclamation-circle me-2 icon-vibrate"></i>@ViewBag.ErrorMessage
+                            </div>
+                        }
+
+                        <form method="post" asp-action="Register" asp-controller="Accounts" class="register-form">
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="FullName">Họ và Tên</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                    <input asp-for="FullName" class="form-control" placeholder="Nhập họ và tên của bạn"
+                                        required />
+                                </div>
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="Email">Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                    <input asp-for="Email" class="form-control" placeholder="Nhập địa chỉ email của bạn"
+                                        required />
+                                </div>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="Username">Tên đăng nhập</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
+                                    <input asp-for="Username" class="form-control" placeholder="Chọn tên đăng nhập"
+                                        required />
+                                </div>
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="Password">Mật khẩu</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                    <input asp-for="Password" type="password" id="password" class="form-control"
+                                        placeholder="Tạo mật khẩu" required />
+                                    <button type="button" class="password-toggle toggle-password">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                </div>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="ConfirmPassword">Xác nhận mật khẩu</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                    <input type="password" name="ConfirmPassword" id="confirmPassword" class="form-control"
+                                        placeholder="Nhập lại mật khẩu" required />
+                                    <button type="button" class="password-toggle toggle-confirm-password">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-user-plus me-2"></i>Đăng Ký
+                            </button>
+                        </form>
+                    }
+
+                    <div class="login-link-container">
+                        <span>Đã có tài khoản? </span>
+                        <a class="login-link" asp-controller="Accounts" asp-action="Login">Đăng nhập</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Toggle Password Visibility
+        const togglePasswordButton = document.querySelector(".toggle-password");
+        if (togglePasswordButton) {
+            togglePasswordButton.addEventListener("click", function () {
+                const passwordInput = document.getElementById("password");
+                const icon = this.querySelector("i");
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    icon.classList.remove("fa-eye");
+                    icon.classList.add("fa-eye-slash");
+                } else {
+                    passwordInput.type = "password";
+                    icon.classList.remove("fa-eye-slash");
+                    icon.classList.add("fa-eye");
+                }
+            });
+        }
+
+        // Toggle Confirm Password Visibility
+        const toggleConfirmPasswordButton = document.querySelector(".toggle-confirm-password");
+        if (toggleConfirmPasswordButton) {
+            toggleConfirmPasswordButton.addEventListener("click", function () {
+                const confirmPasswordInput = document.getElementById("confirmPassword");
+                const icon = this.querySelector("i");
+                if (confirmPasswordInput.type === "password") {
+                    confirmPasswordInput.type = "text";
+                    icon.classList.remove("fa-eye");
+                    icon.classList.add("fa-eye-slash");
+                } else {
+                    confirmPasswordInput.type = "password";
+                    icon.classList.remove("fa-eye-slash");
+                    icon.classList.add("fa-eye");
+                }
+            });
+        }
+
+        // Password Match Validation
+        document.querySelector("form").addEventListener("submit", function (e) {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                e.preventDefault();
+
+                // Create a custom alert message
+                const existingAlert = document.querySelector(".alert-danger");
+                if (existingAlert) {
+                    existingAlert.remove();
+                }
+
+                const alertDiv = document.createElement("div");
+                alertDiv.className = "alert alert-danger";
+                alertDiv.innerHTML = '<i class="fas fa-exclamation-circle me-2 icon-vibrate"></i>Mật khẩu nhập lại không trùng khớp!';
+
+                const form = document.querySelector("form");
+                form.insertBefore(alertDiv, form.firstChild);
+
+                // Scroll to the top of the form
+                window.scrollTo({
+                    top: form.offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            }
+        });
+
+        // Add animation to form inputs
+        const formInputs = document.querySelectorAll('.form-control');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', function () {
+                this.parentElement.style.transition = 'transform 0.2s ease';
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+
+            input.addEventListener('blur', function () {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+}

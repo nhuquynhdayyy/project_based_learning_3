@@ -640,6 +640,13 @@
             class="btn btn-sm btn-warning">
                 Báo cáo
             </a>
+            <a asp-controller="Report" asp-action="Create" 
+            asp-route-targetType="User" 
+            asp-route-targetId="@review.User.UserId"
+            asp-route-reportedUserId="@review.User.UserId"
+            class="btn btn-sm btn-warning">
+                Báo cáo người dùng
+            </a>
                 }
             }
             else

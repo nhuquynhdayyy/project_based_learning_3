@@ -1,227 +1,217 @@
-
-
 /* Reset CSS */
 
-
-
-
-
 /* Header */
-.header {
+/* .header {
     padding-top: 40px;
    
-    background: linear-gradient(to right, #162da0, #5095f0);
+    background: linear-gradient(to right, #5eb7ff, #5eb7ff);
     text-align: center;
     padding: 60px 20px;
     color: white;
     position: relative;
-}
+} */
 
 .header h1 {
-    font-size: 32px;
-    font-weight: bold;
+  font-size: 32px;
+  font-weight: bold;
 }
 
 .header p {
-    font-size: 16px;
-    margin-top: 10px;
+  font-size: 16px;
+  margin-top: 10px;
 }
 
 /* Hiệu ứng sóng */
 .wave {
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background: white;
-    clip-path: ellipse(60% 40px at 50% 100%);
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: white;
+  clip-path: ellipse(60% 40px at 50% 100%);
 }
 
 /* Section chính */
 .contact-section {
-    padding: 40px 20px;
-    text-align: center;
+  padding: 40px 20px;
+  text-align: center;
 }
 
 /* Container 2 cột */
 .contact_container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 /* Card chung */
 .card {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 350px;
-    text-align: left;
-   
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  text-align: left;
 }
 
 /* Tiêu đề trong card */
 .card h2 {
-   
-    font-size: 20px;
-    color: #333;
-    margin-bottom: 10px;
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
 }
 
 /* Input & Textarea */
 .card input,
 .card textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 .card textarea {
-    height: 100px;
-    resize: none;
+  height: 100px;
+  resize: none;
 }
 
 /* Button */
 .card button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    color: white;
-    margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  margin-top: 10px;
 }
 
 /* Nút gửi tin nhắn */
 .contact button {
-    background-color: #3498db;
+  background-color: #3498db;
 }
 
 .feedback button {
-    background-color: #3532cc;
+  background-color: #3532cc;
 }
 
 /* Phần đăng nhập */
 .login-prompt {
-    background: rgba(255, 0, 0, 0.1);
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    margin-bottom: 30px;
-    
+  background: rgba(255, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .login-prompt h3 {
-    color: red;
-    font-size: 18px;
+  color: red;
+  font-size: 18px;
 }
 
 .login-prompt p {
-    font-size: 14px;
-    margin: 5px 0;
+  font-size: 14px;
+  margin: 5px 0;
 }
 
 .login-prompt button {
-    background: red;
-    padding: 10px 20px;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
+  background: red;
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 /* Thông tin liên hệ */
 .section-title {
-    font-size: 22px;
-    color: #333;
-    margin-top: 20px;
+  font-size: 22px;
+  color: #333;
+  margin-top: 20px;
 }
 
 .section-subtitle {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 20px;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
 }
 
 /* Thẻ thông tin */
 .info-cards {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 .info-card {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    width: 200px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .info-card .icon {
-    font-size: 24px;
-    display: block;
-    margin-bottom: 10px;
+  font-size: 24px;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .info-card h3 {
-    font-size: 16px;
-    color: #333;
+  font-size: 16px;
+  color: #333;
 }
 
 .info-card p {
-    font-size: 14px;
-    color: #666;
+  font-size: 14px;
+  color: #666;
 }
 
 /* Footer */
 footer {
-    margin-top: 20px;
-    background: #eee;
-    padding: 15px;
-    text-align: center;
+  margin-top: 20px;
+  background: #eee;
+  padding: 15px;
+  text-align: center;
 }
 
 .map {
-    font-size: 14px;
-    color: #333;
+  font-size: 14px;
+  color: #333;
 }
 .login-buttons a {
-    display: inline-block;
-    width: 140px; /* Đảm bảo 2 nút có cùng chiều rộng */
-    text-align: center;
-    padding: 10px 20px;
-    /* border-radius: 5px; */
-    text-decoration: none;
-    margin: 0 10px;
-    font-weight: bold;
-  
+  display: inline-block;
+  width: 140px; /* Đảm bảo 2 nút có cùng chiều rộng */
+  text-align: center;
+  padding: 10px 20px;
+  /* border-radius: 5px; */
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: bold;
 }
 
 .btn-primary {
-    background-color: #3d8bde; /* Màu xanh */
-    color: white;
-    border: none;
+  background-color: #3d8bde; /* Màu xanh */
+  color: white;
+  border: none;
 }
 
 .btn-secondary {
-    background-color: #2227b3; /* Màu xám */
-    color: white;
-    border: none;
+  background-color: #2227b3; /* Màu xám */
+  color: white;
+  border: none;
 }
 
-.btn-primary, .btn-secondary {
-    height: 45px; /* Đảm bảo 2 nút có cùng chiều cao */
-    line-height: 25px;
+.btn-primary,
+.btn-secondary {
+  height: 45px; /* Đảm bảo 2 nút có cùng chiều cao */
+  line-height: 25px;
 }

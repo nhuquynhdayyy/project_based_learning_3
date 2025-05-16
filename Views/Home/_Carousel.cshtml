@@ -1,4 +1,4 @@
-@{
+@* @{
     ViewData["Title"] = "Carousel";
 }
 <!-- Bootstrap CSS -->
@@ -60,6 +60,101 @@
             </div>
             <div class="carousel-item">
                 <img src="~/images/xinchao3.jpg" class="d-block w-100" alt="Ảnh 3">
+                <div class="carousel-caption">
+                    <h1>TRẢI NGHIỆM ĐÁNG NHỚ</h1>
+                    <i>cùng TourismWeb</i>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Nút điều hướng -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body> *@
+@{
+    ViewData["Title"] = "Carousel";
+}
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+
+    }
+
+    .carousel-item img {
+        width: 100%;
+        height: 100vh;
+        /* Chiều cao full màn */
+
+    }
+
+    /* Hiệu ứng chữ trên slider */
+    .carousel-caption {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-30%);
+        text-align: center;
+    }
+
+    /* Chữ màu trắng cho dễ nhìn */
+    .carousel-caption h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        color: white;
+    }
+</style>
+
+
+<body>
+
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/images/cdhue.jpg" class="d-block w-100" alt="Ảnh 2">
+                <div class="carousel-caption">
+                    <h1>KHÁM PHÁ THẾ GIỚI</h1>
+                    <i>cùng TourismWeb</i>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/anh-bien.jpg" class="d-block w-100" alt="Ảnh 1">
+                <div class="carousel-caption">
+                    <h1>HÀNH TRÌNH BẮT ĐẦU</h1>
+                    <i>cùng TourismWeb</i>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/Bà-Nà.jpg" class="d-block w-100" alt="Ảnh 3">
+                <div class="carousel-caption">
+                    <h1>TRẢI NGHIỆM ĐÁNG NHỚ</h1>
+                    <i>cùng TourismWeb</i>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/hhue.webp" class="d-block w-100" alt="Ảnh 3">
+                <div class="carousel-caption">
+                    <h1>TRẢI NGHIỆM ĐÁNG NHỚ</h1>
+                    <i>cùng TourismWeb</i>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/xinchao2.jpg" class="d-block w-100" alt="Ảnh 3">
                 <div class="carousel-caption">
                     <h1>TRẢI NGHIỆM ĐÁNG NHỚ</h1>
                     <i>cùng TourismWeb</i>

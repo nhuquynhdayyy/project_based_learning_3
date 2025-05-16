@@ -342,3 +342,82 @@ document.addEventListener("DOMContentLoaded", function () {
   // (Tùy chọn) Helper JS để lấy class màu, nếu bạn không muốn dùng Razor @functions
   // function getReportTypeClass(typeString) { ... }
 });
+
+$(document).on("click", ".process-btn", function () {
+  const reportId = $(this).data("report-id");
+
+  $.get(`/Admin/GetReportDetails/${reportId}`, function (data) {
+    // Điền dữ liệu vào modal
+    $("#modalReportId").text(data.reportId);
+    $("#modalHiddenReportId").val(data.reportId);
+    $("#modalHiddenReportedUserId").val(data.reportedUserId);
+
+    $("#modalReporterInfo").html(
+      `${data.reporterName} (${data.reporterEmail}) <img src="${data.reporterAvatar}" width="30" />`
+    );
+    $("#modalTypeOfReport").text(data.typeOfReport);
+    $("#modalTargetType").text(data.targetType);
+    $("#modalTargetLink").attr("href", data.targetLink);
+    $("#modalReportedUserInfo").html(
+      `${data.reportedUserName} (${data.reportedUserEmail}) <img src="${data.reportedUserAvatar}" width="30" />`
+    );
+    $("#modalReportedAt").text(data.reportedAt);
+    $("#modalNewStatus").val(data.status);
+    $("#modalReason").text(data.reason);
+    $("#modalAdminNotes").val(data.adminNotes || "");
+
+    if (data.targetContent && data.targetContent.content) {
+      $("#modalTargetContent").html(data.targetContent.content);
+      $("#modalTargetContentSection").show();
+    } else {
+      $("#modalTargetContentSection").hide();
+    }
+
+    // Hiển thị action phù hợp
+    $("#actionDeleteContentOption").toggle(
+      data.targetContent?.type === "Post" ||
+        data.targetContent?.type === "Comment"
+    );
+    $("#actionWarnUserOption, #actionBanUserOption").toggle(
+      !!data.reportedUserId
+    );
+
+    // Hiện modal
+    $("#reportModal").show();
+  });
+});
+
+$(".modal-close, .modal-close-btn").on("click", function () {
+  $("#reportModal").hide();
+});
+
+$("#modalAdminNotes").val(data.adminNotes || "");
+
+if (data.targetContent) {
+  const contentSummary = data.targetContent.title
+    ? `<strong>${data.targetContent.title}</strong><br>${data.targetContent.content}`
+    : data.targetContent.content;
+
+  $("#modalTargetContent").html(contentSummary);
+  $("#modalTargetContentSection").show();
+} else {
+  $("#modalTargetContentSection").hide();
+}
+
+$("#processReportForm").submit(function (e) {
+  e.preventDefault(); // Ngăn submit mặc định
+  const form = $(this);
+  $.ajax({
+    type: "POST",
+    url: form.attr("action"),
+    data: form.serialize(),
+    success: function () {
+      alert("Đã xử lý báo cáo.");
+      $("#reportModal").hide();
+      // Có thể reload bảng báo cáo hoặc cập nhật trạng thái từng dòng nếu dùng DataTables, etc.
+    },
+    error: function () {
+      alert("Xử lý thất bại.");
+    },
+  });
+});

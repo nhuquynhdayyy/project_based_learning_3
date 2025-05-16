@@ -616,7 +616,11 @@ public class AdminController : Controller
         }
         else if (report.TargetType == ReportTargetType.Comment && report.TargetId.HasValue)
         {
-            var comment = await _context.PostComments.Include(c => c.Post).FirstOrDefaultAsync(c => c.CommentId == report.TargetId.Value);
+            // var comment = await _context.PostComments.Include(c => c.Post).FirstOrDefaultAsync(c => c.CommentId == report.TargetId.Value);
+            var comment = await _context.PostComments
+                                        .Include(c => c.User) // Người tạo comment
+                                        .Include(c => c.Post) // Để lấy link post
+                                        .FirstOrDefaultAsync(c => c.CommentId == report.TargetId.Value);
             if (comment != null)
             {
                 targetContent = new { Type = "Comment", Content = TruncateString(comment.Content, 200) };
@@ -647,7 +651,8 @@ public class AdminController : Controller
             Reason = report.Reason,
             ReportedAt = report.ReportedAt.ToString("dd/MM/yyyy HH:mm"),
             Status = report.Status.ToString(), // Trạng thái hiện tại của báo cáo
-            report.AdminNotes,
+            // report.AdminNotes,
+            AdminNotes = report.AdminNotes,
             TargetContent = targetContent,
             TargetLink = targetLink
         };
@@ -658,7 +663,7 @@ public class AdminController : Controller
     // POST: Admin/ProcessReport
     [HttpPost]
     [ValidateAntiForgeryToken] // Quan trọng để chống CSRF
-    public async Task<IActionResult> ProcessReport(int reportId, string newStatus, string adminAction, string adminNotes)
+    public async Task<IActionResult> ProcessReport(int reportId, string newStatus, string adminAction, string adminNotes, int? reportedUserIdToActOn)
     {
         var report = await _context.Reports
                                    .Include(r => r.ReportedUser) // Để cập nhật UserStatus
@@ -688,12 +693,20 @@ public class AdminController : Controller
         
         report.ResolvedAt = DateTime.Now;
         report.AdminNotes = adminNotes;
+        // ReportStatus statusToSet;
+
+        if ((adminAction == "ban_user" || adminAction == "warn_user") && report.ReportedUser == null)
+{
+    TempData["ErrorMessage"] = "Không thể thực hiện hành động vì báo cáo không gắn với người dùng.";
+    return RedirectToAction("Reports"); 
+}
 
         // Thực hiện hành động đối với người dùng hoặc nội dung
         if (report.ReportedUser != null) // Chỉ thực hiện nếu có người dùng liên quan trực tiếp
         {
             var targetUser = report.ReportedUser;
             bool userUpdated = false;
+            ReportStatus statusToSet = report.Status; // Khởi tạo với giá trị mặc định
 
             switch (adminAction?.ToLower())
             {
@@ -708,20 +721,66 @@ public class AdminController : Controller
                         var comment = await _context.PostComments.FindAsync(report.TargetId.Value);
                         if (comment != null) _context.PostComments.Remove(comment);
                     }
+                    statusToSet = ReportStatus.Resolved;
                     break;
                 case "warn_user":
                     // Logic cảnh báo (ví dụ: ghi log, gửi email - ngoài phạm vi code này)
                     // Có thể thêm một trường "WarningCount" vào User model
+if (targetUser != null)
+                {
+                    // Logic cảnh báo người dùng (userToActUpon)
+                    // Ví dụ: userToActUpon.WarningCount++;
+                    // _context.Users.Update(userToActUpon);
+                    // userStatusChanged = true; // nếu có thay đổi db cho user
+                    TempData["InfoMessage"] = $"Đã ghi nhận cảnh báo cho người dùng: {targetUser.FullName ?? targetUser.Username}.";
+                    statusToSet = ReportStatus.Resolved;
+                }
+                else
+                {
+                    TempData["WarningMessage"] = "Không tìm thấy người dùng để cảnh báo.";
+                }
                     break;
                 case "ban_user":
+                if (targetUser != null)
+                {
                     targetUser.UserStatus = "Bị cấm"; // Đảm bảo giá trị này khớp với logic hiển thị
                     _context.Users.Update(targetUser);
                     userUpdated = true;
+                    TempData["InfoMessage"] = $"Đã cấm người dùng: {targetUser.FullName ?? targetUser.Username}.";
+                    statusToSet = ReportStatus.Resolved;
+                }
+                else
+                {
+                    TempData["WarningMessage"] = "Không tìm thấy người dùng để cấm.";
+                }
                     break;
                 case "ignore_report":
                     // Không làm gì với user/content, chỉ cập nhật trạng thái report
-                    break;
+                    if (Enum.TryParse<ReportStatus>(newStatus, true, out var parsedStatusFromDropdown))
+            {
+                statusToSet = parsedStatusFromDropdown;
             }
+            else
+            {
+                // Nếu parse lỗi, có thể mặc định về trạng thái cũ hoặc Pending
+                statusToSet = report.Status; // Giữ nguyên trạng thái cũ nếu parse lỗi
+                TempData["WarningMessage"] = "Trạng thái gửi lên không hợp lệ, giữ nguyên trạng thái cũ.";
+            }
+                    break;
+                default:
+                // TempData["WarningMessage"] = "Hành động không xác định.";
+                if (Enum.TryParse<ReportStatus>(newStatus, true, out var parsedStatusDefault))
+            {
+                statusToSet = parsedStatusDefault;
+            }
+            else
+            {
+                statusToSet = ReportStatus.Resolved; // Mặc định là Đã xử lý nếu không rõ ràng
+                TempData["WarningMessage"] = "Hành động không rõ ràng, mặc định trạng thái là Đã xử lý.";
+            }
+                break;
+            }
+            report.Status = statusToSet;
             if(userUpdated) await _context.SaveChangesAsync(); // Lưu thay đổi user trước
         }
         

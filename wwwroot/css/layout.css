@@ -1,274 +1,327 @@
-body {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.911),
-    rgb(248, 250, 251)
-  ) !important;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* Tránh xuất hiện thanh cuộn ngang */
+/* Your body styles (ensure this is at the top or in a general section) */
+ body {
+    position: relative;
+    background: linear-gradient(#ffffff,#f0f0f0);
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3); /* trắng mờ 30% - Lớp này sẽ hiện phía sau navbar khi trong suốt */
+    z-index: -1;
+}
+
+/* General img rule - adjust if needed */
 img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto;
+    max-width: 100%;
+    height: auto;
 }
+
+/* Main Navbar Styling */
 .navbar {
-  /* position: fixed; Cố định vị trí */
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  background: linear-gradient(135deg, #000000, #0c022e) !important;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 40px;
-  min-height: 70px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    /* position: fixed; /* Handled by Bootstrap's .fixed-top */
+    /* top: 0; left: 0; width: 100%; z-index: 1000; /* Handled by .fixed-top */
+    background-color: #ffffff; /* MODIFIED: Initial background trắng */
+    padding-top: 15px;
+    padding-bottom: 15px;
+    min-height: 70px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* MODIFIED: Shadow nhẹ hơn cho nền trắng */
+    transition: background-color 0.3s ease-in-out, padding 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transitions */
 }
 
-/* Thêm margin-top vào nội dung trang để tránh bị navbar che mất */
-
-/* Logo & Navbar Brand */
+/* Navbar Brand (Logo & Text) */
 .navbar-brand {
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-  font-weight: 700;
-  color: #ffffff;
-  text-transform: uppercase;
-  margin-right: auto;
-  letter-spacing: 1px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    font-weight: 700;
+    color: #000000 !important; /* MODIFIED: Chữ đen */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Optional: text-shadow nhẹ hơn */
+    transition: all 0.3s ease;
 }
 
 .navbar-brand:hover {
-  color: #f0f0f0;
-  transform: scale(1.02);
-  transition: all 0.3s ease;
+    color: #555555 !important; /* MODIFIED: Màu hover đậm hơn cho chữ đen */
+    transform: scale(1.02);
 }
 
-/* Menu */
+/* Navbar Menu Items */
 .navbar-nav {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  white-space: nowrap;
-  padding: 0 10px;
+    gap: 8px;
 }
 
-.navbar-nav::-webkit-scrollbar {
-  height: 4px;
+.navbar-dark .navbar-nav .nav-link { /* Selector giữ nguyên, màu chữ đã đúng */
+    color: #000000 !important; /* Chữ đen */
+    font-weight: 600;
+    font-size: 15px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.navbar-nav::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
+.navbar-dark .navbar-nav .nav-link i {
+    color: #000000 !important; /* Icon đen */
+    margin-right: 6px;
 }
 
-.navbar-nav .nav-item {
-  padding: 0;
-  position: relative;
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+    color: #2088ff  !important; /* Màu chữ hover xanh dương - OK */
+    background-color: rgba(0, 0, 0, 0.05); /* MODIFIED: Nền hover xám nhạt hơn */
+    transform: translateY(-2px);
+    text-decoration: none;
 }
 
-.navbar-nav .nav-link {
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 15px;
-  padding: 10px 16px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
+.navbar-dark .navbar-nav .nav-link:hover i,
+.navbar-dark .navbar-nav .nav-link:focus i {
+    color: #2088ff !important; /* Icon hover xanh dương - OK */
 }
 
-.navbar-nav .nav-link:hover {
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-  text-decoration: none;
+/* Active Nav Link */
+.navbar-dark .navbar-nav .nav-link.active,
+.navbar-dark .navbar-nav .show > .nav-link {
+    color: #ffffff !important; /* Chữ trắng trên nền cam - OK */
+    background: linear-gradient(135deg, #ff6600, #ff3300);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(255, 102, 0, 0.4);
 }
 
-/* Hiệu ứng mục đang chọn */
-.navbar-nav .nav-item .nav-link.active {
-  color: #ffffff;
-  background: linear-gradient(135deg, #ff6600, #ff3300);
-  border-radius: 6px;
-  padding: 10px 16px;
-  box-shadow: 0 2px 8px rgba(255, 102, 0, 0.4);
+.navbar-dark .navbar-nav .nav-link.active i,
+.navbar-dark .navbar-nav .show > .nav-link i {
+    color: #ffffff !important; /* Icon trắng trên nền cam - OK */
 }
 
-.navbar-nav .nav-item .nav-link.active:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 102, 0, 0.5);
+
+.navbar-dark .navbar-nav .nav-link.active:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 102, 0, 0.5);
 }
 
-/* Hiệu ứng hover dưới */
-.navbar-nav .nav-link:not(.active)::after {
-  content: "";
-  position: absolute;
-  bottom: 5px;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background-color: #ffffff;
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
+/* Underline hover effect for non-active links */
+.navbar-dark .navbar-nav .nav-link:not(.active)::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #007bff; /* MODIFIED: Màu gạch chân có thể là màu xanh dương hoặc đen */
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
 }
 
-.navbar-nav .nav-link:not(.active):hover::after {
-  width: 70%;
+.navbar-dark .navbar-nav .nav-link:not(.active):hover::after {
+    width: 70%;
 }
 
-/* Thanh tìm kiếm */
+/* Search Box Styling */
 .navbar .search-box {
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 25px;
-  padding: 4px 15px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.05); /* MODIFIED: Nền search box nhạt hơn */
+    border-radius: 25px;
+    padding: 4px 8px 4px 15px;
+    border: 1px solid rgba(0, 0, 0, 0.2); /* MODIFIED: Border đậm hơn chút */
+    transition: all 0.3s ease;
 }
 
 .navbar .search-box:hover,
 .navbar .search-box:focus-within {
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.08); /* MODIFIED: Nền hover/focus nhạt hơn */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* MODIFIED: Shadow nhạt hơn */
 }
 
-.navbar .search-box input {
-  height: 36px;
-  padding: 6px 10px;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: #ffffff;
-  width: 200px;
-  font-size: 14px;
+.navbar .search-box input.form-control {
+    padding: 6px 10px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #000000; /* Chữ đen - OK */
+    font-size: 14px;
+    box-shadow: none;
 }
 
-.navbar .search-box input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+.navbar .search-box input.form-control::placeholder {
+    color: rgba(0, 0, 0, 0.5); /* MODIFIED: Placeholder màu tối hơn */
 }
 
-.navbar .search-box button {
-  background: none;
-  border: none;
-  color: #ffffff;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease;
-}
-
-.navbar .search-box button:hover {
-  transform: scale(1.1);
-}
-
-/* Dropdown menu */
-.navbar .dropdown-menu {
-  background: rgba(19, 19, 19, 0.95);
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 10px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  padding: 8px 0;
-  min-width: 180px;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.navbar .dropdown-menu a {
-  color: #f8f9fa;
-  font-weight: 500;
-  padding: 10px 15px;
-  transition: all 0.2s ease;
-  position: relative;
-}
-
-.navbar .dropdown-menu a:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  padding-left: 18px;
-}
-
-.navbar .dropdown-menu a:hover::before {
-  content: "";
-  position: absolute;
-  left: 8px;
-  top: 50%;
-  width: 4px;
-  height: 4px;
-  background: #ff6600;
-  border-radius: 50%;
-  transform: translateY(-50%);
-}
-
-/* Responsive styles */
-@media (max-width: 992px) {
-  .navbar {
-    padding: 12px 20px;
-  }
-
-  .navbar-brand {
+.navbar .search-box button.btn {
+    background: none;
+    border: none;
+    color: #000000; /* Icon đen - OK */
     font-size: 16px;
-  }
-
-  .navbar .search-box input {
-    width: 150px;
-  }
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    box-shadow: none;
+}
+.navbar .search-box button.btn:hover {
+    transform: scale(1.1);
+    background: none;
+    color: #555555; /* MODIFIED: Icon hover màu đậm hơn */
 }
 
-@media (max-width: 768px) {
-  .navbar {
-    flex-wrap: wrap;
-  }
 
-  .navbar-nav {
-    margin-top: 10px;
-    width: 100%;
-    justify-content: flex-start;
-    overflow-x: auto;
-  }
-
-  .navbar .search-box {
-    margin-left: auto;
-    margin-top: 10px;
-  }
+/* User Menu Button (for the icon button itself) */
+.navbar .btn-user-menu {
+    color: #000000 !important; /* Icon đen - OK */
+    border-color: rgba(0, 0, 0, 0.2); /* MODIFIED: Border đậm hơn chút */
+    padding: .375rem .75rem;
+}
+.navbar .btn-user-menu i {
+    color: #000000 !important; /* Icon đen - OK */
 }
 
-/* Hiệu ứng scroll */
+.navbar .btn-user-menu:hover,
+.navbar .btn-user-menu:focus {
+    color: #000000 !important; /* Icon đen - OK */
+    background-color: rgba(0, 0, 0, 0.05); /* MODIFIED: Nền hover nhạt hơn */
+    border-color: rgba(0, 0, 0, 0.3); /* MODIFIED: Border hover đậm hơn chút */
+}
+.navbar .btn-user-menu:hover i,
+.navbar .btn-user-menu:focus i {
+    color: #000000 !important; /* Icon đen - OK */
+}
+
+
+/* Dropdown Menu Styling */
+.navbar-dark .dropdown-menu {
+    background: #ffffff; /* MODIFIED: Nền trắng cho dropdown */
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.15); /* MODIFIED: Border cho dropdown */
+    margin-top: 10px !important;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* MODIFIED: Shadow nhẹ hơn */
+    padding: 8px 0;
+    min-width: 180px;
+    animation: fadeInDropdown 0.3s ease;
+}
+
+@keyframes fadeInDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.navbar-dark .dropdown-menu .dropdown-item {
+    color: #000000 !important; /* Chữ đen - OK */
+    font-weight: 500;
+    padding: 10px 15px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+.navbar-dark .dropdown-menu .dropdown-item i {
+    color: #000000 !important; /* Icon đen - OK */
+    margin-right: 8px;
+}
+
+
+.navbar-dark .dropdown-menu .dropdown-item:hover,
+.navbar-dark .dropdown-menu .dropdown-item:focus {
+    background-color: rgba(0, 0, 0, 0.05); /* MODIFIED: Nền hover nhạt */
+    color: #007bff !important; /* MODIFIED: Chữ hover màu xanh dương */
+    padding-left: 18px;
+}
+
+.navbar-dark .dropdown-menu .dropdown-item:hover i,
+.navbar-dark .dropdown-menu .dropdown-item:focus i {
+    color: #007bff !important; /* MODIFIED: Icon hover màu xanh dương */
+}
+
+.navbar-dark .dropdown-menu .dropdown-item:hover::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    width: 4px;
+    height: 4px;
+    background-color: #ff6600;
+    border-radius: 50%;
+    transform: translateY(-50%);
+}
+
+/* Scrolled Navbar State */
 .navbar.scrolled {
-  background: linear-gradient(135deg, #097023, #0ea32f) !important;
-  padding: 10px 40px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    background-color: transparent !important; /* MODIFIED: Nền trong suốt khi cuộn */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* MODIFIED: Shadow khi cuộn, có thể giữ nguyên hoặc thay đổi */
+    /* Chữ vẫn giữ màu đen do các quy tắc !important ở trên */
+}
+
+
+/* Responsive Styles */
+@media (max-width: 991.98px) {
+    .navbar-nav {
+        margin-top: 10px;
+    }
+    .navbar .search-box {
+        margin-top: 10px;
+        margin-bottom: 5px;
+        width: 100%;
+    }
+    .navbar .dropdown.ms-lg-3 {
+        margin-left: 0 !important;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .navbar .btn-user-menu {
+        width: 100%;
+        text-align: left;
+        padding-left: 15px;
+    }
+    .navbar .btn-user-menu .fa-user {
+        margin-right: 8px;
+    }
+     /* Khi ở màn hình nhỏ, nền dropdown có thể cần điều chỉnh nếu navbar thu gọn có nền khác */
+    .navbar-collapse {
+        background-color: #ffffff; /* MODIFIED: Nền trắng cho phần menu thu gọn */
+        padding: 10px;
+        border-radius: 0 0 8px 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .navbar.scrolled .navbar-collapse {
+         background-color: rgba(255,255,255,0.9); /* MODIFIED: Nền hơi trong suốt cho menu thu gọn khi scroll */
+    }
+
+}
+
+/* Navbar Toggler Icon for dark backgrounds - MODIFIED for light background */
+.navbar-dark .navbar-toggler {
+    color: rgba(0,0,0,.55); /* MODIFIED: Màu icon toggler */
+    border-color: rgba(0,0,0,.1); /* MODIFIED: Màu border toggler */
+}
+.navbar-dark .navbar-toggler-icon {
+    /* MODIFIED: SVG với stroke màu đen */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 /* ================= FOOTER ================= */
 footer {
   width: 100%;
-  background: linear-gradient(135deg, #1c1c1c, #111);
-  color: #fff;
-  padding: 20px 0;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+  background: #000000; /* MODIFIED: Nền đen */
+  color: #ffffff; /* MODIFIED: Chữ trắng */
+  padding: 40px 0; /* Tăng padding cho đẹp hơn */
+  /* border-top-left-radius: 20px; /* Bỏ radius nếu không cần */
+  /* border-top-right-radius: 20px; */
+  /* box-shadow: 0 -5px 10px rgba(255, 255, 255, 0.05); /* MODIFIED: Shadow trắng nhẹ nếu muốn */
   margin-top: auto;
 }
 
@@ -283,19 +336,23 @@ footer {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start; /* MODIFIED: Căn chỉnh các cột từ trên xuống */
+  gap: 30px; /* MODIFIED: Khoảng cách giữa các cột */
 }
 
 /* LOGO */
 .footer-logo {
-  width: 25%;
-  text-align: center;
+  width: 100%; /* MODIFIED: Cho logo chiếm full width trên mobile */
+  max-width: 250px; /* MODIFIED: Giới hạn chiều rộng trên desktop */
+  text-align: left; /* MODIFIED: Căn trái logo */
+  margin-bottom: 20px; /* Thêm margin dưới cho logo */
 }
 
 .footer-logo img {
   width: 120px;
   border-radius: 8px;
   transition: transform 0.3s ease;
+  margin-bottom: 10px; /* Thêm margin dưới ảnh logo */
 }
 
 .footer-logo img:hover {
@@ -304,20 +361,25 @@ footer {
 
 .footer-logo p {
   font-size: 14px;
-  margin-top: 10px;
+  /* margin-top: 10px; Bỏ margin top nếu đã có ở img */
   opacity: 0.8;
+  color: #cccccc; /* MODIFIED: Chữ mô tả màu xám nhạt */
 }
 
 /* SOCIAL MEDIA ICONS */
+.footer-social {
+    margin-top: 15px; /* Thêm khoảng cách cho social icons */
+}
 .footer-social a {
-  color: #fff;
+  color: #ffffff; /* MODIFIED: Chữ/Icon trắng */
   font-size: 22px;
-  margin: 10px;
+  margin-right: 15px; /* Tăng khoảng cách giữa các icon */
+  margin-left: 0;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .footer-social a:hover {
-  color: #ff6600;
+  color: #ff6600; /* Màu cam accent - OK */
   transform: translateY(-3px);
 }
 
@@ -325,52 +387,53 @@ footer {
 .footer-links,
 .footer-instagram,
 .footer-subscribe {
-  width: 20%;
-}
-/* Dịch phần Điều hướng và Instagram sang trái */
-.footer-links,
-.footer-instagram {
-  transform: translateX(-50px); /* Dịch sang trái 30px */
+  /* width: 20%; /* Bỏ width cố định, để flexbox tự chia */
+  flex: 1; /* Cho các cột tự chia đều không gian */
+  min-width: 200px; /* Chiều rộng tối thiểu cho mỗi cột */
+  margin-bottom: 20px; /* Thêm margin dưới cho các cột */
 }
 
-/* Cố định vị trí phần Theo dõi */
-.footer-follow {
-  transform: translateX(0); /* Giữ nguyên */
-}
+/* Bỏ transform translateX vì dùng flexbox align-items: flex-start */
+/* .footer-links,
+.footer-instagram {
+  transform: translateX(-50px); 
+} */
+
+/* .footer-follow {
+  transform: translateX(0); 
+} */
 
 .footer-links h4,
 .footer-instagram h4,
 .footer-subscribe h4 {
   font-size: 18px;
-  margin-bottom: 15px;
+  margin-bottom: 20px; /* Tăng margin dưới tiêu đề */
   display: flex;
   align-items: center;
-  color: #fff;
+  color: #ffffff; /* MODIFIED: Chữ trắng */
+  font-weight: 600; /* Thêm đậm cho tiêu đề */
 }
 
-/* Tạo thanh underline với icon */
 .footer-links h4::after,
 .footer-instagram h4::after,
 .footer-subscribe h4::after {
   content: "";
   display: inline-block;
-  width: 50px; /* Độ dài underline */
-  height: 3px; /* Độ dày underline */
-  background: #ff6600;
+  width: 40px; /* Giảm độ dài underline */
+  height: 2px; /* Giảm độ dày underline */
+  background: #ff6600; /* Màu cam accent - OK */
   margin-left: 10px;
-  position: relative;
 }
 
-/* Thêm chấm tròn */
 .footer-links h4::before,
 .footer-instagram h4::before,
 .footer-subscribe h4::before {
-  content: "⦿"; /* Unicode của hình tròn */
-  color: #ff6600;
-  font-size: 12px;
-  margin-right: 10px;
+  content: "⦿";
+  color: #ff6600; /* Màu cam accent - OK */
+  font-size: 10px; /* Giảm kích thước chấm tròn */
+  margin-right: 8px; /* Giảm margin phải */
   position: relative;
-  top: -2px;
+  top: -1px; /* Điều chỉnh vị trí chấm tròn */
 }
 
 /* LINKS */
@@ -380,34 +443,35 @@ footer {
 }
 
 .footer-links ul li {
-  margin: 6px 0;
+  margin: 8px 0; /* Tăng khoảng cách giữa các link */
   display: flex;
-  align-items: center; /* Giúp căn đều theo chiều ngang */
+  align-items: center;
 }
 
 .footer-links ul li a {
-  color: #fff;
+  color: #cccccc; /* MODIFIED: Chữ link màu xám nhạt */
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, padding-left 0.3s ease; /* Thêm transition cho padding-left */
   display: flex;
   align-items: center;
 }
 .footer-links ul li::before {
-  content: "❯"; /* Hoặc ">" */
-  color: #ff6600;
+  content: "❯";
+  color: #ff6600; /* Màu cam accent - OK */
   font-size: 14px;
   margin-right: 8px;
 }
 
 .footer-links ul li a:hover {
-  color: #ff6600;
-  text-decoration: underline;
+  color: #ff6600; /* Màu cam accent - OK */
+  /* text-decoration: underline; /* Bỏ gạch chân, thay bằng hiệu ứng khác nếu muốn */
+  padding-left: 5px; /* Hiệu ứng thụt vào khi hover */
 }
 
 /* INSTAGRAM GRID */
 .footer-gallery {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); /* Responsive grid */
   gap: 8px;
   border-radius: 10px;
   overflow: hidden;
@@ -415,14 +479,15 @@ footer {
 
 .footer-gallery img {
   width: 100%;
-  height: 70px;
+  height: 60px; /* Giảm chiều cao ảnh một chút */
   object-fit: cover;
-  border-radius: 8px;
-  transition: transform 0.3s ease;
+  border-radius: 6px; /* Giảm radius ảnh */
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .footer-gallery img:hover {
   transform: scale(1.1);
+  opacity: 0.8; /* Thêm hiệu ứng mờ khi hover */
 }
 /* SUBSCRIBE FORM */
 .footer-subscribe {
@@ -432,65 +497,75 @@ footer {
   text-align: left;
 }
 
-.footer-subscribe h4,
-.footer-subscribe h3,
-.footer-subscribe p {
-  align-self: flex-start;
-  margin: 5px 0;
+.footer-subscribe p { /* Thêm style cho text mô tả */
+    color: #cccccc;
+    font-size: 14px;
+    margin-bottom: 15px; /* Thêm margin dưới */
+    line-height: 1.6;
 }
 
-.footer-subscribe input {
+
+.footer-subscribe input[type="email"] { /* Chỉ định rõ type input */
   width: 100%;
-  padding: 10px;
+  padding: 12px 15px; /* Tăng padding */
   margin-top: 10px;
-  border: none;
+  border: 1px solid #444444; /* MODIFIED: Border đậm hơn cho nền đen */
   border-radius: 6px;
   outline: none;
-  box-shadow: 0 2px 5px rgba(255, 102, 0, 0.3);
+  /* box-shadow: 0 2px 5px rgba(255, 102, 0, 0.3); /* Bỏ shadow này */
+  background-color: #222222; /* MODIFIED: Nền input tối */
+  color: #ffffff; /* MODIFIED: Chữ nhập màu trắng */
+  font-size: 15px;
+}
+.footer-subscribe input[type="email"]::placeholder {
+    color: #888888; /* MODIFIED: Placeholder màu xám */
 }
 
-/* Thay button bằng a vẫn giữ style như nút */
+
 .footer-subscribe-btn {
   display: inline-block;
-  background: #ff6600;
-  color: #fff;
+  background: #ff6600; /* Màu cam accent - OK */
+  color: #fff; /* Chữ trắng - OK */
   text-decoration: none;
-  padding: 10px 15px;
-  margin-top: 10px;
+  padding: 12px 20px; /* Tăng padding */
+  margin-top: 15px; /* Tăng margin top */
   cursor: pointer;
   border-radius: 6px;
   font-weight: bold;
   transition: background 0.3s ease, transform 0.2s ease;
   align-self: flex-start;
+  border: none; /* Đảm bảo không có border */
 }
 
 .footer-subscribe-btn:hover {
-  background: #e65c00;
+  background: #e65c00; /* Màu cam đậm hơn khi hover - OK */
   transform: scale(1.03);
 }
 
-.footer-content {
+/* .footer-content {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
   text-align: left;
-  gap: 50px; /* Điều chỉnh khoảng cách giữa các cột */
-}
+  gap: 50px; 
+} */ /* Đoạn này đã được gộp ở trên */
 
-.footer-links,
+/* .footer-links,
 .footer-subscribe {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.footer-content {
-  margin-top: 20px;
-}
+} */ /* Đoạn này đã được gộp ở trên */
 
-.bg-gradient-primary {
-  background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
-}
+/* .footer-content {
+  margin-top: 20px;
+} */ /* Đoạn này đã được gộp ở trên */
+
+/* Bỏ class này nếu không dùng, hoặc chỉnh lại màu cho phù hợp */
+/* .bg-gradient-primary {
+  background: linear-gradient(135deg, #5eb7ff, #5eb7ff); 
+} */
 
 /* Hiệu ứng hover */
 .hover-grow {
@@ -506,48 +581,47 @@ footer {
 }
 
 .hover-shadow:hover {
-  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+  /* box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2); */ /* Màu shadow này có thể không hợp */
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1); /* Shadow trắng nhẹ cho nền đen */
 }
-/* Thêm chiến lược hiển thị "fixed" cho tất cả dropdown-menu */
-.dropdown-menu {
+/* Các quy tắc dropdown đã có, kiểm tra và gộp nếu trùng lặp */
+/* Phần này đã được tích hợp vào .navbar-dark .dropdown-menu ở trên */
+/* .dropdown-menu {
   position: fixed !important;
-  /* Thay vì position: absolute (mặc định của Bootstrap) */
   inset: auto auto auto auto !important;
-  /* Cho phép Bootstrap đặt vị trí chính xác */
   margin: 0 !important;
-  /* Loại bỏ margin có thể gây xung đột */
   transform: translate3d(0px, 40px, 0px) !important;
-  /* Điều chỉnh khoảng cách từ nút dropdown (có thể cần thay đổi) */
-}
+} */
 
-/* Đảm bảo z-index của dropdown menu cao hơn */
-.navbar .dropdown-menu {
+/* .navbar .dropdown-menu {
+  background: rgba(255, 255, 255, 0.95) !important; 
   z-index: 1080 !important;
-  /* Cao hơn z-index hiện tại của nó (1070) */
+  border: 1px solid rgba(0, 0, 0, 0.1); 
+} */
+
+/* .navbar .dropdown-menu a {
+  color: #000 !important;
 }
 
-/* Đảm bảo dropdown toggle (nút bài viết) có position relative */
+.navbar .dropdown-menu a:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #ff6600 !important;
+} */
+
 .nav-item.dropdown {
-  position: relative !important;
+  position: relative !important; /* Giữ nguyên nếu cần thiết cho popper.js */
 }
 
-/* Đặt overflow: visible cho các container của dropdown nếu cần */
 .navbar-collapse {
-  overflow: visible !important;
+  /* overflow: visible !important; /* Bỏ nếu không thực sự cần, có thể gây lỗi layout */
 }
 
-/* Đảm bảo width của dropdown menu đủ rộng */
 .navbar .dropdown-menu {
-  min-width: 220px !important;
+  min-width: 220px !important; /* Giữ nếu cần dropdown rộng hơn */
 }
-/* Sửa vị trí dropdown */
-.dropdown-menu {
+/* Phần này có thể không cần nếu dropdown đã hoạt động đúng */
+/* .dropdown-menu {
   position: fixed !important;
   z-index: 1080 !important;
-  /* Bỏ transform mặc định để tự kiểm soát vị trí */
   transform: none !important;
-}
-#postDropdown::after {
-  display: none !important;
-  content: none !important;
-}
+} */

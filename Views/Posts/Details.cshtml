@@ -390,9 +390,15 @@
             asp-route-targetId="@Model.PostId"
             asp-route-reportedUserId="@Model.UserId"
             class="btn btn-sm btn-warning">
-                Báo cáo
+                Báo cáo bài viết
             </a>
-
+            <a asp-controller="Report" asp-action="Create" 
+            asp-route-targetType="User" 
+            asp-route-targetId="@Model.UserId"
+            asp-route-reportedUserId="@Model.UserId"
+            class="btn btn-sm btn-warning">
+                Báo cáo người dùng
+            </a>
             <!-- Nút Yêu thích -->
             <button class="btn favorite @(isFavorited ? "active" : "")" id="favoriteBtn" data-post-id="@Model.PostId">
                 <i class="@(isFavorited ? "fas" : "far") fa-heart"></i> @(isFavorited ? "Đã yêu thích" : "Yêu thích")
@@ -958,7 +964,14 @@
             asp-route-targetId="@comment.CommentId"
             asp-route-reportedUserId="@comment.User.UserId"
             class="btn btn-sm btn-warning">
-                Báo cáo
+                Báo cáo bình luận
+            </a>
+            <a asp-controller="Report" asp-action="Create" 
+            asp-route-targetType="User" 
+            asp-route-targetId="@comment.User.UserId"
+            asp-route-reportedUserId="@comment.User.UserId"
+            class="btn btn-sm btn-warning">
+                Báo cáo người dùng
             </a>
                             }
                         }
