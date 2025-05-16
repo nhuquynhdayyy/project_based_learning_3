@@ -10,10 +10,10 @@
 @section Styles {
     @* <link rel="stylesheet" href="~/css/spot.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         .location-favorite {
             cursor: pointer;
-            /* Thêm con trỏ để người dùng biết có thể click */
         }
     </style>
 }
@@ -23,124 +23,78 @@
     @Html.AntiForgeryToken()
 </form>
 
-<div class="container">
+<div class="exam-container">
     <!-- Main content -->
     <div class="main-content">
         <!-- Header section -->
         <div class="header-section">
-            <h1 class="page-title">Khám phá địa điểm du lịch</h1>
+            <div class="header-content">
+                <h1 class="page-title">Khám phá địa điểm du lịch</h1>
+                <p class="page-subtitle">Tìm kiếm những điểm đến tuyệt vời cho chuyến đi tiếp theo của bạn</p>
+            </div>
             <a asp-action="Create" class="create-button">
                 <i class="fas fa-plus-circle"></i> Thêm địa điểm mới
             </a>
         </div>
 
+        <!-- Search bar -->
+        <div class="search-container">
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="spotSearch" placeholder="Tìm kiếm địa điểm du lịch..." class="search-input">
+            </div>
+        </div>
+
         <!-- Sort options -->
         <div class="sort-options">
             <a asp-action="Index" asp-route-sortBy="default"
-                class="sort-option @(currentSort == "default" ? "active" : "")">Mặc định</a>
+                class="sort-option @(currentSort == "default" ? "active" : "")">
+                <i class="fas fa-sort"></i> Mặc định
+            </a>
             <a asp-action="Index" asp-route-sortBy="latest"
-                class="sort-option @(currentSort == "latest" ? "active" : "")">Mới nhất</a>
+                class="sort-option @(currentSort == "latest" ? "active" : "")">
+                <i class="fas fa-clock"></i> Mới nhất
+            </a>
             <a asp-action="Index" asp-route-sortBy="mostLiked"
-                class="sort-option @(currentSort == "mostLiked" ? "active" : "")">Yêu thích nhất</a>
+                class="sort-option @(currentSort == "mostLiked" ? "active" : "")">
+                <i class="fas fa-heart"></i> Yêu thích nhất
+            </a>
             <a asp-action="Index" asp-route-sortBy="popular"
-                class="sort-option @(currentSort == "popular" ? "active" : "")">Phổ biến</a>
+                class="sort-option @(currentSort == "popular" ? "active" : "")">
+                <i class="fas fa-fire"></i> Phổ biến
+            </a>
         </div>
 
-        @* <!-- Locations grid -->
-        <div class="locations-grid">
-            @foreach (var item in Model)
-            {
-                <div class="location-card">
-                    <div class="location-image">
-                        @if (item.CreatedAt > DateTime.Now.AddDays(-7))
-                        {
-                            <div class="location-highlight">MỚI</div>
-                        }
-                        <img src="@item.ImageUrl" alt="@item.Name">
-                        <div class="location-favorite" data-spot-id="@item.SpotId" onclick="toggleLike(this, @item.SpotId)">
-                            <span class="heart-icon">@(item.IsLikedByCurrentUser ? "❤️" : "🤍")</span>
-                        </div>
-                    </div>
-                    <div class="location-details">
-                        <h3 class="location-name">@item.Name</h3>
-                        <div class="location-meta">
-                            <div class="meta-item">
-                                <span class="interaction-icon">❤️</span>
-                                <span class="like-count" id="like-count-@item.SpotId">@(item.Favorites?.Count ?? 0)</span>
-                            </div>
-                            <div class="meta-item">
-                                <span>💬</span>
-                                <span>@(item.Comments?.Count ?? 0)</span>
-                            </div>
-                            <div class="meta-item">
-                                <span>📍</span>
-                                <span>@item.Address</span>
-                            </div>
-                        </div>
-                        <div class="location-tags">
-                            <a asp-action="Index" asp-route-categoryId="@item.CategoryId" class="tag">@item.Category.Name</a>
-                            @if (item.SpotTags != null && item.SpotTags.Any())
-                            {
-                                @foreach (var tag in item.SpotTags.Take(2))
-                                {
-                                    <a asp-action="Index" asp-route-tagId="@tag.TagId" class="tag">@tag.Tag.Name</a>
-                                }
-                            }
-                        </div>
-                        <div class="location-actions">
-                            <a asp-action="Details" asp-route-id="@item.SpotId" class="action-link details">
-                                <i class="fas fa-info-circle"></i> Chi tiết
-                            </a>
-                            <a asp-action="Edit" asp-route-id="@item.SpotId" class="action-link edit">
-                                <i class="fas fa-edit"></i> Sửa
-                            </a>
-                            <a asp-action="Delete" asp-route-id="@item.SpotId" class="action-link delete">
-                                <i class="fas fa-trash-alt"></i> Xóa
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            }
-
-            @if (!Model.Any())
-            {
-                <div class="empty-state">
-                    <div class="empty-icon">🏝️</div>
-                    <h3>Chưa có địa điểm du lịch nào</h3>
-                    <p>Hãy thêm địa điểm du lịch đầu tiên của bạn!</p>
-                    <a asp-action="Create" class="btn-add-first">Thêm địa điểm</a>
-                </div>
-            } *@
-        @* </div> *@
         <!-- Locations grid -->
-        <div class="locations-grid">
+        <div class="locations-grid" id="locationsGrid">
             @foreach (var item in Model)
             {
-                <div class="location-card" id="spot-card-@item.SpotId"> @* Thêm ID cho card *@
+                <div class="location-card animate__animated animate__fadeIn" id="spot-card-@item.SpotId">
                     <div class="location-image">
                         @if (item.CreatedAt > DateTime.Now.AddDays(-7))
                         {
                             <div class="location-highlight">MỚI</div>
                         }
-                        <img src="@item.ImageUrl" alt="@item.Name">
-                        <div class="location-favorite" data-spot-id="@item.SpotId"> @* Bỏ onclick ở đây, sẽ xử lý bằng JS *@
+                        <img src="@item.ImageUrl" alt="@item.Name" loading="lazy">
+                        <div class="location-favorite" data-spot-id="@item.SpotId">
                             <span class="heart-icon">@(item.IsLikedByCurrentUser ? "❤️" : "🤍")</span>
+                        </div>
+                        <div class="location-overlay">
+                            <a asp-action="Details" asp-route-id="@item.SpotId" class="view-details-btn">
+                                <i class="fas fa-eye"></i> Xem chi tiết
+                            </a>
                         </div>
                     </div>
                     <div class="location-details">
                         <h3 class="location-name">@item.Name</h3>
                         <div class="location-meta">
                             <div class="meta-item">
-                                <span class="interaction-icon">❤️</span>
+                                <span class="interaction-icon"><i class="fas fa-heart"></i></span>
                                 <span class="like-count" id="like-count-@item.SpotId">@(item.Favorites?.Count ?? 0)</span>
                             </div>
-                            @* <div class="meta-item">
-                                <span>💬</span>
-                                <span> (item.Comments?.Count ?? 0)</span>
-                            </div> *@
                             <div class="meta-item">
-                                <span>📍</span>
-                                <span>@item.Address</span>
+                                <span><i class="fas fa-map-marker-alt"></i></span>
+                                <span class="location-address">@item.Address</span>
                             </div>
                         </div>
                         <div class="location-tags">
@@ -164,11 +118,13 @@
 
             @if (!Model.Any())
             {
-                <div class="empty-state">
-                    <div class="empty-icon">🏝️</div>
+                <div class="empty-state animate__animated animate__fadeIn">
+                    <div class="empty-icon"><i class="fas fa-map-marked-alt"></i></div>
                     <h3>Chưa có địa điểm du lịch nào</h3>
                     <p>Hãy thêm địa điểm du lịch đầu tiên của bạn!</p>
-                    <a asp-action="Create" class="btn-add-first">Thêm địa điểm</a>
+                    <a asp-action="Create" class="btn-add-first">
+                        <i class="fas fa-plus-circle"></i> Thêm địa điểm
+                    </a>
                 </div>
             }
         </div>
@@ -178,7 +134,7 @@
     <div class="sidebar">
         <!-- Categories -->
         <div class="sidebar-section">
-            <h3 class="sidebar-title">Danh mục</h3>
+            <h3 class="sidebar-title"><i class="fas fa-th-list"></i> Danh mục</h3>
             <ul class="category-list">
                 @{
                     // Lấy categoryId hiện tại từ query string để đánh dấu danh mục đang được chọn
@@ -192,10 +148,8 @@
                     {
                         <li class="category-item">
                             <a asp-action="Index" class="@(string.IsNullOrEmpty(currentCategoryId) ? "active" : "")">
-                                <span>Tất cả</span>
-                                @* <span class="category-count">@Model.Count()</span> *@
+                                <span><i class="fas fa-globe-asia"></i> Tất cả</span>
                                 <span class="category-count">@ViewBag.AllTouristSpotsCount</span>
-                                <!-- Hiển thị tổng số địa điểm -->
                             </a>
                         </li>
 
@@ -215,19 +169,19 @@
                         // Hiển thị danh mục mẫu nếu không có dữ liệu thực
                         <li class="category-item">
                             <a href="#">
-                                <span>Bãi biển, đảo</span>
+                                <span><i class="fas fa-umbrella-beach"></i> Bãi biển, đảo</span>
                                 <span class="category-count">26</span>
                             </a>
                         </li>
                         <li class="category-item">
                             <a href="#">
-                                <span>Cảnh đẹp</span>
+                                <span><i class="fas fa-mountain"></i> Cảnh đẹp</span>
                                 <span class="category-count">32</span>
                             </a>
                         </li>
                         <li class="category-item">
                             <a href="#">
-                                <span>Di tích</span>
+                                <span><i class="fas fa-landmark"></i> Di tích</span>
                                 <span class="category-count">29</span>
                             </a>
                         </li>
@@ -238,7 +192,7 @@
 
         <!-- Popular locations -->
         <div class="sidebar-section">
-            <h3 class="sidebar-title">Địa điểm phổ biến</h3>
+            <h3 class="sidebar-title"><i class="fas fa-fire"></i> Địa điểm phổ biến</h3>
 
             @{
                 // Sử dụng dữ liệu từ ViewBag.PopularSpots thay vì xử lý trong View
@@ -251,13 +205,15 @@
                     {
                         <div class="popular-location">
                             <div class="popular-image">
-                                <img src="@spot.ImageUrl" alt="@spot.Name">
+                                <img src="@spot.ImageUrl" alt="@spot.Name" loading="lazy">
                             </div>
                             <div class="popular-details">
                                 <h4>
                                     <a asp-action="Details" asp-route-id="@spot.SpotId">@spot.Name</a>
                                 </h4>
-                                <div class="popular-meta">@(spot.Favorites?.Count ?? 0) lượt thích</div>
+                                <div class="popular-meta">
+                                    <i class="fas fa-heart"></i> @(spot.Favorites?.Count ?? 0) lượt thích
+                                </div>
                             </div>
                         </div>
                     }
@@ -267,31 +223,37 @@
                     // Hiển thị dữ liệu mẫu nếu không có dữ liệu thực
                     <div class="popular-location">
                         <div class="popular-image">
-                            <img src="~/images/hoian2.jpg" alt="Hội An">
+                            <img src="~/images/hoian2.jpg" alt="Hội An" loading="lazy">
                         </div>
                         <div class="popular-details">
                             <h4>Phố cổ Hội An</h4>
-                            <div class="popular-meta">358 lượt thích</div>
+                            <div class="popular-meta">
+                                <i class="fas fa-heart"></i> 358 lượt thích
+                            </div>
                         </div>
                     </div>
                     <div class="popular-location">
                         <div class="popular-image">
-                            <img src="~/images/hangsondong.jpg" alt="Hang Sơn Đoòng">
+                            <img src="~/images/hangsondong.jpg" alt="Hang Sơn Đoòng" loading="lazy">
                         </div>
                         <div class="popular-details">
                             <h4>Hang Sơn Đoòng</h4>
-                            <div class="popular-meta">412 lượt thích</div>
+                            <div class="popular-meta">
+                                <i class="fas fa-heart"></i> 412 lượt thích
+                            </div>
                         </div>
                     </div>
                 }
             }
 
-            <a asp-action="Popular" class="view-more">Xem thêm</a>
+            <a asp-action="Popular" class="view-more">
+                <i class="fas fa-angle-right"></i> Xem thêm
+            </a>
         </div>
 
         <!-- Recent posts -->
         <div class="sidebar-section">
-            <h3 class="sidebar-title">Bài viết gần đây</h3>
+            <h3 class="sidebar-title"><i class="fas fa-newspaper"></i> Bài viết gần đây</h3>
 
             @{
                 // Giả định rằng bạn có thể truy cập danh sách bài viết gần đây từ ViewBag hoặc một nguồn khác
@@ -303,14 +265,14 @@
                     {
                         <div class="recent-post">
                             <div class="recent-image">
-                                <img src="@post.ImageUrl" alt="@post.Title">
+                                <img src="@post.ImageUrl" alt="@post.Title" loading="lazy">
                             </div>
                             <div class="recent-details">
                                 <h4>
                                     <a asp-controller="Posts" asp-action="Details" asp-route-id="@post.PostId">@post.Title</a>
                                 </h4>
                                 <div class="post-date">
-                                    <span>📅</span>
+                                    <i class="far fa-calendar-alt"></i>
                                     <span>@post.CreatedAt.ToString("dd/MM/yyyy")</span>
                                 </div>
                             </div>
@@ -322,24 +284,28 @@
                     // Hiển thị dữ liệu mẫu nếu không có dữ liệu thực
                     <div class="recent-post">
                         <div class="recent-image">
-                            <img src="~/images/sondong.webp" alt="Sơn Đoòng">
+                            <img src="~/images/sondong.webp" alt="Sơn Đoòng" loading="lazy">
                         </div>
                         <div class="recent-details">
-                            <h4>Khám phá Hang Sơn Đoòng - Hang động lớn nhất thế giới</h4>
+                            <h4>
+                                <a href="#">Khám phá Hang Sơn Đoòng - Hang động lớn nhất thế giới</a>
+                            </h4>
                             <div class="post-date">
-                                <span>📅</span>
+                                <i class="far fa-calendar-alt"></i>
                                 <span>12/03/2025</span>
                             </div>
                         </div>
                     </div>
                     <div class="recent-post">
                         <div class="recent-image">
-                            <img src="~/images/banhloc.jpg" alt="Bánh Lọc">
+                            <img src="~/images/banhloc.jpg" alt="Bánh Lọc" loading="lazy">
                         </div>
                         <div class="recent-details">
-                            <h4>Top 10 món ăn không thể bỏ qua khi đến Huế</h4>
+                            <h4>
+                                <a href="#">Top 10 món ăn không thể bỏ qua khi đến Huế</a>
+                            </h4>
                             <div class="post-date">
-                                <span>📅</span>
+                                <i class="far fa-calendar-alt"></i>
                                 <span>05/03/2025</span>
                             </div>
                         </div>
@@ -347,7 +313,23 @@
                 }
             }
 
-            <a asp-controller="Posts" asp-action="Index" class="view-more">Xem thêm</a>
+            <a asp-controller="Posts" asp-action="Index" class="view-more">
+                <i class="fas fa-angle-right"></i> Xem thêm
+            </a>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="sidebar-section">
+            <h3 class="sidebar-title"><i class="far fa-envelope"></i> Đăng ký nhận tin</h3>
+            <div class="newsletter-container">
+                <p>Nhận thông tin về các địa điểm du lịch mới và ưu đãi hấp dẫn</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email của bạn" class="newsletter-input" required>
+                    <button type="submit" class="newsletter-button">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -358,12 +340,14 @@
             const antiForgeryToken = document.querySelector('#antiForgeryForm input[name="__RequestVerificationToken"]').value;
             const currentUserId = parseInt('@currentUserIdForJs'); // Lấy userId từ C#
 
+            // Xử lý yêu thích
             document.querySelectorAll('.location-favorite').forEach(favoriteDiv => {
                 favoriteDiv.addEventListener('click', async function () {
                     if (currentUserId === 0) {
-                        // Hoặc chuyển hướng đến trang đăng nhập
-                        alert('Vui lòng đăng nhập để yêu thích địa điểm này.');
-                        window.location.href = '/Identity/Account/Login'; // Điều chỉnh đường dẫn nếu cần
+                        showToast('Vui lòng đăng nhập để yêu thích địa điểm này.', 'warning');
+                        setTimeout(() => {
+                            window.location.href = '/Identity/Account/Login';
+                        }, 2000);
                         return;
                     }
 
@@ -375,15 +359,18 @@
                     const isCurrentlyLiked = heartIconSpan.textContent === '❤️';
                     heartIconSpan.textContent = isCurrentlyLiked ? '🤍' : '❤️';
 
+                    // Thêm hiệu ứng
+                    this.classList.add('animate__animated', 'animate__heartBeat');
+                    setTimeout(() => {
+                        this.classList.remove('animate__animated', 'animate__heartBeat');
+                    }, 1000);
 
                     try {
                         const response = await fetch(`/TouristSpots/ToggleFavoriteSpot?spotId=${spotId}`, {
                             method: 'POST',
                             headers: {
-                                // 'Content-Type': 'application/json', // Không cần nếu chỉ gửi spotId qua query string
-                                'RequestVerificationToken': antiForgeryToken // Gửi token
+                                'RequestVerificationToken': antiForgeryToken
                             },
-                            // body: JSON.stringify({ spotId: parseInt(spotId) }) // Nếu bạn gửi dưới dạng JSON body
                         });
 
                         if (!response.ok) {
@@ -391,10 +378,12 @@
                             heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
                             const errorData = await response.json().catch(() => null);
                             if (errorData && errorData.aniauth) {
-                                alert(errorData.message || 'Vui lòng đăng nhập để thực hiện thao tác này.');
-                                window.location.href = '/Identity/Account/Login';
+                                showToast(errorData.message || 'Vui lòng đăng nhập để thực hiện thao tác này.', 'warning');
+                                setTimeout(() => {
+                                    window.location.href = '/Identity/Account/Login';
+                                }, 2000);
                             } else {
-                                alert(errorData ? errorData.message : 'Có lỗi xảy ra, vui lòng thử lại.');
+                                showToast(errorData ? errorData.message : 'Có lỗi xảy ra, vui lòng thử lại.', 'error');
                             }
                             return;
                         }
@@ -405,64 +394,265 @@
                             heartIconSpan.textContent = data.favorited ? '❤️' : '🤍';
                             if (likeCountSpan) {
                                 likeCountSpan.textContent = data.likeCount;
+
+                                // Hiệu ứng cho số lượt thích
+                                likeCountSpan.classList.add('animate__animated', 'animate__fadeIn');
+                                setTimeout(() => {
+                                    likeCountSpan.classList.remove('animate__animated', 'animate__fadeIn');
+                                }, 1000);
                             }
+
+                            showToast(data.favorited ? 'Đã thêm vào danh sách yêu thích!' : 'Đã xóa khỏi danh sách yêu thích!', 'success');
                         } else {
                             // Hoàn tác lại icon nếu server báo lỗi logic
                             heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
                             if (data.aniauth) {
-                                alert(data.message || 'Vui lòng đăng nhập để thực hiện thao tác này.');
-                                window.location.href = '/Identity/Account/Login';
+                                showToast(data.message || 'Vui lòng đăng nhập để thực hiện thao tác này.', 'warning');
+                                setTimeout(() => {
+                                    window.location.href = '/Identity/Account/Login';
+                                }, 2000);
                             } else {
-                                alert(data.message || 'Có lỗi xảy ra khi cập nhật yêu thích.');
+                                showToast(data.message || 'Có lỗi xảy ra khi cập nhật yêu thích.', 'error');
                             }
                         }
                     } catch (error) {
                         // Hoàn tác lại icon nếu lỗi mạng
                         heartIconSpan.textContent = isCurrentlyLiked ? '❤️' : '🤍';
                         console.error('Lỗi khi toggle favorite:', error);
-                        alert('Có lỗi kết nối, vui lòng thử lại.');
+                        showToast('Có lỗi kết nối, vui lòng thử lại.', 'error');
                     }
                 });
             });
+
+            // Tìm kiếm địa điểm
+            const searchInput = document.getElementById('spotSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', function () {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    const cards = document.querySelectorAll('.location-card');
+
+                    cards.forEach(card => {
+                        const name = card.querySelector('.location-name').textContent.toLowerCase();
+                        const address = card.querySelector('.location-address')?.textContent.toLowerCase() || '';
+                        const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+
+                        const isMatch = name.includes(searchTerm) ||
+                            address.includes(searchTerm) ||
+                            tags.some(tag => tag.includes(searchTerm));
+
+                        if (isMatch) {
+                            card.style.display = '';
+                            card.classList.add('animate__animated', 'animate__fadeIn');
+                            setTimeout(() => {
+                                card.classList.remove('animate__animated', 'animate__fadeIn');
+                            }, 500);
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    // Hiển thị thông báo nếu không có kết quả
+                    const visibleCards = document.querySelectorAll('.location-card[style=""]').length;
+                    const emptyState = document.querySelector('.empty-state');
+                    const locationsGrid = document.getElementById('locationsGrid');
+
+                    if (visibleCards === 0 && searchTerm !== '' && !emptyState) {
+                        // Tạo thông báo không có kết quả
+                        const noResults = document.createElement('div');
+                        noResults.className = 'empty-state animate__animated animate__fadeIn';
+                        noResults.id = 'noSearchResults';
+                        noResults.innerHTML = `
+                                                                                <div class="empty-icon"><i class="fas fa-search"></i></div>
+                                                                                <h3>Không tìm thấy kết quả</h3>
+                                                                                <p>Không tìm thấy địa điểm nào phù hợp với từ khóa "${searchTerm}"</p>
+                                                                                <button class="btn-add-first" onclick="document.getElementById('spotSearch').value = ''; document.getElementById('spotSearch').dispatchEvent(new Event('input'));">
+                                                                                    <i class="fas fa-undo"></i> Xóa tìm kiếm
+                                                                                </button>
+                                                                            `;
+
+                        // Xóa thông báo cũ nếu có
+                        const oldNoResults = document.getElementById('noSearchResults');
+                        if (oldNoResults) {
+                            oldNoResults.remove();
+                        }
+
+                        locationsGrid.appendChild(noResults);
+                    } else if ((visibleCards > 0 || searchTerm === '') && document.getElementById('noSearchResults')) {
+                        document.getElementById('noSearchResults').remove();
+                    }
+                });
+            }
+
+            // Hiệu ứng hover cho card
+            document.querySelectorAll('.location-card').forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    const overlay = this.querySelector('.location-overlay');
+                    if (overlay) {
+                        overlay.style.opacity = '1';
+                    }
+                });
+
+                card.addEventListener('mouseleave', function () {
+                    const overlay = this.querySelector('.location-overlay');
+                    if (overlay) {
+                        overlay.style.opacity = '0';
+                    }
+                });
+            });
+
+            // Hiệu ứng cho newsletter form
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input[type="email"]').value;
+                    if (email) {
+                        this.reset();
+                        showToast('Cảm ơn bạn đã đăng ký nhận tin!', 'success');
+                    }
+                });
+            }
+
+            // Tạo toast notification
+            function showToast(message, type = 'info') {
+                // Kiểm tra xem đã có container chưa
+                let toastContainer = document.getElementById('toast-container');
+                if (!toastContainer) {
+                    toastContainer = document.createElement('div');
+                    toastContainer.id = 'toast-container';
+                    document.body.appendChild(toastContainer);
+                }
+
+                // Tạo toast
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type} animate__animated animate__fadeInRight`;
+
+                // Icon dựa vào loại thông báo
+                let icon = '';
+                switch (type) {
+                    case 'success': icon = '<i class="fas fa-check-circle"></i>'; break;
+                    case 'error': icon = '<i class="fas fa-exclamation-circle"></i>'; break;
+                    case 'warning': icon = '<i class="fas fa-exclamation-triangle"></i>'; break;
+                    default: icon = '<i class="fas fa-info-circle"></i>';
+                }
+
+                toast.innerHTML = `
+                                                                        <div class="toast-content">
+                                                                            <div class="toast-icon">${icon}</div>
+                                                                            <div class="toast-message">${message}</div>
+                                                                        </div>
+                                                                        <button class="toast-close"><i class="fas fa-times"></i></button>
+                                                                    `;
+
+                // Thêm vào container
+                toastContainer.appendChild(toast);
+
+                // Xử lý nút đóng
+                toast.querySelector('.toast-close').addEventListener('click', function () {
+                    toast.classList.replace('animate__fadeInRight', 'animate__fadeOutRight');
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 500);
+                });
+
+                // Tự động đóng sau 5 giây
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.classList.replace('animate__fadeInRight', 'animate__fadeOutRight');
+                        setTimeout(() => {
+                            toast.remove();
+                        }, 500);
+                    }
+                }, 5000);
+            }
         });
     </script>
 }
 <style>
     /* Main layout */
-    .container {
-        display: grid;
-        grid-template-columns: 1fr 300px;
-        gap: 30px;
-        @* max-width: 1200px; *@
-        margin: 0 auto;
-        padding: 20px;
+    :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --primary-light: rgba(37, 99, 235, 0.1);
+        --secondary-color: #10b981;
+        --secondary-hover: #059669;
+        --danger-color: #ef4444;
+        --warning-color: #f59e0b;
+        --info-color: #3b82f6;
+        --text-color: #1e293b;
+        --text-light: #64748b;
+        --border-color: #e2e8f0;
+        --background-color: #f8fafc;
+        --card-background: #ffffff;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --border-radius-sm: 0.25rem;
+        --border-radius: 0.5rem;
+        --border-radius-lg: 0.75rem;
+        --transition: all 0.3s ease;
     }
+
+    @* 
+    body {
+        background-color: var(--background-color);
+        color: var(--text-color);
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        line-height: 1.5;
+    } *@
+
+  .exam-container {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 30px;
+        margin: 0 auto;
+        padding: 30px 20px;
+        max-width: 1400px;
+    }
+
 
     /* Header section */
     .header-section {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        background: linear-gradient(135deg, var(--primary-color), #4f46e5);
+        padding: 30px;
+        border-radius: var(--border-radius);
+        color: white;
+        box-shadow: var(--shadow);
+    }
+
+    .header-content {
+        max-width: 70%;
     }
 
     .page-title {
         font-size: 28px;
         font-weight: 700;
-        color: #333;
+        margin: 0 0 10px 0;
+        color: white;
+    }
+
+    .page-subtitle {
+        font-size: 16px;
+        opacity: 0.9;
         margin: 0;
     }
 
     .create-button {
         display: inline-flex;
         align-items: center;
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 16px;
-        border-radius: 8px;
+        background-color: white;
+        color: var(--primary-color);
+        padding: 12px 20px;
+        border-radius: var(--border-radius);
         text-decoration: none;
         font-weight: 600;
-        transition: background-color 0.3s;
+        transition: var(--transition);
+        box-shadow: var(--shadow-sm);
     }
 
     .create-button i {
@@ -470,35 +660,87 @@
     }
 
     .create-button:hover {
-        background-color: #3e8e41;
-        color: white;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        color: var(--primary-hover);
+    }
+
+    /* Search bar */
+    .search-container {
+        margin-bottom: 25px;
+    }
+
+    .search-bar {
+        position: relative;
+        width: 100%;
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-light);
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 14px 20px 14px 45px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        font-size: 16px;
+        transition: var(--transition);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .search-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px var(--primary-light);
     }
 
     /* Sort options */
     .sort-options {
         display: flex;
         gap: 15px;
-        margin-bottom: 20px;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 10px;
+        margin-bottom: 25px;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 15px;
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
+
+    .sort-options::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .sort-options::-webkit-scrollbar-thumb {
+        background-color: var(--border-color);
+        border-radius: 10px;
     }
 
     .sort-option {
-        padding: 8px 15px;
+        padding: 10px 16px;
         cursor: pointer;
-        border-radius: 20px;
+        border-radius: var(--border-radius);
         font-weight: 500;
-        transition: all 0.3s;
+        transition: var(--transition);
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text-color);
+        text-decoration: none;
     }
 
     .sort-option:hover {
-        background-color: #f0f0f0;
+        background-color: var(--primary-light);
+        color: var(--primary-color);
     }
 
     .sort-option.active {
-        background-color: #e6f7ff;
-        color: #1890ff;
-        font-weight: 600;
+        background-color: var(--primary-color);
+        color: white;
     }
 
     /* Locations grid */
@@ -509,83 +751,139 @@
     }
 
     .location-card {
-        border-radius: 12px;
+        border-radius: var(--border-radius);
         overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s, box-shadow 0.3s;
-        background-color: white;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        background-color: var(--card-background);
+        position: relative;
     }
 
     .location-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--shadow-lg);
     }
 
     .location-image {
         position: relative;
-        height: 180px;
+        height: 200px;
+        overflow: hidden;
     }
 
     .location-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .location-card:hover .location-image img {
+        transform: scale(1.05);
+    }
+
+    .location-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: var(--transition);
+    }
+
+    .view-details-btn {
+        background-color: white;
+        color: var(--text-color);
+        padding: 10px 16px;
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: var(--transition);
+    }
+
+    .view-details-btn:hover {
+        background-color: var(--primary-color);
+        color: white;
     }
 
     .location-highlight {
         position: absolute;
-        top: 10px;
-        left: 10px;
-        background-color: #ff4757;
+        top: 15px;
+        left: 15px;
+        background: linear-gradient(135deg, #f43f5e, #e11d48);
         color: white;
-        padding: 4px 10px;
-        border-radius: 4px;
+        padding: 5px 12px;
+        border-radius: var(--border-radius-sm);
         font-size: 12px;
         font-weight: 600;
         z-index: 1;
+        box-shadow: var(--shadow-sm);
     }
 
     .location-favorite {
         position: absolute;
-        top: 10px;
-        right: 10px;
-        background-color: rgba(255, 255, 255, 0.8);
+        top: 15px;
+        right: 15px;
+        background-color: rgba(255, 255, 255, 0.9);
         border-radius: 50%;
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: transform 0.2s;
+        transition: var(--transition);
+        z-index: 2;
+        box-shadow: var(--shadow-sm);
     }
 
     .location-favorite:hover {
         transform: scale(1.1);
+        box-shadow: var(--shadow);
     }
 
     .location-details {
-        padding: 15px;
+        padding: 20px;
     }
 
     .location-name {
         font-size: 18px;
         font-weight: 600;
-        margin: 0 0 10px 0;
-        color: #333;
+        margin: 0 0 12px 0;
+        color: var(--text-color);
+        line-height: 1.3;
     }
 
     .location-meta {
         display: flex;
         gap: 15px;
-        margin-bottom: 12px;
+        margin-bottom: 15px;
         font-size: 14px;
+        color: var(--text-light);
     }
 
     .meta-item {
         display: flex;
         align-items: center;
         gap: 5px;
+    }
+
+    .meta-item i {
+        color: var(--primary-color);
+    }
+
+    .location-address {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 150px;
     }
 
     .location-tags {
@@ -596,18 +894,26 @@
     }
 
     .tag {
-        background-color: #f0f0f0;
-        padding: 4px 10px;
-        border-radius: 4px;
+        background-color: var(--primary-light);
+        color: var(--primary-color);
+        padding: 5px 12px;
+        border-radius: var(--border-radius-sm);
         font-size: 12px;
-        color: #666;
+        font-weight: 500;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .tag:hover {
+        background-color: var(--primary-color);
+        color: white;
     }
 
     .location-actions {
         display: flex;
         gap: 10px;
-        border-top: 1px solid #eee;
-        padding-top: 12px;
+        border-top: 1px solid var(--border-color);
+        padding-top: 15px;
     }
 
     .action-link {
@@ -616,79 +922,87 @@
         display: flex;
         align-items: center;
         gap: 5px;
-        padding: 5px 10px;
-        border-radius: 4px;
-        transition: background-color 0.2s;
+        padding: 6px 12px;
+        border-radius: var(--border-radius-sm);
+        transition: var(--transition);
     }
 
     .action-link.details {
-        color: #1890ff;
+        color: var(--info-color);
     }
 
     .action-link.edit {
-        color: #52c41a;
+        color: var(--secondary-color);
     }
 
     .action-link.delete {
-        color: #f5222d;
+        color: var(--danger-color);
     }
 
     .action-link:hover {
-        background-color: #f5f5f5;
+        background-color: #f1f5f9;
     }
 
     /* Empty state */
     .empty-state {
         grid-column: 1 / -1;
         text-align: center;
-        padding: 50px 20px;
-        background-color: #f9f9f9;
-        border-radius: 12px;
+        padding: 60px 20px;
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
     }
 
     .empty-icon {
         font-size: 60px;
         margin-bottom: 20px;
+        color: var(--primary-color);
     }
 
     .empty-state h3 {
         font-size: 24px;
         margin-bottom: 10px;
-        color: #333;
+        color: var(--text-color);
     }
 
     .empty-state p {
-        color: #666;
-        margin-bottom: 20px;
+        color: var(--text-light);
+        margin-bottom: 25px;
+        font-size: 16px;
     }
 
     .btn-add-first {
-        display: inline-block;
-        background-color: #1890ff;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background-color: var(--primary-color);
         color: white;
-        padding: 10px 20px;
-        border-radius: 6px;
+        padding: 12px 24px;
+        border-radius: var(--border-radius);
         text-decoration: none;
         font-weight: 500;
-        transition: background-color 0.3s;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
     }
 
     .btn-add-first:hover {
-        background-color: #096dd9;
-        color: white;
+        background-color: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
     }
 
     /* Sidebar */
     .sidebar {
         position: sticky;
-        top: 20px;
+        top: 30px;
         align-self: start;
     }
 
     .sidebar-section {
         background-color: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
         margin-bottom: 25px;
         overflow: hidden;
     }
@@ -696,10 +1010,17 @@
     .sidebar-title {
         font-size: 18px;
         font-weight: 600;
-        padding: 15px;
+        padding: 20px;
         margin: 0;
-        border-bottom: 1px solid #eee;
-        color: #333;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .sidebar-title i {
+        color: var(--primary-color);
     }
 
     /* Categories */
@@ -710,7 +1031,7 @@
     }
 
     .category-item {
-        border-bottom: 1px solid #f0f0f0;
+        border-bottom: 1px solid var(--border-color);
     }
 
     .category-item:last-child {
@@ -720,29 +1041,47 @@
     .category-item a {
         display: flex;
         justify-content: space-between;
-        padding: 12px 15px;
+        padding: 15px 20px;
         text-decoration: none;
-        color: #333;
-        transition: background-color 0.2s;
+        color: var(--text-color);
+        transition: var(--transition);
     }
 
     .category-item a:hover {
-        background-color: #f5f5f5;
+        background-color: var(--primary-light);
+    }
+
+    .category-item a.active {
+        background-color: var(--primary-light);
+        color: var(--primary-color);
+        font-weight: 600;
     }
 
     .category-count {
-        background-color: #f0f0f0;
+        background-color: #f1f5f9;
         border-radius: 20px;
-        padding: 2px 8px;
+        padding: 3px 10px;
         font-size: 12px;
-        color: #666;
+        color: var(--text-light);
+        transition: var(--transition);
+    }
+
+    .category-item a:hover .category-count,
+    .category-item a.active .category-count {
+        background-color: var(--primary-color);
+        color: white;
     }
 
     /* Popular locations */
     .popular-location {
         display: flex;
-        padding: 12px 15px;
-        border-bottom: 1px solid #f0f0f0;
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--border-color);
+        transition: var(--transition);
+    }
+
+    .popular-location:hover {
+        background-color: var(--primary-light);
     }
 
     .popular-location:last-child {
@@ -750,11 +1089,11 @@
     }
 
     .popular-image {
-        width: 60px;
-        height: 60px;
-        border-radius: 8px;
+        width: 70px;
+        height: 70px;
+        border-radius: var(--border-radius-sm);
         overflow: hidden;
-        margin-right: 12px;
+        margin-right: 15px;
         flex-shrink: 0;
     }
 
@@ -762,24 +1101,56 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .popular-location:hover .popular-image img {
+        transform: scale(1.05);
+    }
+
+    .popular-details {
+        flex: 1;
     }
 
     .popular-details h4 {
-        font-size: 14px;
-        margin: 0 0 5px 0;
-        color: #333;
+        font-size: 15px;
+        margin: 0 0 8px 0;
+        color: var(--text-color);
+        line-height: 1.3;
+    }
+
+    .popular-details h4 a {
+        color: inherit;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .popular-details h4 a:hover {
+        color: var(--primary-color);
     }
 
     .popular-meta {
-        font-size: 12px;
-        color: #666;
+        font-size: 13px;
+        color: var(--text-light);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .popular-meta i {
+        color: #f43f5e;
     }
 
     /* Recent posts */
     .recent-post {
         display: flex;
-        padding: 12px 15px;
-        border-bottom: 1px solid #f0f0f0;
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--border-color);
+        transition: var(--transition);
+    }
+
+    .recent-post:hover {
+        background-color: var(--primary-light);
     }
 
     .recent-post:last-child {
@@ -787,11 +1158,11 @@
     }
 
     .recent-image {
-        width: 70px;
-        height: 70px;
-        border-radius: 8px;
+        width: 80px;
+        height: 80px;
+        border-radius: var(--border-radius-sm);
         overflow: hidden;
-        margin-right: 12px;
+        margin-right: 15px;
         flex-shrink: 0;
     }
 
@@ -799,85 +1170,194 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .recent-post:hover .recent-image img {
+        transform: scale(1.05);
+    }
+
+    .recent-details {
+        flex: 1;
     }
 
     .recent-details h4 {
-        font-size: 14px;
-        margin: 0 0 5px 0;
-        color: #333;
+        font-size: 15px;
+        margin: 0 0 8px 0;
+        color: var(--text-color);
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        line-height: 1.3;
+    }
+
+    .recent-details h4 a {
+        color: inherit;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .recent-details h4 a:hover {
+        color: var(--primary-color);
     }
 
     .post-date {
-        font-size: 12px;
-        color: #666;
+        font-size: 13px;
+        color: var(--text-light);
         display: flex;
         align-items: center;
         gap: 5px;
     }
 
+    /* Newsletter */
+    .newsletter-container {
+        padding: 20px;
+    }
+
+    .newsletter-container p {
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: var(--text-light);
+        font-size: 14px;
+    }
+
+    .newsletter-form {
+        display: flex;
+        gap: 10px;
+    }
+
+    .newsletter-input {
+        flex: 1;
+        padding: 12px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-sm);
+        font-size: 14px;
+        transition: var(--transition);
+    }
+
+    .newsletter-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .newsletter-button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: var(--border-radius-sm);
+        padding: 0 15px;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .newsletter-button:hover {
+        background-color: var(--primary-hover);
+    }
+
     .view-more {
         display: block;
         text-align: center;
-        padding: 10px;
-        background-color: #f5f5f5;
-        color: #1890ff;
+        padding: 12px;
+        background-color: #f1f5f9;
+        color: var(--primary-color);
         text-decoration: none;
         font-weight: 500;
-        transition: background-color 0.2s;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
     }
 
     .view-more:hover {
-        background-color: #e6f7ff;
+        background-color: var(--primary-light);
+    }
+
+    /* Toast notifications */
+    #toast-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .toast {
+        min-width: 300px;
+        max-width: 400px;
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .toast-content {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        flex: 1;
+    }
+
+    .toast-icon {
+        margin-right: 15px;
+        font-size: 20px;
+    }
+
+    .toast-message {
+        font-size: 14px;
+    }
+
+    .toast-close {
+        background: none;
+        border: none;
+        padding: 15px;
+        cursor: pointer;
+        color: var(--text-light);
+        transition: var(--transition);
+    }
+
+    .toast-close:hover {
+        color: var(--text-color);
+    }
+
+    .toast-success .toast-icon {
+        color: var(--secondary-color);
+    }
+
+    .toast-error .toast-icon {
+        color: var(--danger-color);
+    }
+
+    .toast-warning .toast-icon {
+        color: var(--warning-color);
+    }
+
+    .toast-info .toast-icon {
+        color: var(--info-color);
     }
 
     /* Responsive */
+    media (max-width: 1200px) {
+        .container {
+            grid-template-columns: 1fr 280px;
+            gap: 20px;
+        }
+    }
+
     media (max-width: 992px) {
         .container {
             grid-template-columns: 1fr;
         }
 
         .sidebar {
-            display: none;
-        }
-    }
-
-    media (max-width: 768px) {
-        .locations-grid {
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        }
-    }
-
-    media (max-width: 576px) {
-        .locations-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .header-section {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 15px;
-        }
-
-        .sort-options {
-            overflow-x: auto;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
-        }
-    }
-
-    /* Thêm vào cuối file CSS hiện tại */
-
-    /* Cải thiện responsive cho layout */
-    media (max-width: 992px) {
-        .container {
-            grid-template-columns: 1fr;
-        }
-
-        .sidebar {
+            position: static;
             margin-top: 30px;
         }
     }
@@ -890,22 +1370,17 @@
         .header-section {
             flex-direction: column;
             align-items: flex-start;
-            gap: 15px;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .header-content {
+            max-width: 100%;
         }
 
         .create-button {
             width: 100%;
-            text-align: center;
-        }
-
-        .sort-options {
-            overflow-x: auto;
-            white-space: nowrap;
-            padding-bottom: 10px;
-        }
-
-        .sort-option {
-            display: inline-block;
+            justify-content: center;
         }
     }
 
@@ -913,46 +1388,36 @@
         .locations-grid {
             grid-template-columns: 1fr;
         }
-    }
 
-    /* Cải thiện hiển thị cho danh mục */
-    .category-list a.active {
-        background-color: #e6f7ff;
-        color: #1890ff;
-        font-weight: 600;
-    }
+        .container {
+            padding: 15px;
+        }
 
-    /* Cải thiện hiển thị cho tag */
-    .location-tags .tag {
-        text-decoration: none;
-        transition: background-color 0.2s;
-    }
+        .header-section {
+            padding: 15px;
+            margin-bottom: 20px;
+        }
 
-    .location-tags .tag:hover {
-        background-color: #e6f7ff;
-        color: #1890ff;
-    }
+        .page-title {
+            font-size: 22px;
+        }
 
-    /* Cải thiện hiển thị cho nút thích */
-    .location-favorite {
-        cursor: pointer;
-        transition: transform 0.2s;
-    }
+        .page-subtitle {
+            font-size: 14px;
+        }
 
-    .location-favorite:hover {
-        transform: scale(1.2);
-    }
+        .search-input {
+            padding: 12px 15px 12px 40px;
+        }
 
-    /* Cải thiện hiển thị cho các liên kết trong sidebar */
-    .popular-details h4 a,
-    .recent-details h4 a {
-        color: inherit;
-        text-decoration: none;
-        transition: color 0.2s;
-    }
+        #toast-container {
+            left: 20px;
+            right: 20px;
+        }
 
-    .popular-details h4 a:hover,
-    .recent-details h4 a:hover {
-        color: #1890ff;
+        .toast {
+            min-width: auto;
+            width: 100%;
+        }
     }
 </style>

@@ -266,9 +266,9 @@ footer {
   background: linear-gradient(135deg, #1c1c1c, #111);
   color: #fff;
   padding: 20px 0;
-  border-top-left-radius: 20px;
+  /* border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2); */
   margin-top: auto;
 }
 
