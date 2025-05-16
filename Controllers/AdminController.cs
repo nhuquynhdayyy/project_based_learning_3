@@ -526,7 +526,7 @@ public class AdminController : Controller
     
     return View();
 }
-     // GET: Admin/Reports
+    // GET: Admin/Reports
     public async Task<IActionResult> Reports(string statusFilter = "Pending", string typeFilter = "all", string targetTypeFilter = "all", int pageNumber = 1, int pageSize = 10, string searchTerm = "")
     {
         ViewData["Title"] = "Quản Lý Báo Cáo - Hệ Thống Quản Trị";

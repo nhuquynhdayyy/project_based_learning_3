@@ -547,3 +547,7 @@ footer {
   /* Bỏ transform mặc định để tự kiểm soát vị trí */
   transform: none !important;
 }
+#postDropdown::after {
+  display: none !important;
+  content: none !important;
+}
