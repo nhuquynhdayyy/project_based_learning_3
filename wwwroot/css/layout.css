@@ -40,7 +40,7 @@ img {
 .navbar {
     /* position: fixed; /* Handled by Bootstrap's .fixed-top */
     /* top: 0; left: 0; width: 100%; z-index: 1000; /* Handled by .fixed-top */
-    background: linear-gradient(135deg, #afdbf9, #afdbf9); /* Initial background */
+    background: linear-gradient(135deg, #5eb7ff, #5eb7ff); /* Initial background */
     padding-top: 15px;   /* Custom padding */
     padding-bottom: 15px;/* Custom padding */
     min-height: 70px;
@@ -314,7 +314,7 @@ img {
 /* ================= FOOTER ================= */
 footer {
   width: 100%;
-  background: linear-gradient(135deg, #8ed1ff, #f0f0f0); /* Changed from dark to light */
+  background: linear-gradient(135deg, #5eb7ff, #5eb7ff); /* Changed from dark to light */
   color: #000; /* Changed from white to black */
   padding: 20px 0;
   /* border-top-left-radius: 20px;
@@ -540,10 +540,10 @@ footer {
 }
 
 .bg-gradient-primary {
-  background: linear-gradient(135deg, #ffffff, #e6e6e6); /* Changed to light gradient */
+  background: linear-gradient(135deg, #5eb7ff, #5eb7ff); /* Changed to light gradient */
 }
 
-/* Hiệu ứng hover */
+/* Hiệu ứng hover */  
 .hover-grow {
   transition: transform 0.3s ease;
 }

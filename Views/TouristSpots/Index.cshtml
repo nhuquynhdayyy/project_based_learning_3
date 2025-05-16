@@ -462,13 +462,13 @@
                         noResults.className = 'empty-state animate__animated animate__fadeIn';
                         noResults.id = 'noSearchResults';
                         noResults.innerHTML = `
-                                                                                <div class="empty-icon"><i class="fas fa-search"></i></div>
-                                                                                <h3>Không tìm thấy kết quả</h3>
-                                                                                <p>Không tìm thấy địa điểm nào phù hợp với từ khóa "${searchTerm}"</p>
-                                                                                <button class="btn-add-first" onclick="document.getElementById('spotSearch').value = ''; document.getElementById('spotSearch').dispatchEvent(new Event('input'));">
-                                                                                    <i class="fas fa-undo"></i> Xóa tìm kiếm
-                                                                                </button>
-                                                                            `;
+                                                                                                            <div class="empty-icon"><i class="fas fa-search"></i></div>
+                                                                                                            <h3>Không tìm thấy kết quả</h3>
+                                                                                                            <p>Không tìm thấy địa điểm nào phù hợp với từ khóa "${searchTerm}"</p>
+                                                                                                            <button class="btn-add-first" onclick="document.getElementById('spotSearch').value = ''; document.getElementById('spotSearch').dispatchEvent(new Event('input'));">
+                                                                                                                <i class="fas fa-undo"></i> Xóa tìm kiếm
+                                                                                                            </button>
+                                                                                                        `;
 
                         // Xóa thông báo cũ nếu có
                         const oldNoResults = document.getElementById('noSearchResults');
@@ -537,12 +537,12 @@
                 }
 
                 toast.innerHTML = `
-                                                                        <div class="toast-content">
-                                                                            <div class="toast-icon">${icon}</div>
-                                                                            <div class="toast-message">${message}</div>
-                                                                        </div>
-                                                                        <button class="toast-close"><i class="fas fa-times"></i></button>
-                                                                    `;
+                                                                                                    <div class="toast-content">
+                                                                                                        <div class="toast-icon">${icon}</div>
+                                                                                                        <div class="toast-message">${message}</div>
+                                                                                                    </div>
+                                                                                                    <button class="toast-close"><i class="fas fa-times"></i></button>
+                                                                                                `;
 
                 // Thêm vào container
                 toastContainer.appendChild(toast);
@@ -618,7 +618,7 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 25px;
-        background: linear-gradient(135deg, var(--primary-color), #4f46e5);
+        background: linear-gradient(135deg, #5eb7ff, #5eb7ff);
         padding: 30px;
         border-radius: var(--border-radius);
         color: white;
