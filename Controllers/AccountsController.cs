@@ -181,6 +181,14 @@ namespace TourismWeb.Controllers
                 return View();
             }
 
+            // ✅ Kiểm tra tài khoản bị cấm
+            if (user.UserStatus == "Bị cấm")
+            {
+                ViewBag.ErrorMessage = "Tài khoản của bạn đã bị cấm. Vui lòng liên hệ quản trị viên để biết thêm thông tin.";
+                Console.WriteLine($"Login POST Error: User '{user.Username}' is banned.");
+                return View();
+            }
+
             if (string.IsNullOrEmpty(user.Password) && (user.FacebookId != null || user.GoogleId != null))
             {
                 ViewBag.ErrorMessage = "Tài khoản này được đăng ký qua mạng xã hội. Vui lòng đăng nhập qua Facebook hoặc Google.";

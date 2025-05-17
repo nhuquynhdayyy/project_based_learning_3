@@ -1,134 +1,3 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//   // Mobile sidebar toggle
-//   const toggleSidebarBtn = document.querySelector(".toggle-sidebar")
-//   if (toggleSidebarBtn) {
-//     toggleSidebarBtn.addEventListener("click", () => {
-//       document.querySelector(".sidebar").classList.toggle("open")
-//     })
-//   }
-
-//   // Report status filter
-//   const reportStatusSelect = document.getElementById("report-status")
-//   if (reportStatusSelect) {
-//     reportStatusSelect.addEventListener("change", function () {
-//       // In a real application, this would filter reports based on status
-//       console.log("Status filter changed to:", this.value)
-//     })
-//   }
-
-//   // View Report Buttons
-//   const viewButtons = document.querySelectorAll(".view-btn")
-//   const reportModal = document.getElementById("reportModal")
-//   if (viewButtons && reportModal) {
-//     viewButtons.forEach((button) => {
-//       button.addEventListener("click", () => {
-//         reportModal.classList.add("show")
-//       })
-//     })
-//   }
-
-//   // Cancel Action Button
-//   const cancelActionBtn = document.getElementById("cancelAction")
-//   if (cancelActionBtn) {
-//     cancelActionBtn.addEventListener("click", () => {
-//       reportModal.classList.remove("show")
-//     })
-//   }
-
-//   // Submit Action Button
-//   const submitActionBtn = document.getElementById("submitAction")
-//   if (submitActionBtn) {
-//     submitActionBtn.addEventListener("click", () => {
-//       const selectedAction = document.querySelector('input[name="action"]:checked')
-//       if (!selectedAction) {
-//         alert("Vui lòng chọn hành động xử lý!")
-//         return
-//       }
-
-//       const actionValue = selectedAction.value
-//       const actionNote = document.getElementById("action-note-text").value
-//       const reportStatus = document.getElementById("report-status-select").value
-
-//       // In a real application, this would send the action to the server
-//       console.log("Action:", actionValue)
-//       console.log("Note:", actionNote)
-//       console.log("Status:", reportStatus)
-
-//       alert("Đã xử lý báo cáo thành công!")
-//       reportModal.classList.remove("show")
-//     })
-//   }
-
-//   // Resolve Report Buttons
-//   const resolveButtons = document.querySelectorAll(".resolve-btn")
-//   if (resolveButtons) {
-//     resolveButtons.forEach((button) => {
-//       button.addEventListener("click", function () {
-//         const row = this.closest("tr")
-//         const statusCell = row.querySelector("td:nth-child(7)")
-
-//         // Update status
-//         statusCell.innerHTML = '<span class="badge green">Đã xử lý</span>'
-
-//         // Remove resolve and dismiss buttons
-//         this.remove()
-//         const dismissBtn = row.querySelector(".dismiss-btn")
-//         if (dismissBtn) dismissBtn.remove()
-
-//         alert("Báo cáo đã được đánh dấu là đã xử lý!")
-//       })
-//     })
-//   }
-
-//   // Dismiss Report Buttons
-//   const dismissButtons = document.querySelectorAll(".dismiss-btn")
-//   if (dismissButtons) {
-//     dismissButtons.forEach((button) => {
-//       button.addEventListener("click", function () {
-//         const row = this.closest("tr")
-//         const statusCell = row.querySelector("td:nth-child(7)")
-
-//         // Update status
-//         statusCell.innerHTML = '<span class="badge red">Đã bỏ qua</span>'
-
-//         // Remove resolve and dismiss buttons
-//         this.remove()
-//         const resolveBtn = row.querySelector(".resolve-btn")
-//         if (resolveBtn) resolveBtn.remove()
-
-//         alert("Báo cáo đã được đánh dấu là đã bỏ qua!")
-//       })
-//     })
-//   }
-
-//   // Report Status Change in Modal
-//   const reportStatusSelectModal = document.getElementById("report-status-select")
-//   if (reportStatusSelectModal) {
-//     reportStatusSelectModal.addEventListener("change", function () {
-//       // In a real application, this would update the report status
-//       console.log("Status changed to:", this.value)
-//     })
-//   }
-
-//   // Close modals when clicking outside
-//   window.addEventListener("click", (event) => {
-//     if (event.target === reportModal) {
-//       reportModal.classList.remove("show")
-//     }
-//   })
-
-//   // Close Modal Buttons
-//   const modalCloseButtons = document.querySelectorAll(".modal-close")
-//   if (modalCloseButtons) {
-//     modalCloseButtons.forEach((button) => {
-//       button.addEventListener("click", () => {
-//         document.querySelectorAll(".modal").forEach((modal) => {
-//           modal.classList.remove("show")
-//         })
-//       })
-//     })
-//   }
-// })
 document.addEventListener("DOMContentLoaded", function () {
   const reportModal = document.getElementById("reportModal");
   const closeModalButtons = document.querySelectorAll(
@@ -138,11 +7,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const mainStatusFilter = document.getElementById("report-status-filter-main");
   const hiddenStatusFilterInput = document.getElementById("hiddenStatusFilter");
   const pageSizeSelect = document.getElementById("pageSizeSelect");
+  const processReportForm = document.getElementById("processReportForm"); // Lấy form xử lý report
 
   // --- Xử lý Filter ---
   if (mainStatusFilter && filterForm && hiddenStatusFilterInput) {
     mainStatusFilter.addEventListener("change", function () {
       hiddenStatusFilterInput.value = this.value;
+      // Đảm bảo pageNumber reset về 1 khi đổi status filter
+      const pageNumberInput = filterForm.querySelector(
+        'input[name="pageNumber"]'
+      );
+      if (pageNumberInput) pageNumberInput.value = "1";
       filterForm.requestSubmit(); // Submit form để lọc
     });
   }
@@ -153,19 +28,16 @@ document.addEventListener("DOMContentLoaded", function () {
       if (pageSizeInput) {
         pageSizeInput.value = this.value;
       } else {
-        // Nếu chưa có thì tạo mới
         let newInput = document.createElement("input");
         newInput.type = "hidden";
         newInput.name = "pageSize";
         newInput.value = this.value;
         filterForm.appendChild(newInput);
       }
-      // Đảm bảo pageNumber reset về 1 khi đổi pageSize
       const pageNumberInput = filterForm.querySelector(
         'input[name="pageNumber"]'
       );
       if (pageNumberInput) pageNumberInput.value = "1";
-
       filterForm.requestSubmit();
     });
   }
@@ -205,8 +77,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Mở modal khi click nút "Xem" hoặc "Xử lý"
-  document.querySelectorAll(".view-btn, .process-btn").forEach((button) => {
+  // Mở modal khi click nút "Xử lý" (class "process-btn")
+  document.querySelectorAll(".process-btn").forEach((button) => {
     button.addEventListener("click", function () {
       const reportId = this.dataset.reportId;
       fetchReportDetails(reportId);
@@ -214,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function fetchReportDetails(reportId) {
-    // Hiển thị loading indicator nếu có
+    // TODO: Hiển thị loading indicator nếu có
     fetch(`/Admin/GetReportDetails/${reportId}`) // Đảm bảo URL này đúng
       .then((response) => {
         if (!response.ok) {
@@ -235,6 +107,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function populateModal(data) {
     document.getElementById("modalReportId").textContent = data.reportId;
     document.getElementById("modalHiddenReportId").value = data.reportId;
+    // reportedUserIdToActOn được set trong form, nhưng controller hiện không dùng nhiều,
+    // nếu controller dùng thì giá trị này quan trọng
     document.getElementById("modalHiddenReportedUserId").value =
       data.reportedUserId || "";
 
@@ -276,14 +150,18 @@ document.addEventListener("DOMContentLoaded", function () {
       reportedUserHtml;
 
     document.getElementById("modalTypeOfReport").textContent =
-      data.typeOfReport;
-    // Bạn có thể thêm class màu cho badge type ở đây nếu muốn
+      data.typeOfReport || "N/A";
+    // Cập nhật class cho badge nếu cần
     // document.getElementById('modalTypeOfReport').className = `badge ${getReportTypeClass(data.typeOfReport)}`;
 
-    document.getElementById("modalTargetType").textContent = data.targetType;
+    document.getElementById("modalTargetType").textContent =
+      data.targetType || "N/A";
     document.getElementById("modalTargetLink").href = data.targetLink || "#";
     if (data.targetLink && data.targetLink !== "#") {
       document.getElementById("modalTargetLink").style.display = "inline";
+      document
+        .getElementById("modalTargetLink")
+        .setAttribute("target", "_blank"); // Mở link ở tab mới
     } else {
       document.getElementById("modalTargetLink").style.display = "none";
     }
@@ -291,11 +169,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("modalReportedAt").textContent = data.reportedAt;
     document.getElementById("modalReason").textContent = data.reason;
 
-    // Trạng thái xử lý
     const modalStatusSelect = document.getElementById("modalNewStatus");
-    modalStatusSelect.value = data.status; // "Pending", "Resolved", "Dismissed"
+    modalStatusSelect.value = data.status;
 
-    // Nội dung bị báo cáo
     const targetContentSection = document.getElementById(
       "modalTargetContentSection"
     );
@@ -313,111 +189,88 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       targetContentDiv.innerHTML = contentHtml;
       targetContentSection.style.display = "block";
+    } else if (data.targetContent && data.targetContent.type === "User") {
+      targetContentDiv.innerHTML =
+        "Đối tượng báo cáo là một người dùng. Xem chi tiết người dùng qua link ở trên.";
+      targetContentSection.style.display = "block";
     } else {
       targetContentSection.style.display = "none";
       targetContentDiv.innerHTML = "";
     }
 
-    // Ghi chú admin
     document.getElementById("modalAdminNotes").value = data.adminNotes || "";
 
-    // Ẩn/Hiện các action tùy theo đối tượng và người bị báo cáo
     const actionDeleteContent = document.getElementById(
       "actionDeleteContentOption"
     );
     const actionWarnUser = document.getElementById("actionWarnUserOption");
     const actionBanUser = document.getElementById("actionBanUserOption");
 
+    // Chỉ hiển thị "Xóa nội dung" nếu target là Post hoặc Comment
     actionDeleteContent.style.display =
-      data.targetType === "Post" || data.targetType === "Comment"
+      data.targetType === "Post" ||
+      data.targetType === "Comment" ||
+      data.targetType === "Review"
         ? "block"
         : "none";
-    actionWarnUser.style.display = data.reportedUserId ? "block" : "none";
-    actionBanUser.style.display = data.reportedUserId ? "block" : "none";
+    // Chỉ hiển thị "Cảnh báo/Cấm người dùng" nếu có reportedUserId
+    const hasReportedUser = !!data.reportedUserId;
+    actionWarnUser.style.display = hasReportedUser ? "block" : "none";
+    actionBanUser.style.display = hasReportedUser ? "block" : "none";
 
-    // Reset selected action
+    // Reset selected action về "Chỉ cập nhật trạng thái"
     document.getElementById("action-ignore-report").checked = true;
+    // Tự động check "Xóa nội dung" nếu target là Post/Comment và không có reported user
+    // (gợi ý cho admin, admin vẫn có thể đổi)
+    // if ((data.targetType === "Post" || data.targetType === "Comment") && !hasReportedUser) {
+    //     const radioDelete = document.getElementById("action-delete-content");
+    //     if(radioDelete) radioDelete.checked = true;
+    // }
   }
 
-  // (Tùy chọn) Helper JS để lấy class màu, nếu bạn không muốn dùng Razor @functions
-  // function getReportTypeClass(typeString) { ... }
+  // --- Xử lý submit form trong modal ---
+  if (processReportForm) {
+    processReportForm.addEventListener("submit", function (e) {
+      e.preventDefault(); // Ngăn submit form mặc định
+
+      const formData = new FormData(this);
+      // TODO: Hiển thị loading/spinner cho nút submit
+
+      fetch(this.action, {
+        method: "POST",
+        body: formData,
+        // headers: { // FormData tự set Content-Type, không cần 'Content-Type': 'application/x-www-form-urlencoded'
+        //     // AntiForgeryToken thường được gửi qua form data
+        // }
+      })
+        .then((response) => {
+          // Nếu controller redirect, response.redirected sẽ là true
+          // và response.url sẽ là URL mới.
+          // Trong trường hợp này, ta muốn reload để TempData hiển thị.
+          if (response.ok || response.redirected) {
+            closeModal();
+            location.reload(); // Tải lại trang để hiển thị TempData và cập nhật bảng
+          } else {
+            // Xử lý lỗi từ server (ví dụ: validation errors nếu controller trả về JSON)
+            // response.text().then(text => alert("Lỗi: " + text));
+            alert(
+              "Xảy ra lỗi khi xử lý báo cáo. Vui lòng kiểm tra lại thông tin hoặc thử lại sau."
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("Error submitting report processing:", error);
+          alert("Xảy ra lỗi kết nối khi xử lý báo cáo. Vui lòng thử lại.");
+        })
+        .finally(() => {
+          // TODO: Ẩn loading/spinner
+        });
+    });
+  }
 });
 
-$(document).on("click", ".process-btn", function () {
-  const reportId = $(this).data("report-id");
-
-  $.get(`/Admin/GetReportDetails/${reportId}`, function (data) {
-    // Điền dữ liệu vào modal
-    $("#modalReportId").text(data.reportId);
-    $("#modalHiddenReportId").val(data.reportId);
-    $("#modalHiddenReportedUserId").val(data.reportedUserId);
-
-    $("#modalReporterInfo").html(
-      `${data.reporterName} (${data.reporterEmail}) <img src="${data.reporterAvatar}" width="30" />`
-    );
-    $("#modalTypeOfReport").text(data.typeOfReport);
-    $("#modalTargetType").text(data.targetType);
-    $("#modalTargetLink").attr("href", data.targetLink);
-    $("#modalReportedUserInfo").html(
-      `${data.reportedUserName} (${data.reportedUserEmail}) <img src="${data.reportedUserAvatar}" width="30" />`
-    );
-    $("#modalReportedAt").text(data.reportedAt);
-    $("#modalNewStatus").val(data.status);
-    $("#modalReason").text(data.reason);
-    $("#modalAdminNotes").val(data.adminNotes || "");
-
-    if (data.targetContent && data.targetContent.content) {
-      $("#modalTargetContent").html(data.targetContent.content);
-      $("#modalTargetContentSection").show();
-    } else {
-      $("#modalTargetContentSection").hide();
-    }
-
-    // Hiển thị action phù hợp
-    $("#actionDeleteContentOption").toggle(
-      data.targetContent?.type === "Post" ||
-        data.targetContent?.type === "Comment"
-    );
-    $("#actionWarnUserOption, #actionBanUserOption").toggle(
-      !!data.reportedUserId
-    );
-
-    // Hiện modal
-    $("#reportModal").show();
-  });
-});
-
-$(".modal-close, .modal-close-btn").on("click", function () {
-  $("#reportModal").hide();
-});
-
-$("#modalAdminNotes").val(data.adminNotes || "");
-
-if (data.targetContent) {
-  const contentSummary = data.targetContent.title
-    ? `<strong>${data.targetContent.title}</strong><br>${data.targetContent.content}`
-    : data.targetContent.content;
-
-  $("#modalTargetContent").html(contentSummary);
-  $("#modalTargetContentSection").show();
-} else {
-  $("#modalTargetContentSection").hide();
+function onStatusFilterChange(selectElement) {
+  const selectedValue = selectElement.value;
+  document.getElementById("hiddenStatusFilter").value = selectedValue;
+  document.getElementById("filterForm").submit();
 }
-
-$("#processReportForm").submit(function (e) {
-  e.preventDefault(); // Ngăn submit mặc định
-  const form = $(this);
-  $.ajax({
-    type: "POST",
-    url: form.attr("action"),
-    data: form.serialize(),
-    success: function () {
-      alert("Đã xử lý báo cáo.");
-      $("#reportModal").hide();
-      // Có thể reload bảng báo cáo hoặc cập nhật trạng thái từng dòng nếu dùng DataTables, etc.
-    },
-    error: function () {
-      alert("Xử lý thất bại.");
-    },
-  });
-});

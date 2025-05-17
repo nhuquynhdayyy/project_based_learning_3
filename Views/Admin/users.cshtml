@@ -1,454 +1,6 @@
-@* @section Styles {
-    <link rel="stylesheet" href="~/cssadmin/users.css">
-
-    <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-}
-
-@{
-    ViewData["Title"] = "Quản Lý Người Dùng - Hệ Thống Quản Trị";
-}
-@{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-}
-
-@section Scripts {
-    <script src="~/js/jsadmin/users.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-}
-
-<div class="app-container">
-
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <main class="content-wrapper">
-            <div class="page-header">
-                <h1 class="page-title">Quản Lý Người Dùng</h1>
-                <div class="page-actions">
-                    <button class="btn btn-primary">
-                        <i class="fas fa-user-plus"></i>
-                        Thêm người dùng
-                    </button>
-                </div>
-            </div>
-
-            <!-- Filter Section -->
-            <div class="filter-card">
-                <div class="filter-grid">
-                    <div class="filter-item">
-                        <div class="search-input">
-                            <i class="fas fa-search"></i>
-                            <input type="text" placeholder="Tìm kiếm người dùng...">
-                        </div>
-                    </div>
-                    <div class="filter-item">
-                        <select class="select-control">
-                            <option value="all">Tất cả vai trò</option>
-                            <option value="admin">Quản trị viên</option>
-                            <option value="editor">Biên tập viên</option>
-                            <option value="author">Tác giả</option>
-                            <option value="user">Người dùng</option>
-                        </select>
-                    </div>
-                    <div class="filter-item">
-                        <select class="select-control">
-                            <option value="all">Tất cả trạng thái</option>
-                            <option value="active">Hoạt động</option>
-                            <option value="inactive">Không hoạt động</option>
-                            <option value="banned">Bị cấm</option>
-                        </select>
-                    </div>
-                    <div class="filter-item">
-                        <button class="btn btn-filter">
-                            <i class="fas fa-filter"></i>
-                            Lọc
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Users Table -->
-            <div class="table-card">
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <div class="checkbox-wrapper">
-                                        <input type="checkbox" id="select-all">
-                                        <label for="select-all"></label>
-                                    </div>
-                                </th>
-                                <th>Người dùng</th>
-                                <th>Email</th>
-                                <th>Vai trò</th>
-                                <th>Bài viết</th>
-                                <th>Ngày tham gia</th>
-                                <th>Trạng thái</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="checkbox-wrapper">
-                                        <input type="checkbox" id="user-1">
-                                        <label for="user-1"></label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=1" alt="Avatar">
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Nguyễn Văn A</div>
-                                            <div class="user-username">@@nguyenvana</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>nguyenvana@example.com</td>
-                                <td>
-                                    <span class="badge purple">Quản trị viên</span>
-                                </td>
-                                <td>15</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-calendar"></i>
-                                        01/01/2025
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge green">Hoạt động</span>
-                                </td>
-                                <td class="actions-cell">
-                                    <button class="action-btn view-btn" title="Xem">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="action-btn edit-btn" title="Sửa">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="action-btn delete-btn" title="Xóa">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="checkbox-wrapper">
-                                        <input type="checkbox" id="user-2">
-                                        <label for="user-2"></label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=2" alt="Avatar">
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Trần Thị B</div>
-                                            <div class="user-username">@@tranthib</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>tranthib@example.com</td>
-                                <td>
-                                    <span class="badge blue">Biên tập viên</span>
-                                </td>
-                                <td>8</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-calendar"></i>
-                                        15/02/2025
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge green">Hoạt động</span>
-                                </td>
-                                <td class="actions-cell">
-                                    <button class="action-btn view-btn" title="Xem">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="action-btn edit-btn" title="Sửa">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="action-btn delete-btn" title="Xóa">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="checkbox-wrapper">
-                                        <input type="checkbox" id="user-3">
-                                        <label for="user-3"></label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=3" alt="Avatar">
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Lê Văn C</div>
-                                            <div class="user-username">@@levanc</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>levanc@example.com</td>
-                                <td>
-                                    <span class="badge green">Tác giả</span>
-                                </td>
-                                <td>12</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-calendar"></i>
-                                        10/03/2025
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge green">Hoạt động</span>
-                                </td>
-                                <td class="actions-cell">
-                                    <button class="action-btn view-btn" title="Xem">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="action-btn edit-btn" title="Sửa">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="action-btn delete-btn" title="Xóa">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="checkbox-wrapper">
-                                        <input type="checkbox" id="user-4">
-                                        <label for="user-4"></label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=4" alt="Avatar">
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Phạm Thị D</div>
-                                            <div class="user-username">@@phamthid</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>phamthid@example.com</td>
-                                <td>
-                                    <span class="badge amber">Người dùng</span>
-                                </td>
-                                <td>0</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-calendar"></i>
-                                        05/04/2025
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge yellow">Không hoạt động</span>
-                                </td>
-                                <td class="actions-cell">
-                                    <button class="action-btn view-btn" title="Xem">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="action-btn edit-btn" title="Sửa">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="action-btn delete-btn" title="Xóa">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="checkbox-wrapper">
-                                        <input type="checkbox" id="user-5">
-                                        <label for="user-5"></label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="user-cell">
-                                        <div class="user-avatar">
-                                            <img src="https://i.pravatar.cc/40?img=5" alt="Avatar">
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="user-name">Hoàng Văn E</div>
-                                            <div class="user-username">@@hoangvane</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>hoangvane@example.com</td>
-                                <td>
-                                    <span class="badge amber">Người dùng</span>
-                                </td>
-                                <td>0</td>
-                                <td>
-                                    <div class="date-cell">
-                                        <i class="fas fa-calendar"></i>
-                                        20/04/2025
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge red">Bị cấm</span>
-                                </td>
-                                <td class="actions-cell">
-                                    <button class="action-btn view-btn" title="Xem">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="action-btn edit-btn" title="Sửa">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="action-btn delete-btn" title="Xóa">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Pagination -->
-                <div class="pagination-container">
-                    <div class="pagination-info">
-                        <span>Hiển thị
-                            <select class="select-sm">
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                            </select>
-                            trên tổng số 25 người dùng
-                        </span>
-                    </div>
-                    <div class="pagination">
-                        <button class="pagination-btn" disabled>
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <span class="pagination-text">Trang 1 / 5</span>
-                        <button class="pagination-btn">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                    <div class="bulk-actions">
-                        <select class="select-control">
-                            <option value="">Hành động hàng loạt</option>
-                            <option value="activate">Kích hoạt</option>
-                            <option value="deactivate">Vô hiệu hóa</option>
-                            <option value="ban">Cấm</option>
-                            <option value="delete">Xóa</option>
-                        </select>
-                        <button class="btn btn-secondary">Áp dụng</button>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-</div>
-
-<!-- User Modal -->
-<div class="modal" id="userModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2 class="modal-title">Thêm người dùng mới</h2>
-            <button class="modal-close">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form id="userForm">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="fullname">Họ và tên <span class="required">*</span></label>
-                        <input type="text" id="fullname" name="fullname" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Tên đăng nhập <span class="required">*</span></label>
-                        <input type="text" id="username" name="username" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email <span class="required">*</span></label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Số điện thoại</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="role">Vai trò <span class="required">*</span></label>
-                        <select id="role" name="role" required>
-                            <option value="user">Người dùng</option>
-                            <option value="user">Người dùng</option>
-                            <option value="user">Người dùng</option>
-                            <option value="user" selected>Người dùng</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Trạng thái</label>
-                        <select id="status" name="status">
-                            <option value="active" selected>Hoạt động</option>
-                            <option value="inactive">Không hoạt động</option>
-                            <option value="banned">Bị cấm</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Mật khẩu <span class="required">*</span></label>
-                        <div class="input-with-icon">
-                            <input type="password" id="password" name="password" required>
-                            <button type="button" class="toggle-password" title="Hiện/ẩn mật khẩu">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm-password">Xác nhận mật khẩu <span class="required">*</span></label>
-                        <div class="input-with-icon">
-                            <input type="password" id="confirm-password" name="confirm-password" required>
-                            <button type="button" class="toggle-password" title="Hiện/ẩn mật khẩu">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="bio">Giới thiệu</label>
-                    <textarea id="bio" name="bio" rows="3"></textarea>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" id="cancelUser">Hủy</button>
-                    <button type="submit" class="btn btn-primary">Lưu</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Delete Confirmation Modal -->
-<div class="modal" id="deleteModal">
-    <div class="modal-content modal-sm">
-        <div class="modal-header">
-            <h2 class="modal-title">Xác nhận xóa người dùng</h2>
-            <button class="modal-close">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p>Bạn có chắc chắn muốn xóa người dùng "<span id="deleteUserName"></span>"?</p>
-            <div class="form-actions">
-                <button type="button" class="btn btn-secondary" id="cancelDelete">Hủy</button>
-                <button type="button" class="btn btn-danger" id="confirmDelete">Xóa</button>
-            </div>
-        </div>
-    </div>
-</div> *@
 @using TourismWeb.Models
+@using System.Web;
+
 @* Thêm dòng này nếu bạn muốn sử dụng danh sách người dùng một cách tường minh *@
 @{
     var users = ViewBag.Users as List<User> ?? new List<User>();
@@ -463,6 +15,13 @@
     var currentStatusFilter = ViewBag.StatusFilter as string ?? "all";
 }
 
+<!-- DEBUGGING OUTPUT - XÓA SAU KHI DEBUG XONG -->
+@* <div style="background: yellow; padding: 10px; border: 1px solid red; margin-bottom: 10px;">
+    DEBUG: PageNumber: @pageNumber, PageSize: @pageSize, TotalUsers: @totalUsers, TotalPages: @totalPages<br/>
+    Search: '@currentSearchTerm', Role: '@currentRoleFilter', Status: '@currentStatusFilter'
+</div> *@
+<!-- END DEBUGGING OUTPUT -->
+
 @section Styles {
     <link rel="stylesheet" href="~/cssadmin/users.css">
     <link rel="stylesheet" href="~/cssadmin/styles.css" asp-append-version="true" />
@@ -474,9 +33,8 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-@section Scripts {
+@* @section Scripts {
     <script src="~/js/jsadmin/users.js"></script>
-    @* <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -- Bỏ comment nếu cần *@
     <script>
         // JavaScript để xử lý filter và pagination (ví dụ đơn giản)
         document.addEventListener('DOMContentLoaded', function () {
@@ -609,6 +167,150 @@
             });
 
 
+        });
+    </script>
+} *@
+@section Scripts {
+    <script src="~/js/jsadmin/users.js"></script>
+    @* <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -- Bỏ comment nếu cần *@
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterButton = document.querySelector('.btn-filter');
+            const searchInput = document.querySelector('.search-input input');
+            const roleSelect = document.querySelectorAll('.select-control')[0]; // Vai trò
+            const statusSelect = document.querySelectorAll('.select-control')[1]; // Trạng thái
+            const pageSizeSelect = document.querySelector('.pagination-info .select-sm');
+
+            // Thiết lập giá trị ban đầu cho các filter controls
+            if (searchInput) searchInput.value = "@Html.Raw(HttpUtility.JavaScriptStringEncode(currentSearchTerm))"; // Encode để tránh lỗi XSS hoặc JS
+            if (roleSelect) roleSelect.value = "@currentRoleFilter";
+            if (statusSelect) statusSelect.value = "@currentStatusFilter";
+            if (pageSizeSelect) pageSizeSelect.value = "@pageSize";
+
+            if (filterButton) {
+                filterButton.addEventListener('click', function () {
+                    const searchTerm = searchInput ? searchInput.value : '';
+                    const role = roleSelect ? roleSelect.value : 'all';
+                    const status = statusSelect ? statusSelect.value : 'all';
+                    const currentPgSize = pageSizeSelect ? pageSizeSelect.value : '10';
+                    window.location.href = `@Url.Action("Users", "Admin")?searchTerm=${encodeURIComponent(searchTerm)}&roleFilter=${role}&statusFilter=${status}&pageSize=${currentPgSize}&pageNumber=1`;
+                });
+            }
+
+            if (pageSizeSelect) {
+                pageSizeSelect.addEventListener('change', function() {
+                    const searchTerm = searchInput ? searchInput.value : ''; // Lấy giá trị hiện tại từ input
+                    const role = roleSelect ? roleSelect.value : 'all';       // Lấy giá trị hiện tại từ select
+                    const status = statusSelect ? statusSelect.value : 'all';   // Lấy giá trị hiện tại từ select
+                    const newPageSize = this.value;
+                    window.location.href = `@Url.Action("Users", "Admin")?searchTerm=${encodeURIComponent(searchTerm)}&roleFilter=${role}&statusFilter=${status}&pageSize=${newPageSize}&pageNumber=1`;
+                });
+            }
+
+            // Pagination buttons
+            // Sử dụng ID nếu bạn đã thêm vào HTML, nếu không thì giữ nguyên selector hiện tại
+            const prevButton = document.getElementById('prevPageBtn') || document.querySelector('.pagination button:first-child');
+            const nextButton = document.getElementById('nextPageBtn') || document.querySelector('.pagination button:last-child');
+
+            console.log("Script loaded. PageNumber:", @pageNumber, "TotalPages:", @totalPages);
+            console.log("Prev Button:", prevButton, "Is Disabled:", prevButton ? prevButton.disabled : 'null');
+            console.log("Next Button:", nextButton, "Is Disabled:", nextButton ? nextButton.disabled : 'null');
+            // Nút Previous
+            // Trạng thái disabled đã được server render đúng, chỉ cần thêm event listener nếu nút không bị disabled
+            @* if (prevButton && !prevButton.disabled) {
+                prevButton.addEventListener('click', function() {
+                    // Các biến @currentSearchTerm, @currentRoleFilter, @currentStatusFilter, @pageSize
+                    // đã chứa đúng giá trị filter của trang hiện tại khi nó được render.
+                    // @pageNumber - 1 sẽ là trang trước đó.
+                    window.location.href = `@Url.Action("Users", "Admin")?searchTerm=${encodeURIComponent(currentSearchTerm)}&roleFilter=@currentRoleFilter&statusFilter=@currentStatusFilter&pageSize=@pageSize&pageNumber=${@pageNumber - 1}`;
+                });
+            } *@
+            if (prevButton && !prevButton.disabled) {
+    prevButton.addEventListener('click', function() {
+        const targetPage = @pageNumber - 1;
+        const url = `@Url.Action("Users", "Admin")?searchTerm=${encodeURIComponent("@Html.Raw(HttpUtility.JavaScriptStringEncode(currentSearchTerm))")}&roleFilter=@currentRoleFilter&statusFilter=@currentStatusFilter&pageSize=@pageSize&pageNumber=${targetPage}`;
+        console.log("Prev button clicked. Target URL:", url);
+        window.location.href = url;
+    });
+} else if (prevButton) {
+    console.log("Prev button is disabled or not found.");
+}
+            // Nút Next
+            // Tương tự, trạng thái disabled đã đúng, chỉ thêm listener nếu không bị disabled
+            @* if (nextButton && !nextButton.disabled) {
+                nextButton.addEventListener('click', function() {
+                     window.location.href = `@Url.Action("Users", "Admin")?searchTerm=${encodeURIComponent(currentSearchTerm)}&roleFilter=@currentRoleFilter&statusFilter=@currentStatusFilter&pageSize=@pageSize&pageNumber=${@pageNumber + 1}`;
+                });
+            } *@
+            if (nextButton && !nextButton.disabled) {
+    nextButton.addEventListener('click', function() {
+        const targetPage = @pageNumber + 1;
+        const url = `@Url.Action("Users", "Admin")?searchTerm=${encodeURIComponent("@Html.Raw(HttpUtility.JavaScriptStringEncode(currentSearchTerm))")}&roleFilter=@currentRoleFilter&statusFilter=@currentStatusFilter&pageSize=@pageSize&pageNumber=${targetPage}`;
+        console.log("Next button clicked. Target URL:", url);
+        window.location.href = url;
+    });
+} else if (nextButton) {
+    console.log("Next button is disabled or not found.");
+}
+
+            // ----- PHẦN CODE CÒN LẠI CHO MODAL VÀ CÁC CHỨC NĂNG KHÁC GIỮ NGUYÊN -----
+            // ... (Thêm người dùng, Sửa, Xóa, Modal logic)
+             const addUserButton = document.querySelector('.page-actions .btn-primary');
+             const userModal = document.getElementById('userModal');
+             const closeModalButtons = document.querySelectorAll('.modal-close, #cancelUser');
+
+             if (addUserButton && userModal) {
+                 addUserButton.addEventListener('click', () => {
+                     document.getElementById('userForm').reset();
+                     document.querySelector('#userModal .modal-title').textContent = 'Thêm người dùng mới';
+                     userModal.style.display = 'block';
+                 });
+             }
+
+             closeModalButtons.forEach(btn => {
+                 btn.addEventListener('click', () => {
+                     if (userModal) userModal.style.display = 'none';
+                     const deleteModal = document.getElementById('deleteModal');
+                     if (deleteModal) deleteModal.style.display = 'none';
+                 });
+             });
+
+             window.addEventListener('click', (event) => {
+                 if (event.target === userModal) {
+                     userModal.style.display = 'none';
+                 }
+                 const deleteModal = document.getElementById('deleteModal');
+                 if (event.target === deleteModal) {
+                     deleteModal.style.display = 'none';
+                 }
+             });
+
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const userId = this.dataset.userId;
+                    const userName = this.dataset.userName;
+                    const deleteModal = document.getElementById('deleteModal');
+                    const deleteUserNameSpan = document.getElementById('deleteUserName');
+                    const confirmDeleteButton = document.getElementById('confirmDelete');
+
+                    if (deleteUserNameSpan) deleteUserNameSpan.textContent = userName;
+                    if (confirmDeleteButton) confirmDeleteButton.dataset.userIdToDelete = userId;
+                    if (deleteModal) deleteModal.style.display = 'block';
+                });
+            });
+
+             document.querySelectorAll('.edit-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const userId = this.dataset.userId;
+                    alert('Chức năng sửa cho User ID: ' + userId + ' chưa được triển khai đầy đủ.');
+                    // Ví dụ:
+                    // document.getElementById('fullname').value = userData.fullName;
+                    // ... (điền các trường khác)
+                    // document.querySelector('#userModal .modal-title').textContent = 'Chỉnh sửa người dùng';
+                    // userModal.style.display = 'block';
+                });
+            });
+            // ----- KẾT THÚC PHẦN CODE GIỮ NGUYÊN -----
         });
     </script>
 }
@@ -768,12 +470,21 @@
                             trên tổng số @totalUsers người dùng
                         </span>
                     </div>
-                    <div class="pagination">
+                    @* <div class="pagination">
                         <button class="pagination-btn" disabled="@(pageNumber <= 1)">
                             <i class="fas fa-chevron-left"></i>
                         </button>
                         <span class="pagination-text">Trang @pageNumber / @totalPages</span>
                         <button class="pagination-btn" disabled="@(pageNumber >= totalPages)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div> *@
+                    <div class="pagination">
+                        <button id="prevPageBtn" class="pagination-btn" disabled="@(pageNumber <= 1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="pagination-text">Trang @pageNumber / @totalPages</span>
+                        <button id="nextPageBtn" class="pagination-btn" disabled="@(pageNumber >= totalPages)">
                             <i class="fas fa-chevron-right"></i>
                         </button>
                     </div>
