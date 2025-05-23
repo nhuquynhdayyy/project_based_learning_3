@@ -524,28 +524,41 @@
                             </div>
 
                             <!-- Hình ảnh bổ sung -->
-                            @if (Model.Images != null && Model.Images.Any())
-                            {
-                                <!-- Đặt ID cho mục lục -->
-                                <div id="section-hinh-anh-dia-diem" class="mt-4">
-                                    <h3 class="section-title">
-                                        <span class="theme-icon-container">
-                                            <span class="orange-icon"></span>
-                                        </span>
-                                        Hình ảnh địa điểm
-                                    </h3>
-                                    <div class="location-gallery row g-3">
-                                        @foreach (var image in Model.Images)
-                                        {
-                                            <div class="col-md-4 mb-3">
-                                                <a href="@image.ImageUrl" data-lightbox="location-gallery" data-title="Hình ảnh địa điểm">
-                                                    <img src="@image.ImageUrl" alt="Hình ảnh địa điểm @(Model.Spot?.Name)" class="img-fluid rounded shadow-sm">
-                                                </a>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            }
+                           @if (Model.Images != null && Model.Images.Any())
+{
+    <div id="section-hinh-anh-dia-diem" class="mt-4">
+        <h3 class="section-title">
+            <span class="theme-icon-container">
+                <span class="orange-icon"></span>
+            </span>
+            Hình ảnh địa điểm
+        </h3>
+
+        <div id="postImagesCarousel" class="carousel slide shadow-sm rounded" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @{
+                    var first = true;
+                    foreach (var image in Model.Images)
+                    {
+                        <div class="carousel-item @(first ? "active" : "")">
+                            <img src="@image.ImageUrl" class="d-block w-100 rounded" style="max-height: 500px; object-fit: contain;" alt="Ảnh địa điểm" />
+                        </div>
+                        first = false;
+                    }
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#postImagesCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Trước</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#postImagesCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Sau</span>
+            </button>
+        </div>
+    </div>
+}
+
 
                             @if (!string.IsNullOrEmpty(Model.SuggestedItinerary))
                             {
