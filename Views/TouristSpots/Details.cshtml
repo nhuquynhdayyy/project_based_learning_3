@@ -100,10 +100,15 @@
                         <img src="@image.ImageUrl" alt="@Model.Name" onclick="changeMainImage(this.src)">
                     }
                 }
-                else
-                {
-                    <img src="@Model.ImageUrl" alt="@Model.Name" onclick="changeMainImage(this.src)">
-                }
+                else if (!string.IsNullOrEmpty(Model.ImageUrl) && Model.ImageUrl != "/images/default-spotImage.png")
+{
+    <img src="@Model.ImageUrl" alt="@Model.Name" onclick="changeMainImage(this.src)">
+}
+else
+{
+    <img src="/images/default-spotImage.png" alt="Ảnh mặc định">
+}
+
             </div>
             <button class="gallery-btn" id="viewAllPhotos">
                 <i class="fas fa-images"></i> Xem tất cả ảnh (@(Model.Images?.Count ?? 1))
