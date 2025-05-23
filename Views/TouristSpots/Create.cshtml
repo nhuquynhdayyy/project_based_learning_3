@@ -172,14 +172,13 @@
                             <div class="col-md-4">
                                 <!-- Hình ảnh đại diện -->
                                 <div class="mb-3">
-                                    <label class="form-label fw-bold">Hình ảnh đại diện</label>
-                                    <div class="text-center mb-2">
+                                    <label for="imageFiles">Hình ảnh địa điểm (chọn nhiều ảnh)</label>
                                         <div class="image-preview-container border rounded p-2" style="height: 200px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
                                             <img id="imagePreview" src="@(string.IsNullOrEmpty(Model.ImageUrl) ? "/images/default-spotImage.png" : Model.ImageUrl)" class="img-fluid" style="max-height: 100%; max-width: 100%; object-fit: contain;" alt="Xem trước ảnh" />
                                         </div>
-                                    </div>
+                                    
                                     <div class="input-group">
-                                        <input type="file" id="imageUpload" name="imageFile" class="form-control" accept="image/*" />
+                                        <input type="file" id="imageUpload" name="imageFiles" class="form-control" accept="image/*" multiple />
                                         <label class="input-group-text" for="imageUpload"><i class="fas fa-upload"></i></label>
                                     </div>
                                     <small class="form-text text-muted">Hoặc dán URL ảnh bên dưới (nếu không chọn file).</small>

@@ -9,257 +9,6 @@
         <div class="col-lg-11">
             <div class="card border-0 rounded-lg shadow-lg overflow-hidden">
                 <div class="card-header p-0">
-                    <div class="bg-gradient-primary p-4 text-white position-relative">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-feather-alt me-3 fa-2x"></i>
-                                <div>
-                                    <h3 class="mb-0 fw-bold">Tạo Bài Viết Mới</h3>
-                                    <p class="mb-0 opacity-75">Chia sẻ trải nghiệm du lịch của bạn</p>
-                                </div>
-                            </div>
-                            <a asp-action="Index" class="btn btn-outline-light btn-sm">
-                                <i class="fas fa-list me-1"></i> Danh sách bài viết
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-body p-4">
-                    <form asp-action="Create" method="post" enctype="multipart/form-data">
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 border-0 shadow-sm"
-                            role="alert"></div>
-
-                        <div class="row g-4">
-                            <!-- Left Column - Text Inputs -->
-                            <div class="col-lg-8 order-lg-1 order-2">
-                                <div class="card shadow-sm border-0 rounded-3 bg-light bg-opacity-50 p-4 h-100">
-                                    <div class="mb-4">
-                                        <label asp-for="Title" class="form-label fw-bold text-primary">
-                                            <i class="fas fa-heading me-2"></i>Tiêu đề bài viết
-                                        </label>
-                                        <input asp-for="Title" class="form-control form-control-lg border-0 shadow-sm"
-                                            placeholder="Nhập tiêu đề hấp dẫn cho bài viết..." />
-                                        <span asp-validation-for="Title" class="text-danger"></span>
-                                    </div>
-
-                                    <div class="row mb-4">
-                                        <div class="col-md-6">
-                                            <label asp-for="SpotId" class="form-label fw-bold text-primary">
-                                                <i class="fas fa-map-marker-alt me-2"></i>Địa điểm du lịch
-                                            </label>
-                                            <select asp-for="SpotId" class="form-select border-0 shadow-sm"
-                                                asp-items="ViewBag.SpotId">
-                                                <option value="">-- Chọn địa điểm du lịch --</option>
-                                            </select>
-                                            <span asp-validation-for="SpotId" class="text-danger"></span>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label asp-for="TypeOfPost" class="form-label fw-bold text-primary">
-                                                <i class="fas fa-tag me-2"></i>Loại bài viết
-                                            </label>
-                                            <select asp-for="TypeOfPost" class="form-select border-0 shadow-sm">
-                                                <option value="">-- Chọn loại bài viết --</option>
-                                                <option value="Địa điểm">Địa điểm</option>
-                                                <option value="Cẩm nang">Cẩm nang</option>
-                                                <option value="Trải nghiệm">Trải nghiệm</option>
-                                            </select>
-                                            <span asp-validation-for="TypeOfPost" class="text-danger"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-4">
-                                        <label asp-for="Content" class="form-label fw-bold text-primary">
-                                            <i class="fas fa-align-left me-2"></i>Nội dung chi tiết
-                                        </label>
-                                        <div class="editor-toolbar border-0 shadow-sm rounded-top bg-white p-2 mb-0">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary"><i
-                                                        class="fas fa-bold"></i></button>
-                                                <button type="button" class="btn btn-sm btn-outline-secondary"><i
-                                                        class="fas fa-italic"></i></button>
-                                                <button type="button" class="btn btn-sm btn-outline-secondary"><i
-                                                        class="fas fa-underline"></i></button>
-                                            </div>
-                                            <div class="btn-group ms-2">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary"><i
-                                                        class="fas fa-align-left"></i></button>
-                                                <button type="button" class="btn btn-sm btn-outline-secondary"><i
-                                                        class="fas fa-align-center"></i></button>
-                                                <button type="button" class="btn btn-sm btn-outline-secondary"><i
-                                                        class="fas fa-align-right"></i></button>
-                                            </div>
-                                            <div class="btn-group ms-2">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary"><i
-                                                        class="fas fa-list-ul"></i></button>
-                                                <button type="button" class="btn btn-sm btn-outline-secondary"><i
-                                                        class="fas fa-list-ol"></i></button>
-                                            </div>
-                                        </div>
-                                        <textarea asp-for="Content"
-                                            class="form-control border-0 shadow-sm rounded-bottom" rows="12"
-                                            placeholder="Chia sẻ chi tiết về trải nghiệm, cảm nhận và thông tin hữu ích..."></textarea>
-                                        <span asp-validation-for="Content" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Right Column - Image Upload and Tags -->
-                            <div class="col-lg-4 order-lg-2 order-1">
-                                <div class="card shadow-sm border-0 rounded-3 bg-light bg-opacity-50 p-4 mb-4">
-                                    <h5 class="card-title fw-bold text-primary mb-3">
-                                        <i class="fas fa-image me-2"></i>Ảnh bìa bài viết
-                                    </h5>
-
-                                    <div class="image-upload-container bg-white rounded-3 shadow-sm p-3 text-center mb-3 position-relative"
-                                        style="height: 240px; cursor: pointer;" id="imageUploadContainer">
-                                        <div class="h-100 d-flex align-items-center justify-content-center">
-                                            <img id="imagePreview" src="@Model.ImageUrl ?? "
-                                                /images/default-post-image.png"" class="img-fluid rounded-3"
-                                                style="max-height: 100%; max-width: 100%; object-fit: contain;" />
-                                        </div>
-                                        <div class="image-upload-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center rounded-3"
-                                            style="background: rgba(0,0,0,0.5); opacity: 0; transition: all 0.3s;">
-                                            <div class="text-white">
-                                                <i class="fas fa-cloud-upload-alt fa-3x mb-2"></i>
-                                                <p class="mb-0">Kéo thả hoặc chọn ảnh</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-grid">
-                                        <label for="imageUpload" class="btn btn-outline-primary">
-                                            <i class="fas fa-camera me-2"></i>Chọn ảnh đẹp
-                                        </label>
-                                        <input type="file" id="imageUpload" name="imageFile" class="d-none"
-                                            accept="image/*" />
-                                        <input type="hidden" asp-for="ImageUrl" />
-                                    </div>
-
-                                    <small class="text-muted mt-2">
-                                        <i class="fas fa-info-circle me-1"></i>Hình ảnh đẹp sẽ thu hút nhiều người đọc
-                                        hơn. Nên sử dụng ảnh có tỷ lệ 16:9.
-                                    </small>
-                                </div>
-
-                                <div class="card shadow-sm border-0 rounded-3 bg-light bg-opacity-50 p-4">
-                                    <h5 class="card-title fw-bold text-primary mb-3">
-                                        <i class="fas fa-info-circle me-2"></i>Thông tin bổ sung
-                                    </h5>
-
-                                    <div class="mb-3">
-                                        <label class="form-label">Tags phổ biến</label>
-                                        <div class="d-flex flex-wrap gap-2">
-                                            <span class="badge bg-primary bg-opacity-10 text-primary p-2 rounded-pill">
-                                                <input type="checkbox" class="form-check-input me-1"> Phượt
-                                            </span>
-                                            <span class="badge bg-primary bg-opacity-10 text-primary p-2 rounded-pill">
-                                                <input type="checkbox" class="form-check-input me-1"> Biển
-                                            </span>
-                                            <span class="badge bg-primary bg-opacity-10 text-primary p-2 rounded-pill">
-                                                <input type="checkbox" class="form-check-input me-1"> Núi
-                                            </span>
-                                            <span class="badge bg-primary bg-opacity-10 text-primary p-2 rounded-pill">
-                                                <input type="checkbox" class="form-check-input me-1"> Ẩm thực
-                                            </span>
-                                            <span class="badge bg-primary bg-opacity-10 text-primary p-2 rounded-pill">
-                                                <input type="checkbox" class="form-check-input me-1"> Homestay
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label class="form-label">Nổi bật</label>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="featurePost">
-                                            <label class="form-check-label" for="featurePost">Đề xuất bài viết trên
-                                                trang chủ</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-4 p-3 bg-light rounded-3 shadow-sm">
-                            <div class="row align-items-center">
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="agreeTerms">
-                                        <label class="form-check-label" for="agreeTerms">
-                                            Tôi đồng ý với <a href="#" class="text-decoration-none">điều khoản sử
-                                                dụng</a>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 text-end">
-                                    <a asp-action="Index" class="btn btn-outline-secondary me-2">
-                                        <i class="fas fa-times me-1"></i> Hủy bỏ
-                                    </a>
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-paper-plane me-1"></i> Đăng bài viết
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-    await Html.RenderPartialAsync("_ValidationScriptsPartial")
-    <script>
-        // Hiển thị ảnh xem trước khi người dùng chọn file
-        document.getElementById('imageUpload').addEventListener('change', function (e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (event) {
-                    document.getElementById('imagePreview').src = event.target.result;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Hiệu ứng hover cho vùng upload ảnh
-        const imageContainer = document.getElementById('imageUploadContainer');
-        const imageOverlay = document.querySelector('.image-upload-overlay');
-
-        imageContainer.addEventListener('mouseenter', function () {
-            imageOverlay.style.opacity = '1';
-        });
-
-        imageContainer.addEventListener('mouseleave', function () {
-            imageOverlay.style.opacity = '0';
-        });
-
-        imageContainer.addEventListener('click', function () {
-            document.getElementById('imageUpload').click();
-        });
-
-        // Thêm hiệu ứng cho các nút trong thanh công cụ soạn thảo (chỉ mẫu, không có chức năng thực)
-        document.querySelectorAll('.editor-toolbar .btn').forEach(button => {
-            button.addEventListener('click', function (e) {
-                e.preventDefault();
-                this.classList.toggle('active');
-            });
-        });
-    </script>
-} *@
-@model TourismWeb.Models.Post
-
-@{
-    ViewData["Title"] = "Tạo Bài Viết Mới";
-}
-
-<div class="container-fluid py-4">
-    <div class="row justify-content-center">
-        <div class="col-lg-11">
-            <div class="card border-0 rounded-lg shadow-lg overflow-hidden">
-                <div class="card-header p-0">
                     <!-- Header Card ... (giữ nguyên) -->
                      <div class="bg-gradient-primary p-4 text-white position-relative">
                         <div class="d-flex justify-content-between align-items-center">
@@ -639,5 +388,431 @@
             });
 
         });
+    </script>
+} *@
+@model TourismWeb.Models.Post
+
+@{
+    ViewData["Title"] = "Tạo Bài Viết Mới";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-11">
+            <div class="card border-0 rounded-lg shadow-lg overflow-hidden">
+                <div class="card-header p-0">
+                    <!-- Header Card ... (giữ nguyên) -->
+                     <div class="bg-gradient-primary p-4 text-white position-relative">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-feather-alt me-3 fa-2x"></i>
+                                <div>
+                                    <h3 class="mb-0 fw-bold">Tạo Bài Viết Mới</h3>
+                                    <p class="mb-0 opacity-75">Chia sẻ trải nghiệm du lịch của bạn</p>
+                                </div>
+                            </div>
+                            <a asp-action="Index" class="btn btn-outline-light btn-sm">
+                                <i class="fas fa-list me-1"></i> Danh sách bài viết
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 border-0 shadow-sm"
+                            role="alert"></div>
+
+                        <div class="row g-4">
+                            <!-- Left Column - Text Inputs -->
+                            <div class="col-lg-8 order-lg-1 order-2">
+                                <div class="card shadow-sm border-0 rounded-3 bg-light bg-opacity-50 p-4 h-100">
+                                    <!-- Tiêu đề, Địa điểm, Loại bài viết (giữ nguyên) -->
+                                    <div class="mb-4">
+                                        <label asp-for="Title" class="form-label fw-bold text-primary">
+                                            <i class="fas fa-heading me-2"></i>Tiêu đề bài viết
+                                        </label>
+                                        <input asp-for="Title" class="form-control form-control-lg border-0 shadow-sm"
+                                            placeholder="Nhập tiêu đề hấp dẫn cho bài viết..." />
+                                        <span asp-validation-for="Title" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label asp-for="SpotId" class="form-label fw-bold text-primary">
+                                                <i class="fas fa-map-marker-alt me-2"></i>Địa điểm du lịch
+                                            </label>
+                                            <select asp-for="SpotId" class="form-select border-0 shadow-sm"
+                                                asp-items="ViewBag.SpotId">
+                                                <option value="">-- Chọn địa điểm du lịch --</option>
+                                            </select>
+                                            <span asp-validation-for="SpotId" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label asp-for="TypeOfPost" class="form-label fw-bold text-primary">
+                                                <i class="fas fa-tag me-2"></i>Loại bài viết
+                                            </label>
+                                            <!-- Thêm ID để JS có thể bắt sự kiện -->
+                                            <select asp-for="TypeOfPost" id="typeOfPostSelect" class="form-select border-0 shadow-sm">
+                                                <option value="">-- Chọn loại bài viết --</option>
+                                                <option value="Địa điểm">Địa điểm</option>
+                                                <option value="Cẩm nang">Cẩm nang</option>
+                                                <option value="Trải nghiệm">Trải nghiệm</option>
+                                                 <option value="Bài viết">Bài viết</option> <!-- Thêm nếu có -->
+                                            </select>
+                                            <span asp-validation-for="TypeOfPost" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Nội dung chi tiết (giữ nguyên) -->
+                                    <div class="mb-4">
+                                        <label asp-for="Content" class="form-label fw-bold text-primary">
+                                            <i class="fas fa-align-left me-2"></i>Nội dung chi tiết
+                                        </label>
+                                        <!-- Editor Toolbar và Textarea (giữ nguyên) -->
+                                        <div class="editor-toolbar border-0 shadow-sm rounded-top bg-white p-2 mb-0">
+                                            <!-- Buttons... -->
+                                        </div>
+                                        <textarea asp-for="Content"
+                                            class="form-control border-0 shadow-sm rounded-bottom" rows="12"
+                                            placeholder="Chia sẻ chi tiết về trải nghiệm, cảm nhận và thông tin hữu ích..."></textarea>
+                                        <span asp-validation-for="Content" class="text-danger"></span>
+                                    </div>
+
+                                    <!-- ================================================ -->
+                                    <!-- KHU VỰC HIỂN THỊ TRƯỜNG ĐỘNG THEO TypeOfPost -->
+                                    <!-- ================================================ -->
+                                    <div id="additionalFieldsContainer" class="mt-4">
+
+                                        <!-- Trường cho "Địa điểm" -->
+                                        <div id="fieldsDiaDiem" class="post-type-fields" style="display: none;">
+                                            <h5 class="mb-3 text-secondary fw-bold border-bottom pb-2">
+                                                <i class="fas fa-map-marked-alt me-2"></i>Thông tin chi tiết Địa điểm
+                                            </h5>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label asp-for="EstimatedVisitTime" class="form-label">Thời gian tham quan</label>
+                                                    <input asp-for="EstimatedVisitTime" class="form-control" placeholder="Ví dụ: 2-3 giờ" />
+                                                    <span asp-validation-for="EstimatedVisitTime" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label asp-for="TicketPriceInfo" class="form-label">Thông tin giá vé</label>
+                                                    <input asp-for="TicketPriceInfo" class="form-control" placeholder="Ví dụ: 50.000 VND/người" />
+                                                    <span asp-validation-for="TicketPriceInfo" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label asp-for="LocationRating" class="form-label">Đánh giá địa điểm (0-5)</label>
+                                                    <input asp-for="LocationRating" type="number" step="0.1" min="0" max="5" class="form-control" placeholder="Ví dụ: 4.5" />
+                                                    <span asp-validation-for="LocationRating" class="text-danger"></span>
+                                                </div>
+                                                 <div class="col-12">
+                                                    <label asp-for="SuggestedItinerary" class="form-label">Lịch trình gợi ý</label>
+                                                    <textarea asp-for="SuggestedItinerary" class="form-control" rows="4" placeholder="Mô tả lịch trình gợi ý (có thể dùng HTML đơn giản)..."></textarea>
+                                                    <span asp-validation-for="SuggestedItinerary" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Trường cho "Cẩm nang" -->
+                                        <div id="fieldsCamNang" class="post-type-fields" style="display: none;">
+                                             <h5 class="mb-3 text-secondary fw-bold border-bottom pb-2">
+                                                <i class="fas fa-book-open me-2"></i>Thông tin chi tiết Cẩm nang
+                                            </h5>
+                                            <div class="row g-3">
+                                                <div class="col-12">
+                                                    <label asp-for="GuidebookSummary" class="form-label">Tóm tắt cẩm nang</label>
+                                                    <textarea asp-for="GuidebookSummary" class="form-control" rows="3" placeholder="Giới thiệu ngắn gọn về cẩm nang..."></textarea>
+                                                    <span asp-validation-for="GuidebookSummary" class="text-danger"></span>
+                                                </div>
+                                                 <div class="col-12">
+                                                    <label asp-for="TravelTips" class="form-label">Mẹo du lịch</label>
+                                                    <textarea asp-for="TravelTips" class="form-control" rows="4" placeholder="Liệt kê các mẹo hữu ích (dùng HTML <ul><li> nếu muốn)..."></textarea>
+                                                    <span asp-validation-for="TravelTips" class="text-danger"></span>
+                                                </div>
+                                                 <div class="col-12">
+                                                    <label asp-for="PackingListSuggestions" class="form-label">Gợi ý đồ mang theo</label>
+                                                    <textarea asp-for="PackingListSuggestions" class="form-control" rows="4" placeholder="Gợi ý những thứ cần chuẩn bị (theo mùa)..."></textarea>
+                                                    <span asp-validation-for="PackingListSuggestions" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label asp-for="EstimatedCosts" class="form-label">Chi phí tham khảo</label>
+                                                    <textarea asp-for="EstimatedCosts" class="form-control" rows="3" placeholder="Liệt kê chi phí dự kiến (khách sạn, ăn uống...)..."></textarea>
+                                                    <span asp-validation-for="EstimatedCosts" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label asp-for="UsefulDocumentsHtml" class="form-label">Tài liệu hữu ích (HTML)</label>
+                                                     <textarea asp-for="UsefulDocumentsHtml" class="form-control" rows="3" placeholder="Dán link HTML <a href='...'>Tên tài liệu</a>"></textarea>
+                                                    <span asp-validation-for="UsefulDocumentsHtml" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Trường cho "Trải nghiệm" -->
+                                        <div id="fieldsTraiNghiem" class="post-type-fields" style="display: none;">
+                                             <h5 class="mb-3 text-secondary fw-bold border-bottom pb-2">
+                                                <i class="fas fa-hiking me-2"></i>Thông tin chi tiết Trải nghiệm
+                                            </h5>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label asp-for="ExperienceEndDate" class="form-label">Ngày kết thúc</label>
+                                                    <input asp-for="ExperienceEndDate" type="date" class="form-control" />
+                                                    <span asp-validation-for="ExperienceEndDate" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label asp-for="Companions" class="form-label">Người đồng hành</label>
+                                                    <input asp-for="Companions" class="form-control" placeholder="Ví dụ: Gia đình, Bạn bè" />
+                                                    <span asp-validation-for="Companions" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label asp-for="ApproximateCost" class="form-label">Chi phí ước tính</label>
+                                                    <input asp-for="ApproximateCost" class="form-control" placeholder="Ví dụ: 5 triệu/người" />
+                                                    <span asp-validation-for="ApproximateCost" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label asp-for="OverallExperienceRating" class="form-label">Đánh giá tổng quan (0-10)</label>
+                                                    <input asp-for="OverallExperienceRating" type="number" step="0.5" min="0" max="10" class="form-control" placeholder="Ví dụ: 9.5"/>
+                                                    <span asp-validation-for="OverallExperienceRating" class="text-danger"></span>
+                                                </div>
+
+                                                <!-- Đánh giá chi tiết -->
+                                                 <div class="col-md-6 col-lg-3">
+                                                    <label asp-for="RatingLandscape" class="form-label">Điểm cảnh quan (0-5)</label>
+                                                    <input asp-for="RatingLandscape" type="number" step="0.5" min="0" max="5" class="form-control" />
+                                                    <span asp-validation-for="RatingLandscape" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-md-6 col-lg-3">
+                                                    <label asp-for="RatingFood" class="form-label">Điểm ẩm thực (0-5)</label>
+                                                    <input asp-for="RatingFood" type="number" step="0.5" min="0" max="5" class="form-control" />
+                                                    <span asp-validation-for="RatingFood" class="text-danger"></span>
+                                                </div>
+                                                 <div class="col-md-6 col-lg-3">
+                                                    <label asp-for="RatingService" class="form-label">Điểm dịch vụ (0-5)</label>
+                                                    <input asp-for="RatingService" type="number" step="0.5" min="0" max="5" class="form-control" />
+                                                    <span asp-validation-for="RatingService" class="text-danger"></span>
+                                                </div>
+                                                 <div class="col-md-6 col-lg-3">
+                                                    <label asp-for="RatingPrice" class="form-label">Điểm giá cả (0-5)</label>
+                                                    <input asp-for="RatingPrice" type="number" step="0.5" min="0" max="5" class="form-control" />
+                                                    <span asp-validation-for="RatingPrice" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <label asp-for="ExperienceHighlights" class="form-label">Điểm nổi bật/Khoảnh khắc</label>
+                                                    <textarea asp-for="ExperienceHighlights" class="form-control" rows="3" placeholder="Những khoảnh khắc đáng nhớ nhất..."></textarea>
+                                                    <span asp-validation-for="ExperienceHighlights" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-12">
+                                                    <label asp-for="ExperienceItinerarySummary" class="form-label">Tóm tắt hành trình</label>
+                                                     <textarea asp-for="ExperienceItinerarySummary" class="form-control" rows="3" placeholder="Mô tả ngắn gọn lịch trình đã đi..."></textarea>
+                                                    <span asp-validation-for="ExperienceItinerarySummary" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-12">
+                                                    <label asp-for="Advice" class="form-label">Lời khuyên</label>
+                                                     <textarea asp-for="Advice" class="form-control" rows="3" placeholder="Lời khuyên cho người đi sau..."></textarea>
+                                                    <span asp-validation-for="Advice" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div> <!-- Kết thúc #additionalFieldsContainer -->
+
+                                </div> <!-- Kết thúc card Left Column -->
+                            </div> <!-- Kết thúc Left Column -->
+
+                            <!-- Right Column - Image Upload and Tags (giữ nguyên) -->
+                             <div class="col-lg-4 order-lg-2 order-1">
+                                <div class="card shadow-sm border-0 rounded-3 bg-light bg-opacity-50 p-4 mb-4">
+                                     <h5 class="card-title fw-bold text-primary mb-3">
+                                        <i class="fas fa-image me-2"></i>Ảnh bìa bài viết
+                                    </h5>
+                                     <!-- Image Upload Container (giữ nguyên) -->
+                                      <div class="image-upload-container bg-white rounded-3 shadow-sm p-3 text-center mb-3 position-relative"
+                                        style="height: 240px; cursor: pointer;" id="imageUploadContainer">
+                                        <!-- img preview -->
+                                        <div class="h-100 d-flex align-items-center justify-content-center">
+                                            <img id="imagePreview" src="@(Model?.ImageUrl ?? "/images/default-post-image.png")" class="img-fluid rounded-3"
+                                                style="max-height: 100%; max-width: 100%; object-fit: contain;" />
+                                        </div>
+                                        <!-- overlay -->
+                                        <div class="image-upload-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center rounded-3"
+                                            style="background: rgba(0,0,0,0.5); opacity: 0; transition: all 0.3s;">
+                                           <!-- overlay content -->
+                                        </div>
+                                    </div>
+                                    <!-- Upload button -->
+                                    <div class="d-grid">
+                                        <label for="imageUpload" class="btn btn-outline-primary">
+                                            <i class="fas fa-camera me-2"></i>Chọn ảnh đẹp
+                                        </label>
+                                        <!-- Thêm name="imageFile" để Controller nhận diện -->
+                                        <input type="file" id="imageUpload" name="imageFile" class="d-none"
+                                            accept="image/*" />
+                                        <!-- Input ẩn ImageUrl để giữ giá trị khi không chọn ảnh mới (cho Edit) -->
+                                        <input type="hidden" asp-for="ImageUrl" />
+                                    </div>
+                                    <div class="mt-4">
+    <label class="form-label fw-bold text-primary">
+        <i class="fas fa-images me-2"></i>Ảnh phụ / Hình ảnh bổ sung
+    </label>
+    <input type="file" name="additionalImages" id="additionalImages" class="form-control" accept="image/*" multiple />
+    <small class="text-muted mt-1 d-block">Chọn nhiều ảnh để minh họa thêm cho bài viết.</small>
+
+    <!-- Xem trước ảnh phụ -->
+    <div id="previewAdditionalImages" class="d-flex flex-wrap gap-2 mt-3"></div>
+</div>
+
+                                     <small class="text-muted mt-2">
+                                        <i class="fas fa-info-circle me-1"></i>Hình ảnh đẹp sẽ thu hút nhiều người đọc
+                                        hơn. Nên sử dụng ảnh có tỷ lệ 16:9.
+                                    </small>
+                                </div>
+                                 <!-- Card thông tin bổ sung (giữ nguyên) -->
+                                 <div class="card shadow-sm border-0 rounded-3 bg-light bg-opacity-50 p-4">
+                                     <h5 class="card-title fw-bold text-primary mb-3">
+                                        <i class="fas fa-info-circle me-2"></i>Thông tin bổ sung
+                                    </h5>
+                                     <!-- Tags, Nổi bật (giữ nguyên) -->
+                                     <!-- Lưu ý: Phần Tags và Nổi bật này chưa được xử lý ở backend -->
+                                 </div>
+                            </div> <!-- Kết thúc Right Column -->
+                        </div> <!-- Kết thúc row g-4 -->
+
+                        <!-- Submit Buttons (giữ nguyên) -->
+                        <div class="mt-4 p-3 bg-light rounded-3 shadow-sm">
+                             <div class="row align-items-center">
+                                <!-- Checkbox và Buttons (giữ nguyên) -->
+                                 <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="agreeTerms" required> <!-- Thêm required nếu cần -->
+                                        <label class="form-check-label" for="agreeTerms">
+                                            Tôi đồng ý với <a href="#" class="text-decoration-none">điều khoản sử
+                                                dụng</a>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    <a asp-action="Index" class="btn btn-outline-secondary me-2">
+                                        <i class="fas fa-times me-1"></i> Hủy bỏ
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-paper-plane me-1"></i> Đăng bài viết
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div> <!-- Kết thúc card-body -->
+            </div> <!-- Kết thúc card -->
+        </div> <!-- Kết thúc col-lg-11 -->
+    </div> <!-- Kết thúc row -->
+</div> <!-- Kết thúc container-fluid -->
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const typeSelect = document.getElementById('typeOfPostSelect');
+            const fieldsContainer = document.getElementById('additionalFieldsContainer');
+            const allFieldSections = fieldsContainer.querySelectorAll('.post-type-fields');
+
+            function toggleFields() {
+                const selectedType = typeSelect.value;
+
+                // Ẩn tất cả các section trước
+                allFieldSections.forEach(section => {
+                    section.style.display = 'none';
+                });
+
+                // Hiển thị section tương ứng
+                if (selectedType === 'Địa điểm') {
+                    document.getElementById('fieldsDiaDiem').style.display = 'block';
+                } else if (selectedType === 'Cẩm nang') {
+                    document.getElementById('fieldsCamNang').style.display = 'block';
+                } else if (selectedType === 'Trải nghiệm') {
+                    document.getElementById('fieldsTraiNghiem').style.display = 'block';
+                }
+                // Không cần else cho "Bài viết" hoặc "" vì chúng không có trường đặc biệt
+            }
+
+            // Bắt sự kiện thay đổi dropdown
+            typeSelect.addEventListener('change', toggleFields);
+
+            // Gọi lần đầu khi load trang (quan trọng khi có lỗi validation và trang load lại)
+            toggleFields();
+
+            // --- Phần xử lý ảnh preview và hover (giữ nguyên) ---
+            const imageUpload = document.getElementById('imageUpload');
+            const imagePreview = document.getElementById('imagePreview');
+            const imageContainer = document.getElementById('imageUploadContainer');
+            const imageOverlay = document.querySelector('.image-upload-overlay');
+            const defaultImageSrc = "/images/default-post-image.png"; // Lưu ảnh mặc định
+
+            imageUpload.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        imagePreview.src = event.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                     // Nếu người dùng hủy chọn file, có thể quay về ảnh mặc định hoặc ảnh cũ (nếu là edit)
+                     // Lấy giá trị từ input hidden ImageUrl nếu có (cho edit)
+                     const existingImageUrl = document.querySelector('input[type="hidden"][asp-for="ImageUrl"]')?.value;
+                     imagePreview.src = existingImageUrl || defaultImageSrc;
+                }
+            });
+
+            if (imageContainer) {
+                 imageContainer.addEventListener('mouseenter', function () {
+                    if(imageOverlay) imageOverlay.style.opacity = '1';
+                });
+
+                imageContainer.addEventListener('mouseleave', function () {
+                     if(imageOverlay) imageOverlay.style.opacity = '0';
+                });
+
+                imageContainer.addEventListener('click', function () {
+                    imageUpload.click();
+                });
+            }
+             // --- Phần xử lý nút editor toolbar (giữ nguyên) ---
+             document.querySelectorAll('.editor-toolbar .btn').forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    // Chức năng thực tế cần thêm thư viện editor hoặc code JS phức tạp hơn
+                    // Ví dụ đơn giản:
+                    document.execCommand(this.querySelector('i').className.split(' ').pop().replace('fa-', ''), false, null);
+                    this.classList.toggle('active');
+                });
+            });
+
+        });
+        document.getElementById('additionalImages').addEventListener('change', function (event) {
+    const previewContainer = document.getElementById('previewAdditionalImages');
+    previewContainer.innerHTML = '';
+    const files = event.target.files;
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'rounded border';
+            img.style.maxHeight = '100px';
+            img.style.maxWidth = '100px';
+            img.style.objectFit = 'cover';
+            previewContainer.appendChild(img);
+        };
+
+        reader.readAsDataURL(file);
+    }
+});
+
     </script>
 }

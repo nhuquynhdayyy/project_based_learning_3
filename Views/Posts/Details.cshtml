@@ -1,3 +1,1495 @@
+@* @model TourismWeb.Models.Post
+@using Microsoft.AspNetCore.Antiforgery
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@Html.AntiForgeryToken()
+@using System.Security.Claims
+
+@{
+    ViewData["Title"] = Model.Title; // Lấy tiêu đề động
+    string postType = Model.TypeOfPost; // Lấy loại bài viết động
+
+    // Define theme colors and icons based on post type (Logic này giữ nguyên)
+    string themeColor = "";
+    string themeClass = "";
+    string themeIcon = ""; // Icon class (e.g., bi-palm-tree)
+    // string themeIconName = ""; // Tên icon (có thể không cần dùng trực tiếp)
+
+    if (postType == "Trải nghiệm") {
+        themeColor = "#4CAF50"; // Green
+        themeClass = "experience-theme";
+        themeIcon = "bi-palm-tree";
+        // themeIconName = "cây dừa";
+    } else if (postType == "Cẩm nang") {
+        themeColor = "#2196F3"; // Blue
+        themeClass = "guidebook-theme";
+        themeIcon = "bi-water";
+        // themeIconName = "sóng biển";
+    } else { // "Bài viết", "Địa điểm" hoặc khác
+        themeColor = "#FF9800"; // Orange
+        themeClass = "article-theme"; // Dùng theme article làm mặc định
+        themeIcon = "bi-circle-fill"; // Sẽ tạo kiểu CSS cho giống quả cam
+       // themeIconName = "quả cam";
+    }
+
+    // Lấy UserId và kiểm tra trạng thái yêu thích (Logic này giữ nguyên)
+    var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+    var userId = userIdClaim != null && int.TryParse(userIdClaim.Value, out int id) ? id : 0;
+    var isFavorited = Model.PostFavorites?.Any(f => f.UserId == userId) == true;
+
+    // Helper function để render sao (có thể đặt ở đây hoặc trong file riêng)
+    Func<double?, Microsoft.AspNetCore.Html.IHtmlContent> RenderStars = (rating) =>
+    {
+        var content = new System.Text.StringBuilder();
+        if (rating.HasValue)
+        {
+            double roundedRating = Math.Round(rating.Value * 2) / 2; // Làm tròn đến 0.5 gần nhất
+            for (int i = 1; i <= 5; i++)
+            {
+                if (i <= roundedRating) {
+                    content.Append("<i class=\"bi bi-star-fill text-warning\"></i>"); // Sao đầy
+                } else if (i - 0.5 <= roundedRating) {
+                    content.Append("<i class=\"bi bi-star-half text-warning\"></i>"); // Nửa sao
+                } else {
+                    content.Append("<i class=\"bi bi-star text-warning\"></i>"); // Sao rỗng
+                }
+            }
+        } else {
+            content.Append("<span class=\"text-muted small fst-italic\">Chưa đánh giá</span>");
+        }
+        return new Microsoft.AspNetCore.Html.HtmlString(content.ToString());
+    };
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/details.css" asp-append-version="true" />
+    <style>
+        /* Custom icons */
+        .orange-icon {
+            color: #FF9800;
+            position: relative;
+            font-size: 1.2em;
+        }
+        
+        .orange-icon:before {
+            content: "\F287"; /* Bootstrap Icons circle-fill code */
+            color: #FF9800;
+        }
+        
+        .orange-icon:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,152,0,0.1) 100%);
+            border-radius: 50%;
+        }
+        
+        .palm-tree-icon {
+            color: #4CAF50;
+        }
+        
+        .wave-icon {
+            color: #2196F3;
+        }
+        
+        /* Common theme styles */
+        .theme-icon {
+            margin-right: 8px;
+        }
+        
+        /* Experience theme - Green */
+        .experience-theme .section-title,
+        .experience-theme .page-header .meta-item i, /* Giữ màu icon meta */
+        .experience-theme .sidebar-widget h4,
+        .experience-theme .toc-list a:hover,
+        .experience-theme .info-item i {
+            color: #4CAF50 !important;
+        }
+        
+        .experience-theme .btn-primary-custom,
+        .experience-theme .btn-primary { /* Giữ lại để các nút primary khác vẫn có màu theme */
+            background-color: #4CAF50 !important;
+            border-color: #4CAF50 !important;
+        }
+        
+        .experience-theme .page-header {
+            /* background-color: #4CAF50 !important; */ /* ĐÃ BỎ */
+            /* border-color: #4CAF50 !important; */ /* Tùy chọn bỏ nếu không muốn border theme */
+        }
+        .experience-theme .page-header .theme-header-icon { /* Icon tiêu đề chính giữ màu theme */
+             color: #4CAF50;
+        }
+        .experience-theme .page-header .post-actions .btn {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: #388e3c;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        .experience-theme .page-header .post-actions .btn.favorite.active,
+        .experience-theme .page-header .post-actions .btn:hover {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        
+        .experience-theme .sidebar-widget {
+            border-left: 3px solid #4CAF50;
+        }
+        
+        .experience-theme .tag-item:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        /* Guidebook theme - Blue */
+        .guidebook-theme .section-title,
+        .guidebook-theme .page-header .meta-item i, /* Giữ màu icon meta */
+        .guidebook-theme .sidebar-widget h4,
+        .guidebook-theme .toc-list a:hover,
+        .guidebook-theme .info-item i {
+            color: #2196F3 !important;
+        }
+        
+        .guidebook-theme .btn-primary-custom,
+        .guidebook-theme .btn-primary {
+            background-color: #2196F3 !important;
+            border-color: #2196F3 !important;
+        }
+        
+        .guidebook-theme .page-header {
+            /* background-color: #2196F3 !important; */ /* ĐÃ BỎ */
+            /* border-color: #2196F3 !important; */
+        }
+        .guidebook-theme .page-header .theme-header-icon { /* Icon tiêu đề chính giữ màu theme */
+             color: #2196F3;
+        }
+        .guidebook-theme .page-header .post-actions .btn {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: #1976d2;
+            border: 1px solid rgba(33, 150, 243, 0.3);
+        }
+        .guidebook-theme .page-header .post-actions .btn.favorite.active,
+        .guidebook-theme .page-header .post-actions .btn:hover {
+            background-color: #2196F3;
+            color: white;
+            border-color: #2196F3;
+        }
+        
+        .guidebook-theme .sidebar-widget {
+            border-left: 3px solid #2196F3;
+        }
+        
+        .guidebook-theme .tag-item:hover {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        /* Article theme - Orange */
+        .article-theme .section-title,
+        .article-theme .page-header .meta-item i, /* Giữ màu icon meta */
+        .article-theme .sidebar-widget h4,
+        .article-theme .toc-list a:hover,
+        .article-theme .info-item i {
+            color: #FF9800 !important;
+        }
+        
+        .article-theme .btn-primary-custom,
+        .article-theme .btn-primary {
+            background-color: #FF9800 !important;
+            border-color: #FF9800 !important;
+        }
+        
+        .article-theme .page-header {
+            /* background-color: #FF9800 !important; */ /* ĐÃ BỎ */
+            /* border-color: #FF9800 !important; */
+        }
+        /* Icon orange-icon tự có màu, không cần .theme-header-icon ở đây */
+        .article-theme .page-header .post-actions .btn {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: #f57c00;
+            border: 1px solid rgba(255, 152, 0, 0.3);
+        }
+        .article-theme .page-header .post-actions .btn.favorite.active,
+        .article-theme .page-header .post-actions .btn:hover {
+            background-color: #FF9800;
+            color: white;
+            border-color: #FF9800;
+        }
+        
+        .article-theme .sidebar-widget {
+            border-left: 3px solid #FF9800;
+        }
+        
+        .article-theme .tag-item:hover {
+            background-color: #FF9800;
+            color: white;
+        }
+        
+        /* Enhanced layout styles */
+        .page-header {
+            padding: 30px 0;
+            margin-bottom: 30px;
+            color: #333; /* Đổi màu chữ mặc định cho header */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background-color: transparent; /* Nền trong suốt */
+        }
+        
+        /* Màu chữ cho các thành phần trong .page-header */
+        .page-header .breadcrumb li a,
+        .page-header .breadcrumb li {
+            color: #555; /* Màu cho breadcrumb */
+        }
+        .page-header .breadcrumb li a:hover {
+            color: #007bff; /* Màu hover cho link breadcrumb */
+        }
+        .page-header .breadcrumb-item.active { /* Breadcrumb item hiện tại */
+            color: #777; 
+        }
+        .page-header .post-title {
+             color: #222; /* Màu cho tiêu đề chính */
+        }
+        .page-header .post-meta .meta-item span {
+            color: #555; /* Màu cho text trong meta */
+        }
+        /* Icon trong meta (.meta-item i) vẫn sẽ lấy màu từ các theme-specific classes */
+        /* Icon tiêu đề chính (.theme-header-icon) cũng lấy màu từ theme-specific classes */
+
+
+        .content-wrapper {
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: white;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .feature-image {
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: currentColor; /* Sẽ lấy màu từ .section-title của theme */
+        }
+        
+        .tag-item {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 0 5px 5px 0;
+            border-radius: 20px;
+            background-color: #f5f5f5;
+            transition: all 0.3s ease;
+        }
+        
+        .comment-item {
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+        }
+        
+        .theme-header-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            vertical-align: middle;
+        }
+        
+        /* Custom theme icons */
+        .theme-icon-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+        
+        .experience-theme .theme-icon-container {
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+        
+        .guidebook-theme .theme-icon-container {
+            background-color: rgba(33, 150, 243, 0.1);
+        }
+        
+        .article-theme .theme-icon-container {
+            background-color: rgba(255, 152, 0, 0.1);
+        }
+    </style>
+}
+
+
+<div class="@themeClass">
+<div class="page-header">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Posts">Bài viết</a></li>
+            <li class="breadcrumb-item active">@Model.Title</li>
+        </ul>
+        <h1 class="post-title">
+            @if (postType == "Trải nghiệm" || postType == "Cẩm nang")
+            {
+                <i class="bi @themeIcon theme-header-icon"></i>
+            }
+            else
+            {
+                <span class="theme-header-icon orange-icon"></span> 
+            }
+            @Model.Title
+        </h1>
+        <div class="post-meta">
+            <div class="meta-item">
+                <i class="bi bi-person-fill"></i>
+                <span>@(Model.User?.FullName ?? "Người dùng ẩn danh")</span> 
+            </div>
+            <div class="meta-item">
+                <i class="bi bi-calendar3"></i>
+                <span>@Model.CreatedAt.ToString("dd/MM/yyyy")</span>
+            </div>
+            <div class="meta-item">
+                <i class="bi bi-tag-fill"></i>
+                <span>@Model.TypeOfPost</span>
+            </div>
+             @if (Model.Spot != null) // Chỉ hiển thị nếu có Spot liên kết
+            {
+                <div class="meta-item">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    <span>@Model.Spot.Name</span>
+                </div>
+            }
+        </div>
+        <div class="post-actions">
+            <a asp-controller="Report" asp-action="Create" 
+            asp-route-targetType="Post" 
+            asp-route-targetId="@Model.PostId"
+            asp-route-reportedUserId="@Model.UserId"
+            class="btn btn-sm btn-warning">
+                Báo cáo bài viết
+            </a>
+            <a asp-controller="Report" asp-action="Create" 
+            asp-route-targetType="User" 
+            asp-route-targetId="@Model.UserId"
+            asp-route-reportedUserId="@Model.UserId"
+            class="btn btn-sm btn-warning">
+                Báo cáo người dùng
+            </a>
+            <!-- Nút Yêu thích -->
+            <button class="btn favorite @(isFavorited ? "active" : "")" id="favoriteBtn" data-post-id="@Model.PostId">
+                <i class="@(isFavorited ? "fas" : "far") fa-heart"></i> @(isFavorited ? "Đã yêu thích" : "Yêu thích")
+            </button>
+             <!-- Nút Chia sẻ -->
+            <div class="share-dropdown position-relative">
+                <button type="button" class="btn share" onclick="toggleShareOptions(this)">
+                    <i class="fas fa-share-alt"></i> Chia sẻ
+                </button>
+                <div class="share-options bg-white border rounded shadow p-2 mt-2">
+                    <a href="#" class="share-btn" data-platform="Facebook" data-post-id="@Model.PostId">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </a>
+                    <a href="#" class="share-btn" data-platform="Twitter" data-post-id="@Model.PostId">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </a>
+                    <a href="#" class="share-btn" data-platform="Email" data-post-id="@Model.PostId">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                    <a href="#" class="copy-link">
+                        <i class="fas fa-link"></i> Sao chép liên kết
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Cột nội dung chính -->
+        <div class="col-lg-8">
+            <div class="content-wrapper p-4">
+                <!-- Hình ảnh bài viết -->
+                @if (!string.IsNullOrEmpty(Model.ImageUrl) && Model.ImageUrl != "/images/default-postImage.png") { // Chỉ hiển thị nếu có ảnh và không phải ảnh mặc định
+                    <div class="feature-image-container mb-4">
+                        <img src="@Model.ImageUrl" alt="@Model.Title" class="feature-image img-fluid rounded shadow-sm">
+                    </div>
+                }
+
+                <!-- Thông tin địa điểm (Hiển thị nếu có Spot) -->
+                 @if (Model.Spot != null)
+                {
+                    <div class="location-info bg-light p-3 rounded mb-4 border-start border-4 border-primary">
+                        <h3 class="mb-2 fs-5 fw-bold text-primary">
+                            <i class="bi bi-geo-alt-fill me-2"></i>
+                            @Model.Spot.Name
+                        </h3>
+                        @if(!string.IsNullOrEmpty(Model.Spot.Address))
+                        {
+                            <p class="mb-1"><small><i class="bi bi-pin-map me-1"></i> @Model.Spot.Address</small></p>
+                        }
+                        <p class="mb-0 text-muted fst-italic"><small>Địa điểm được đề cập trong bài viết</small></p>
+                    </div>
+                }
+
+                    @if (postType == "Địa điểm")
+                    {
+                        <div class="location-specific-content">
+                             <!-- Đặt ID cho mục lục -->
+                            <div id="section-thong-tin-dia-diem" class="location-highlights mb-4">
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <span class="orange-icon"></span>
+                                    </span>
+                                    Thông tin địa điểm
+                                </h3>
+                                <div class="row mt-3 g-3">
+                                     @if (Model.Spot != null && !string.IsNullOrEmpty(Model.Spot.Address))
+                                    {
+                                        <div class="col-md-6">
+                                            <div class="info-item">
+                                                <i class="bi bi-geo-alt-fill"></i>
+                                                <strong>Vị trí:</strong> @Model.Spot.Address
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.EstimatedVisitTime))
+                                    {
+                                        <div class="col-md-6">
+                                            <div class="info-item">
+                                                <i class="bi bi-clock-fill"></i>
+                                                <strong>Thời gian tham quan:</strong> @Model.EstimatedVisitTime
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.TicketPriceInfo))
+                                    {
+                                        <div class="col-md-6">
+                                            <div class="info-item">
+                                                <i class="bi bi-currency-dollar"></i>
+                                                <strong>Giá vé:</strong> @Model.TicketPriceInfo
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (Model.LocationRating.HasValue)
+                                    {
+                                        <div class="col-md-6">
+                                            <div class="info-item d-flex align-items-center">
+                                                <i class="bi bi-star-fill me-1"></i>
+                                                <strong>Đánh giá:</strong>
+                                                <div class="ms-2">@RenderStars(Model.LocationRating) (@Model.LocationRating.Value.ToString("0.0")/5)</div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                             <!-- Đặt ID cho mục lục -->
+                            <div id="section-mo-ta-dia-diem">
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <span class="orange-icon"></span>
+                                    </span>
+                                    Mô tả địa điểm
+                                </h3>
+                                <div class="post-content">
+                                    @Html.Raw(Model.Content?.Replace("\n", "<br />"))
+                                </div>
+                            </div>
+
+                            <!-- Hình ảnh bổ sung -->
+                            @if (Model.Images != null && Model.Images.Any())
+                            {
+                                <!-- Đặt ID cho mục lục -->
+                                <div id="section-hinh-anh-dia-diem" class="mt-4">
+                                    <h3 class="section-title">
+                                        <span class="theme-icon-container">
+                                            <span class="orange-icon"></span>
+                                        </span>
+                                        Hình ảnh địa điểm
+                                    </h3>
+                                    <div class="location-gallery row g-3">
+                                        @foreach (var image in Model.Images)
+                                        {
+                                            <div class="col-md-4 mb-3">
+                                                <a href="@image.ImageUrl" data-lightbox="location-gallery" data-title="Hình ảnh địa điểm">
+                                                    <img src="@image.ImageUrl" alt="Hình ảnh địa điểm @(Model.Spot?.Name)" class="img-fluid rounded shadow-sm">
+                                                </a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.SuggestedItinerary))
+                            {
+                                <!-- Đặt ID cho mục lục -->
+                                <div id="section-lich-trinh-tham-quan-goi-y" class="mt-4">
+                                    <h3 class="section-title">
+                                        <span class="theme-icon-container">
+                                            <span class="orange-icon"></span>
+                                        </span>
+                                        Lịch trình tham quan gợi ý
+                                    </h3>
+                                    <div class="suggested-schedule bg-light p-3 rounded border">
+                                        @Html.Raw(Model.SuggestedItinerary?.Replace("\n", "<br />"))
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else if (postType == "Cẩm nang")
+                    {
+                        <div class="guidebook-specific-content">
+                             <!-- Đặt ID cho mục lục -->
+                            <div id="section-tong-quan" class="guidebook-intro mb-4">
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <i class="bi bi-water wave-icon"></i>
+                                    </span>
+                                    Tổng quan
+                                </h3>
+                                @if (!string.IsNullOrEmpty(Model.GuidebookSummary))
+                                {
+                                    <div class="callout-box" style="border-left: 4px solid @themeColor; padding: 15px; background-color: rgba(33, 150, 243, 0.1); border-radius: 4px;">
+                                        <i class="bi bi-info-circle-fill" style="color: @themeColor;"></i>
+                                        @Html.Raw(Model.GuidebookSummary) 
+                                        <p class="mt-2 mb-0">Thông tin chi tiết về @(Model.Spot?.Name ?? "địa điểm") được trình bày dưới đây.</p>
+                                    </div>
+                                } else if (Model.Spot != null) {
+                                    <div class="callout-box" style="border-left: 4px solid @themeColor; padding: 15px; background-color: rgba(33, 150, 243, 0.1); border-radius: 4px;">
+                                        <i class="bi bi-info-circle-fill" style="color: @themeColor;"></i>
+                                        <p>Cẩm nang du lịch này sẽ cung cấp thông tin đầy đủ về @Model.Spot.Name, giúp bạn có chuyến đi trọn vẹn và tiết kiệm nhất.</p>
+                                    </div>
+                                }
+                            </div>
+
+                             <!-- Đặt ID cho mục lục -->
+                            <div id="section-noi-dung-cam-nang">
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <i class="bi bi-water wave-icon"></i>
+                                    </span>
+                                    Nội dung cẩm nang
+                                </h3>
+                                <div class="post-content">
+                                    @Html.Raw(Model.Content?.Replace("\n", "<br />"))
+                                </div>
+                            </div>
+
+                            <!-- Hình ảnh bổ sung -->
+                             @if (Model.Images != null && Model.Images.Any())
+                            {
+                                <!-- Đặt ID cho mục lục -->
+                                <div id="section-hinh-anh-minh-hoa" class="mt-4">
+                                    <h3 class="section-title">
+                                        <span class="theme-icon-container">
+                                            <i class="bi bi-water wave-icon"></i>
+                                        </span>
+                                        Hình ảnh minh họa
+                                    </h3>
+                                    <div class="guidebook-gallery row g-3">
+                                        @foreach (var image in Model.Images)
+                                        {
+                                            <div class="col-md-4 mb-3">
+                                                <a href="@image.ImageUrl" data-lightbox="guidebook-gallery" data-title="Hình ảnh minh họa">
+                                                    <img src="@image.ImageUrl" alt="Hình ảnh minh họa @(Model.Spot?.Name)" class="img-fluid rounded shadow-sm">
+                                                </a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.TravelTips))
+                            {
+                                <!-- Đặt ID cho mục lục -->
+                                <div id="section-meo-du-lich" class="tips-box mt-4" style="background-color: rgba(33, 150, 243, 0.05); border-radius: 8px; padding: 20px;">
+                                    <h3 class="section-title">
+                                        <span class="theme-icon-container">
+                                            <i class="bi bi-water wave-icon"></i>
+                                        </span>
+                                        Mẹo du lịch
+                                    </h3>
+                                    <div class="tips-list">
+                                        @Html.Raw(Model.TravelTips?.Replace("\n", "<br />"))
+                                    </div>
+                                </div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.PackingListSuggestions))
+                            {
+                                <!-- Đặt ID cho mục lục -->
+                                <div id="section-do-can-mang-theo" class="packing-list mt-4">
+                                    <h3 class="section-title">
+                                        <span class="theme-icon-container">
+                                            <i class="bi bi-water wave-icon"></i>
+                                        </span>
+                                        Đồ cần mang theo
+                                    </h3>
+                                     <div class="packing-content bg-light p-3 rounded border">
+                                        @Html.Raw(Model.PackingListSuggestions?.Replace("\n", "<br />"))
+                                     </div>
+                                </div>
+                            }
+                             <!-- Chi phí & Tài liệu hữu ích chuyển sang sidebar -->
+                        </div>
+                    }
+                    else if (postType == "Trải nghiệm")
+                    {
+                        <div class="experience-specific-content">
+                             <!-- Đặt ID cho mục lục -->
+                            <div id="section-tom-tat-trai-nghiem" class="experience-highlights mb-4">
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <i class="bi bi-palm-tree palm-tree-icon"></i>
+                                    </span>
+                                    Tóm tắt trải nghiệm
+                                </h3>
+                                <div class="experience-info-box" style="background-color: rgba(76, 175, 80, 0.05); border-radius: 8px; padding: 20px; border-left: 4px solid #4CAF50;">
+                                    <p>
+                                        <strong><i class="bi bi-calendar-check" style="color: #4CAF50;"></i> Thời gian:</strong>
+                                        @Model.CreatedAt.ToString("dd/MM/yyyy")
+                                        @if (Model.ExperienceEndDate.HasValue)
+                                        {
+                                            <span> - @Model.ExperienceEndDate.Value.ToString("dd/MM/yyyy")</span>
+                                        }
+                                    </p>
+                                     @if (!string.IsNullOrEmpty(Model.Companions))
+                                    {
+                                        <p><strong><i class="bi bi-people-fill" style="color: #4CAF50;"></i> Đồng hành:</strong> @Model.Companions</p>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.ApproximateCost))
+                                    {
+                                        <p><strong><i class="bi bi-cash" style="color: #4CAF50;"></i> Chi phí:</strong> @Model.ApproximateCost</p>
+                                    }
+                                    @if (Model.OverallExperienceRating.HasValue)
+                                    {
+                                        <p><strong><i class="bi bi-emoji-smile" style="color: #4CAF50;"></i> Đánh giá:</strong> @Model.OverallExperienceRating.Value.ToString("0.#")/10</p>
+                                    }
+                                </div>
+                            </div>
+
+                            <!-- Đặt ID cho mục lục -->
+                            <div id="section-cau-chuyen-trai-nghiem">
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <i class="bi bi-palm-tree palm-tree-icon"></i>
+                                    </span>
+                                    Câu chuyện trải nghiệm
+                                </h3>
+                                <div class="post-content">
+                                     @Html.Raw(Model.Content?.Replace("\n", "<br />"))
+                                </div>
+                            </div>
+
+                            <!-- Hình ảnh bổ sung -->
+                            @if (Model.Images != null && Model.Images.Any())
+                            {
+                                <!-- Đặt ID cho mục lục -->
+                                <div id="section-khoanh-khac-dang-nho" class="mt-4">
+                                    <h3 class="section-title">
+                                        <span class="theme-icon-container">
+                                            <i class="bi bi-palm-tree palm-tree-icon"></i>
+                                        </span>
+                                        Khoảnh khắc đáng nhớ
+                                    </h3>
+                                    <div class="experience-gallery row g-3">
+                                        @foreach (var image in Model.Images)
+                                        {
+                                            <div class="col-md-4 mb-3">
+                                                <div class="memory-card" style="border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                                                    <a href="@image.ImageUrl" data-lightbox="experience-gallery" data-title="Khoảnh khắc đáng nhớ">
+                                                        <img src="@image.ImageUrl" alt="Khoảnh khắc đáng nhớ @(Model.Spot?.Name)" class="img-fluid">
+                                                    </a>
+                                                    <div class="memory-caption" style="background-color: rgba(76, 175, 80, 0.8); color: white; padding: 8px 12px; font-size: 0.85rem;">
+                                                        <i class="bi bi-camera"></i> Khoảnh khắc @(Model.Spot != null ? "tại " + Model.Spot.Name : "")
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            @if (Model.RatingLandscape.HasValue || Model.RatingFood.HasValue || Model.RatingService.HasValue || Model.RatingPrice.HasValue)
+                            {
+                                <!-- Đặt ID cho mục lục -->
+                                <div id="section-danh-gia-chi-tiet" class="experience-rating mt-4" style="background-color: rgba(76, 175, 80, 0.05); border-radius: 8px; padding: 20px;">
+                                    <h3 class="section-title">
+                                        <span class="theme-icon-container">
+                                            <i class="bi bi-palm-tree palm-tree-icon"></i>
+                                        </span>
+                                        Đánh giá chi tiết
+                                    </h3>
+                                    <div class="rating-categories">
+                                        @if(Model.RatingLandscape.HasValue) {
+                                            <div class="rating-item">
+                                                <span>Cảnh quan</span>
+                                                <div class="rating-stars">@RenderStars(Model.RatingLandscape)</div>
+                                            </div>
+                                        }
+                                        @if(Model.RatingFood.HasValue) {
+                                            <div class="rating-item">
+                                                <span>Ẩm thực</span>
+                                                <div class="rating-stars">@RenderStars(Model.RatingFood)</div>
+                                            </div>
+                                        }
+                                        @if(Model.RatingService.HasValue) {
+                                        <div class="rating-item">
+                                            <span>Dịch vụ</span>
+                                            <div class="rating-stars">@RenderStars(Model.RatingService)</div>
+                                        </div>
+                                        }
+                                         @if(Model.RatingPrice.HasValue) {
+                                        <div class="rating-item">
+                                            <span>Giá cả</span>
+                                            <div class="rating-stars">@RenderStars(Model.RatingPrice)</div>
+                                        </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.Advice))
+                            {
+                                <!-- Đặt ID cho mục lục -->
+                                <div id="section-loi-khuyen-cho-ban" class="experience-conclusion mt-4">
+                                    <h3 class="section-title">
+                                        <span class="theme-icon-container">
+                                            <i class="bi bi-palm-tree palm-tree-icon"></i>
+                                        </span>
+                                        Lời khuyên cho bạn
+                                    </h3>
+                                    <div class="conclusion-box" style="background-color: rgba(76, 175, 80, 0.1); border-radius: 8px; padding: 20px; border-left: 4px solid #4CAF50;">
+                                        @Html.Raw(Model.Advice?.Replace("\n", "<br />"))
+                                        @if(Model.Spot != null) {
+                                            <p class="mt-2 mb-0 fst-italic"><small>Lời khuyên khi đến @Model.Spot.Name.</small></p>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                             <!-- Trải nghiệm nổi bật & Hành trình của tôi chuyển sang sidebar -->
+                        </div>
+                    }
+                    else // Mặc định cho "Bài viết" hoặc loại khác không xác định
+                    {
+                         <!-- Đặt ID cho mục lục -->
+                        <div id="section-noi-dung-bai-viet">
+                            <h3 class="section-title">
+                                <span class="theme-icon-container">
+                                    <span class="orange-icon"></span>
+                                </span>
+                                Nội dung bài viết
+                            </h3>
+                            <div class="post-content">
+                                @Html.Raw(Model.Content) 
+                            </div>
+                        </div>
+
+                        <!-- Hiển thị hình ảnh bổ sung -->
+                        @if (Model.Images != null && Model.Images.Any())
+                        {
+                             <!-- Đặt ID cho mục lục -->
+                            <div id="section-hinh-anh" class="mt-4">
+                                <h3 class="section-title">
+                                    <span class="theme-icon-container">
+                                        <span class="orange-icon"></span>
+                                    </span>
+                                    Hình ảnh
+                                </h3>
+                                <div class="row g-3">
+                                    @foreach (var image in Model.Images)
+                                    {
+                                        <div class="col-md-4 mb-3">
+                                             <a href="@image.ImageUrl" data-lightbox="article-gallery" data-title="Hình ảnh bài viết">
+                                                <img src="@image.ImageUrl" alt="Hình ảnh bài viết" class="img-fluid rounded shadow-sm">
+                                             </a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+
+                <!-- Phần bình luận -->
+                <!-- Đặt ID cho mục lục -->
+                <div id="section-binh-luan" class="comments-section mt-5 pt-4 border-top">
+                    <h3 class="section-title mb-4">
+                        @if (postType == "Trải nghiệm") { <span class="theme-icon-container"><i class="bi bi-palm-tree palm-tree-icon"></i></span> }
+                        else if (postType == "Cẩm nang") { <span class="theme-icon-container"><i class="bi bi-water wave-icon"></i></span> }
+                        else { <span class="theme-icon-container"><span class="orange-icon"></span></span> }
+                        Bình luận (@(Model.Comments?.Count ?? 0))
+                    </h3>
+
+                    <!-- Form thêm bình luận mới -->
+                    <div class="comment-form-container mb-4">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                             <form asp-action="AddComment" asp-controller="Posts" method="post">
+                                <input type="hidden" name="postId" value="@Model.PostId" />
+                                <input type="hidden" name="returnUrl" value="@Context.Request.Path" /> 
+                                <div class="form-group mb-3">
+                                    <div class="d-flex">
+                                        <div class="comment-avatar me-3">
+@{
+    // userId đã được lấy ở đầu file rồi.
+    // Lấy thông tin từ Claims của người dùng hiện tại
+    // Giả sử bạn đã thêm Claims "FullName" và "AvatarUrl" khi đăng nhập
+    // Nếu không, bạn cần điều chỉnh tên Claim Type cho phù hợp
+    var currentUserName = User.Identity?.Name; // Lấy Username chuẩn
+    var currentUserFullNameClaim = User.FindFirst("FullName")?.Value; // Thử lấy từ Claim "FullName" (tùy chỉnh)
+    var currentUserAvatarClaim = User.FindFirst("AvatarUrl")?.Value; // Thử lấy từ Claim "AvatarUrl" (tùy chỉnh)
+
+    // Ưu tiên FullName từ Claim, nếu không có thì dùng Username
+    var displayName = currentUserFullNameClaim ?? currentUserName;
+    var userInitial = !string.IsNullOrEmpty(displayName) ? displayName.Substring(0, 1).ToUpper() : "?";
+
+    // Ưu tiên Avatar từ Claim, nếu không có thì dùng ảnh mặc định
+    var avatarUrl = !string.IsNullOrEmpty(currentUserAvatarClaim) ? currentUserAvatarClaim : "/images/default-avatar.png";
+}
+<img src="@avatarUrl" alt="Avatar của @displayName" class="avatar-circle rounded-circle" width="40" height="40"/>
+                                        </div>
+                                        <div class="comment-input-wrapper flex-grow-1">
+                                            <textarea class="form-control" name="content" rows="2"
+                                                    placeholder="Nhập bình luận của bạn..." required></textarea>
+                                            <button type="submit" class="btn btn-primary mt-2 btn-sm">
+                                                <i class="bi bi-send-fill"></i> Gửi
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        } else {
+                             <div class="alert alert-info" role="alert">
+                                Vui lòng <a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@Context.Request.Path">đăng nhập</a> để bình luận.
+                             </div>
+                        }
+                    </div>
+
+                    <!-- Danh sách bình luận -->
+                    <div class="comments-list">
+                        @if (Model.Comments != null && Model.Comments.Any())
+                        {
+                            @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt)) // Sắp xếp mới nhất lên đầu
+                            {
+                                <div class="comment-item mb-3 pb-3 border-bottom">
+                                    <div class="d-flex">
+                                        <div class="comment-avatar me-3">
+                                             @{
+                                                var commentUserAvatar = comment.User?.AvatarUrl ?? "/images/default-avatar.png";
+                                             }
+                                             <img src="@commentUserAvatar" alt="Avatar" class="avatar-circle rounded-circle" width="40" height="40"/>
+                                            
+                                        </div>
+                                        <div class="comment-content flex-grow-1">
+                                            <div class="comment-header d-flex justify-content-between align-items-center">
+                                                <h5 class="comment-author mb-0 fs-6 fw-bold">@(comment.User?.FullName ?? "Người dùng")</h5>
+                                                <span class="comment-date text-muted small">
+                                                    <i class="bi bi-clock"></i>
+                                                    @comment.CreatedAt.ToString("dd/MM/yyyy HH:mm") 
+                                                </span>
+                                            </div>
+                                            <div class="comment-body my-2">
+                                                @Html.Raw(comment.Content.Replace("\n", "<br />")) 
+                                            </div>
+                                            <div class="comment-actions">
+                                                <a href="#" class="comment-action small me-2">
+                                                    <i class="bi bi-hand-thumbs-up"></i> Thích
+                                                </a>
+                                                <a href="#" class="comment-action small me-2">
+                                                    <i class="bi bi-reply"></i> Trả lời
+                                                </a>
+                                                @if (User.FindFirst(ClaimTypes.NameIdentifier)?.Value == comment.UserId.ToString() || User.IsInRole("Admin")) // Cho phép chủ comment hoặc Admin xóa
+                                                {
+                                                    <a asp-controller="PostComments" asp-action="Delete"
+                                                       asp-route-id="@comment.CommentId" asp-route-returnUrl="@Context.Request.Path"
+                                                       class="comment-action text-danger small"
+                                                       onclick="return confirm('Bạn có chắc chắn muốn xóa bình luận này?');">
+                                                        <i class="bi bi-trash"></i> Xóa
+                                                    </a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a asp-controller="Report" asp-action="Create" 
+            asp-route-targetType="Comment" 
+            asp-route-targetId="@comment.CommentId"
+            asp-route-reportedUserId="@comment.User.UserId"
+            class="btn btn-sm btn-warning">
+                Báo cáo bình luận
+            </a>
+            <a asp-controller="Report" asp-action="Create" 
+            asp-route-targetType="User" 
+            asp-route-targetId="@comment.User.UserId"
+            asp-route-reportedUserId="@comment.User.UserId"
+            class="btn btn-sm btn-warning">
+                Báo cáo người dùng
+            </a>
+                            }
+                        }
+                        else
+                        {
+                            <div class="no-comments">
+                                <p class="text-center text-muted fst-italic mt-3">Chưa có bình luận nào. Hãy là người đầu tiên!</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Nút thao tác -->
+                <div class="action-buttons mt-5 d-flex justify-content-between border-top pt-4">
+                    <a href="javascript:history.back()" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Quay lại
+                    </a>
+                    <div>
+                        @if (User.Identity.IsAuthenticated && (Model.UserId == userId || User.IsInRole("Admin"))) // Chỉ chủ bài viết hoặc Admin mới được sửa
+                        {
+                            <a asp-action="Edit" asp-controller="Posts" asp-route-id="@Model.PostId" class="btn btn-outline-primary me-2">
+                                <i class="bi bi-pencil-square"></i> Chỉnh sửa
+                            </a>
+                        }
+                        <a asp-action="Index" asp-controller="Posts" class="btn btn-outline-secondary">
+                            <i class="bi bi-grid"></i> Danh sách bài viết
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar bên phải -->
+        <div class="col-lg-4">
+            <div class="sidebar sticky-top" style="top: 20px;"> 
+                 <!-- Widget thông tin tác giả -->
+                <div class="sidebar-widget card mb-4 shadow-sm">
+                    <div class="card-header bg-light">
+                       <h4>
+                            @if (postType == "Trải nghiệm") { <i class="bi bi-palm-tree me-2"></i> }
+                            else if (postType == "Cẩm nang") { <i class="bi bi-water me-2"></i> }
+                            else { <span class="orange-icon me-2"></span> }
+                            Tác giả
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                             @{
+                                var authorAvatar = Model.User?.AvatarUrl ?? "/images/default-avatar.png";
+                             }
+                             <img src="@authorAvatar" alt="Avatar tác giả" class="rounded-circle me-3" width="60" height="60"/>
+                            <div class="ms-1">
+                                <h5 class="mb-1">@(Model.User?.FullName ?? "Người dùng")</h5>
+                                @if (!string.IsNullOrEmpty(Model.User?.Bio))
+                                {
+                                    <p class="small text-muted mb-0 fst-italic">@Model.User.Bio</p>
+                                } else {
+                                    <p class="small text-muted mb-0 fst-italic">Người đam mê du lịch</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Sidebar tùy chỉnh theo loại bài viết -->
+                    @if (postType == "Địa điểm" && Model.Spot != null)
+                    {
+                         @if (!string.IsNullOrEmpty(Model.Spot.IdealVisitTime))
+                        {
+                            <div class="sidebar-widget card mb-4 shadow-sm">
+                                <div class="card-header bg-light">
+                                    <h4>
+                                        <span class="orange-icon me-2"></span>
+                                        Thời điểm lý tưởng
+                                    </h4>
+                                </div>
+                                 <div class="card-body">
+                                    <div class="best-time">
+                                        <p><i class="bi bi-calendar-heart me-2"></i> @Model.Spot.IdealVisitTime</p>
+                                        @if(Model.Spot != null) {
+                                            <p class="mb-0"><small class="text-muted">Thời gian tốt nhất để tham quan @Model.Spot.Name.</small></p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else if (postType == "Cẩm nang")
+                    {
+                        @if (!string.IsNullOrEmpty(Model.EstimatedCosts))
+                        {
+                            <div class="sidebar-widget card mb-4 shadow-sm">
+                                 <div class="card-header bg-light">
+                                    <h4>
+                                        <i class="bi bi-water me-2"></i>
+                                        Chi phí tham khảo
+                                    </h4>
+                                 </div>
+                                 <div class="card-body">
+                                    <div class="cost-breakdown">
+                                        @Html.Raw(Model.EstimatedCosts?.Replace("\n", "<br />")) 
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.UsefulDocumentsHtml))
+                        {
+                             <div class="sidebar-widget card mb-4 shadow-sm">
+                                 <div class="card-header bg-light">
+                                    <h4>
+                                        <i class="bi bi-water me-2"></i>
+                                        Tài liệu hữu ích
+                                    </h4>
+                                 </div>
+                                <div class="card-body">
+                                    <ul class="download-links list-unstyled mb-0">
+                                        @Html.Raw(Model.UsefulDocumentsHtml) 
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else if (postType == "Trải nghiệm")
+                    {
+                         @if (!string.IsNullOrEmpty(Model.ExperienceHighlights))
+                        {
+                            <div class="sidebar-widget card mb-4 shadow-sm">
+                                <div class="card-header bg-light">
+                                    <h4>
+                                        <i class="bi bi-palm-tree me-2"></i>
+                                        Trải nghiệm nổi bật
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="highlight-experiences">
+                                        @Html.Raw(Model.ExperienceHighlights?.Replace("\n", "<br />"))
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                         @if (!string.IsNullOrEmpty(Model.ExperienceItinerarySummary))
+                        {
+                            <div class="sidebar-widget card mb-4 shadow-sm">
+                                 <div class="card-header bg-light">
+                                    <h4>
+                                        <i class="bi bi-palm-tree me-2"></i>
+                                        Hành trình của tôi
+                                    </h4>
+                                 </div>
+                                 <div class="card-body">
+                                    <div class="itinerary-summary">
+                                         @Html.Raw(Model.ExperienceItinerarySummary?.Replace("\n", "<br />")) 
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                <!-- Widget mục lục -->
+                <div class="sidebar-widget card mb-4 shadow-sm">
+                     <div class="card-header bg-light">
+                        <h4>
+                            @if (postType == "Trải nghiệm") { <i class="bi bi-palm-tree me-2"></i> }
+                            else if (postType == "Cẩm nang") { <i class="bi bi-water me-2"></i> }
+                            else { <span class="orange-icon me-2"></span> }
+                            Mục lục
+                        </h4>
+                     </div>
+                    <div class="card-body">
+                        <ul class="toc-list list-unstyled mb-0">
+                            @if (postType == "Địa điểm")
+                            {
+                                <li><a href="#section-thong-tin-dia-diem"><i class="bi bi-arrow-right-short"></i> Thông tin địa điểm</a></li>
+                                <li><a href="#section-mo-ta-dia-diem"><i class="bi bi-arrow-right-short"></i> Mô tả địa điểm</a></li>
+                                @if (Model.Images != null && Model.Images.Any()) { <li><a href="#section-hinh-anh-dia-diem"><i class="bi bi-arrow-right-short"></i> Hình ảnh địa điểm</a></li> }
+                                @if (!string.IsNullOrEmpty(Model.SuggestedItinerary)) { <li><a href="#section-lich-trinh-tham-quan-goi-y"><i class="bi bi-arrow-right-short"></i> Lịch trình gợi ý</a></li> }
+                            }
+                            else if (postType == "Cẩm nang")
+                            {
+                                <li><a href="#section-tong-quan"><i class="bi bi-arrow-right-short"></i> Tổng quan</a></li>
+                                <li><a href="#section-noi-dung-cam-nang"><i class="bi bi-arrow-right-short"></i> Nội dung cẩm nang</a></li>
+                                @if (Model.Images != null && Model.Images.Any()) { <li><a href="#section-hinh-anh-minh-hoa"><i class="bi bi-arrow-right-short"></i> Hình ảnh minh họa</a></li> }
+                                @if (!string.IsNullOrEmpty(Model.TravelTips)) { <li><a href="#section-meo-du-lich"><i class="bi bi-arrow-right-short"></i> Mẹo du lịch</a></li> }
+                                @if (!string.IsNullOrEmpty(Model.PackingListSuggestions)) { <li><a href="#section-do-can-mang-theo"><i class="bi bi-arrow-right-short"></i> Đồ cần mang theo</a></li> }
+                            }
+                            else if (postType == "Trải nghiệm")
+                            {
+                               <li><a href="#section-tom-tat-trai-nghiem"><i class="bi bi-arrow-right-short"></i> Tóm tắt trải nghiệm</a></li>
+                                <li><a href="#section-cau-chuyen-trai-nghiem"><i class="bi bi-arrow-right-short"></i> Câu chuyện trải nghiệm</a></li>
+                                @if (Model.Images != null && Model.Images.Any()) { <li><a href="#section-khoanh-khac-dang-nho"><i class="bi bi-arrow-right-short"></i> Khoảnh khắc đáng nhớ</a></li> }
+                                @if (Model.RatingLandscape.HasValue || Model.RatingFood.HasValue || Model.RatingService.HasValue || Model.RatingPrice.HasValue) { <li><a href="#section-danh-gia-chi-tiet"><i class="bi bi-arrow-right-short"></i> Đánh giá chi tiết</a></li> }
+                                @if (!string.IsNullOrEmpty(Model.Advice)) { <li><a href="#section-loi-khuyen-cho-ban"><i class="bi bi-arrow-right-short"></i> Lời khuyên cho bạn</a></li> }
+                            }
+                            else // Mặc định
+                            {
+                                <li><a href="#section-noi-dung-bai-viet"><i class="bi bi-arrow-right-short"></i> Nội dung bài viết</a></li>
+                                @if (Model.Images != null && Model.Images.Any()) { <li><a href="#section-hinh-anh"><i class="bi bi-arrow-right-short"></i> Hình ảnh</a></li> }
+                            }
+                            <li><a href="#section-binh-luan"><i class="bi bi-arrow-right-short"></i> Bình luận</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Widget bài viết liên quan -->
+                <div class="sidebar-widget card mb-4 shadow-sm">
+                    <div class="card-header bg-light">
+                         <h4>
+                            @if (postType == "Trải nghiệm") { <i class="bi bi-palm-tree me-2"></i> }
+                            else if (postType == "Cẩm nang") { <i class="bi bi-water me-2"></i> }
+                            else { <span class="orange-icon me-2"></span> }
+                            Bài viết liên quan
+                        </h4>
+                    </div>
+                   <div class="card-body">
+                        <div class="related-posts">
+                            <!-- Ví dụ Placeholder -->
+                            <div class="related-post-item d-flex mb-3">
+                                <div class="related-post-img flex-shrink-0">
+                                    <img src="/images/placeholder-related.png" alt="Bài viết liên quan" class="img-fluid rounded" width="80">
+                                </div>
+                                <div class="related-post-content ms-3">
+                                    <h6 class="mb-1 fs-sm"><a href="#">Top 10 địa điểm @(Model.Spot?.Name ?? "")</a></h6>
+                                    <span class="small text-muted">15/04/2023</span>
+                                </div>
+                            </div>
+                             <div class="related-post-item d-flex mb-3">
+                                <div class="related-post-img flex-shrink-0">
+                                    <img src="/images/placeholder-related.png" alt="Bài viết liên quan" class="img-fluid rounded" width="80">
+                                </div>
+                                <div class="related-post-content ms-3">
+                                    <h6 class="mb-1 fs-sm"><a href="#">Ẩm thực đặc sắc @(Model.Spot?.Name ?? "")</a></h6>
+                                    <span class="small text-muted">20/03/2023</span>
+                                </div>
+                            </div>
+                             <div class="related-post-item d-flex">
+                                <div class="related-post-img flex-shrink-0">
+                                    <img src="/images/placeholder-related.png" alt="Bài viết liên quan" class="img-fluid rounded" width="80">
+                                </div>
+                                <div class="related-post-content ms-3">
+                                    <h6 class="mb-1 fs-sm"><a href="#">Kinh nghiệm du lịch @(Model.Spot?.Name ?? "") tiết kiệm</a></h6>
+                                    <span class="small text-muted">05/02/2023</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Widget đăng ký nhận tin -->
+                <div class="sidebar-widget card mb-4 shadow-sm">
+                     <div class="card-header bg-light">
+                        <h4>
+                            @if (postType == "Trải nghiệm") { <i class="bi bi-palm-tree me-2"></i> }
+                            else if (postType == "Cẩm nang") { <i class="bi bi-water me-2"></i> }
+                            else { <span class="orange-icon me-2"></span> }
+                            Đăng ký nhận tin
+                        </h4>
+                     </div>
+                     <div class="card-body">
+                        <div class="newsletter-box">
+                            <p class="small">Nhận thông tin cập nhật về các điểm du lịch và ưu đãi hấp dẫn.</p>
+                            <form action="#" method="post">
+                                <div class="input-group mb-2">
+                                    <input type="email" class="form-control form-control-sm" placeholder="Email của bạn" required>
+                                    <button class="btn btn-primary btn-sm" type="submit">
+                                        <i class="bi bi-send"></i> Đăng ký
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+             </div> <!-- Kết thúc sidebar sticky-top -->
+        </div> <!-- Kết thúc col-lg-4 -->
+    </div> <!-- Kết thúc row -->
+</div> <!-- Kết thúc container -->
+</div> <!-- Kết thúc themeClass div -->
+
+<!-- Token để dùng trong AJAX -->
+<input type="hidden" name="__RequestVerificationToken" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
+@section Scripts {
+    <script>
+        // Toggle favorite button
+        document.getElementById('favoriteBtn').addEventListener('click', function () {
+            const btn = this;
+            const postId = btn.dataset.postId;
+            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+            fetch('/PostFavorites/ToggleFavorite/' + postId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': token
+                }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Lỗi khi cập nhật yêu thích');
+                return response.json();
+            })
+            .then(data => {
+                if (data.favorited) {
+                    btn.classList.add('active');
+                    btn.innerHTML = '<i class="fas fa-heart"></i> Đã yêu thích';
+                } else {
+                    btn.classList.remove('active');
+                    btn.innerHTML = '<i class="far fa-heart"></i> Yêu thích';
+                }
+            })
+            .catch(err => alert(err));
+        });
+
+        function toggleShareOptions(button) {
+            const dropdownMenu = button.nextElementSibling; // Get the .share-options div
+            if (dropdownMenu && dropdownMenu.classList.contains('share-options')) {
+                // Toggle the .show class on the clicked dropdown
+                const isCurrentlyShown = dropdownMenu.classList.contains('show');
+                
+                // First, close all other open dropdowns
+                document.querySelectorAll('.share-options.show').forEach(openDropdown => {
+                    openDropdown.classList.remove('show');
+                });
+
+                // If the clicked dropdown was not the one already shown (or if none were shown), show it.
+                if (!isCurrentlyShown) {
+                    dropdownMenu.classList.add('show');
+                }
+                // If it was already shown, the loop above already closed it.
+            }
+        }
+
+        // Hide dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+            const shareDropdown = e.target.closest('.share-dropdown');
+            if (!shareDropdown) { // If the click is outside any .share-dropdown
+                document.querySelectorAll('.share-options.show').forEach(opt => {
+                    opt.classList.remove('show');
+                });
+            }
+        });
+
+        // Your existing share button click logic
+        document.querySelectorAll('.share-options .share-btn').forEach(btn => {
+            btn.addEventListener('click', async function (e) {
+                e.preventDefault();
+
+                const platform = this.dataset.platform;
+                const postId = this.dataset.postId; // Make sure this is data-post-id not data-spot-id
+                // const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                const tokenInput = document.getElementById('antiForgeryToken'); // Use the ID
+                const token = tokenInput ? tokenInput.value : document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+
+                try {
+                    const response = await fetch('/PostShares/CreateFromShare', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': token
+                        },
+                        body: JSON.stringify({ platform, postId })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const urlToShare = data.url;
+
+                        if (platform === "Facebook") {
+                            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlToShare)}`, '_blank');
+                        } else if (platform === "Twitter") {
+                            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(urlToShare)}&text=Check this out!`, '_blank');
+                        } else if (platform === "Email") {
+                            window.open(`https://mail.google.com/mail/?view=cm&to=&su=Check this out&body=${encodeURIComponent(urlToShare)}`, '_blank');
+                        }
+                        // You might want to close the dropdown after sharing
+                        this.closest('.share-options').classList.remove('show');
+                        alert("Thanks for sharing! 🙌");
+                    } else {
+                        alert("Lỗi khi chia sẻ. Vui lòng thử lại.");
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert("Có lỗi xảy ra.");
+                }
+            });
+        });
+
+        // Your existing copy link logic
+        document.querySelectorAll('.share-options .copy-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                navigator.clipboard.writeText(window.location.href).then(function () {
+                    const toast = document.getElementById('copy-toast');
+                    toast.style.display = 'block';
+                    setTimeout(() => {
+                        toast.style.display = 'none';
+                    }, 2500);
+                    // Ghi nhận chia sẻ (nếu you have a createShare function)
+                    // createShare("CopyLink"); // Assuming you have this function
+                });
+                // You might want to close the dropdown after copying
+                this.closest('.share-options').classList.remove('show');
+            });
+        });
+
+    </script>
+    <script>
+        // Script để xử lý smooth scroll cho mục lục
+        document.addEventListener('DOMContentLoaded', function() {
+            const tocLinks = document.querySelectorAll('.toc-list a');
+            
+            tocLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+        // Thêm ID cho các tiêu đề để liên kết với mục lục
+            const addSectionIds = () => {
+                const sectionTitles = document.querySelectorAll('.section-title');
+                sectionTitles.forEach((title, index) => {
+                    const titleText = title.textContent.trim().toLowerCase().replace(/\s+/g, '-');
+                    title.id = `section-${titleText}`;
+                });
+            };
+            
+            addSectionIds();
+            
+            // Hiệu ứng cho comment actions
+            const commentActions = document.querySelectorAll('.comment-action');
+            commentActions.forEach(action => {
+                if (action.textContent.trim() === 'Thích' || action.textContent.trim() === 'Trả lời') {
+                    action.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        this.classList.toggle('active');
+                        
+                        if (this.textContent.trim() === 'Trả lời') {
+                            // Thêm logic hiển thị form trả lời comment tại đây
+                            alert('Chức năng trả lời comment sẽ được phát triển sau!');
+                        }
+                    });
+                }
+            });
+            
+            // Hiệu ứng zoom cho hình ảnh
+            const galleryImages = document.querySelectorAll('.location-gallery img, .guidebook-gallery img, .experience-gallery img');
+            galleryImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    // Tạo lightbox đơn giản
+                    const lightbox = document.createElement('div');
+                    lightbox.classList.add('lightbox');
+                    lightbox.style.position = 'fixed';
+                    lightbox.style.top = '0';
+                    lightbox.style.left = '0';
+                    lightbox.style.width = '100%';
+                    lightbox.style.height = '100%';
+                    lightbox.style.backgroundColor = 'rgba(0,0,0,0.9)';
+                    lightbox.style.display = 'flex';
+                    lightbox.style.alignItems = 'center';
+                    lightbox.style.justifyContent = 'center';
+                    lightbox.style.zIndex = '9999';
+                    
+                    const imgClone = document.createElement('img');
+                    imgClone.src = this.src;
+                    imgClone.style.maxHeight = '90%';
+                    imgClone.style.maxWidth = '90%';
+                    imgClone.style.objectFit = 'contain';
+                    
+                    lightbox.appendChild(imgClone);
+                    document.body.appendChild(lightbox);
+                    
+                    lightbox.addEventListener('click', function() {
+                        this.remove();
+                    });
+                });
+            });
+        });
+    </script>
+    <style>
+        .share-dropdown {
+            position: relative; /* Ensure this is here for absolute positioning of children */
+        }
+
+        .share-options {
+            display: none; /* Hide by default */
+            position: absolute; /* Position it relative to .share-dropdown */
+            top: 100%; /* Position it below the button */
+            left: 0;
+            /* background-color: white;  Now handled by Bootstrap class bg-white */
+            /* border-radius: 5px;       Now handled by Bootstrap class rounded */
+            /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); Now handled by Bootstrap class shadow */
+            /* padding: 0.5rem; /* Example, adjust as needed, or use Bootstrap p-2 */
+            z-index: 1000; /* Ensure it's on top */
+            min-width: 180px; /* Optional: give it a minimum width */
+        }
+
+        .share-options.show {
+            display: block; /* Show it when .show class is added */
+        }
+
+        .share-options .share-btn,
+        .share-options .copy-link { /* Target links inside .share-options */
+            padding: 8px 12px; /* Adjusted padding */
+            text-decoration: none;
+            color: #333;
+            display: block; /* Make each link take full width */
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+
+        .share-options .share-btn:hover,
+        .share-options .copy-link:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+}
+
+<div id="copy-toast" style="
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    font-weight: bold;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+">
+    🔗 Đã sao chép liên kết!
+</div> *@
 @model TourismWeb.Models.Post
 @using Microsoft.AspNetCore.Antiforgery
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
@@ -524,28 +2016,41 @@
                             </div>
 
                             <!-- Hình ảnh bổ sung -->
-                            @if (Model.Images != null && Model.Images.Any())
-                            {
-                                <!-- Đặt ID cho mục lục -->
-                                <div id="section-hinh-anh-dia-diem" class="mt-4">
-                                    <h3 class="section-title">
-                                        <span class="theme-icon-container">
-                                            <span class="orange-icon"></span>
-                                        </span>
-                                        Hình ảnh địa điểm
-                                    </h3>
-                                    <div class="location-gallery row g-3">
-                                        @foreach (var image in Model.Images)
-                                        {
-                                            <div class="col-md-4 mb-3">
-                                                <a href="@image.ImageUrl" data-lightbox="location-gallery" data-title="Hình ảnh địa điểm">
-                                                    <img src="@image.ImageUrl" alt="Hình ảnh địa điểm @(Model.Spot?.Name)" class="img-fluid rounded shadow-sm">
-                                                </a>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            }
+                           @if (Model.Images != null && Model.Images.Any())
+{
+    <div id="section-hinh-anh-dia-diem" class="mt-4">
+        <h3 class="section-title">
+            <span class="theme-icon-container">
+                <span class="orange-icon"></span>
+            </span>
+            Hình ảnh địa điểm
+        </h3>
+
+        <div id="postImagesCarousel" class="carousel slide shadow-sm rounded" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @{
+                    var first = true;
+                    foreach (var image in Model.Images)
+                    {
+                        <div class="carousel-item @(first ? "active" : "")">
+                            <img src="@image.ImageUrl" class="d-block w-100 rounded" style="max-height: 500px; object-fit: contain;" alt="Ảnh địa điểm" />
+                        </div>
+                        first = false;
+                    }
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#postImagesCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Trước</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#postImagesCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Sau</span>
+            </button>
+        </div>
+    </div>
+}
+
 
                             @if (!string.IsNullOrEmpty(Model.SuggestedItinerary))
                             {
