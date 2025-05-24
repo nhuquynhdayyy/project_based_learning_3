@@ -1,79 +1,4 @@
-@* @model IEnumerable<TourismWeb.Models.Post>
-@using Microsoft.AspNetCore.Identity
-@inject UserManager<User> UserManager
 
-@{
-    ViewData["Title"] = "Posts";
-    string typeOfPost = ViewBag.TypeOfPost;
-    bool isAdmin = User.IsInRole("Admin");
-}
-
-<div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>@(string.IsNullOrEmpty(typeOfPost) ? "All Posts" : typeOfPost)</h1>
-        <div>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <a asp-action="Create" class="btn btn-primary me-2">
-                    <i class="bi bi-plus-circle"></i> Create New
-                </a>
-                <a asp-action="MyPosts" class="btn btn-outline-secondary">
-                    <i class="bi bi-person"></i> My Posts
-                </a>
-            }
-            @if (isAdmin)
-            {
-                <a asp-action="Moderate" class="btn btn-outline-dark ms-2">
-                    <i class="bi bi-shield-check"></i> Moderate
-                </a>
-            }
-        </div>
-    </div>
-
-    <div class="mb-4">
-        <div class="btn-group" role="group">
-            <a asp-action="Index" class="btn @(string.IsNullOrEmpty(typeOfPost) ? "btn-primary" : "btn-outline-primary")">All</a>
-            <a asp-action="Category" asp-route-type="Địa điểm" class="btn @(typeOfPost == "Địa điểm" ? "btn-primary" : "btn-outline-primary")">Địa điểm</a>
-            <a asp-action="Category" asp-route-type="Cẩm nang" class="btn @(typeOfPost == "Cẩm nang" ? "btn-primary" : "btn-outline-primary")">Cẩm nang</a>
-            <a asp-action="Category" asp-route-type="Trải nghiệm" class="btn @(typeOfPost == "Trải nghiệm" ? "btn-primary" : "btn-outline-primary")">Trải nghiệm</a>
-        </div>
-    </div>
-
-    @if (!Model.Any())
-    {
-        <div class="alert alert-info" role="alert">
-            <i class="bi bi-info-circle"></i> No posts found. @(User.Identity.IsAuthenticated ? "Be the first to create a post!" : "Please sign in to create a post.")
-        </div>
-    }
-    else
-    {
-        <div class="row">
-            @foreach (var item in Model)
-            {
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        <img src="@item.ImageUrl" class="card-img-top" alt="@item.Title" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">@item.Title</h5>
-                            <p class="card-text">
-                                <span class="badge bg-info">@item.TypeOfPost</span>
-                                <span class="badge bg-secondary">@item.Spot.Name</span>
-                            </p>
-                            <p class="card-text">
-                                <small class="text-muted">
-                                    Posted by @item.User.FullName on @item.CreatedAt.ToString("MMM dd, yyyy")
-                                </small>
-                            </p>
-                        </div>
-                        <div class="card-footer bg-transparent border-top-0">
-                            <a asp-action="Details" asp-route-id="@item.PostId" class="btn btn-primary w-100">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    }
-</div> *@
 @model TourismWeb.Models.Post
 
 @{
@@ -95,7 +20,7 @@
                 <input type="hidden" asp-for="UserId" />
                 <input type="hidden" asp-for="CreatedAt" />
 
-                <!-- Keep the existing Images collection to ensure it's not lost during model binding -->
+                @* <!-- Keep the existing Images collection to ensure it's not lost during model binding -->
                 @if (Model.Images != null)
                 {
                     @foreach (var img in Model.Images)
@@ -106,7 +31,7 @@
                         <input type="hidden" name="Images[@img.PostImageId].UploadedBy" value="@img.UploadedBy" />
                         <input type="hidden" name="Images[@img.PostImageId].UploadedAt" value="@img.UploadedAt" />
                     }
-                }
+                } *@
 
                 <div class="row mb-3">
                     <div class="col-md-6">
@@ -145,7 +70,6 @@
                                 style="max-height: 150px; width: 100%; object-fit: cover;" />
                         </div>
                         <div class="col-md-9">
-                            <input type="hidden" asp-for="ImageUrl" />
                             <input type="file" name="mainImageFile" id="mainImageFile" class="form-control"
                                 accept="image/*" />
                             <small class="form-text text-muted">Upload a new image to replace the current one.</small>
