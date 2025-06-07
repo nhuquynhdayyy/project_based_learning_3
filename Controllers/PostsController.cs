@@ -176,7 +176,7 @@ public async Task<IActionResult> Create(
         _context.Add(post);
         await _context.SaveChangesAsync();
         TempData["SuccessMessage"] = "Tạo bài viết thành công! Bài viết đang chờ duyệt.";
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(MyPosts));
     }
 
     ViewData["SpotId"] = new SelectList(_context.TouristSpots, "SpotId", "Name", post.SpotId);

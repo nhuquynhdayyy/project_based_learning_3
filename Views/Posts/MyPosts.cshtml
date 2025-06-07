@@ -4,58 +4,418 @@
     ViewData["Title"] = "Bài Viết Của Tôi";
 }
 
-<h1>Bài Viết Của Tôi</h1>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Tạo Bài Viết Mới</a>
-</p>
+<style>
+    :root {
+        --primary-gradient: linear-gradient(135deg, #0062cc, #003366);
+        --success-color: #28a745;
+        --warning-color: #ffc107;
+        --danger-color: #dc3545;
+        --info-color: #17a2b8;
+        --light-gray: #f8f9fa;
+        --border-color: #dee2e6;
+        --text-dark: #333;
+        --text-muted: #6c757d;
+    }
 
-@if (!Model.Any())
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background-color: #f5f6fa;
+        color: var(--text-dark);
+    }
+
+    .section-title {
+        font-size: calc(1.3rem + .6vw);
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    /* Alert Messages */
+    .alert-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.alert-close:hover {
+    color: #ddd;
+}
+
+    .alert {
+            position: relative;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+            font-weight: 500;
+            animation: slideDown 0.3s ease-in-out;
+        }
+
+    .alert-danger {
+            background-color: #ff5a5f;
+            box-shadow: 0 5px 15px rgba(255, 90, 95, 0.2);
+        }
+
+        .alert-success {
+            background-color: var(--success-color);
+            box-shadow: 0 5px 15px rgba(56, 176, 0, 0.2);
+        }
+
+    .alert-info {
+        color: #0c5460;
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+    }
+
+    /* Create Button */
+    .btn-create {
+        background: var(--primary-gradient);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-create:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+        text-decoration: none;
+        color: white;
+    }
+
+    /* Post Cards */
+    .post-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .post-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .post-card:hover {
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        transform: translateY(-2px);
+    }
+
+    .post-header {
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .post-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin: 0;
+        line-height: 1.3;
+        flex: 1;
+    }
+
+    .status-badge {
+        background: #ffc107;
+        color: #212529;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .status-approved {
+        background: var(--success-color);
+        color: white;
+    }
+
+    .status-pending {
+        background: var(--warning-color);
+        color: #212529;
+    }
+
+    .status-rejected {
+        background: var(--danger-color);
+        color: white;
+    }
+
+    .post-content {
+        display: flex;
+        gap: 1rem;
+        padding: 1.25rem;
+    }
+
+    .post-image {
+        width: 120px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 8px;
+        flex-shrink: 0;
+    }
+
+    .post-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .post-meta {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.4;
+    }
+
+    .post-meta strong {
+        color: var(--text-dark);
+    }
+
+    .post-preview {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.4;
+        margin-top: 0.5rem;
+    }
+
+    .post-actions {
+        padding: 0.75rem 1.25rem;
+        border-top: 1px solid var(--border-color);
+        background: var(--light-gray);
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .btn {
+        padding: 0.4rem 1rem;
+        border: 1px solid;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    .btn-info {
+        color: var(--info-color);
+        border-color: var(--info-color);
+        background: transparent;
+    }
+
+    .btn-info:hover {
+        background: var(--info-color);
+        color: white;
+        text-decoration: none;
+    }
+
+    .btn-primary {
+        color: #0062cc;
+        border-color: #0062cc;
+        background: transparent;
+    }
+
+    .btn-primary:hover {
+        background: #0062cc;
+        color: white;
+        text-decoration: none;
+    }
+
+    .btn-danger {
+        color: var(--danger-color);
+        border-color: var(--danger-color);
+        background: transparent;
+    }
+
+    .btn-danger:hover {
+        background: var(--danger-color);
+        color: white;
+        text-decoration: none;
+    }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 3rem 2rem;
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+    }
+
+    .empty-state-icon {
+        font-size: 3rem;
+        color: var(--text-muted);
+        margin-bottom: 1rem;
+    }
+
+    .empty-state-text {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        margin-bottom: 1.5rem;
+    }
+
+    /* Responsive */
+    media (max-width: 768px) {
+        .post-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .post-content {
+            flex-direction: column;
+        }
+        
+        .post-image {
+            width: 100%;
+            height: 150px;
+        }
+        
+        .post-actions {
+            flex-direction: column;
+        }
+        
+        .post-actions .btn {
+            justify-content: center;
+        }
+        
+        .post-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+    }
+</style>
+
+<div class="container">
+    @if (TempData["SuccessMessage"] != null)
 {
-    <div class="alert alert-info">
-        Bạn chưa có bài viết nào. Hãy tạo bài viết mới!
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>✔️</strong> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
     </div>
 }
-else
+
+@if (TempData["ErrorMessage"] != null)
 {
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-md-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <span>@item.Title</span>
-                        <span class="badge @(item.Status == TourismWeb.Models.PostStatus.Approved ? "bg-success" : 
-                                                            item.Status == TourismWeb.Models.PostStatus.Pending ? "bg-warning" : "bg-danger")">
-                            @(item.Status == TourismWeb.Models.PostStatus.Approved ? "Đã duyệt" :
-                                                item.Status == TourismWeb.Models.PostStatus.Pending ? "Đang chờ duyệt" : "Đã từ chối")
-                </span>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="@item.ImageUrl" alt="@item.Title" class="img-fluid rounded mb-2"
-                            style="max-height: 150px; object-fit: cover;" />
+    <div class="alert alert-danger">
+        <i class="fas fa-exclamation-circle me-2 icon-vibrate"></i>@TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+    </div>
+}
+
+
+    <div class="content-section" id="bai-viet">
+        <h3 class="section-title">
+            <i class="fas fa-newspaper"></i>
+            Bài viết của tôi
+        </h3>
+        @if (ViewBag.SuccessMessage != null)
+                    {
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>@ViewBag.SuccessMessage
+                        </div>
+                    }
+                    @if (ViewBag.ErrorMessage != null)
+                    {
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-circle me-2 icon-vibrate"></i>@ViewBag.ErrorMessage
+                        </div>
+                    }
+
+        <!-- Create Button -->
+        <a asp-controller="Posts" asp-action="Create" class="btn-create">
+            <i class="fas fa-plus-circle me-2"></i>
+            Tạo bài viết mới
+        </a>
+
+        <div class="my-posts">
+            @if (Model == null || !Model.Any())
+            {
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-file-alt"></i>
                     </div>
-                    <div class="col-md-8">
-                        <p class="card-text small">
-                            <strong>Địa điểm:</strong> @item.Spot.Name<br />
-                            <strong>Loại bài viết:</strong> @item.TypeOfPost<br />
-                            <strong>Ngày tạo:</strong> @item.CreatedAt.ToString("dd/MM/yyyy HH:mm")
-                        </p>
-                        <p class="card-text small">
-                            @(item.Content?.Length > 100 ? item.Content.Substring(0, 100) + "..." : item.Content)
-                        </p>
+                    <div class="empty-state-text">
+                        Bạn chưa có bài viết nào.
+                        <a asp-controller="Posts" asp-action="Create" style="color: #0062cc; text-decoration: none; font-weight: 600;">Tạo bài viết mới ngay!</a>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer text-center">
-                <a asp-action="Details" asp-route-id="@item.PostId" class="btn btn-sm btn-info">Chi tiết</a>
-                <a asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-sm btn-primary">Chỉnh sửa</a>
-                <a asp-action="Delete" asp-route-id="@item.PostId" class="btn btn-sm btn-danger">Xóa</a>
-            </div>
+            }
+            else
+            {
+                <div class="post-grid">
+                    @foreach (var item in Model.OrderByDescending(p => p.CreatedAt))
+                    {
+                        <div class="post-card">
+                            <div class="post-header">
+                                <h5 class="post-title">@item.Title</h5>
+                                <span class="status-badge @(item.Status == TourismWeb.Models.PostStatus.Approved ? "status-approved" :
+                                                            item.Status == TourismWeb.Models.PostStatus.Pending ? "status-pending" : "status-rejected")">
+                                    @(item.Status == TourismWeb.Models.PostStatus.Approved ? "Đã duyệt" :
+                                      item.Status == TourismWeb.Models.PostStatus.Pending ? "Chờ duyệt" : "Bị từ chối")
+                                </span>
+                            </div>
+                            
+                            <div class="post-content">
+                                <img src="@(item.ImageUrl ?? "/images/placeholder-post.png")"
+                                     alt="@item.Title"
+                                     class="post-image" />
+                                
+                                <div class="post-info">
+                                    <div class="post-meta">
+                                        <strong>Địa điểm:</strong> @(item.Spot?.Name ?? "N/A")<br />
+                                        <strong>Loại:</strong> @item.TypeOfPost<br />
+                                        <strong>Ngày tạo:</strong> @item.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                                    </div>
+                                    <div class="post-preview">
+                                        @if (!string.IsNullOrEmpty(item.Content))
+                                        {
+                                            @(item.Content.Length > 80 ? item.Content.Substring(0, 80) + "..." : item.Content)
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="post-actions">
+                                <a asp-controller="Posts" asp-action="Details" asp-route-id="@item.PostId" class="btn btn-info">
+                                    Chi tiết
+                                </a>
+                                <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-primary">
+                                    Sửa
+                                </a>
+                                <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.PostId" class="btn btn-danger">
+                                    Xóa
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
         </div>
     </div>
-        }
-    </div>
-}
+</div>

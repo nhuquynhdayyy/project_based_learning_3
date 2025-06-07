@@ -1,130 +1,79 @@
-@* @model IEnumerable<TourismWeb.Models.Post>
-
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Spot)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TypeOfPost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Spot.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TypeOfPost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PostId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table> *@
 @model IEnumerable<TourismWeb.Models.Post>
 
 @{
-    ViewData["Title"] = "Tất Cả Bài Viết";
+    ViewData["Title"] = "Bài Viết Của Tôi";
 }
 
-<div class="container mt-4">
-    <h1 class="mb-4">Tất Cả Bài Viết</h1>
+<!-- Font Awesome (chỉ thêm nếu chưa có trong _Layout.cshtml) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <p>
-        <a asp-action="Create" class="btn btn-primary">Tạo Bài Viết Mới</a>
-    </p>
+<div class="container mt-5">
+    <h2 class="mb-4 text-primary"><i class="fas fa-newspaper me-2"></i>Bài Viết Của Tôi</h2>
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <div class="alert alert-success d-flex align-items-center shadow-sm rounded-3">
+            <i class="fas fa-check-circle fa-lg me-2"></i>
+            <div>@ViewBag.SuccessMessage</div>
+        </div>
+    }
 
     <div class="mb-3">
-        <a asp-action="Index" class="btn btn-primary">Tất Cả Bài Viết</a>
-        <a asp-action="Category" asp-route-type="Cẩm nang" class="btn btn-outline-secondary">Cẩm Nang</a>
-        <a asp-action="Category" asp-route-type="Trải nghiệm" class="btn btn-outline-secondary">Trải Nghiệm</a>
-        <a asp-action="Category" asp-route-type="Địa điểm" class="btn btn-outline-secondary">Địa Điểm</a>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="fas fa-plus-circle me-1"></i> Tạo Bài Viết Mới
+        </a>
     </div>
 
-    <table class="table table-hover">
-        <thead class="table-light">
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.User)</th>
-                <th>@Html.DisplayNameFor(model => model.Spot)</th>
-                <th>@Html.DisplayNameFor(model => model.TypeOfPost)</th>
-                <th>@Html.DisplayNameFor(model => model.Title)</th>
-                <th>@Html.DisplayNameFor(model => model.Content)</th>
-                <th>@Html.DisplayNameFor(model => model.ImageUrl)</th>
-                <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
-                <th>Thao Tác</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model) {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.User.FullName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Spot.Name)</td>
-                    <td>@Html.DisplayFor(modelItem => item.TypeOfPost)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                    <td>@(item.Content.Length > 50 ? item.Content.Substring(0, 50) + "..." : item.Content)</td>
-                    <td>
-                        @if (!string.IsNullOrEmpty(item.ImageUrl)) {
-                            <img src="@item.ImageUrl" style="width: 50px; height: 50px; object-fit: cover;" alt="Thumbnail" />
-                        }
-                    </td>
-                    <td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
-                    <td>
-                        <div class="btn-group" role="group">
-                            <a asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-sm btn-warning">Sửa</a>
-                            <a asp-action="Details" asp-route-id="@item.PostId" class="btn btn-sm btn-info">Chi Tiết</a>
-                            <a asp-action="Delete" asp-route-id="@item.PostId" class="btn btn-sm btn-danger">Xóa</a>
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>Bạn chưa có bài viết nào. Hãy tạo bài viết mới!
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                            <strong>@item.Title</strong>
+                            <span class="badge text-white 
+                                @(item.Status == TourismWeb.Models.PostStatus.Approved ? "bg-success" :
+                                  item.Status == TourismWeb.Models.PostStatus.Pending ? "bg-warning" : "bg-danger")">
+                                @(item.Status == TourismWeb.Models.PostStatus.Approved ? "Đã duyệt" :
+                                  item.Status == TourismWeb.Models.PostStatus.Pending ? "Đang chờ duyệt" : "Đã từ chối")
+                            </span>
                         </div>
-                    </td>
-                </tr>
+                        <div class="card-body">
+                            <img src="@item.ImageUrl" alt="@item.Title" class="img-fluid rounded mb-3 w-100"
+                                 style="height: 180px; object-fit: cover;" />
+                            <p class="mb-2">
+                                <i class="fas fa-map-marker-alt me-1 text-secondary"></i><strong>Địa điểm:</strong> @item.Spot?.Name
+                                <br />
+                                <i class="fas fa-tag me-1 text-secondary"></i><strong>Loại:</strong> @item.TypeOfPost
+                                <br />
+                                <i class="fas fa-clock me-1 text-secondary"></i><strong>Ngày tạo:</strong> @item.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                            </p>
+                            <p class="card-text text-muted small">
+                                @(item.Content?.Length > 100 ? item.Content.Substring(0, 100) + "..." : item.Content)
+                            </p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a asp-action="Details" asp-route-id="@item.PostId" class="btn btn-sm btn-outline-info me-1">
+                                <i class="fas fa-eye"></i> Chi tiết
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-sm btn-outline-primary me-1">
+                                <i class="fas fa-edit"></i> Chỉnh sửa
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.PostId" class="btn btn-sm btn-outline-danger">
+                                <i class="fas fa-trash"></i> Xóa
+                            </a>
+                        </div>
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
+        </div>
+    }
 </div>

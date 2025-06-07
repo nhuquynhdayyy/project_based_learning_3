@@ -15,10 +15,10 @@ html {
 
     
 main {
-    padding: 20px;
+    padding: 5px;
     max-width: 1400px;
     margin: 0 auto;
-    margin-top: 25px;
+    margin-top: 5px;
 }
 
 .profile-container {
@@ -253,7 +253,6 @@ main {
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
-    border-top: 1px solid #eee;
     margin-top: 15px;
 }
 
