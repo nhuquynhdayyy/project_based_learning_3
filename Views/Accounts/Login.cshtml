@@ -609,7 +609,8 @@
     <input type="hidden" name="Email" id="fbEmail" />
     <input type="hidden" name="FullName" id="fbFullName" />
     <input type="hidden" name="AccessToken" id="fbAccessToken" />
-    @Html.AntiForgeryToken()
+
+   <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
 </form>
 
 <!-- Form ẩn để gửi ID Token của Google lên server -->

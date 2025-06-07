@@ -1,124 +1,14 @@
-@* @model TourismWeb.Models.TouristSpot
-
-@{
-    ViewData["Title"] = "Thêm địa điểm du lịch mới";
-}
-
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <div class="card shadow-lg border-0 rounded-lg">
-                <div class="card-header bg-gradient-primary text-white">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-map-marker-alt me-3 fs-4"></i>
-                        <h3 class="mb-0">Thêm địa điểm du lịch mới</h3>
-                    </div>
-                </div>
-                <div class="card-body p-4">
-                    <form asp-action="Create" method="post" enctype="multipart/form-data">
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
-                        
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="mb-4">
-                                    <label asp-for="Name" class="form-label fw-bold">Tên địa điểm</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-signature"></i></span>
-                                        <input asp-for="Name" class="form-control" placeholder="Nhập tên địa điểm du lịch" />
-                                    </div>
-                                    <span asp-validation-for="Name" class="text-danger"></span>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <label asp-for="Address" class="form-label fw-bold">Địa chỉ</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
-                                        <input asp-for="Address" class="form-control" placeholder="Nhập địa chỉ chi tiết" />
-                                    </div>
-                                    <span asp-validation-for="Address" class="text-danger"></span>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <label asp-for="CategoryId" class="form-label fw-bold">Danh mục</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-tag"></i></span>
-                                        <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryList">
-                                            <option value="">-- Chọn danh mục --</option>
-                                        </select>
-                                    </div>
-                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                <div class="mb-4">
-                                    <label class="form-label fw-bold">Hình ảnh đại diện</label>
-                                    <div class="text-center mb-3">
-                                        <div class="image-preview-container border rounded p-2 mb-2" style="height: 200px; background-color: #f8f9fa;">
-                                            <img id="imagePreview" src="/images/default-spotImage.png" class="img-fluid" style="max-height: 100%; max-width: 100%; object-fit: contain;" />
-                                        </div>
-                                        <div class="d-grid">
-                                            <label for="imageUpload" class="btn btn-outline-primary">
-                                                <i class="fas fa-upload me-2"></i>Chọn ảnh
-                                            </label>
-                                            <input type="file" id="imageUpload" name="imageFile" class="d-none" accept="image/*" />
-                                            <input type="hidden" asp-for="ImageUrl" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label asp-for="Description" class="form-label fw-bold">Mô tả</label>
-                            <textarea asp-for="Description" class="form-control" rows="5" placeholder="Nhập mô tả chi tiết về địa điểm du lịch..."></textarea>
-                            <span asp-validation-for="Description" class="text-danger"></span>
-                        </div>
-                        
-                        <div class="row mt-4">
-                            <div class="col-md-6">
-                                <div class="d-grid">
-                                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
-                                        <i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary btn-lg">
-                                        <i class="fas fa-save me-2"></i>Tạo địa điểm
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        // Hiển thị ảnh xem trước khi người dùng chọn file
-        document.getElementById('imageUpload').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    document.getElementById('imagePreview').src = event.target.result;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
-} *@
 @model TourismWeb.Models.TouristSpot
 
 @{
     ViewData["Title"] = "Thêm địa điểm du lịch mới";
 }
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #4facfe, #00f2fe); /* bạn có thể đổi màu ở đây */
+    }
+</style>
 
 <div class="container py-5">
     <div class="row justify-content-center">

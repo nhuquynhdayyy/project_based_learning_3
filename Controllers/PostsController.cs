@@ -314,7 +314,6 @@ public async Task<IActionResult> Edit(int id,
         }
     }
 
-    // ✅ Xóa ảnh được chọn
     if (imagesToDelete != null)
     {
         foreach (var idStr in imagesToDelete)
@@ -332,7 +331,7 @@ public async Task<IActionResult> Edit(int id,
         }
     }
 
-    // ✅ Cập nhật trạng thái bài viết
+    
     if (isAdmin)
     {
         existingPost.Status = post.Status;

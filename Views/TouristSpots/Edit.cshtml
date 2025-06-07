@@ -4,24 +4,31 @@
     ViewData["Title"] = "Chỉnh sửa địa điểm du lịch";
 }
 
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #4facfe, #00f2fe); /* bạn có thể đổi màu ở đây */
+    }
+</style>
+
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="card shadow-lg border-0 rounded-lg">
                 <div class="card-header bg-gradient-primary text-white">
                     <div class="d-flex align-items-center">
-                        <i class="fas fa-edit me-3 fs-4"></i>
+                        <i class="fas fa-map-marker-alt me-3 fs-4"></i>
                         <h3 class="mb-0">Chỉnh sửa địa điểm du lịch</h3>
                     </div>
                 </div>
                 <div class="card-body p-4">
                     <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                        @Html.HiddenFor(model => model.SpotId)
+
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
-                        <input type="hidden" asp-for="SpotId" />
-                        
+
                         <div class="row">
                             <div class="col-md-8">
-                                <div class="mb-4">
+                                <div class="mb-3">
                                     <label asp-for="Name" class="form-label fw-bold">Tên địa điểm</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-signature"></i></span>
@@ -29,8 +36,8 @@
                                     </div>
                                     <span asp-validation-for="Name" class="text-danger"></span>
                                 </div>
-                                
-                                <div class="mb-4">
+
+                                <div class="mb-3">
                                     <label asp-for="Address" class="form-label fw-bold">Địa chỉ</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-map-pin"></i></span>
@@ -38,8 +45,8 @@
                                     </div>
                                     <span asp-validation-for="Address" class="text-danger"></span>
                                 </div>
-                                
-                                <div class="mb-4">
+
+                                <div class="mb-3">
                                     <label asp-for="CategoryId" class="form-label fw-bold">Danh mục</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-tag"></i></span>
@@ -50,43 +57,77 @@
                                     <span asp-validation-for="CategoryId" class="text-danger"></span>
                                 </div>
                             </div>
-                            
-                            <div class="col-md-4">
-                                <div class="mb-4">
-                                    <label class="form-label fw-bold">Hình ảnh đại diện</label>
-                                    <div class="text-center mb-3">
-                                        <div class="image-preview-container border rounded p-2 mb-2" style="height: 200px; background-color: #f8f9fa;">
-                                            <img id="imagePreview" src="@Model.ImageUrl" class="img-fluid" style="max-height: 100%; max-width: 100%; object-fit: contain;" />
-                                        </div>
-                                        <div class="d-grid">
-                                            <label for="imageUpload" class="btn btn-outline-primary">
-                                                <i class="fas fa-upload me-2"></i>Thay đổi ảnh
-                                            </label>
-                                            <input type="file" id="imageUpload" name="imageFile" class="d-none" accept="image/*" />
-                                            <input type="hidden" asp-for="ImageUrl" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+                            <div class="mb-4">
+    <label>Ảnh địa điểm</label>
+    <div class="row">
+        @foreach (var img in Model.Images)
+        {
+            <div class="col-3 mb-2 position-relative">
+                <img src="@img.ImageUrl" class="img-thumbnail" style="height:120px; object-fit:cover;" />
+                <div>
+                   <input type="checkbox" name="DeleteImageIds" value="@img.ImageId" /> Xóa
+                </div>
+            </div>
+        }
+    </div>
+    <label class="mt-2">Thêm ảnh mới</label>
+    <input type="file" name="NewImages" multiple class="form-control" accept="image/*" />
+</div>
+
                         </div>
-                        
-                        <div class="mb-4">
+
+                        <div class="mb-3">
                             <label asp-for="Description" class="form-label fw-bold">Mô tả</label>
-                            <textarea asp-for="Description" class="form-control" rows="5" placeholder="Nhập mô tả chi tiết về địa điểm du lịch..."></textarea>
+                            <textarea asp-for="Description" class="form-control" rows="5" placeholder="Nhập mô tả chi tiết..."></textarea>
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
-                        
-                        <div class="mb-4">
-                            <label asp-for="CreatedAt" class="form-label fw-bold">Ngày tạo</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                <input asp-for="CreatedAt" class="form-control" readonly />
+
+                        <hr class="my-4" />
+                        <h4 class="mb-3">Thông tin bổ sung</h4>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="IdealVisitTime" class="form-label fw-bold">Thời gian tham quan lý tưởng</label>
+                                <input asp-for="IdealVisitTime" class="form-control" placeholder="VD: Tháng 3 - Tháng 5" />
+                                <span asp-validation-for="IdealVisitTime" class="text-danger"></span>
                             </div>
-                            <span asp-validation-for="CreatedAt" class="text-danger"></span>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="AvailableServices" class="form-label fw-bold">Các dịch vụ có sẵn</label>
+                                <input asp-for="AvailableServices" class="form-control" placeholder="VD: Khách sạn, Nhà hàng..." />
+                                <span asp-validation-for="AvailableServices" class="text-danger"></span>
+                            </div>
                         </div>
-                        
-                        <div class="row mt-4">
-                            <div class="col-md-6">
+
+                        <div class="mb-3">
+                            <label asp-for="TravelTips" class="form-label fw-bold">Mẹo du lịch</label>
+                            <textarea asp-for="TravelTips" class="form-control" rows="3" placeholder="Mỗi mẹo một dòng..."></textarea>
+                            <span asp-validation-for="TravelTips" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="MapEmbedUrl" class="form-label fw-bold">URL nhúng bản đồ</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+                                    <input asp-for="MapEmbedUrl" type="url" class="form-control" placeholder="Thẻ src từ Google Maps iframe" />
+                                </div>
+                                <span asp-validation-for="MapEmbedUrl" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="VideoEmbedUrl" class="form-label fw-bold">URL nhúng video</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fab fa-youtube"></i></span>
+                                    <input asp-for="VideoEmbedUrl" type="url" class="form-control" placeholder="Thẻ src từ YouTube iframe" />
+                                </div>
+                                <span asp-validation-for="VideoEmbedUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4 pt-3 border-top">
+                            <div class="col-md-6 mb-2">
                                 <div class="d-grid">
                                     <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
                                         <i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
@@ -96,7 +137,7 @@
                             <div class="col-md-6">
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-primary btn-lg">
-                                        <i class="fas fa-save me-2"></i>Lưu thay đổi
+                                        <i class="fas fa-save me-2"></i>Cập nhật địa điểm
                                     </button>
                                 </div>
                             </div>
@@ -111,17 +152,40 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-        // Hiển thị ảnh xem trước khi người dùng chọn file
-        document.getElementById('imageUpload').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    document.getElementById('imagePreview').src = event.target.result;
+        document.addEventListener('DOMContentLoaded', function () {
+            const imageUploadInput = document.getElementById('imageUpload');
+            const imagePreview = document.getElementById('imagePreview');
+            const defaultImageUrl = "/images/default-spotImage.png";
+            const imageUrlInput = document.querySelector('input[name="ImageUrl"]');
+
+            imageUploadInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                const validationSpan = document.getElementById('imageFileValidation');
+                validationSpan.textContent = '';
+
+                if (file) {
+                    if (file.size > 5 * 1024 * 1024) {
+                        validationSpan.textContent = 'File quá lớn (tối đa 5MB).';
+                        imageUploadInput.value = '';
+                        imagePreview.src = imageUrlInput.value || defaultImageUrl;
+                        return;
+                    }
+                    const allowedExtensions = /\.(jpg|jpeg|png|gif)$/i;
+                    if (!allowedExtensions.exec(file.name)) {
+                        validationSpan.textContent = 'Chỉ chấp nhận định dạng ảnh: .jpg, .jpeg, .png, .gif.';
+                        imageUploadInput.value = '';
+                        imagePreview.src = imageUrlInput.value || defaultImageUrl;
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        imagePreview.src = event.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.src = imageUrlInput.value || defaultImageUrl;
                 }
-                reader.readAsDataURL(file);
-            }
+            });
         });
     </script>
 }
-

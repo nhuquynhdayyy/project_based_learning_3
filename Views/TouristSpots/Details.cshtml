@@ -33,22 +33,29 @@
             <div class="spot-meta">
                 <span class="category"><i class="fas fa-tag"></i> @Model.Category.Name</span>
                 <span class="rating">
-                    @for (int i = 0; i < 5; i++)
-                    {
-                        if (i < ViewBag.AverageRating)
-                        {
-                            <i class="fas fa-star"></i> <!-- Sao đầy -->
-                        }
-                        else if (i < ViewBag.AverageRating + 0.5)
-                        {
-                            <i class="fas fa-star-half-alt"></i> <!-- Sao nửa -->
-                        }
-                        else
-                        {
-                            <i class="far fa-star"></i> <!-- Sao rỗng -->
-                        }
-                    }
-                    <span>@ViewBag.AverageRating/5</span> (@(Model.Reviews?.Count ?? 0) đánh giá)
+                    @{
+    double avg = ViewBag.AverageRating ?? 0.0;
+    for (int i = 1; i <= 5; i++)
+    {
+        if (avg >= i)
+        {
+            <i class="fas fa-star"></i> // full star
+        }
+        else if (avg >= i - 0.5)
+        {
+            <i class="fas fa-star-half-alt"></i> // half star
+        }
+        else
+        {
+            <i class="far fa-star"></i> // empty star
+        }
+    }
+}
+
+                    <span>
+    @Math.Round((double)ViewBag.AverageRating, 1)/5 (@(ViewBag.TotalReviews ?? 0) đánh giá)
+</span>
+
                 </span>
 
             </div>
@@ -391,7 +398,7 @@ else
             }
 
             <div class="sidebar-widget">
-                <h3><i class="fas fa-map-signs"></i> Địa điểm lân cận</h3>
+                @* <h3><i class="fas fa-map-signs"></i> Địa điểm lân cận</h3>
                 <ul class="nearby-places">
                     @{
                         // Giả định rằng bạn có thể truy cập danh sách địa điểm lân cận từ ViewBag hoặc một nguồn khác
@@ -421,11 +428,11 @@ else
                             </li>
                         }
                     }
-                </ul>
+                </ul> *@
             </div>
 
             <div class="sidebar-widget">
-                <h3><i class="fas fa-book-open"></i> Cẩm nang du lịch</h3>
+                @* <h3><i class="fas fa-book-open"></i> Cẩm nang du lịch</h3>
                 <ul class="travel-guide-list">
                     <li>
                         <a href="#">
@@ -445,47 +452,7 @@ else
                             <span>Lịch trình 3 ngày khám phá @Model.Name</span>
                         </a>
                     </li>
-                </ul>
-            </div>
-
-            <div class="sidebar-widget">
-                <h3><i class="fas fa-hiking"></i> Trải nghiệm</h3>
-                <div class="experiences-list">
-                    @{
-                        // Giả định rằng bạn có thể truy cập danh sách trải nghiệm từ ViewBag hoặc một nguồn khác
-                        var experiences = ViewBag.Experiences as List<dynamic> ?? new List<dynamic>();
-                        
-                        if (experiences.Any())
-                        {
-                            foreach (var exp in experiences)
-                            {
-                                <div class="experience-item">
-                                    <img src="@exp.ImageUrl" alt="@exp.Title">
-                                    <div class="experience-info">
-                                        <h4>@exp.Title</h4>
-                                        <div class="experience-meta">
-                                            <span><i class="fas fa-star"></i> @exp.Rating</span>
-                                            <span><i class="fas fa-clock"></i> @exp.Duration</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        }
-                        else
-                        {
-                            <div class="experience-item">
-                                <img src="/images/bana.jpg" alt="Trải nghiệm">
-                                <div class="experience-info">
-                                    <h4>Khám phá @Model.Name</h4>
-                                    <div class="experience-meta">
-                                        <span><i class="fas fa-star"></i> 4.8</span>
-                                        <span><i class="fas fa-clock"></i> 1 ngày</span>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    }
-                </div>
+                </ul> *@
             </div>
         </aside>
     </div>
@@ -496,46 +463,55 @@ else
             <h2>Đánh giá (@(ViewBag.TotalReviews ?? 0))</h2>
             <div class="rating-summary">
                 <div class="average-rating">
-                    <span class="big-rating">@ViewBag.AverageRating</span>
-                    <div class="stars">
-                        @for (int i = 0; i < 5; i++)
-                        {
-                            if (i < ViewBag.AverageRating)
-                            {
-                                <i class="fas fa-star"></i> <!-- Sao đầy -->
-                            }
-                            else if (i < ViewBag.AverageRating + 0.5)
-                            {
-                                <i class="fas fa-star-half-alt"></i> <!-- Sao nửa -->
-                            }
-                            else
-                            {
-                                <i class="far fa-star"></i> <!-- Sao rỗng -->
-                            }
-                        }
-                    </div>
-                    <span>@ViewBag.AverageRating/5</span> (@(ViewBag.TotalReviews ?? 0) đánh giá)
+                    <span class="big-rating">@((ViewBag.AverageRating as double?)?.ToString("0.0") ?? "0")</span>
+@{
+    double avgStar = ViewBag.AverageRating ?? 0.0;
+    int fullStars = (int)Math.Floor(avgStar);
+    bool hasHalfStar = (avgStar - fullStars) >= 0.25 && (avgStar - fullStars) < 0.75;
+    int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+}
+<div class="stars">
+    @for (int i = 0; i < fullStars; i++) { <i class="fas fa-star"></i> }
+    @if (hasHalfStar) { <i class="fas fa-star-half-alt"></i> }
+    @for (int i = 0; i < emptyStars; i++) { <i class="far fa-star"></i> }
+</div>
+                   <span>@Math.Round((double)ViewBag.AverageRating, 1)/5</span> (@(ViewBag.TotalReviews ?? 0) đánh giá)
+
                 </div>
 
                 <div class="rating-bars">
-                    @for (int i = 0; i < 5; i++)
-                    {
-                        <div class="rating-bar">
-                            <span>@(5 - i) sao</span>
-                            <div class="bar-container">
-                                <div class="bar" style="width: @(ViewBag.RatingPercentages[i] ?? 0)%"></div>
-                            </div>
-                            <span>@(ViewBag.RatingCounts[i] ?? 0)</span>
-                        </div>
-                    }
+                    @for (int i = 4; i >= 0; i--)
+{
+    <div class="rating-bar">
+        <span>@(i + 1) sao</span>
+        <div class="bar-container">
+            <div class="bar" style="width: @(ViewBag.RatingPercentages[i] ?? 0)%"></div>
+        </div>
+        <span>@(ViewBag.RatingCounts[i] ?? 0)</span>
+    </div>
+}
+
                 </div>
             </div>
         </div>
 
 
         <div class="review-actions-bar">
-            <button class="btn primary" id="writeReviewBtn"><i class="fas fa-pen"></i> Viết đánh giá</button>
-            
+            @if (User.Identity.IsAuthenticated)
+{
+    <button class="btn primary" id="writeReviewBtn"><i class="fas fa-pen"></i> Viết đánh giá</button>
+}
+else
+{
+   <p>
+    Bạn cần 
+    <a href="@Url.Action("Login", "Accounts", new { ReturnUrl = Context.Request.Path })">
+        đăng nhập
+    </a> 
+    để viết đánh giá.
+</p>
+
+}
 
 
             <div class="review-filters">
@@ -558,6 +534,8 @@ else
         </div>
     
     <!-- Form đánh giá, mặc định ẩn -->
+    @if (User.Identity.IsAuthenticated)
+{
             <div id="reviewForm" style="display:none;">
                 <h3>Viết đánh giá cho địa điểm</h3>
 
@@ -590,6 +568,7 @@ else
                     <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
                 </form>
             </div>
+}
 
 
         <div class="reviews-list">
@@ -633,25 +612,20 @@ else
                                 </div>
                             }
                             <div class="review-actions">
-                                <button class="like-btn"><i class="far fa-thumbs-up"></i> Hữu ích </button> 
-                                <button class="reply-btn"><i class="far fa-comment"></i> Phản hồi</button>
-                            </div>
+    @* <button class="like-btn"><i class="far fa-thumbs-up"></i> Hữu ích</button>
+    <button class="reply-btn"><i class="far fa-comment"></i> Phản hồi</button> *@
+    <a asp-controller="Report" asp-action="Create" 
+        asp-route-targetType="Review"
+        asp-route-targetId="@review.ReviewId"
+        asp-route-reportedUserId="@review.User.UserId"
+        class="btn btn-outline-danger btn-sm ms-2"
+        title="Báo cáo vi phạm">
+        <i class="fas fa-flag"></i> Báo cáo
+    </a>
+</div>
+
                         </div>
                     </div>
-                    <a asp-controller="Report" asp-action="Create" 
-            asp-route-targetType="Review" 
-            asp-route-targetId="@review.ReviewId"
-            asp-route-reportedUserId="@review.User.UserId"
-            class="btn btn-sm btn-warning">
-                Báo cáo
-            </a>
-            <a asp-controller="Report" asp-action="Create" 
-            asp-route-targetType="User" 
-            asp-route-targetId="@review.User.UserId"
-            asp-route-reportedUserId="@review.User.UserId"
-            class="btn btn-sm btn-warning">
-                Báo cáo người dùng
-            </a>
                 }
             }
             else
@@ -972,4 +946,22 @@ else
     transition: opacity 0.3s ease;
 ">
     🔗 Đã sao chép liên kết!
+
 </div>
+<style>
+    .bar-container {
+        width: 120px;
+        background: #eee;
+        border-radius: 6px;
+        margin: 0 8px;
+        display: inline-block;
+        height: 8px;
+        vertical-align: middle;
+    }
+    .bar {
+        background: #ffc107;
+        height: 8px;
+        border-radius: 6px;
+        transition: width 0.3s;
+    }
+</style>

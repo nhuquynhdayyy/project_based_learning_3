@@ -200,7 +200,13 @@ namespace TourismWeb.Controllers
             await SignInUser(user, RememberMe);
             Console.WriteLine($"Login POST: User '{user.Username}' signed in.");
 
-            return RedirectToLocal(ViewData["ReturnUrl"]?.ToString());
+           if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+{
+    return Redirect(returnUrl);
+}
+
+return RedirectToAction("Index", "Home");
+
         }
 
         // ============================================================

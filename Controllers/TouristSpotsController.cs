@@ -14,6 +14,7 @@ using System.Net.Http; // Required for HttpClient
 using System.Text.Json; // Required for System.Text.Json
 using Microsoft.Extensions.Configuration; // Required for IConfiguration
 using TourismWeb.Models.Weather; // Namespace cho Weather DTOs
+using Microsoft.AspNetCore.Authorization;
 
 namespace TourismWeb.Controllers
 {
@@ -196,7 +197,7 @@ namespace TourismWeb.Controllers
 
         // Action mới để xử lý AJAX Toggle Favorite
     [HttpPost]
-    // [ValidateAntiForgeryToken] // Quan trọng nếu bạn gửi token từ client
+   [Authorize]
     public async Task<IActionResult> ToggleFavoriteSpot(int spotId)
     {
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
@@ -380,9 +381,10 @@ namespace TourismWeb.Controllers
             return query;
         }
 
-       
+
         // GET: TouristSpots/Create
         [HttpGet]
+         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewBag.CategoryList = new SelectList(_context.Categories, "CategoryId", "Name");
@@ -393,185 +395,171 @@ namespace TourismWeb.Controllers
         // POST: TouristSpots/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(TouristSpot touristSpot, List<IFormFile> imageFiles)
-{
-    var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-    if (string.IsNullOrEmpty(currentUserId))
-    {
-        ModelState.AddModelError("", "Không xác định được người dùng.");
-        return View(touristSpot);
-    }
-
-    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "spots");
-    if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
-
-    if (imageFiles != null && imageFiles.Count > 0)
-    {
-        foreach (var file in imageFiles)
         {
-            if (file.Length > 0)
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(currentUserId))
             {
-                string fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
-                string filePath = Path.Combine(uploadsFolder, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-
-                if (string.IsNullOrEmpty(touristSpot.ImageUrl) || touristSpot.ImageUrl == "/images/default-spotImage.png")
-                {
-                    touristSpot.ImageUrl = "/images/spots/" + fileName;
-                }
-
-                touristSpot.Images.Add(new SpotImage
-                {
-                    ImageUrl = "/images/spots/" + fileName,
-                    UploadedAt = DateTime.Now,
-                    UploadedBy = int.Parse(currentUserId)
-                });
+                ModelState.AddModelError("", "Không xác định được người dùng.");
+                return View(touristSpot);
             }
+
+            string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "spots");
+            if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+
+            if (imageFiles != null && imageFiles.Count > 0)
+            {
+                foreach (var file in imageFiles)
+                {
+                    if (file.Length > 0)
+                    {
+                        string fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+                        string filePath = Path.Combine(uploadsFolder, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+
+                        if (string.IsNullOrEmpty(touristSpot.ImageUrl) || touristSpot.ImageUrl == "/images/default-spotImage.png")
+                        {
+                            touristSpot.ImageUrl = "/images/spots/" + fileName;
+                        }
+
+                        touristSpot.Images.Add(new SpotImage
+                        {
+                            ImageUrl = "/images/spots/" + fileName,
+                            UploadedAt = DateTime.Now,
+                            UploadedBy = int.Parse(currentUserId)
+                        });
+                    }
+                }
+            }
+            else if (string.IsNullOrEmpty(touristSpot.ImageUrl))
+            {
+                touristSpot.ImageUrl = "/images/default-spotImage.png";
+            }
+
+            touristSpot.CreatedAt = DateTime.Now;
+            touristSpot.CreatorUserId = int.Parse(currentUserId);
+
+            _context.Add(touristSpot);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
-    }
-    else if (string.IsNullOrEmpty(touristSpot.ImageUrl))
-    {
-        touristSpot.ImageUrl = "/images/default-spotImage.png";
-    }
-
-    touristSpot.CreatedAt = DateTime.Now;
-    touristSpot.CreatorUserId = int.Parse(currentUserId);
-
-    _context.Add(touristSpot);
-    await _context.SaveChangesAsync();
-
-    return RedirectToAction(nameof(Index));
-}
 
 
 
-        // GET: TouristSpots/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // Sửa lại action GET: TouristSpots/Edit/5
+         [HttpGet]
+        [Authorize(Roles = "Admin")]
+public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var touristSpot = await _context.TouristSpots.FindAsync(id);
-            if (touristSpot == null)
-            {
-                return NotFound();
-            }
+            var touristSpot = await _context.TouristSpots
+                .Include(t => t.Images) // lấy luôn gallery ảnh
+                .FirstOrDefaultAsync(t => t.SpotId == id);
+
+            if (touristSpot == null) return NotFound();
+
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpot.CategoryId);
-            return View(touristSpot);
+            return View(touristSpot); // truyền model kèm list ảnh
         }
-
        
 [HttpPost]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> Edit(int id, [Bind("SpotId,Name,Address,CategoryId,Description,ImageUrl")] TouristSpot touristSpotFromForm, IFormFile imageFile)
+        [ValidateAntiForgeryToken]
+ [Authorize(Roles = "Admin")]
+public async Task<IActionResult> Edit(int id, TouristSpot touristSpotFromForm, 
+    [FromForm] List<int> DeleteImageIds, [FromForm] List<IFormFile> NewImages)
 {
-    if (id != touristSpotFromForm.SpotId)
-    {
-        return NotFound();
-    }
+    if (id != touristSpotFromForm.SpotId) return NotFound();
 
-    // Luôn chuẩn bị lại ViewData cho DropDownList
     ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", touristSpotFromForm.CategoryId);
 
     if (ModelState.IsValid)
     {
         try
         {
-            var touristSpotToUpdate = await _context.TouristSpots.FindAsync(id);
+            var spot = await _context.TouristSpots
+                .Include(t => t.Images)
+                .FirstOrDefaultAsync(t => t.SpotId == id);
 
-            if (touristSpotToUpdate == null)
+            if (spot == null) return NotFound();
+
+            // Update thông tin cơ bản
+            spot.Name = touristSpotFromForm.Name;
+            spot.Address = touristSpotFromForm.Address;
+            spot.CategoryId = touristSpotFromForm.CategoryId;
+            spot.Description = touristSpotFromForm.Description;
+
+            // XÓA các ảnh đã chọn
+            if (DeleteImageIds != null)
             {
-                // Log hoặc debug ở đây để xem tại sao không tìm thấy
-                // _logger.LogWarning($"TouristSpot with id {id} not found for update.");
-                return NotFound();
+                // Sửa lại đoạn này:
+var imagesToDelete = spot.Images.Where(img => DeleteImageIds.Contains(img.ImageId)).ToList();
+                foreach (var img in imagesToDelete)
+                {
+                    // Xóa file vật lý
+                    if (!string.IsNullOrEmpty(img.ImageUrl) && !img.ImageUrl.Contains("default-spotImage.png"))
+                    {
+                        var filePath = Path.Combine(_webHostEnvironment.WebRootPath, img.ImageUrl.TrimStart('/'));
+                        if (System.IO.File.Exists(filePath))
+                            System.IO.File.Delete(filePath);
+                    }
+                    // Xóa DB
+                    _context.SpotImages.Remove(img);
+                }
             }
 
-            // Gán các giá trị từ form vào thực thể đã tải từ DB
-            touristSpotToUpdate.Name = touristSpotFromForm.Name;
-            touristSpotToUpdate.Address = touristSpotFromForm.Address;
-            touristSpotToUpdate.CategoryId = touristSpotFromForm.CategoryId;
-            touristSpotToUpdate.Description = touristSpotFromForm.Description;
-            // KHÔNG CẬP NHẬT CreatedAt
-            // ImageUrl sẽ được xử lý bên dưới
+            // THÊM các ảnh mới
+            if (NewImages != null && NewImages.Count > 0)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "spots");
+                if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
 
-            // Xử lý tải lên hình ảnh mới nếu có
-            if (imageFile != null && imageFile.Length > 0)
-            {
-                // ... (toàn bộ code xử lý imageFile như đã cung cấp)
-                // ... (bao gồm xóa ảnh cũ và cập nhật touristSpotToUpdate.ImageUrl)
-                // Tạo tên file duy nhất để tránh trùng lặp
-                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-                 // Đường dẫn lưu file (trong thư mục wwwroot/images)
-                 string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
-                 // Đảm bảo thư mục tồn tại
-                 if (!Directory.Exists(uploadsFolder))
-                 {
-                     Directory.CreateDirectory(uploadsFolder);
-                 }
-                 string filePath = Path.Combine(uploadsFolder, fileName);
-                 // Lưu file vào thư mục
-                 using (var fileStream = new FileStream(filePath, FileMode.Create))
-                 {
-                     await imageFile.CopyToAsync(fileStream);
-                 }
-                 // Xóa ảnh cũ nếu không phải ảnh mặc định
-                 var oldImagePathFromDb = touristSpotToUpdate.ImageUrl; // Lấy từ thực thể đang theo dõi
-                 if (!string.IsNullOrEmpty(oldImagePathFromDb) && !oldImagePathFromDb.Contains("default-spotImage.png"))
-                 {
-                     var oldFilePath = Path.Combine(_webHostEnvironment.WebRootPath, oldImagePathFromDb.TrimStart('/'));
-                     if (System.IO.File.Exists(oldFilePath))
-                     {
-                         System.IO.File.Delete(oldFilePath);
-                     }
-                 }
-                 // Cập nhật đường dẫn ảnh mới trong model
-                 touristSpotToUpdate.ImageUrl = "/images/" + fileName;
-            }
-            else
-            {
-                // Nếu không có file ảnh mới, đảm bảo ImageUrl được giữ nguyên từ giá trị đã có trong form
-                // (hoặc giá trị đã được tải vào touristSpotToUpdate nếu bạn không muốn nó thay đổi từ hidden input)
-                // Với hidden input asp-for="ImageUrl", touristSpotFromForm.ImageUrl sẽ chứa URL hiện tại.
-                touristSpotToUpdate.ImageUrl = touristSpotFromForm.ImageUrl;
+                var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                foreach (var file in NewImages)
+                {
+                    if (file.Length > 0)
+                    {
+                        string fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+                        string filePath = Path.Combine(uploadsFolder, fileName);
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        spot.Images.Add(new SpotImage
+                        {
+                            ImageUrl = "/images/spots/" + fileName,
+                            UploadedAt = DateTime.Now,
+                            UploadedBy = int.Parse(currentUserId)
+                        });
+                    }
+                }
             }
 
-            // EF Core tự động theo dõi thay đổi trên touristSpotToUpdate
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
         catch (DbUpdateConcurrencyException)
         {
             if (!TouristSpotExists(touristSpotFromForm.SpotId))
-            {
                 return NotFound();
-            }
             else
-            {
                 throw;
-            }
-        }
-        // Bắt các exception khác nếu cần để debug
-        catch (Exception ex)
-        {
-            // Log lỗi này
-            // _logger.LogError(ex, "Error saving tourist spot.");
-            ModelState.AddModelError("", "Có lỗi xảy ra khi lưu. Vui lòng thử lại.");
-            // Trả về view với model từ form để người dùng không mất dữ liệu đã nhập
-            return View(touristSpotFromForm);
         }
     }
-
-    // Nếu ModelState không hợp lệ, trả về view với model từ form
+    // Nếu ModelState không hợp lệ
     return View(touristSpotFromForm);
 }
 
+
         // GET: TouristSpots/Delete/5
+          [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -593,7 +581,7 @@ public async Task<IActionResult> Edit(int id, [Bind("SpotId,Name,Address,Categor
         // POST: TouristSpots/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [Authorize(Roles = "Admin")]        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var touristSpot = await _context.TouristSpots.FindAsync(id);
             if (touristSpot != null)
