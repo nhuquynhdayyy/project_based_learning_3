@@ -1,7 +1,6 @@
 @model TourismWeb.Models.TouristSpot
 @using Microsoft.AspNetCore.Antiforgery
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
-@inject IAntiforgery AntiForgery
 @Html.AntiForgeryToken()
 
 @{
@@ -10,23 +9,63 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/css/spotLayout.css" asp-append-version="true" />
+    <style>
+        .lightbox { display: none; position: fixed; z-index: 9999; padding-top: 50px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); }
+        .lightbox-content { margin: auto; display: block; max-width: 80%; max-height: 80%; }
+        .lightbox-caption { margin: auto; display: block; width: 80%; max-width: 700px; text-align: center; color: #ccc; padding: 10px 0; height: 50px; }
+        .close-lightbox { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; transition: 0.3s; }
+        .close-lightbox:hover, .close-lightbox:focus { color: #bbb; text-decoration: none; cursor: pointer; }
+        #newReviewFormContainer { border: 1px solid #ddd; padding: 20px; margin-top: 15px; border-radius: 5px; background-color: #f9f9f9; }
+        .star-rating-input .fa-star { cursor: pointer; color: #ccc; font-size: 1.5em; margin-right: 5px;}
+        .star-rating-input .fa-star.fas { color: #ffc107; }
+        .btn-upload-image-label { display: inline-block; padding: 8px 12px; cursor: pointer; background-color: #007bff; color: white; border-radius: 4px; border: 1px solid #007bff; }
+        .btn-upload-image-label:hover { background-color: #0056b3; }
+        #reviewFileName { margin-left: 10px; font-style: italic; }
+        .review-actions-bar { display: flex; justify-content: space-between; align-items: center; margin: 20px 0; padding: 10px; background-color: #f8f9fa; border-radius: 5px; }
+        .review-filters select { padding: 8px; border-radius: 4px; border: 1px solid #ced4da; margin-right: 10px; }
+        .filter-buttons .filter-btn { margin-left: 5px; padding: 8px 12px; }
+        .filter-buttons .filter-btn.active { background-color: #007bff; color: white; }
+        .report-review-btn-new { color: #dc3545; font-size: 0.9em; text-decoration: none; opacity: 0.7; }
+        .report-review-btn-new:hover { opacity: 1; text-decoration: underline; }
+        .review-item-side-actions { margin-left: auto; padding-left: 15px; text-align: right; }
+        .review-item { display: flex; justify-content: space-between; }
+        .review-main-content { flex-grow: 1; }
+    </style>
 }
 
 @{
     var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
     var userId = userIdClaim != null ? int.Parse(userIdClaim.Value) : 0;
     var isFavorited = Model.Favorites?.Any(f => f.UserId == userId) == true;
+    var recentReviewsToShow = 2;
+    var reviewsPerPageForInitialLoad = 3; // Số review tải ban đầu cho danh sách chính
+    var totalReviewsCount = Model.Reviews?.Count() ?? 0;
+    var reviewsForMainListInitial = Model.Reviews != null
+        ? Model.Reviews.OrderByDescending(r => r.CreatedAt).Skip(recentReviewsToShow).Take(reviewsPerPageForInitialLoad)
+        : Enumerable.Empty<TourismWeb.Models.Review>();
+}
+
+@functions {
+    public string GetTimeAgo(DateTime dateTime)
+    {
+        TimeSpan timeDiff = DateTime.Now - dateTime;
+        if (timeDiff.TotalDays >= 365) return $"{(int)(timeDiff.TotalDays / 365)} năm trước";
+        if (timeDiff.TotalDays >= 30) return $"{(int)(timeDiff.TotalDays / 30)} tháng trước";
+        if (timeDiff.TotalDays >= 7) return $"{(int)(timeDiff.TotalDays / 7)} tuần trước";
+        if (timeDiff.TotalDays > 1) return $"{(int)timeDiff.TotalDays} ngày trước";
+        if (timeDiff.TotalHours > 1) return $"{(int)timeDiff.TotalHours} giờ trước";
+        if (timeDiff.TotalMinutes > 1) return $"{(int)timeDiff.TotalMinutes} phút trước";
+        return "Vừa xong";
+    }
 }
 
 <div class="breadcrumb container">
-    <a asp-controller="Home" asp-action="Index">Trang chủ</a> &gt;
-    <a asp-action="Index">Địa điểm du lịch</a> &gt;
+    <a asp-controller="Home" asp-action="Index">Trang chủ</a> >
+    <a asp-action="Index">Địa điểm du lịch</a> >
     <span>@Model.Name</span>
 </div>
 
-<!-- Main Content -->
 <main class="container">
-    <!-- Spot Header -->
     <section class="spot-header">
         <div class="spot-title">
             <h1>@Model.Name</h1>
@@ -35,61 +74,38 @@
                 <span class="rating">
                     @for (int i = 0; i < 5; i++)
                     {
-                        if (i < ViewBag.AverageRating)
-                        {
-                            <i class="fas fa-star"></i> <!-- Sao đầy -->
-                        }
-                        else if (i < ViewBag.AverageRating + 0.5)
-                        {
-                            <i class="fas fa-star-half-alt"></i> <!-- Sao nửa -->
-                        }
-                        else
-                        {
-                            <i class="far fa-star"></i> <!-- Sao rỗng -->
-                        }
+                        if (i < ViewBag.AverageRating) { <i class="fas fa-star"></i>; }
+                        else if (ViewBag.AverageRating > i && ViewBag.AverageRating < i + 1) { <i class="fas fa-star-half-alt"></i>; }
+                        else { <i class="far fa-star"></i>; }
                     }
-                    <span>@ViewBag.AverageRating/5</span> (@(Model.Reviews?.Count ?? 0) đánh giá)
+                    <span>@string.Format("{0:0.0}", ViewBag.AverageRating)/5</span> (@totalReviewsCount đánh giá)
                 </span>
-
             </div>
         </div>
         <div class="spot-actions">
-            <a asp-controller="Report" asp-action="Create" 
-            asp-route-targetType="Spot" 
-            asp-route-targetId="@Model.SpotId"
-            asp-route-reportedUserId="@Model.CreatorUserId"
-            class="btn btn-sm btn-warning">
-                Báo cáo
-            </a>
-            <!-- Nút Yêu thích -->
+            <a asp-controller="Report" asp-action="Create"
+               asp-route-targetType="Spot"
+               asp-route-targetId="@Model.SpotId"
+               asp-route-reportedUserId="@Model.CreatorUserId"
+               class="btn btn-sm btn-warning">Báo cáo</a>
             <button class="btn favorite @(isFavorited ? "active" : "")" id="favoriteBtn" data-spot-id="@Model.SpotId">
                 <i class="@(isFavorited ? "fas" : "far") fa-heart"></i> @(isFavorited ? "Đã yêu thích" : "Yêu thích")
             </button>
             <div class="share-dropdown">
                 <button class="btn share"><i class="fas fa-share-alt"></i> Chia sẻ</button>
                 <div class="share-options">
-                    <a href="#" class="share-btn" data-platform="Facebook" data-spot-id="@Model.SpotId">
-                        <i class="fab fa-facebook-f"></i> Facebook
-                    </a>
-                    <a href="#" class="share-btn" data-platform="Twitter" data-spot-id="@Model.SpotId">
-                        <i class="fab fa-twitter"></i> Twitter
-                    </a>
-                    <a href="#" class="share-btn" data-platform="Email" data-spot-id="@Model.SpotId">
-                        <i class="fas fa-envelope"></i> Email
-                    </a>
-                    <a href="#" class="copy-link">
-                        <i class="fas fa-link"></i> Sao chép liên kết
-                    </a>
+                    <a href="#" class="share-btn" data-platform="Facebook" data-spot-id="@Model.SpotId"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="#" class="share-btn" data-platform="Twitter" data-spot-id="@Model.SpotId"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="#" class="share-btn" data-platform="Email" data-spot-id="@Model.SpotId"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="#" class="copy-link"><i class="fas fa-link"></i> Sao chép liên kết</a>
                 </div>
-                <input type="hidden" name="__RequestVerificationToken" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
             </div>
         </div>
     </section>
 
-    <!-- Spot Gallery -->
     <section class="spot-gallery">
         <div class="main-image">
-            <img src="@Model.ImageUrl" alt="@Model.Name">
+            <img src="@(Model.ImageUrl ?? "/images/default-spotImage.png")" alt="@Model.Name">
         </div>
         <div class="thumbnail-container">
             <div class="thumbnails">
@@ -97,76 +113,61 @@
                 {
                     foreach (var image in Model.Images.Take(6))
                     {
-                        <img src="@image.ImageUrl" alt="@Model.Name" onclick="changeMainImage(this.src)">
+                        <img src="@image.ImageUrl" alt="@Model.Name thumbnail" onclick="changeMainImage(this.src)">
                     }
                 }
                 else if (!string.IsNullOrEmpty(Model.ImageUrl) && Model.ImageUrl != "/images/default-spotImage.png")
-{
-    <img src="@Model.ImageUrl" alt="@Model.Name" onclick="changeMainImage(this.src)">
-}
-else
-{
-    <img src="/images/default-spotImage.png" alt="Ảnh mặc định">
-}
-
+                {
+                     <img src="@Model.ImageUrl" alt="@Model.Name" onclick="changeMainImage(this.src)">
+                }
+                else
+                {
+                    <img src="/images/default-spotImage.png" alt="Ảnh mặc định">
+                }
             </div>
-            <button class="gallery-btn" id="viewAllPhotos">
-                <i class="fas fa-images"></i> Có tất cả (@(Model.Images?.Count ?? 1)) ảnh
+            <button class="gallery-btn" id="viewAllPhotosBtn">
+                <i class="fas fa-images"></i> Có tất cả (@(Model.Images?.Count ?? (string.IsNullOrEmpty(Model.ImageUrl) || Model.ImageUrl == "/images/default-spotImage.png" ? 0 : 1) )) ảnh
             </button>
         </div>
     </section>
 
-    <!-- Spot Details -->
     <div class="spot-content">
         <div class="spot-info">
             @if (!string.IsNullOrEmpty(Model.Description))
             {
                 <section class="spot-description mb-4 card">
                     <div class="card-header"><h2><i class="fas fa-info-circle me-2"></i>Giới thiệu</h2></div>
-                    <div class="card-body">
-                        @Html.Raw(Model.Description.Replace("\n", "<br />"))
-                    </div>
+                    <div class="card-body">@Html.Raw(Model.Description.Replace("\n", "<br />"))</div>
                 </section>
             }
 
-            <section class="spot-details-info">
-                <h2>Thông tin chi tiết</h2>
-                <div class="details-grid">
-                    <div class="detail-item">
-                        <i class="fas fa-map-marker-alt fa-fw text-primary"></i>
-                        <div>
-                            <h3>Địa chỉ</h3>
-                            <p>@Model.Address</p>
+            <section class="spot-details-info  mb-4 card">
+                 <div class="card-header"><h2><i class="fas fa-info-circle me-2"></i>Thông tin chi tiết</h2></div>
+                <div class="card-body">
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt fa-fw text-primary"></i>
+                            <div><h3>Địa chỉ</h3><p>@Model.Address</p></div>
                         </div>
-                    </div>
-                    @if (!string.IsNullOrEmpty(Model.IdealVisitTime))
+                        @if (!string.IsNullOrEmpty(Model.IdealVisitTime))
                         {
                             <div class="detail-item">
                                 <i class="fas fa-clock fa-fw text-primary"></i>
-                                <div>
-                                    <h3>Thời gian tham quan lý tưởng</h3>
-                                    <p>@Model.IdealVisitTime</p>
-                                </div>
+                                <div><h3>Thời gian tham quan lý tưởng</h3><p>@Model.IdealVisitTime</p></div>
                             </div>
                         }
-                    <div class="detail-item">
-                        <i class="fas fa-calendar fa-fw text-primary"></i>
-                        <div>
-                            <h3>Ngày tạo</h3>
-                            <p>@Model.CreatedAt.ToString("dd/MM/yyyy")</p>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar fa-fw text-primary"></i>
+                            <div><h3>Ngày tạo</h3><p>@Model.CreatedAt.ToString("dd/MM/yyyy")</p></div>
                         </div>
-                    </div>
-                    
                         @if (!string.IsNullOrEmpty(Model.AvailableServices))
                         {
                             <div class="detail-item">
                                 <i class="fas fa-concierge-bell fa-fw text-primary"></i>
-                                <div>
-                                    <h3>Dịch vụ có sẵn</h3>
-                                    <p>@Model.AvailableServices</p>
-                                </div>
+                                <div><h3>Dịch vụ có sẵn</h3><p>@Model.AvailableServices</p></div>
                             </div>
                         }
+                    </div>
                 </div>
             </section>
 
@@ -176,12 +177,7 @@ else
                     <div class="card-header"><h2><i class="fas fa-map-marked-alt me-2"></i>Bản đồ</h2></div>
                     <div class="card-body">
                         <div class="map-container">
-                            <iframe src="@Model.MapEmbedUrl"
-                                    style="border:0;"
-                                    allowfullscreen=""
-                                    loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
+                            <iframe src="@Model.MapEmbedUrl" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </section>
@@ -189,83 +185,59 @@ else
 
             @if (Model.Images != null && Model.Images.Count > 6)
             {
-                <section class="spot-gallery-extended">
-                    <h2>Bộ sưu tập hình ảnh</h2>
-                    <div class="gallery-grid">
-                        @foreach (var image in Model.Images.Skip(6))
-                        {
-                            <div class="gallery-item">
-                                <img src="@image.ImageUrl" alt="@Model.Name" onclick="openLightbox(this.src)">
-                            </div>
-                        }
+                <section class="spot-gallery-extended mb-4 card">
+                    <div class="card-header"><h2><i class="fas fa-images me-2"></i>Bộ sưu tập hình ảnh</h2></div>
+                     <div class="card-body">
+                        <div class="gallery-grid">
+                            @foreach (var image in Model.Images.Skip(6))
+                            {
+                                <div class="gallery-item">
+                                    <img src="@image.ImageUrl" alt="@Model.Name" onclick="openLightbox(this.src, '@Model.Name')">
+                                </div>
+                            }
+                        </div>
                     </div>
                 </section>
             }
-
         </div>
 
         <aside class="spot-sidebar">
-<div class="sidebar-widget card mb-3">
-    <div class="card-header"><h3 class="h5 mb-0"><i class="fas fa-cloud-sun me-2"></i>Thời tiết</h3></div>
-    <div class="card-body">
-        @{
-            var weatherInfo = ViewBag.WeatherInfo as TourismWeb.Models.Weather.WeatherViewModel;
-        }
-        @if (weatherInfo != null && string.IsNullOrEmpty(weatherInfo.ErrorMessage))
-        {
-            <div class="weather-info">
-                <h5 class="text-center mb-2">@weatherInfo.CityName</h5>
-                <div class="current-weather d-flex align-items-center mb-2">
-                    @if (!string.IsNullOrEmpty(weatherInfo.IconUrl))
+            <div class="sidebar-widget card mb-3">
+                <div class="card-header"><h3 class="h5 mb-0"><i class="fas fa-cloud-sun me-2"></i>Thời tiết</h3></div>
+                <div class="card-body">
+                    @{ var weatherInfo = ViewBag.WeatherInfo as TourismWeb.Models.Weather.WeatherViewModel; }
+                    @if (weatherInfo != null && string.IsNullOrEmpty(weatherInfo.ErrorMessage))
                     {
-                        <img src="@weatherInfo.IconUrl" alt="@weatherInfo.Description" class="me-3" style="width: 50px; height: 50px;"/>
+                        <div class="weather-info">
+                            <h5 class="text-center mb-2">@weatherInfo.CityName</h5>
+                            <div class="current-weather d-flex align-items-center mb-2">
+                                @if (!string.IsNullOrEmpty(weatherInfo.IconUrl))
+                                { <img src="@weatherInfo.IconUrl" alt="@weatherInfo.Description" class="me-3" style="width: 50px; height: 50px;" />; }
+                                else
+                                { <i class="fas fa-question-circle fs-2 text-muted me-3"></i>; }
+                                <div>
+                                    <span class="temperature fs-4 fw-bold">@weatherInfo.TemperatureCelsius°C</span><br />
+                                    <span class="condition text-muted text-capitalize">@weatherInfo.Description</span>
+                                </div>
+                            </div>
+                            <div class="extra-weather-details">
+                                <small class="d-block"><i class="fas fa-tint me-1"></i> Độ ẩm: @weatherInfo.Humidity%</small>
+                                <small class="d-block"><i class="fas fa-wind me-1"></i> Gió: @weatherInfo.WindSpeed m/s</small>
+                            </div>
+                        </div>
                     }
+                    else if (weatherInfo != null && !string.IsNullOrEmpty(weatherInfo.ErrorMessage))
+                    { <div class="alert alert-warning" role="alert"><i class="fas fa-exclamation-triangle me-1"></i> @weatherInfo.ErrorMessage</div>; }
                     else
-                    {
-                        <i class="fas fa-question-circle fs-2 text-muted me-3"></i> <!-- Fallback icon -->
-                    }
-                    <div>
-                        <span class="temperature fs-4 fw-bold">@weatherInfo.TemperatureCelsius°C</span><br/>
-                        <span class="condition text-muted text-capitalize">@weatherInfo.Description</span>
-                    </div>
+                    { <p class="text-muted">Không có thông tin thời tiết.</p>; }
                 </div>
-                <div class="extra-weather-details">
-                    <small class="d-block"><i class="fas fa-tint me-1"></i> Độ ẩm: @weatherInfo.Humidity%</small>
-                    <small class="d-block"><i class="fas fa-wind me-1"></i> Gió: @weatherInfo.WindSpeed m/s</small>
-                </div>
-                @* 
-                // Phần dự báo các ngày tới sẽ phức tạp hơn, 
-                // API thời tiết hiện tại (current weather) không cung cấp trực tiếp.
-                // Bạn cần gọi API khác của OpenWeatherMap (VD: One Call API - có thể tốn phí) 
-                // hoặc một API dự báo 3-5 ngày.
-                <div class="forecast d-flex justify-content-between mt-3 border-top pt-2">
-                    <div class="forecast-day text-center"><small>T2</small><br/><i class="fas fa-cloud-sun"></i><br/><small>29°</small></div>
-                    <div class="forecast-day text-center"><small>T3</small><br/><i class="fas fa-cloud"></i><br/><small>28°</small></div>
-                    <div class="forecast-day text-center"><small>T4</small><br/><i class="fas fa-sun"></i><br/><small>31°</small></div>
-                </div>
-                *@
             </div>
-        }
-        else if (weatherInfo != null && !string.IsNullOrEmpty(weatherInfo.ErrorMessage))
-        {
-            <div class="alert alert-warning" role="alert">
-                <i class="fas fa-exclamation-triangle me-1"></i> @weatherInfo.ErrorMessage
-            </div>
-        }
-        else
-        {
-            <p class="text-muted">Không có thông tin thời tiết.</p>
-        }
-    </div>
-</div>
 
             @if (!string.IsNullOrEmpty(Model.IdealVisitTime))
             {
                 <div class="sidebar-widget card mb-3">
                     <div class="card-header"><h3 class="h5 mb-0"><i class="fas fa-calendar-check me-2"></i>Thời điểm tốt nhất</h3></div>
-                    <div class="card-body">
-                        <p>@Model.IdealVisitTime là thời điểm lý tưởng để thăm @Model.Name.</p>
-                    </div>
+                    <div class="card-body"><p>@Model.IdealVisitTime là thời điểm lý tưởng để thăm @Model.Name.</p></div>
                 </div>
             }
 
@@ -276,9 +248,7 @@ else
                     <div class="card-body">
                         <ul class="tips-list list-unstyled ps-0 mb-0">
                             @foreach (var tip in Model.TravelTips.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
-                            {
-                                <li><i class="fas fa-check-circle text-success me-2"></i>@tip</li>
-                            }
+                            { <li><i class="fas fa-check-circle text-success me-2"></i>@tip</li>; }
                         </ul>
                     </div>
                 </div>
@@ -290,12 +260,7 @@ else
                     <div class="card-body">
                         <div class="videos-container">
                             <div class="video-item">
-                                <iframe src="@Model.VideoEmbedUrl"
-                                        title="Video về @Model.Name"
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen>
-                                </iframe>
+                                <iframe src="@Model.VideoEmbedUrl" title="Video về @Model.Name" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
@@ -304,466 +269,525 @@ else
         </aside>
     </div>
 
-    <!-- Reviews Section -->
-    <section class="reviews-section">
-        <div class="section-header">
-            <h2>Đánh giá (@(ViewBag.TotalReviews ?? 0))</h2>
+    <section class="reviews-section card mt-4">
+        <div class="card-header"><h2>Đánh giá (@totalReviewsCount)</h2></div>
+        <div class="card-body">
             <div class="rating-summary">
                 <div class="average-rating">
-                    <span class="big-rating">@ViewBag.AverageRating</span>
+                    <span class="big-rating">@string.Format("{0:0.0}", ViewBag.AverageRating)</span>
                     <div class="stars">
                         @for (int i = 0; i < 5; i++)
                         {
-                            if (i < ViewBag.AverageRating)
-                            {
-                                <i class="fas fa-star"></i> <!-- Sao đầy -->
-                            }
-                            else if (i < ViewBag.AverageRating + 0.5)
-                            {
-                                <i class="fas fa-star-half-alt"></i> <!-- Sao nửa -->
-                            }
-                            else
-                            {
-                                <i class="far fa-star"></i> <!-- Sao rỗng -->
-                            }
+                            if (i < ViewBag.AverageRating) { <i class="fas fa-star"></i>; }
+                            else if (ViewBag.AverageRating > i && ViewBag.AverageRating < i + 1) { <i class="fas fa-star-half-alt"></i>; }
+                            else { <i class="far fa-star"></i>; }
                         }
                     </div>
-                    <span>@ViewBag.AverageRating/5</span> (@(ViewBag.TotalReviews ?? 0) đánh giá)
+                    <span>@string.Format("{0:0.0}", ViewBag.AverageRating)/5</span> (@totalReviewsCount đánh giá)
                 </div>
-
                 <div class="rating-bars">
+                    @{
+                        var ratingCounts = ViewBag.RatingCounts as int[] ?? new int[5];
+                        var totalReviewsForBars = totalReviewsCount;
+                        var ratingPercentages = new double[5];
+                        for (int i = 0; i < 5; i++)
+                        {
+                            ratingPercentages[i] = totalReviewsForBars > 0 ? (double)ratingCounts[i] / totalReviewsForBars * 100 : 0;
+                        }
+                    }
                     @for (int i = 0; i < 5; i++)
                     {
                         <div class="rating-bar">
                             <span>@(5 - i) sao</span>
-                            <div class="bar-container">
-                                <div class="bar" style="width: @(ViewBag.RatingPercentages[i] ?? 0)%"></div>
-                            </div>
-                            <span>@(ViewBag.RatingCounts[i] ?? 0)</span>
+                            <div class="bar-container"><div class="bar" style="width: @(ratingPercentages[4-i])%;"></div></div>
+                            <span>@(ratingCounts[4-i])</span>
                         </div>
                     }
                 </div>
             </div>
-        </div>
 
-
-        <div class="review-actions-bar">
-            <button class="btn primary" id="writeReviewBtn"><i class="fas fa-pen"></i> Viết đánh giá</button>
-            
-
-
-            <div class="review-filters">
-                <select id="sortReviews">
-                    <option value="newest">Mới nhất</option>
-                    <option value="oldest">Cũ nhất</option>
-                    <option value="highest">Điểm cao nhất</option>
-                    <option value="lowest">Điểm thấp nhất</option>
-                </select>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">Tất cả</button>
-                    <button class="filter-btn" data-filter="5">5 sao</button>
-                    <button class="filter-btn" data-filter="4">4 sao</button>
-                    <button class="filter-btn" data-filter="3">3 sao</button>
-                    <button class="filter-btn" data-filter="2">2 sao</button>
-                    <button class="filter-btn" data-filter="1">1 sao</button>
-                    <button class="filter-btn" data-filter="with-photos"><i class="fas fa-image"></i> Có hình ảnh</button>
+            <div class="review-form-section mt-3">
+                <button class="btn btn-primary" id="toggleReviewFormBtn">
+                    <i class="fas fa-edit"></i> Viết đánh giá
+                </button>
+                <div id="newReviewFormContainer" style="display:none;">
+                    <h3 class="form-title">Đánh giá của bạn</h3>
+                    <form asp-action="Create" asp-controller="Reviews" method="post" enctype="multipart/form-data" id="actualReviewForm">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="SpotId" value="@Model.SpotId" />
+                        <input type="hidden" name="Rating" id="reviewRatingInput" value="0" />
+                        <div class="form-group mb-3">
+                            <label class="form-label">Chọn số sao của bạn:</label>
+                            <div class="star-rating-input">
+                                <i class="far fa-star" data-value="1" title="Tệ"></i><i class="far fa-star" data-value="2" title="Không hài lòng"></i><i class="far fa-star" data-value="3" title="Bình thường"></i><i class="far fa-star" data-value="4" title="Hài lòng"></i><i class="far fa-star" data-value="5" title="Tuyệt vời"></i>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="reviewCommentText" class="form-label">Chia sẻ trải nghiệm của bạn:</label>
+                            <textarea name="Comment" id="reviewCommentText" class="form-control" rows="5" placeholder="Hãy chia sẻ những điều thú vị về địa điểm này. Cảnh đẹp ra sao? Dịch vụ như thế nào? Có gì đặc biệt không?" required></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">Thêm hình ảnh (tùy chọn):</label> <br/>
+                            <label for="reviewImageFile" class="btn-upload-image-label"><i class="fas fa-camera"></i> Chọn ảnh để chia sẻ</label>
+                            <input type="file" name="imageFile" id="reviewImageFile" accept=".jpg,.jpeg,.png,.gif" style="display: none;" />
+                            <span id="reviewFileName"></span>
+                        </div>
+                        <div class="form-actions text-end">
+                            <button type="button" class="btn btn-secondary me-2" id="cancelReviewBtn">Hủy bỏ</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Gửi đánh giá</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>
-    
-    <!-- Form đánh giá, mặc định ẩn -->
-            <div id="reviewForm" style="display:none;">
-                <h3>Viết đánh giá cho địa điểm</h3>
 
-                <form asp-action="Create" asp-controller="Reviews" method="post" enctype="multipart/form-data">
-                    @Html.AntiForgeryToken()
-
-                    <!-- Điền SpotId vào form -->
-                    <input type="hidden" name="SpotId" value="@Model.SpotId" />
-
-                    <div class="form-group">
-                        <label>Đánh giá</label>
-                        <select name="Rating" class="form-control" required>
-                            @for (int i = 5; i >= 1; i--)
-                            {
-                                <option value="@i">@i sao</option>
-                            }
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Bình luận</label>
-                        <textarea name="Comment" class="form-control" required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Ảnh minh họa (tùy chọn)</label>
-                        <input type="file" name="imageFile" class="form-control" accept=".jpg,.jpeg,.png,.gif" />
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
-                </form>
+            <div class="review-actions-bar mt-3">
+                <div class="review-filters">
+                    <label for="sortReviews" class="me-1">Sắp xếp:</label>
+                    <select id="sortReviews" class="form-select form-select-sm d-inline-block" style="width: auto;">
+                        <option value="newest">Mới nhất</option><option value="oldest">Cũ nhất</option><option value="highest">Điểm cao nhất</option><option value="lowest">Điểm thấp nhất</option>
+                    </select>
+                </div>
+                 <div class="filter-buttons">
+                    <button class="btn btn-sm btn-outline-secondary filter-btn active" data-filter="all">Tất cả</button>
+                    <button class="btn btn-sm btn-outline-secondary filter-btn" data-filter="5">5 <i class="fas fa-star text-warning"></i></button>
+                    <button class="btn btn-sm btn-outline-secondary filter-btn" data-filter="4">4 <i class="fas fa-star text-warning"></i></button>
+                    <button class="btn btn-sm btn-outline-secondary filter-btn" data-filter="3">3 <i class="fas fa-star text-warning"></i></button>
+                    <button class="btn btn-sm btn-outline-secondary filter-btn" data-filter="2">2 <i class="fas fa-star text-warning"></i></button>
+                    <button class="btn btn-sm btn-outline-secondary filter-btn" data-filter="1">1 <i class="fas fa-star text-warning"></i></button>
+                    <button class="btn btn-sm btn-outline-secondary filter-btn" data-filter="with-photos"><i class="fas fa-image"></i> Có hình ảnh</button>
+                </div>
             </div>
 
-
-        <div class="reviews-list">
             @if (Model.Reviews != null && Model.Reviews.Any())
             {
-                foreach (var review in Model.Reviews.Take(3))
+                <h3 class="recent-reviews-title mt-4">Đánh giá gần đây</h3>
+                <div class="reviews-list-recent">
+                    @foreach (var review in Model.Reviews.OrderByDescending(r => r.CreatedAt).Take(recentReviewsToShow))
+                    {
+                        <div class="review-item card mb-3">
+                             <div class="card-body">
+                                <div class="review-main-content d-flex">
+                                     <div class="flex-shrink-0 me-3">
+                                        <img src="@(review.User?.AvatarUrl ?? "/images/default-avatar.png")" alt="@review.User?.FullName" class="user-avatar rounded-circle" style="width:50px; height:50px;">
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="user-info d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h5 class="mb-0">@(review.User?.FullName ?? "Người dùng ẩn danh")</h5>
+                                                <p class="review-date text-muted small">@GetTimeAgo(review.CreatedAt)</p>
+                                            </div>
+                                             <div class="review-rating">
+                                                <div class="stars">
+                                                    @for (int i = 1; i <= 5; i++)
+                                                    {
+                                                        if (i <= review.Rating) { <i class="fas fa-star text-warning"></i>; }
+                                                        else if (review.Rating > (i - 1) && review.Rating < i) { <i class="fas fa-star-half-alt text-warning"></i>; }
+                                                        else { <i class="far fa-star text-warning"></i>; }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="review-text mt-2">@review.Comment</p>
+                                        @if (!string.IsNullOrEmpty(review.ImageUrl))
+                                        {
+                                            <div class="review-photos mt-2">
+                                                <img src="@review.ImageUrl" alt="Ảnh đánh giá" onclick="openLightbox(this.src, 'Ảnh đánh giá của @(review.User?.FullName)')" style="max-width:150px; max-height:150px; cursor:pointer; border-radius:4px;">
+                                            </div>
+                                        }
+                                        <div class="review-actions mt-2">
+                                           <button class="btn btn-sm btn-light like-btn"><i class="far fa-thumbs-up"></i> Hữu ích (<span class="like-count">0</span>)</button>
+                                           <button class="btn btn-sm btn-light reply-btn"><i class="far fa-comment"></i> Phản hồi</button>
+                                        </div>
+                                    </div>
+                                     <div class="review-item-side-actions ms-3">
+                                        <a asp-controller="Report" asp-action="Create" asp-route-targetType="Review" asp-route-targetId="@review.ReviewId" asp-route-reportedUserId="@review.User?.UserId" class="report-review-btn-new" title="Báo cáo đánh giá này"><i class="fas fa-flag"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="reviews-list mt-3">
+                    @{
+                        var reviewsForMainListInitialInner = Model.Reviews.OrderByDescending(r => r.CreatedAt).Skip(recentReviewsToShow).Take(reviewsPerPageForInitialLoad);
+                    }
+                    @if (reviewsForMainListInitialInner.Any())
+                    {
+                        <h4 class="all-reviews-title mt-4">Tất cả đánh giá</h4>
+                        foreach (var review in reviewsForMainListInitialInner)
+                        {
+                             <div class="review-item card mb-3">
+                                <div class="card-body">
+                                    <div class="review-main-content d-flex">
+                                        <div class="flex-shrink-0 me-3">
+                                            <img src="@(review.User?.AvatarUrl ?? "/images/default-avatar.png")" alt="@review.User?.FullName" class="user-avatar rounded-circle" style="width:50px; height:50px;">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="user-info d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h5 class="mb-0">@(review.User?.FullName ?? "Người dùng ẩn danh")</h5>
+                                                    <p class="review-date text-muted small">@GetTimeAgo(review.CreatedAt)</p>
+                                                </div>
+                                                <div class="review-rating">
+                                                    <div class="stars">
+                                                        @for (int i = 1; i <= 5; i++)
+                                                        {
+                                                            if (i <= review.Rating) { <i class="fas fa-star text-warning"></i>; }
+                                                            else if (review.Rating > (i - 1) && review.Rating < i) { <i class="fas fa-star-half-alt text-warning"></i>; }
+                                                            else { <i class="far fa-star text-warning"></i>; }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="review-text mt-2">@review.Comment</p>
+                                            @if (!string.IsNullOrEmpty(review.ImageUrl))
+                                            {
+                                                <div class="review-photos mt-2">
+                                                    <img src="@review.ImageUrl" alt="Ảnh đánh giá" onclick="openLightbox(this.src, 'Ảnh đánh giá của @(review.User?.FullName)')" style="max-width:150px; max-height:150px; cursor:pointer; border-radius:4px;">
+                                                </div>
+                                            }
+                                            <div class="review-actions mt-2">
+                                               <button class="btn btn-sm btn-light like-btn"><i class="far fa-thumbs-up"></i> Hữu ích (<span class="like-count">0</span>)</button>
+                                               <button class="btn btn-sm btn-light reply-btn"><i class="far fa-comment"></i> Phản hồi</button>
+                                            </div>
+                                        </div>
+                                        <div class="review-item-side-actions ms-3">
+                                            <a asp-controller="Report" asp-action="Create" asp-route-targetType="Review" asp-route-targetId="@review.ReviewId" asp-route-reportedUserId="@review.User?.UserId" class="report-review-btn-new" title="Báo cáo đánh giá này"><i class="fas fa-flag"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else if (!(Model.Reviews.OrderByDescending(r => r.CreatedAt).Take(recentReviewsToShow).Any()) && !reviewsForMainListInitial.Any() && totalReviewsCount > 0)
+                    {
+                        <h4 class="all-reviews-title mt-4">Tất cả đánh giá</h4>
+                        <p class="text-center text-muted mt-3">Tất cả đánh giá đã được hiển thị trong mục "Đánh giá gần đây".</p>
+                    }
+                     else if (totalReviewsCount == 0) {
+                        
+                     }
+                </div>
+                
+                @if (totalReviewsCount > (recentReviewsToShow + reviewsPerPageForInitialLoad))
                 {
-                    <div class="review-item">
-                        <div class="review-user">
-                            <img src="@review.User.AvatarUrl" alt="@review.User.FullName" class="user-avatar">
-                            <div class="user-info">
-                                <h4>@review.User.FullName</h4>
-                                <p class="review-date">Đã đánh giá vào @review.CreatedAt.ToString("dd/MM/yyyy")</p>
-                            </div>
-                        </div>
-                        <div class="review-content">
-                            <div class="review-rating">
-                                <div class="stars">
-                                    @for (int i = 1; i <= 5; i++)
-                                    {
-                                        if (i <= review.Rating)
-                                        {
-                                            <i class="fas fa-star"></i>
-                                        }
-                                        else if (i - 0.5 <= review.Rating)
-                                        {
-                                            <i class="fas fa-star-half-alt"></i>
-                                        }
-                                        else
-                                        {
-                                            <i class="far fa-star"></i>
-                                        }
-                                    }
-                                </div>
-                            </div>
-                            <p class="review-text">@review.Comment</p>
-                            @if (review.ImageUrl != null && review.ImageUrl.Any())
-                            {
-                                <div class="review-photos">
-                                    <img src="@review.ImageUrl" alt="Ảnh đánh giá" onclick="openLightbox(this.src)">
-                                </div>
-                            }
-                            <div class="review-actions">
-                                <button class="like-btn"><i class="far fa-thumbs-up"></i> Hữu ích </button> 
-                                <button class="reply-btn"><i class="far fa-comment"></i> Phản hồi</button>
-                            </div>
-                        </div>
+                    <div class="load-more text-center mt-3">
+                        <button class="btn btn-outline-primary" id="loadMoreReviewsBtn">Xem thêm đánh giá</button>
                     </div>
-                    <a asp-controller="Report" asp-action="Create" 
-            asp-route-targetType="Review" 
-            asp-route-targetId="@review.ReviewId"
-            asp-route-reportedUserId="@review.User.UserId"
-            class="btn btn-sm btn-warning">
-                Báo cáo
-            </a>
-            
                 }
+
             }
             else
             {
-                <p>Chưa có đánh giá nào cho địa điểm này.</p>
-            }
-
-            @if ((Model.Reviews?.Count ?? 0) > 3)
-            {
-                <div class="load-more">
-                    <button class="btn secondary" id="loadMoreReviews">Xem thêm đánh giá</button>
-                </div>
+                <p class="no-reviews-message text-center text-muted mt-4">Chưa có đánh giá nào cho địa điểm này. Hãy là người đầu tiên chia sẻ trải nghiệm của bạn!</p>
             }
         </div>
     </section>
-
 </main>
 
-<!-- Lightbox for images -->
-<div id="lightbox" class="lightbox">
-    <span class="close-lightbox">&times;</span>
-    <img class="lightbox-content" id="lightbox-img">
-    <div class="lightbox-caption"></div>
+<div id="lightboxModal" class="lightbox">
+    <span class="close-lightbox" id="closeLightboxBtn">×</span>
+    <img class="lightbox-content" id="lightboxImage">
+    <div id="lightboxCaption" class="lightbox-caption"></div>
 </div>
 
-<!-- Token để dùng trong AJAX -->
-<input type="hidden" name="__RequestVerificationToken" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
+<input type="hidden" id="requestVerificationTokenInput" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
 
 @section Scripts {
     <script>
-        // Helper function for time ago display
-        @functions {
-            public string GetTimeAgo(DateTime dateTime)
-            {
-                TimeSpan timeDiff = DateTime.Now - dateTime;
-                
-                if (timeDiff.TotalDays > 30)
-                    return dateTime.ToString("dd/MM/yyyy");
-                if (timeDiff.TotalDays > 1)
-                    return $"{(int)timeDiff.TotalDays} ngày trước";
-                if (timeDiff.TotalHours > 1)
-                    return $"{(int)timeDiff.TotalHours} giờ trước";
-                if (timeDiff.TotalMinutes > 1)
-                    return $"{(int)timeDiff.TotalMinutes} phút trước";
-                
-                return "Vừa xong";
+    document.addEventListener('DOMContentLoaded', function () {
+        const token = document.getElementById('requestVerificationTokenInput').value;
+        const spotId = @Model.SpotId;
+        const reviewsPerPageForJs = @reviewsPerPageForInitialLoad; 
+        const recentReviewsCountOnClient = @recentReviewsToShow;
+
+        window.changeMainImage = function(src) {
+            const mainImg = document.querySelector('.main-image img');
+            if (mainImg) mainImg.src = src;
+        }
+
+        const lightbox = document.getElementById('lightboxModal');
+        const lightboxImg = document.getElementById('lightboxImage');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const closeLightboxBtn = document.getElementById('closeLightboxBtn');
+
+        window.openLightbox = function(src, captionText = '') {
+            if (lightbox && lightboxImg) {
+                lightbox.style.display = "block";
+                lightboxImg.src = src;
+                if(lightboxCaption) lightboxCaption.innerHTML = captionText;
             }
         }
-
-        // Change main image when clicking on thumbnail
-        function changeMainImage(src) {
-            document.querySelector('.main-image img').src = src;
+        if (closeLightboxBtn) {
+            closeLightboxBtn.onclick = function() { if (lightbox) lightbox.style.display = "none"; }
+        }
+        if (lightbox) {
+            lightbox.onclick = function(event) { if (event.target === lightbox) lightbox.style.display = "none"; }
         }
 
-        // Open lightbox when clicking on image
-        function openLightbox(src) {
-            document.getElementById('lightbox').style.display = 'flex';
-            document.getElementById('lightbox-img').src = src;
-        }
-
-        // Close lightbox when clicking on X
-        document.querySelector('.close-lightbox').addEventListener('click', function() {
-            document.getElementById('lightbox').style.display = 'none';
-        });
-
-        // Toggle favorite button
-        document.getElementById('favoriteBtn').addEventListener('click', function () {
-            const btn = this;
-            const spotId = btn.dataset.spotId;
-            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
-
-            fetch('/SpotFavorites/ToggleFavorite/' + spotId, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'RequestVerificationToken': token
+        const viewAllPhotosBtn = document.getElementById('viewAllPhotosBtn');
+        const extendedGallery = document.querySelector('.spot-gallery-extended');
+        if (viewAllPhotosBtn && extendedGallery) {
+            viewAllPhotosBtn.addEventListener('click', function() { extendedGallery.scrollIntoView({ behavior: 'smooth' }); });
+        } else if (viewAllPhotosBtn) {
+            viewAllPhotosBtn.addEventListener('click', function() {
+                const firstThumb = document.querySelector('.thumbnails img');
+                const mainImageEl = document.querySelector('.main-image img');
+                const spotTitle = document.querySelector('.spot-title h1')?.textContent || '';
+                if (firstThumb && mainImageEl && firstThumb.src !== mainImageEl.src) {
+                    openLightbox(firstThumb.src, spotTitle);
+                } else if (mainImageEl){
+                     openLightbox(mainImageEl.src, spotTitle);
                 }
-            })
+            });
+        }
+
+        const favoriteBtn = document.getElementById('favoriteBtn');
+        if (favoriteBtn) {
+            favoriteBtn.addEventListener('click', function () {
+                const currentSpotId = this.dataset.spotId;
+                fetch('/Favorites/ToggleFavorite', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'RequestVerificationToken': token },
+                    body: `spotId=${currentSpotId}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        this.classList.toggle('active', data.isFavorited);
+                        const icon = this.querySelector('i');
+                        icon.classList.toggle('far', !data.isFavorited);
+                        icon.classList.toggle('fas', data.isFavorited);
+                        for(let node of this.childNodes) {
+                            if(node.nodeType === Node.TEXT_NODE) { node.nodeValue = data.isFavorited ? " Đã yêu thích" : " Yêu thích"; break; }
+                        }
+                    } else { alert(data.message || 'Có lỗi xảy ra, vui lòng thử lại.'); }
+                })
+                .catch(error => { console.error('Error toggling favorite:', error); alert('Có lỗi kết nối khi thực hiện thao tác này.'); });
+            });
+        }
+
+        const shareBtn = document.querySelector('.spot-actions .share');
+        const shareOptions = document.querySelector('.share-options');
+        if (shareBtn && shareOptions) {
+            shareBtn.addEventListener('click', function (e) { e.stopPropagation(); shareOptions.style.display = shareOptions.style.display === 'block' ? 'none' : 'block'; });
+            document.addEventListener('click', function() { if(shareOptions) shareOptions.style.display = 'none'; });
+            if(shareOptions) shareOptions.addEventListener('click', function(e) { e.stopPropagation(); });
+        }
+        document.querySelectorAll('.share-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const platform = this.dataset.platform;
+                const spotUrl = window.location.href;
+                const spotName = document.querySelector('.spot-title h1').innerText;
+                let url = '';
+                if (platform === 'Facebook') url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(spotUrl)}`;
+                else if (platform === 'Twitter') url = `https://twitter.com/intent/tweet?url=${encodeURIComponent(spotUrl)}&text=${encodeURIComponent(spotName)}`;
+                else if (platform === 'Email') url = `mailto:?subject=${encodeURIComponent(spotName)}&body=${encodeURIComponent('Xem địa điểm này: ' + spotUrl)}`;
+                if(url) window.open(url, '_blank');
+                if(shareOptions) shareOptions.style.display = 'none';
+            });
+        });
+        const copyLinkBtn = document.querySelector('.copy-link');
+        if (copyLinkBtn) {
+            copyLinkBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                navigator.clipboard.writeText(window.location.href).then(() => alert('Đã sao chép liên kết!')).catch(err => alert('Lỗi khi sao chép liên kết.'));
+                if(shareOptions) shareOptions.style.display = 'none';
+            });
+        }
+
+        const toggleReviewFormBtn = document.getElementById('toggleReviewFormBtn');
+        const newReviewFormContainer = document.getElementById('newReviewFormContainer');
+        const cancelReviewBtn = document.getElementById('cancelReviewBtn');
+        const actualReviewForm = document.getElementById('actualReviewForm');
+
+        if (toggleReviewFormBtn && newReviewFormContainer) {
+            toggleReviewFormBtn.addEventListener('click', function () {
+                const isHidden = newReviewFormContainer.style.display === 'none' || newReviewFormContainer.style.display === '';
+                newReviewFormContainer.style.display = isHidden ? 'block' : 'none';
+                this.innerHTML = isHidden ? '<i class="fas fa-times"></i> Hủy viết đánh giá' : '<i class="fas fa-edit"></i> Viết đánh giá';
+                if (isHidden) newReviewFormContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        }
+        if (cancelReviewBtn && newReviewFormContainer && toggleReviewFormBtn) {
+            cancelReviewBtn.addEventListener('click', function () {
+                newReviewFormContainer.style.display = 'none';
+                toggleReviewFormBtn.innerHTML = '<i class="fas fa-edit"></i> Viết đánh giá';
+                if (actualReviewForm) actualReviewForm.reset();
+                document.getElementById('reviewRatingInput').value = "0";
+                document.querySelectorAll('.star-rating-input .fa-star').forEach(s => { s.classList.remove('fas'); s.classList.add('far'); });
+                document.getElementById('reviewFileName').textContent = '';
+            });
+        }
+
+        const starRatingInputs = document.querySelectorAll('.star-rating-input .fa-star');
+        const reviewRatingHiddenInput = document.getElementById('reviewRatingInput');
+        let currentRating = 0;
+        starRatingInputs.forEach(star => {
+            star.addEventListener('click', function () {
+                currentRating = parseInt(this.dataset.value);
+                if (reviewRatingHiddenInput) reviewRatingHiddenInput.value = currentRating;
+                updateStarDisplay(currentRating);
+            });
+            star.addEventListener('mouseover', function () { updateStarDisplay(parseInt(this.dataset.value), true); });
+            star.addEventListener('mouseout', function () { updateStarDisplay(currentRating); });
+        });
+        function updateStarDisplay(ratingValue, isHover = false) {
+            starRatingInputs.forEach((s, index) => {
+                s.classList.toggle('fas', index < ratingValue);
+                s.classList.toggle('far', index >= ratingValue);
+                s.style.opacity = (isHover && index >= ratingValue) ? '0.5' : '1';
+            });
+        }
+
+        const reviewImageFile = document.getElementById('reviewImageFile');
+        const reviewFileName = document.getElementById('reviewFileName');
+        if (reviewImageFile && reviewFileName) {
+            reviewImageFile.addEventListener('change', function () {
+                reviewFileName.textContent = (this.files && this.files.length > 0) ? this.files[0].name : '';
+            });
+        }
+        
+        const sortReviewsSelect = document.getElementById('sortReviews');
+        const filterBtns = document.querySelectorAll('.filter-buttons .filter-btn');
+        const reviewsListContainer = document.querySelector('.reviews-list');
+        const recentReviewsContainer = document.querySelector('.reviews-list-recent');
+        const loadMoreReviewsBtn = document.getElementById('loadMoreReviewsBtn');
+        let currentReviewPage = 1; 
+
+        if (sortReviewsSelect) {
+            sortReviewsSelect.addEventListener('change', function() {
+                currentReviewPage = 1; 
+                fetchAndRenderReviews(false); 
+            });
+        }
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentReviewPage = 1;
+                fetchAndRenderReviews(false);
+            });
+        });
+        
+        if (loadMoreReviewsBtn) {
+            loadMoreReviewsBtn.addEventListener('click', function() {
+                currentReviewPage++;
+                fetchAndRenderReviews(true); 
+            });
+        }
+
+        function fetchAndRenderReviews(append = false) {
+            const sortBy = sortReviewsSelect ? sortReviewsSelect.value : 'newest';
+            const filterBy = document.querySelector('.filter-buttons .filter-btn.active')?.dataset.filter || 'all';
+            
+            if(recentReviewsContainer){
+                recentReviewsContainer.style.display = (filterBy === 'all' && sortBy === 'newest' && currentReviewPage === 1) ? 'block' : 'none';
+            }
+            if (!append && reviewsListContainer) { // Khi lọc/sắp xếp mới, xóa list cũ trước khi fetch
+                 reviewsListContainer.innerHTML = ''; // Xóa các review cũ để chuẩn bị render mới
+            }
+
+
+        const url = `/Reviews/GetSpotReviewsData?spotId=${spotId}&page=${currentReviewPage}&pageSize=${reviewsPerPageForJs}&sortBy=${sortBy}&filterBy=${filterBy}`; // 
+            
+            console.log("Fetching Reviews:", url);
+
+            fetch(url, { method: 'GET', headers: { 'Accept': 'application/json', 'RequestVerificationToken': token } })
             .then(response => {
-                if (!response.ok) throw new Error('Lỗi khi cập nhật yêu thích');
+                if (!response.ok) {
+                     return response.text().then(text => { throw new Error(`API Error: ${response.status} - ${text || response.statusText}`) });
+                }
                 return response.json();
             })
             .then(data => {
-                if (data.favorited) {
-                    btn.classList.add('active');
-                    btn.innerHTML = '<i class="fas fa-heart"></i> Đã yêu thích';
-                } else {
-                    btn.classList.remove('active');
-                    btn.innerHTML = '<i class="far fa-heart"></i> Yêu thích';
-                }
-            })
-            .catch(err => alert(err));
-        });
-
-        // Show/hide share options
-        document.querySelector('.share').addEventListener('click', function() {
-            document.querySelector('.share-options').classList.toggle('show');
-        });
-
-        
-    </script>
-    <script>
-        document.querySelectorAll('.share-btn').forEach(btn => {
-            btn.addEventListener('click', async function (e) {
-                e.preventDefault();
-
-                const platform = this.dataset.platform;
-                const spotId = this.dataset.spotId;
-                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
-
-                try {
-                    const response = await fetch('/SpotShares/CreateFromShare', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'RequestVerificationToken': token
-                        },
-                        body: JSON.stringify({ platform, spotId })
-                    });
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        const urlToShare = data.url;
-
-                        // Mở popup share theo platform
-                        if (platform === "Facebook") {
-                            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlToShare)}`, '_blank');
-                            // Thông báo cảm ơn
-                            alert("Thanks for sharing! 🙌");    
-                        } else if (platform === "Twitter") {
-                            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(urlToShare)}&text=Check this out!`, '_blank');
-                            alert("Thanks for sharing! 🙌");
-                        } else if (platform === "Email") {
-                            window.open(`https://mail.google.com/mail/?view=cm&to=&su=Check this out&body=${encodeURIComponent(urlToShare)}`, '_blank');
-                            alert("Thanks for sharing! 🙌");
-                        } else {
-                            alert("This platform is not supported for direct sharing.");
-                        }
-                    } else {
-                        alert("Lỗi khi chia sẻ. Vui lòng thử lại.");
-                    }
-                } catch (error) {
-                    console.error(error);
-                    alert("Có lỗi xảy ra.");
-                }    
-            });
-        });
-    </script>
-    <script>
-        document.querySelector('.copy-link').addEventListener('click', function (e) {
-            e.preventDefault();
-            navigator.clipboard.writeText(window.location.href).then(function () {
-                // Hiển thị toast
-                const toast = document.getElementById('copy-toast');
-                toast.style.display = 'block';
-
-                // Ẩn sau 2.5 giây
-                setTimeout(() => {
-                    toast.style.display = 'none';
-                }, 2500);
-
-                // Ghi nhận chia sẻ
-                createShare("CopyLink");
-            });
-        });
-    </script>
-   
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const reviewsListContainer = document.querySelector('.reviews-list');
-            const loadMoreButton = document.getElementById('loadMoreReviews');
-            const writeReviewBtn = document.getElementById('writeReviewBtn');
-            const reviewForm = document.getElementById('reviewForm');
-            const spotId = @Model.SpotId; // Lấy SpotId từ Model
-
-            let currentPage = 1; // Để theo dõi trang hiện tại cho "Xem thêm"
-            const reviewsPerPage = 3; // Số lượng review mỗi lần tải
-
-            // Hàm để tải và hiển thị reviews
-            async function loadReviews(page = 1, sortBy = 'newest', filterByRating = 'all', filterByPhotos = false, append = false) {
-                // Vô hiệu hóa nút "Xem thêm" tạm thời
-                if (loadMoreButton) loadMoreButton.disabled = true;
-
-                let url = `/TouristSpots/GetFilteredReviews?spotId=${spotId}&page=${page}&pageSize=${reviewsPerPage}&sortBy=${sortBy}&filterRating=${filterByRating}&withPhotos=${filterByPhotos}`;
-
-                try {
-                    const response = await fetch(url, {
-                        method: 'GET',
-                        headers: {
-                            // Nếu cần AntiForgeryToken cho GET (thường không cần, nhưng nếu server yêu cầu)
-                            // 'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
-                        }
-                    });
-
-                    if (!response.ok) {
-                        console.error('Lỗi khi tải đánh giá:', response.statusText);
-                        // Hiển thị thông báo lỗi cho người dùng nếu cần
-                        if (loadMoreButton) loadMoreButton.disabled = false; // Kích hoạt lại nút
-                        return;
-                    }
-
-                    const htmlResult = await response.text();
-
+                const reviewsHtml = data.reviews && Array.isArray(data.reviews) ? data.reviews.map(review => generateReviewHtml(review)).join('') : '';
+                
+                if (reviewsListContainer) {
                     if (append) {
-                        // Xóa nút "Xem thêm" cũ trước khi thêm nội dung mới
-                        const existingLoadMoreDiv = reviewsListContainer.querySelector('.load-more');
-                        if (existingLoadMoreDiv) {
-                            existingLoadMoreDiv.remove();
-                        }
-                        reviewsListContainer.insertAdjacentHTML('beforeend', htmlResult);
+                        reviewsListContainer.insertAdjacentHTML('beforeend', reviewsHtml);
                     } else {
-                        reviewsListContainer.innerHTML = htmlResult; // Thay thế toàn bộ nội dung
-                    }
-
-                    currentPage = page;
-
-                    // Kích hoạt lại nút "Xem thêm" nếu còn dữ liệu
-                    const newLoadMoreButton = document.getElementById('loadMoreReviews'); // Nút có thể đã được render lại
-                    if (newLoadMoreButton) {
-                         // Logic để ẩn/hiện nút "Xem thêm" nên dựa trên việc server có trả về nút đó không,
-                         // hoặc server trả về một cờ báo hiệu còn dữ liệu.
-                         // Ví dụ, nếu htmlResult không chứa class 'load-more', nghĩa là hết dữ liệu.
-                         if (!htmlResult.includes('class="load-more"')) {
-                            newLoadMoreButton.style.display = 'none';
-                         } else {
-                            newLoadMoreButton.style.display = 'block';
-                            newLoadMoreButton.addEventListener('click', handleLoadMoreClick); // Gắn lại event
+                        reviewsListContainer.innerHTML = reviewsHtml;
+                         if (data.reviews && data.reviews.length > 0 && !document.querySelector('.all-reviews-title')) {
+                             const titleEl = document.createElement('h4');
+                             titleEl.className = 'all-reviews-title mt-4';
+                             titleEl.textContent = 'Tất cả đánh giá';
+                             reviewsListContainer.prepend(titleEl);
                          }
                     }
-
-
-                } catch (error) {
-                    console.error('Lỗi fetch:', error);
-                    if (loadMoreButton) loadMoreButton.disabled = false; // Kích hoạt lại nút
                 }
-            }
 
-            function getSelectedFilters() {
-                const sortBy = document.getElementById('sortReviews').value;
-                const activeRatingFilterBtn = document.querySelector('.filter-buttons .filter-btn.active');
-                const filterByRating = activeRatingFilterBtn ? activeRatingFilterBtn.dataset.filter : 'all';
-                const filterByPhotos = filterByRating === 'with-photos'; // Nếu nút "Có hình ảnh" active
-                // Hoặc nếu bạn có nút "Có hình ảnh" riêng biệt:
-                // const filterByPhotosBtn = document.querySelector('.filter-btn[data-filter="with-photos"]');
-                // const filterByPhotos = filterByPhotosBtn ? filterByPhotosBtn.classList.contains('active') : false;
-
-                return { sortBy, filterByRating: filterByPhotos ? 'all' : filterByRating, filterByPhotos };
-            }
-
-            // Xử lý sự kiện cho các nút lọc rating và nút "Có hình ảnh"
-            document.querySelectorAll('.filter-buttons .filter-btn').forEach(button => {
-                button.addEventListener('click', function () {
-                    document.querySelectorAll('.filter-buttons .filter-btn').forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    currentPage = 1; // Reset về trang đầu khi đổi filter
-                    const filters = getSelectedFilters();
-                    loadReviews(currentPage, filters.sortBy, filters.filterByRating, filters.filterByPhotos, false);
-                });
+                if (loadMoreReviewsBtn) {
+                    loadMoreReviewsBtn.style.display = (currentReviewPage < data.totalPages) ? 'block' : 'none';
+                }
+                
+                if (reviewsListContainer && reviewsListContainer.innerHTML.trim() === '' && !(data.reviews && data.reviews.length > 0) ) {
+                     reviewsListContainer.innerHTML = '<p class="text-center text-muted mt-3">Không tìm thấy đánh giá nào phù hợp.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching reviews:', error);
+                if(reviewsListContainer) reviewsListContainer.innerHTML = `<p class="text-center text-danger mt-3">Lỗi khi tải đánh giá. Vui lòng thử lại. (${error.message})</p>`;
+                if(loadMoreReviewsBtn) loadMoreReviewsBtn.style.display = 'none';
             });
+        }
 
-            // Xử lý sự kiện cho dropdown sắp xếp
-            document.getElementById('sortReviews').addEventListener('change', function () {
-                currentPage = 1; // Reset về trang đầu khi đổi sort
-                const filters = getSelectedFilters();
-                loadReviews(currentPage, filters.sortBy, filters.filterByRating, filters.filterByPhotos, false);
-            });
+        function getClientTimeAgo(dateString) {
+            const date = new Date(dateString); const now = new Date();
+            const seconds = Math.round((now - date) / 1000); const minutes = Math.round(seconds / 60);
+            const hours = Math.round(minutes / 60); const days = Math.round(hours / 24);
+            const weeks = Math.round(days / 7); const months = Math.round(days / 30.44);
+            const years = Math.round(days / 365.25);
+            if (seconds < 60) return `Vừa xong`; if (minutes < 60) return `${minutes} phút trước`;
+            if (hours < 24) return `${hours} giờ trước`; if (days < 7) return `${days} ngày trước`;
+            if (weeks < 5) return `${weeks} tuần trước`; if (months < 12) return `${months} tháng trước`;
+            return `${years} năm trước`;
+        }
 
-            // Xử lý nút "Xem thêm"
-            function handleLoadMoreClick() {
-                const filters = getSelectedFilters();
-                loadReviews(currentPage + 1, filters.sortBy, filters.filterByRating, filters.filterByPhotos, true);
+        function generateReviewHtml(review) {
+            let starsHtml = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= review.rating) { starsHtml += '<i class="fas fa-star text-warning"></i>'; }
+                else if (review.rating > (i - 1) && review.rating < i) { starsHtml += '<i class="fas fa-star-half-alt text-warning"></i>'; }
+                else { starsHtml += '<i class="far fa-star text-warning"></i>'; }
             }
+            const avatarUrl = review.userAvatarUrl || '/images/default-avatar.png';
+            const userName = review.userFullName || 'Người dùng ẩn danh';
+            const reviewImageUrl = review.imageUrl ? `<div class="review-photos mt-2"><img src="${review.imageUrl}" alt="Ảnh đánh giá" onclick="openLightbox(this.src, 'Ảnh đánh giá của ${userName}')" style="max-width:150px; max-height:150px; cursor:pointer; border-radius:4px;"></div>` : '';
+            const reportLink = `/Report/Create?targetType=Review&targetId=${review.reviewId}&reportedUserId=${review.userId}`;
 
-            if (loadMoreButton) {
-                loadMoreButton.addEventListener('click', handleLoadMoreClick);
+            return `
+                <div class="review-item card mb-3">
+                    <div class="card-body">
+                        <div class="review-main-content d-flex">
+                            <div class="flex-shrink-0 me-3"><img src="${avatarUrl}" alt="${userName}" class="user-avatar rounded-circle" style="width:50px; height:50px;"></div>
+                            <div class="flex-grow-1">
+                                <div class="user-info d-flex justify-content-between align-items-center">
+                                    <div><h5 class="mb-0">${userName}</h5><p class="review-date text-muted small">${getClientTimeAgo(review.createdAt)}</p></div>
+                                    <div class="review-rating"><div class="stars">${starsHtml}</div></div>
+                                </div>
+                                <p class="review-text mt-2">${review.comment}</p>
+                                ${reviewImageUrl}
+                                <div class="review-actions mt-2">
+                                   <button class="btn btn-sm btn-light like-btn" data-review-id="${review.reviewId}"><i class="far fa-thumbs-up"></i> Hữu ích (<span class="like-count">${review.likeCount || 0}</span>)</button>
+                                   <button class="btn btn-sm btn-light reply-btn" data-review-id="${review.reviewId}"><i class="far fa-comment"></i> Phản hồi</button>
+                                </div>
+                            </div>
+                            <div class="review-item-side-actions ms-3"><a href="${reportLink}" class="report-review-btn-new" title="Báo cáo đánh giá này"><i class="fas fa-flag"></i></a></div>
+                        </div>
+                    </div>
+                </div>`;
+        }
+         // Initial check for load more button visibility based on server-rendered counts
+        if (loadMoreReviewsBtn) {
+            const initiallyRenderedInMainList = @reviewsForMainListInitial.Count();
+            if (@totalReviewsCount <= (recentReviewsCountOnClient + initiallyRenderedInMainList)) {
+                loadMoreReviewsBtn.style.display = 'none';
             }
+        }
 
-
-            // Nút "Viết đánh giá"
-            if (writeReviewBtn) {
-                writeReviewBtn.addEventListener('click', function() {
-                    reviewForm.style.display = (reviewForm.style.display === 'none' || reviewForm.style.display === '') ? 'block' : 'none';
-                });
-            }
-
-
-        });
-
+    });
     </script>
 }
-
-<div id="copy-toast" style="
-    display: none;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    font-weight: bold;
-    z-index: 9999;
-    transition: opacity 0.3s ease;
-">
-    🔗 Đã sao chép liên kết!
-</div>

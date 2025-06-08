@@ -115,7 +115,7 @@ img {
     left: 50%;
     width: 0;
     height: 2px;
-    background-color: #007bff; /* MODIFIED: Màu gạch chân có thể là màu xanh dương hoặc đen */
+    background-color: #fff; /* MODIFIED: Màu gạch chân có thể là màu xanh dương hoặc đen */
     transition: all 0.3s ease;
     transform: translateX(-50%);
 }

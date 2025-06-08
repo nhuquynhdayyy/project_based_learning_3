@@ -12,8 +12,8 @@ using TourismWeb.Models;
 namespace TourismWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250516094157_update")]
-    partial class update
+    [Migration("20250606170640_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
