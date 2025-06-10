@@ -478,7 +478,7 @@
             });
         }
 
-        const favoriteBtn = document.getElementById('favoriteBtn');
+        @* const favoriteBtn = document.getElementById('favoriteBtn');
         if (favoriteBtn) {
             favoriteBtn.addEventListener('click', function () {
                 const currentSpotId = this.dataset.spotId;
@@ -501,9 +501,42 @@
                 })
                 .catch(error => { console.error('Error toggling favorite:', error); alert('Có lỗi kết nối khi thực hiện thao tác này.'); });
             });
-        }
+        } *@
+        // Toggle favorite button
+        document.getElementById('favoriteBtn').addEventListener('click', function () {
+            const btn = this;
+            const spotId = btn.dataset.spotId;
+            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
-        const shareBtn = document.querySelector('.spot-actions .share');
+            fetch('/SpotFavorites/ToggleFavorite/' + spotId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': token
+                }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Lỗi khi cập nhật yêu thích');
+                return response.json();
+            })
+            .then(data => {
+                if (data.favorited) {
+                    btn.classList.add('active');
+                    btn.innerHTML = '<i class="fas fa-heart"></i> Đã yêu thích';
+                } else {
+                    btn.classList.remove('active');
+                    btn.innerHTML = '<i class="far fa-heart"></i> Yêu thích';
+                }
+            })
+            .catch(err => alert(err));
+        });
+
+        // Show/hide share options
+        document.querySelector('.share').addEventListener('click', function() {
+            document.querySelector('.share-options').classList.toggle('show');
+        });
+
+        @* const shareBtn = document.querySelector('.spot-actions .share');
         const shareOptions = document.querySelector('.share-options');
         if (shareBtn && shareOptions) {
             shareBtn.addEventListener('click', function (e) { e.stopPropagation(); shareOptions.style.display = shareOptions.style.display === 'block' ? 'none' : 'block'; });
@@ -523,48 +556,6 @@
                 if(url) window.open(url, '_blank');
                 if(shareOptions) shareOptions.style.display = 'none';
             });
-            @* btn.addEventListener('click', async function (e) {
-                e.preventDefault();
-
-                const platform = this.dataset.platform;
-                const postId = this.dataset.postId; // Make sure this is data-post-id not data-spot-id
-                // const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
-                const tokenInput = document.getElementById('antiForgeryToken'); // Use the ID
-                const token = tokenInput ? tokenInput.value : document.querySelector('input[name="__RequestVerificationToken"]').value;
-
-
-                try {
-                    const response = await fetch('/PostShares/CreateFromShare', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'RequestVerificationToken': token
-                        },
-                        body: JSON.stringify({ platform, postId })
-                    });
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        const urlToShare = data.url;
-
-                        if (platform === "Facebook") {
-                            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlToShare)}`, '_blank');
-                        } else if (platform === "Twitter") {
-                            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(urlToShare)}&text=Check this out!`, '_blank');
-                        } else if (platform === "Email") {
-                            window.open(`https://mail.google.com/mail/?view=cm&to=&su=Check this out&body=${encodeURIComponent(urlToShare)}`, '_blank');
-                        }
-                        // You might want to close the dropdown after sharing
-                        this.closest('.share-options').classList.remove('show');
-                        alert("Thanks for sharing! 🙌");
-                    } else {
-                        alert("Lỗi khi chia sẻ. Vui lòng thử lại.");
-                    }
-                } catch (error) {
-                    console.error(error);
-                    alert("Có lỗi xảy ra.");
-                }
-            }); *@
         });
         const copyLinkBtn = document.querySelector('.copy-link');
         if (copyLinkBtn) {
@@ -573,7 +564,69 @@
                 navigator.clipboard.writeText(window.location.href).then(() => alert('Đã sao chép liên kết!')).catch(err => alert('Lỗi khi sao chép liên kết.'));
                 if(shareOptions) shareOptions.style.display = 'none';
             });
-        }
+        } *@
+        document.querySelectorAll('.share-btn').forEach(btn => {
+            btn.addEventListener('click', async function (e) {
+                e.preventDefault();
+
+                const platform = this.dataset.platform;
+                const spotId = this.dataset.spotId;
+                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                try {
+                    const response = await fetch('/SpotShares/CreateFromShare', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': token
+                        },
+                        body: JSON.stringify({ platform, spotId })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const urlToShare = data.url;
+
+                        // Mở popup share theo platform
+                        if (platform === "Facebook") {
+                            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlToShare)}`, '_blank');
+                            // Thông báo cảm ơn
+                            alert("Thanks for sharing! 🙌");    
+                        } else if (platform === "Twitter") {
+                            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(urlToShare)}&text=Check this out!`, '_blank');
+                            alert("Thanks for sharing! 🙌");
+                        } else if (platform === "Email") {
+                            window.open(`https://mail.google.com/mail/?view=cm&to=&su=Check this out&body=${encodeURIComponent(urlToShare)}`, '_blank');
+                            alert("Thanks for sharing! 🙌");
+                        } else {
+                            alert("This platform is not supported for direct sharing.");
+                        }
+                    } else {
+                        alert("Lỗi khi chia sẻ. Vui lòng thử lại.");
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert("Có lỗi xảy ra.");
+                }    
+            });
+        });
+
+        document.querySelector('.copy-link').addEventListener('click', function (e) {
+            e.preventDefault();
+            navigator.clipboard.writeText(window.location.href).then(function () {
+                // Hiển thị toast
+                const toast = document.getElementById('copy-toast');
+                toast.style.display = 'block';
+
+                // Ẩn sau 2.5 giây
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2500);
+
+                // Ghi nhận chia sẻ
+                createShare("CopyLink");
+            });
+        });
 
         const toggleReviewFormBtn = document.getElementById('toggleReviewFormBtn');
         const newReviewFormContainer = document.getElementById('newReviewFormContainer');
