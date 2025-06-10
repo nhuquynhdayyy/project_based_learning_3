@@ -1,0 +1,62 @@
+@model TourismWeb.Models.Report
+
+@{
+    ViewData["Title"] = "Xác nhận xóa Báo cáo";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h3 class="text-danger">Bạn có chắc chắn muốn xóa báo cáo này không?</h3>
+<hr />
+<div>
+    <h4>Thông tin Báo cáo</h4>
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ReportId)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ReportId)
+        </dd>
+
+        <dt class="col-sm-3">
+            Người báo cáo
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ReporterUser.Username)
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.TypeOfReport)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.TypeOfReport)
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.TargetType)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.TargetType)
+        </dd>
+        
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Reason)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Reason)
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ReportedAt)
+        </dt>
+        <dd class="col-sm-9">
+            @Model.ReportedAt.ToString("F")
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ReportId" />
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a asp-action="Index">Quay lại danh sách</a>
+    </form>
+</div>

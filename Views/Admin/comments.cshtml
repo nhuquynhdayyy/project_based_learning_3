@@ -692,7 +692,7 @@
                                     <tr>
                                         <th>Người dùng</th>
                                         <th>Nội dung</th>
-                                        <th>Ảnh bình luận</th>
+                                        @* <th>Ảnh bình luận</th> *@
                                         <th>Bài viết</th>
                                         <th>Loại bài viết</th>
                                         <th>Ngày đăng</th>
@@ -758,7 +758,7 @@
                                                             }
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    @* <td>
                                                         @if (!string.IsNullOrEmpty(item.ImageUrl) && item.ImageUrl != "/images/default-postImage.png" && item.ImageUrl.StartsWith("/"))
                                                         {
                                                             <img src="@Url.Content(item.ImageUrl)" alt="Ảnh bình luận" style="max-width: 100px; max-height: 70px; cursor: pointer; border-radius: 4px;" onclick="window.open('@Url.Content(item.ImageUrl)', '_blank');" />
@@ -767,7 +767,7 @@
                                                         {
                                                             <span>Không có</span>
                                                         }
-                                                    </td>
+                                                    </td> *@
                                                     <td>
                                                         <a asp-controller="@item.RelatedItemController" asp-action="Details" asp-route-id="@item.RelatedItemId" class="post-link" target="_blank">
                                                             @item.RelatedItemTitle

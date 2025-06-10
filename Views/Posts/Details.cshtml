@@ -945,17 +945,13 @@
                                                     </a>
                                                 }
                                             </div>
+                                            @if (User.FindFirst(ClaimTypes.NameIdentifier)?.Value != comment.UserId.ToString() || User.IsInRole("Admin")) 
+                                            {
+                                                <a asp-controller="Report" asp-action="Create" asp-route-targetType="Comment" asp-route-targetId="@comment.CommentId" asp-route-reportedUserId="@comment.User.UserId" class="report-review-btn-new" title="Báo cáo bình luận này"><i class="fas fa-flag"></i></a>
+                                            }
                                         </div>
                                     </div>
-                                </div>
-                                <a asp-controller="Report" asp-action="Create" 
-            asp-route-targetType="Comment" 
-            asp-route-targetId="@comment.CommentId"
-            asp-route-reportedUserId="@comment.User.UserId"
-            class="btn btn-sm btn-warning">
-                Báo cáo bình luận
-            </a>
-    
+                                </div>    
                             }
                         }
                         else

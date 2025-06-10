@@ -8,6 +8,29 @@ document.addEventListener("DOMContentLoaded", function () {
   const hiddenStatusFilterInput = document.getElementById("hiddenStatusFilter");
   const pageSizeSelect = document.getElementById("pageSizeSelect");
   const processReportForm = document.getElementById("processReportForm"); // Lấy form xử lý report
+  // --- THÊM MỚI: TỰ ĐỘNG CẬP NHẬT TRẠNG THÁI KHI CHỌN HÀNH ĐỘNG ---
+  const modalNewStatus = document.getElementById("modalNewStatus");
+  const adminActionRadios = document.querySelectorAll(
+    'input[name="adminAction"]'
+  );
+
+  adminActionRadios.forEach((radio) => {
+    radio.addEventListener("change", function () {
+      // Nếu hành động là một hành động xử lý thực sự (không phải "ignore")
+      // thì tự động chuyển trạng thái sang "Resolved"
+      if (
+        this.value === "delete_content" ||
+        this.value === "warn_user" ||
+        this.value === "ban_user"
+      ) {
+        if (modalNewStatus) {
+          modalNewStatus.value = "Resolved";
+        }
+      }
+      // Nếu chọn lại "Chỉ cập nhật trạng thái", chúng ta không làm gì cả,
+      // để admin tự quyết định sẽ chuyển sang "Dismissed" hay giữ "Pending".
+    });
+  });
 
   // --- Xử lý Filter ---
   if (mainStatusFilter && filterForm && hiddenStatusFilterInput) {

@@ -87,16 +87,6 @@ const statusSelect = document.getElementById('statusFilter');
             console.log("Script loaded. PageNumber:", @pageNumber, "TotalPages:", @totalPages);
             console.log("Prev Button:", prevButton, "Is Disabled:", prevButton ? prevButton.disabled : 'null');
             console.log("Next Button:", nextButton, "Is Disabled:", nextButton ? nextButton.disabled : 'null');
-            // Nút Previous
-            // Trạng thái disabled đã được server render đúng, chỉ cần thêm event listener nếu nút không bị disabled
-            @* if (prevButton && !prevButton.disabled) {
-                prevButton.addEventListener('click', function() {
-                    // Các biến @currentSearchTerm, @currentRoleFilter, @currentStatusFilter, @pageSize
-                    // đã chứa đúng giá trị filter của trang hiện tại khi nó được render.
-                    // @pageNumber - 1 sẽ là trang trước đó.
-                    window.location.href = `@Url.Action("Users", "Admin")?searchTerm=${encodeURIComponent(currentSearchTerm)}&roleFilter=@currentRoleFilter&statusFilter=@currentStatusFilter&pageSize=@pageSize&pageNumber=${@pageNumber - 1}`;
-                });
-            } *@
             if (prevButton && !prevButton.disabled) {
     prevButton.addEventListener('click', function() {
         const targetPage = @pageNumber - 1;
@@ -107,13 +97,6 @@ const statusSelect = document.getElementById('statusFilter');
 } else if (prevButton) {
     console.log("Prev button is disabled or not found.");
 }
-            // Nút Next
-            // Tương tự, trạng thái disabled đã đúng, chỉ thêm listener nếu không bị disabled
-            @* if (nextButton && !nextButton.disabled) {
-                nextButton.addEventListener('click', function() {
-                     window.location.href = `@Url.Action("Users", "Admin")?searchTerm=${encodeURIComponent(currentSearchTerm)}&roleFilter=@currentRoleFilter&statusFilter=@currentStatusFilter&pageSize=@pageSize&pageNumber=${@pageNumber + 1}`;
-                });
-            } *@
             if (nextButton && !nextButton.disabled) {
     nextButton.addEventListener('click', function() {
         const targetPage = @pageNumber + 1;
@@ -125,8 +108,6 @@ const statusSelect = document.getElementById('statusFilter');
     console.log("Next button is disabled or not found.");
 }
 
-            // ----- PHẦN CODE CÒN LẠI CHO MODAL VÀ CÁC CHỨC NĂNG KHÁC GIỮ NGUYÊN -----
-            // ... (Thêm người dùng, Sửa, Xóa, Modal logic)
              const addUserButton = document.querySelector('.page-actions .btn-primary');
              const userModal = document.getElementById('userModal');
              const closeModalButtons = document.querySelectorAll('.modal-close, #cancelUser');
@@ -175,14 +156,8 @@ const statusSelect = document.getElementById('statusFilter');
                 button.addEventListener('click', function() {
                     const userId = this.dataset.userId;
                     alert('Chức năng sửa cho User ID: ' + userId + ' chưa được triển khai đầy đủ.');
-                    // Ví dụ:
-                    // document.getElementById('fullname').value = userData.fullName;
-                    // ... (điền các trường khác)
-                    // document.querySelector('#userModal .modal-title').textContent = 'Chỉnh sửa người dùng';
-                    // userModal.style.display = 'block';
                 });
             });
-            // ----- KẾT THÚC PHẦN CODE GIỮ NGUYÊN -----
         });
     </script>
 }
@@ -193,12 +168,6 @@ const statusSelect = document.getElementById('statusFilter');
         <main class="content-wrapper">
             <div class="page-header">
                 <h1 class="page-title">Quản Lý Người Dùng</h1>
-                @* <div class="page-actions">
-                    <button class="btn btn-primary">
-                        <i class="fas fa-user-plus"></i>
-                        Thêm người dùng
-                    </button>
-                </div> *@
             </div>
 
             <!-- Filter Section -->
@@ -210,39 +179,6 @@ const statusSelect = document.getElementById('statusFilter');
                             <input type="text" placeholder="Tìm kiếm người dùng..." value="@currentSearchTerm">
                         </div>
                     </div>
-                    @* <div class="filter-item">
-                        <select class="select-control">
-                            <option value="all" selected="@(currentRoleFilter == "all")">Tất cả vai trò</option>
-                            <option value="Admin" selected="@(currentRoleFilter == "Admin")">Quản trị viên</option>
-                            <option value="User" selected="@(currentRoleFilter == "User")">Người dùng</option>
-                        </select>
-                    </div>
-                    <div class="filter-item">
-                        <select class="select-control">
-                            <option value="all" selected="@(currentStatusFilter == "all")">Tất cả trạng thái</option>
-                            <option value="Hoạt động" selected="@(currentStatusFilter == "Hoạt động")">Hoạt động</option>
-                            <option value="Không hoạt động" selected="@(currentStatusFilter == "Không hoạt động")">Không hoạt động</option>
-                            <option value="Bị cấm" selected="@(currentStatusFilter == "Bị cấm")">Bị cấm</option>
-                        </select>
-                    </div> *@
-                    <!-- Trong phần .filter-card -->
-@* <div class="filter-item">
-    <select class="select-control" id="roleFilter">
-        <option value="all" selected="@(currentRoleFilter == "all")">Tất cả vai trò</option>
-        <option value="Admin" selected="@(currentRoleFilter == "Admin")">Quản trị viên</option>
-        <option value="User" selected="@(currentRoleFilter == "User")">Người dùng</option>
-    </select>
-</div>
-<div class="filter-item">
-    <select class="select-control" id="statusFilter">
-        <option value="all" selected="@(currentStatusFilter == "all")">Tất cả trạng thái</option>
-        <option value="Hoạt động" selected="@(currentStatusFilter == "Hoạt động")">Hoạt động</option>
-        <option value="Không hoạt động" selected="@(currentStatusFilter == "Không hoạt động")">Không hoạt động</option>
-        <option value="Bị cấm" selected="@(currentStatusFilter == "Bị cấm")">Bị cấm</option>
-    </select>
-</div> *@
-
-<!-- Sửa lại phần select cho Role Filter -->
 <div class="filter-item">
     <select class="select-control" id="roleFilter">
         @if (currentRoleFilter == "all")
@@ -387,8 +323,7 @@ const statusSelect = document.getElementById('statusFilter');
                                         </td>
                                         <td>
                                             @{
-                                                string statusClass = "green"; // Mặc định cho "Hoạt động"
-                                                // Giả sử bạn đã thêm thuộc tính UserStatus vào model User
+                                                string statusClass = "green"; 
                                                 if (user.UserStatus == "Không hoạt động") { statusClass = "yellow"; }
                                                 else if (user.UserStatus == "Bị cấm") { statusClass = "red"; }
                                             }
@@ -439,16 +374,6 @@ const statusSelect = document.getElementById('statusFilter');
                         <button id="nextPageBtn" class="pagination-btn" disabled="@(pageNumber >= totalPages)">
                             <i class="fas fa-chevron-right"></i>
                         </button>
-                    </div>
-                    <div class="bulk-actions">
-                        <select class="select-control" id="bulkActionSelect">
-                            <option value="">Hành động hàng loạt</option>
-                            <option value="activate">Kích hoạt</option>
-                            <option value="deactivate">Vô hiệu hóa</option>
-                            <option value="ban">Cấm</option>
-                            <option value="delete">Xóa</option>
-                        </select>
-                        <button class="btn btn-secondary" id="applyBulkAction">Áp dụng</button>
                     </div>
                 </div>
             </div>

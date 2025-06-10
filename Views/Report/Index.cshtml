@@ -1,0 +1,59 @@
+@model IEnumerable<TourismWeb.Models.Report>
+@using TourismWeb.Models // Cần thiết để sử dụng Enum
+
+@{
+    ViewData["Title"] = "Quản lý Báo cáo";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Người báo cáo</th>
+            <th>Loại đối tượng</th>
+            <th>Đối tượng ID</th>
+            <th>Lý do</th>
+            <th>Trạng thái</th>
+            <th>Ngày báo cáo</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.ReporterUser.Username)</td>
+                <td>@Html.DisplayFor(modelItem => item.TargetType)</td>
+                <td>@Html.DisplayFor(modelItem => item.TargetId)</td>
+                <td>@Html.DisplayFor(modelItem => item.Reason)</td>
+                <td>
+                    @switch (item.Status)
+                    {
+                        case ReportStatus.Pending:
+                            <span class="badge bg-warning text-dark">@Html.DisplayFor(modelItem => item.Status)</span>
+                            break;
+                        case ReportStatus.Resolved:
+                            <span class="badge bg-success">@Html.DisplayFor(modelItem => item.Status)</span>
+                            break;
+                        case ReportStatus.Dismissed:
+                            <span class="badge bg-secondary">@Html.DisplayFor(modelItem => item.Status)</span>
+                            break;
+                    }
+                </td>
+                <td>@item.ReportedAt.ToString("g")</td>
+                <td>
+                    @* Thêm các nút Edit, Details nếu cần *@
+                    <a asp-action="Delete" asp-route-id="@item.ReportId" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -196,17 +196,20 @@ namespace TourismWeb.Controllers
                 return View();
             }
 
+            user.LastLoginAt = DateTime.Now;
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
             Console.WriteLine($"Login POST: User '{user.Username}' found.");
             await SignInUser(user, RememberMe);
             Console.WriteLine($"Login POST: User '{user.Username}' signed in.");
 
             // return RedirectToLocal(ViewData["ReturnUrl"]?.ToString());
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-{
-    return Redirect(returnUrl);
-}
+            {
+                return Redirect(returnUrl);
+            }
 
-return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         // ============================================================

@@ -322,10 +322,6 @@
   background-color: #f9fafb;
 }
 
-.table-title-cell {
-  font-weight: 500;
-}
-
 .badge {
   display: inline-flex;
   align-items: center;
@@ -421,4 +417,30 @@
   .user-avatar {
     margin-bottom: 0.5rem;
   }
+}
+
+/*
+ * Tùy chỉnh style cho các liên kết trong bảng bài viết
+ */
+
+/* 
+ * 1. Đặt màu sắc nhất quán cho link dù đã truy cập hay chưa.
+ * 2. Bỏ gạch chân mặc định.
+ */
+.table-title-cell a,
+.table-title-cell a:link,
+.table-title-cell a:visited {
+  color: #333; /* <-- Chọn một màu bạn thích, ví dụ màu đen chữ */
+  text-decoration: none; /* <-- Bỏ gạch chân */
+  font-weight: 500; /* Có thể làm chữ đậm hơn một chút cho dễ nhìn */
+  transition: color 0.2s ease; /* Hiệu ứng chuyển màu mượt mà */
+}
+
+/* 
+ * 3. Thêm hiệu ứng khi di chuột vào để người dùng biết đây là link.
+ *    Đây là một thực hành tốt về UX (Trải nghiệm người dùng).
+ */
+.table-title-cell a:hover {
+  color: #007bff; /* <-- Đổi sang màu xanh khi di chuột vào */
+  text-decoration: underline; /* <-- Thêm lại gạch chân khi di chuột */
 }

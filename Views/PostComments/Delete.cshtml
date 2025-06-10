@@ -1,4 +1,4 @@
-@model TourismWeb.Models.PostComment
+@* @model TourismWeb.Models.PostComment
 
 @{
     ViewData["Title"] = "Delete";
@@ -48,4 +48,119 @@
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>
+</div> *@
+@model TourismWeb.Models.PostComment
+
+@{
+    ViewData["Title"] = "Xóa bình luận";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Xác nhận xóa bình luận
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Cảnh báo:</strong> Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xóa bình luận này?
+                    </div>
+
+                    <!-- Thông tin bình luận -->
+                    <div class="comment-preview p-3 bg-light rounded mb-4">
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <strong class="text-muted">Người đăng:</strong>
+                            </div>
+                            <div class="col-sm-9">
+                                <span class="badge bg-primary">
+                                    <i class="fas fa-user me-1"></i>
+                                    @Html.DisplayFor(model => model.User.FullName)
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <strong class="text-muted">Bài viết:</strong>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="mb-0 text-truncate" style="max-width: 300px;" title="@Html.DisplayFor(model => model.Post.Content)">
+                                    @Html.DisplayFor(model => model.Post.Content)
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <strong class="text-muted">Nội dung:</strong>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="border-start border-primary border-3 ps-3">
+                                    <p class="mb-0 fst-italic">
+                                        "@Html.DisplayFor(model => model.Content)"
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <strong class="text-muted">Thời gian:</strong>
+                            </div>
+                            <div class="col-sm-9">
+                                <small class="text-muted">
+                                    <i class="fas fa-clock me-1"></i>
+                                    @Html.DisplayFor(model => model.CreatedAt)
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form xác nhận xóa -->
+                    <div class="d-flex justify-content-end gap-2">
+                        <a asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Post.PostId" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Hủy bỏ
+                        </a>
+                        <form asp-action="Delete" class="d-inline">
+                            <input type="hidden" asp-for="CommentId" />
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa bình luận này?')">
+                                <i class="fas fa-trash me-2"></i>
+                                Xóa bình luận
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    .comment-preview {
+        border-left: 4px solid #dc3545;
+    }
+    
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+    
+    .card-header {
+        border-radius: 10px 10px 0 0 !important;
+    }
+    
+    .btn {
+        border-radius: 6px;
+    }
+    
+    .alert {
+        border-radius: 8px;
+    }
+</style>

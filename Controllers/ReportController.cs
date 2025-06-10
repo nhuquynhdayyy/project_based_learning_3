@@ -1,5 +1,3 @@
-// ReportController.cs
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;   
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +8,7 @@ using System.Threading.Tasks;
 using TourismWeb.Models;
 namespace TourismWeb.Controllers
 {
-    [Authorize] // Phải đăng nhập mới được báo cáo
+    [Authorize] 
     public class ReportController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,67 +17,47 @@ namespace TourismWeb.Controllers
         {
             _context = context;
         }
-
-        // [HttpGet]
-        // public IActionResult Create(string targetType, int targetId, int? reportedUserId)
-        // {
-        //     ViewBag.TargetType = targetType;
-        //     ViewBag.TargetId = targetId;
-        //     ViewBag.ReportedUserId = reportedUserId;
-        //     return View();
-        // }
         [HttpGet]
-public IActionResult Create(string targetType, int targetId, int? reportedUserId)
-{
-    // ✅ Parse string thành enum
-    if (!Enum.TryParse<ReportTargetType>(targetType, out var parsedTargetType))
-    {
-        ModelState.AddModelError("TargetType", "Loại mục tiêu không hợp lệ.");
-        return View();
-    }
+        public IActionResult Create(string targetType, int targetId, int? reportedUserId)
+        {
+            if (!Enum.TryParse<ReportTargetType>(targetType, out var parsedTargetType))
+            {
+                ModelState.AddModelError("TargetType", "Loại mục tiêu không hợp lệ.");
+                return View();
+            }
 
-    var report = new Report
-    {
-        TargetType = parsedTargetType,
-        TargetId = targetId,
-        ReportedUserId = reportedUserId
-    };
-    Console.WriteLine("TargetType: " + report.TargetType);
+            var report = new Report
+            {
+                TargetType = parsedTargetType,
+                TargetId = targetId,
+                ReportedUserId = reportedUserId
+            };
+            Console.WriteLine("TargetType: " + report.TargetType);
 
-    return View(report);
-}
+            return View(report);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Report report)
         {
             if (!ModelState.IsValid)
-    {
-        // Debug lỗi
-        foreach (var value in ModelState.Values)
-        {
-            foreach (var error in value.Errors)
             {
-                Console.WriteLine("Model Error: " + error.ErrorMessage);
+                foreach (var value in ModelState.Values)
+                {
+                    foreach (var error in value.Errors)
+                    {
+                        Console.WriteLine("Model Error: " + error.ErrorMessage);
+                    }
+                }
+                return View(report);
             }
-        }
-        return View(report);
-    }
             if (ModelState.IsValid)
             {
                 report.ReportedAt = DateTime.Now;
                 report.Status = ReportStatus.Pending;
-//                 var userIdClaim = User.FindFirst("UserId");
-// if (userIdClaim == null)
-// {
-//     ModelState.AddModelError(string.Empty, "Không xác định được người dùng hiện tại.");
-//     return View(report);
-// }
-
-// report.ReporterUserId = int.Parse(userIdClaim.Value);
                 report.ReporterUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
 
-                // report.ReporterUserId = int.Parse(User.FindFirst("UserId").Value); // lấy ID người dùng từ session hoặc claims
                 ViewBag.ReportTypes = new SelectList(Enum.GetValues(typeof(ReportType)).Cast<ReportType>());
                 ViewBag.TargetTypes = new SelectList(Enum.GetValues(typeof(ReportTargetType)).Cast<ReportTargetType>());
                 _context.Reports.Add(report);
@@ -89,6 +67,61 @@ public IActionResult Create(string targetType, int targetId, int? reportedUserId
                 return RedirectToAction("Index", "Home");
             }
             return View(report);
+        }
+
+        // --- MÃ NGUỒN MỚI THÊM VÀO ---
+
+        // GET: Report
+        // Hiển thị danh sách tất cả báo cáo cho Admin
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Index()
+        {
+            var reports = await _context.Reports
+                                .Include(r => r.ReporterUser) // Lấy thông tin người báo cáo
+                                .Include(r => r.ReportedUser) // Lấy thông tin người bị báo cáo
+                                .OrderByDescending(r => r.ReportedAt)
+                                .ToListAsync();
+            return View(reports);
+        }
+
+        // GET: Report/Delete/5
+        // Hiển thị trang xác nhận xóa
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var report = await _context.Reports
+                .Include(r => r.ReporterUser)
+                .FirstOrDefaultAsync(m => m.ReportId == id);
+            
+            if (report == null)
+            {
+                return NotFound();
+            }
+
+            return View(report);
+        }
+
+        // POST: Report/Delete/5
+        // Thực hiện xóa sau khi Admin xác nhận
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var report = await _context.Reports.FindAsync(id);
+            if (report != null)
+            {
+                _context.Reports.Remove(report);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Báo cáo đã được xóa thành công.";
+            }
+            
+            return RedirectToAction(nameof(Index));
         }
     }
 }

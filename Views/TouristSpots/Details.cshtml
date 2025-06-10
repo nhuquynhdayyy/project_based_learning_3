@@ -37,11 +37,10 @@
     var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
     var userId = userIdClaim != null ? int.Parse(userIdClaim.Value) : 0;
     var isFavorited = Model.Favorites?.Any(f => f.UserId == userId) == true;
-    var recentReviewsToShow = 2;
-    var reviewsPerPageForInitialLoad = 3; // Số review tải ban đầu cho danh sách chính
+    var reviewsPerPage = 5; 
     var totalReviewsCount = Model.Reviews?.Count() ?? 0;
-    var reviewsForMainListInitial = Model.Reviews != null
-        ? Model.Reviews.OrderByDescending(r => r.CreatedAt).Skip(recentReviewsToShow).Take(reviewsPerPageForInitialLoad)
+    var initialReviewsToDisplay = Model.Reviews != null
+        ? Model.Reviews.OrderByDescending(r => r.CreatedAt).Take(reviewsPerPage) 
         : Enumerable.Empty<TourismWeb.Models.Review>();
 }
 
@@ -83,11 +82,6 @@
             </div>
         </div>
         <div class="spot-actions">
-            <a asp-controller="Report" asp-action="Create"
-               asp-route-targetType="Spot"
-               asp-route-targetId="@Model.SpotId"
-               asp-route-reportedUserId="@Model.CreatorUserId"
-               class="btn btn-sm btn-warning">Báo cáo</a>
             <button class="btn favorite @(isFavorited ? "active" : "")" id="favoriteBtn" data-spot-id="@Model.SpotId">
                 <i class="@(isFavorited ? "fas" : "far") fa-heart"></i> @(isFavorited ? "Đã yêu thích" : "Yêu thích")
             </button>
@@ -125,9 +119,6 @@
                     <img src="/images/default-spotImage.png" alt="Ảnh mặc định">
                 }
             </div>
-            @* <button class="gallery-btn" id="viewAllPhotosBtn">
-                <i class="fas fa-images"></i> Có tất cả (@(Model.Images?.Count ?? (string.IsNullOrEmpty(Model.ImageUrl) || Model.ImageUrl == "/images/default-spotImage.png" ? 0 : 1) )) ảnh
-            </button> *@
         </div>
     </section>
 
@@ -368,60 +359,13 @@
 
             @if (Model.Reviews != null && Model.Reviews.Any())
             {
-                @* <h3 class="recent-reviews-title mt-4">Đánh giá gần đây</h3>
-                <div class="reviews-list-recent">
-                    @foreach (var review in Model.Reviews.OrderByDescending(r => r.CreatedAt).Take(recentReviewsToShow))
-                    {
-                        <div class="review-item card mb-3">
-                             <div class="card-body">
-                                <div class="review-main-content d-flex">
-                                     <div class="flex-shrink-0 me-3">
-                                        <img src="@(review.User?.AvatarUrl ?? "/images/default-avatar.png")" alt="@review.User?.FullName" class="user-avatar rounded-circle" style="width:50px; height:50px;">
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <div class="user-info d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h5 class="mb-0">@(review.User?.FullName ?? "Người dùng ẩn danh")</h5>
-                                                <p class="review-date text-muted small">@GetTimeAgo(review.CreatedAt)</p>
-                                            </div>
-                                             <div class="review-rating">
-                                                <div class="stars">
-                                                    @for (int i = 1; i <= 5; i++)
-                                                    {
-                                                        if (i <= review.Rating) { <i class="fas fa-star text-warning"></i>; }
-                                                        else if (review.Rating > (i - 1) && review.Rating < i) { <i class="fas fa-star-half-alt text-warning"></i>; }
-                                                        else { <i class="far fa-star text-warning"></i>; }
-                                                    }
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="review-text mt-2">@review.Comment</p>
-                                        @if (!string.IsNullOrEmpty(review.ImageUrl))
-                                        {
-                                            <div class="review-photos mt-2">
-                                                <img src="@review.ImageUrl" alt="Ảnh đánh giá" onclick="openLightbox(this.src, 'Ảnh đánh giá của @(review.User?.FullName)')" style="max-width:150px; max-height:150px; cursor:pointer; border-radius:4px;">
-                                            </div>
-                                        }
-                                    </div>
-                                     <div class="review-item-side-actions ms-3">
-                                        <a asp-controller="Report" asp-action="Create" asp-route-targetType="Review" asp-route-targetId="@review.ReviewId" asp-route-reportedUserId="@review.User?.UserId" class="report-review-btn-new" title="Báo cáo đánh giá này"><i class="fas fa-flag"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div> *@
-
                 <div class="reviews-list mt-3">
-                    @{
-                        var reviewsForMainListInitialInner = Model.Reviews.OrderByDescending(r => r.CreatedAt).Skip(recentReviewsToShow).Take(reviewsPerPageForInitialLoad);
-                    }
-                    @if (reviewsForMainListInitialInner.Any())
+                    @if (initialReviewsToDisplay.Any())
                     {
                         <h4 class="all-reviews-title mt-4">Tất cả đánh giá</h4>
-                        foreach (var review in reviewsForMainListInitialInner)
+                        foreach (var review in initialReviewsToDisplay)
                         {
-                             <div class="review-item card mb-3">
+                            <div class="review-item card mb-3">
                                 <div class="card-body">
                                     <div class="review-main-content d-flex">
                                         <div class="flex-shrink-0 me-3">
@@ -451,10 +395,6 @@
                                                     <img src="@review.ImageUrl" alt="Ảnh đánh giá" onclick="openLightbox(this.src, 'Ảnh đánh giá của @(review.User?.FullName)')" style="max-width:150px; max-height:150px; cursor:pointer; border-radius:4px;">
                                                 </div>
                                             }
-                                            @* <div class="review-actions mt-2">
-                                               <button class="btn btn-sm btn-light like-btn"><i class="far fa-thumbs-up"></i> Hữu ích (<span class="like-count">0</span>)</button>
-                                               <button class="btn btn-sm btn-light reply-btn"><i class="far fa-comment"></i> Phản hồi</button>
-                                            </div> *@
                                         </div>
                                         <div class="review-item-side-actions ms-3">
                                             <a asp-controller="Report" asp-action="Create" asp-route-targetType="Review" asp-route-targetId="@review.ReviewId" asp-route-reportedUserId="@review.User?.UserId" class="report-review-btn-new" title="Báo cáo đánh giá này"><i class="fas fa-flag"></i></a>
@@ -464,17 +404,9 @@
                             </div>
                         }
                     }
-                    else if (!(Model.Reviews.OrderByDescending(r => r.CreatedAt).Take(recentReviewsToShow).Any()) && !reviewsForMainListInitial.Any() && totalReviewsCount > 0)
-                    {
-                        <h4 class="all-reviews-title mt-4">Tất cả đánh giá</h4>
-                        <p class="text-center text-muted mt-3">Tất cả đánh giá đã được hiển thị trong mục "Đánh giá gần đây".</p>
-                    }
-                     else if (totalReviewsCount == 0) {
-                        
-                     }
                 </div>
-                
-                @if (totalReviewsCount > (recentReviewsToShow + reviewsPerPageForInitialLoad))
+
+                @if (totalReviewsCount > reviewsPerPage) 
                 {
                     <div class="load-more text-center mt-3">
                         <button class="btn btn-outline-primary" id="loadMoreReviewsBtn">Xem thêm đánh giá</button>
@@ -503,8 +435,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const token = document.getElementById('requestVerificationTokenInput').value;
         const spotId = @Model.SpotId;
-        const reviewsPerPageForJs = @reviewsPerPageForInitialLoad; 
-        const recentReviewsCountOnClient = @recentReviewsToShow;
+        const reviewsPerPage = @reviewsPerPage;
 
         window.changeMainImage = function(src) {
             const mainImg = document.querySelector('.main-image img');
@@ -551,7 +482,7 @@
         if (favoriteBtn) {
             favoriteBtn.addEventListener('click', function () {
                 const currentSpotId = this.dataset.spotId;
-                fetch('/Favorites/ToggleFavorite', {
+                fetch('/SpotFavorites/ToggleFavorite', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'RequestVerificationToken': token },
                     body: `spotId=${currentSpotId}`
@@ -588,10 +519,52 @@
                 let url = '';
                 if (platform === 'Facebook') url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(spotUrl)}`;
                 else if (platform === 'Twitter') url = `https://twitter.com/intent/tweet?url=${encodeURIComponent(spotUrl)}&text=${encodeURIComponent(spotName)}`;
-                else if (platform === 'Email') url = `mailto:?subject=${encodeURIComponent(spotName)}&body=${encodeURIComponent('Xem địa điểm này: ' + spotUrl)}`;
+                else if (platform === 'Email') url = `https://mail.google.com/mail/?view=cm&to=&su=Check this out&body=${encodeURIComponent(spotUrl)}`;
                 if(url) window.open(url, '_blank');
                 if(shareOptions) shareOptions.style.display = 'none';
             });
+            @* btn.addEventListener('click', async function (e) {
+                e.preventDefault();
+
+                const platform = this.dataset.platform;
+                const postId = this.dataset.postId; // Make sure this is data-post-id not data-spot-id
+                // const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                const tokenInput = document.getElementById('antiForgeryToken'); // Use the ID
+                const token = tokenInput ? tokenInput.value : document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+
+                try {
+                    const response = await fetch('/PostShares/CreateFromShare', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': token
+                        },
+                        body: JSON.stringify({ platform, postId })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const urlToShare = data.url;
+
+                        if (platform === "Facebook") {
+                            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlToShare)}`, '_blank');
+                        } else if (platform === "Twitter") {
+                            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(urlToShare)}&text=Check this out!`, '_blank');
+                        } else if (platform === "Email") {
+                            window.open(`https://mail.google.com/mail/?view=cm&to=&su=Check this out&body=${encodeURIComponent(urlToShare)}`, '_blank');
+                        }
+                        // You might want to close the dropdown after sharing
+                        this.closest('.share-options').classList.remove('show');
+                        alert("Thanks for sharing! 🙌");
+                    } else {
+                        alert("Lỗi khi chia sẻ. Vui lòng thử lại.");
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert("Có lỗi xảy ra.");
+                }
+            }); *@
         });
         const copyLinkBtn = document.querySelector('.copy-link');
         if (copyLinkBtn) {
@@ -690,12 +663,12 @@
             if(recentReviewsContainer){
                 recentReviewsContainer.style.display = (filterBy === 'all' && sortBy === 'newest' && currentReviewPage === 1) ? 'block' : 'none';
             }
-            if (!append && reviewsListContainer) { // Khi lọc/sắp xếp mới, xóa list cũ trước khi fetch
-                 reviewsListContainer.innerHTML = ''; // Xóa các review cũ để chuẩn bị render mới
+            if (!append && reviewsListContainer) { 
+                 reviewsListContainer.innerHTML = '';
             }
 
 
-        const url = `/Reviews/GetSpotReviewsData?spotId=${spotId}&page=${currentReviewPage}&pageSize=${reviewsPerPageForJs}&sortBy=${sortBy}&filterBy=${filterBy}`; // 
+        const url = `/Reviews/GetSpotReviewsData?spotId=${spotId}&page=${currentReviewPage}&pageSize=${reviewsPerPage}&sortBy=${sortBy}&filterBy=${filterBy}`;
             
             console.log("Fetching Reviews:", url);
 
@@ -774,10 +747,6 @@
                                 </div>
                                 <p class="review-text mt-2">${review.comment}</p>
                                 ${reviewImageUrl}
-                                @* <div class="review-actions mt-2">
-                                   <button class="btn btn-sm btn-light like-btn" data-review-id="${review.reviewId}"><i class="far fa-thumbs-up"></i> Hữu ích (<span class="like-count">${review.likeCount || 0}</span>)</button>
-                                   <button class="btn btn-sm btn-light reply-btn" data-review-id="${review.reviewId}"><i class="far fa-comment"></i> Phản hồi</button>
-                                </div> *@
                             </div>
                             <div class="review-item-side-actions ms-3"><a href="${reportLink}" class="report-review-btn-new" title="Báo cáo đánh giá này"><i class="fas fa-flag"></i></a></div>
                         </div>
@@ -785,8 +754,7 @@
                 </div>`;
         }
         if (loadMoreReviewsBtn) {
-            const initiallyRenderedInMainList = @reviewsForMainListInitial.Count();
-            if (@totalReviewsCount <= (recentReviewsCountOnClient + initiallyRenderedInMainList)) {
+            if (@totalReviewsCount <= reviewsPerPage) {
                 loadMoreReviewsBtn.style.display = 'none';
             }
         }
@@ -794,3 +762,20 @@
     });
     </script>
 }
+
+<div id="copy-toast" style="
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    font-weight: bold;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+">
+    🔗 Đã sao chép liên kết!
+</div>
