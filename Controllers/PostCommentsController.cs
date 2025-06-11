@@ -158,48 +158,102 @@ namespace TourismWeb.Controllers
 
             // Kiểm tra quyền xóa comment
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null || postComment.UserId != int.Parse(userIdClaim.Value))
+            var currentUserId = userIdClaim?.Value;
+
+            // Kiểm tra xem người dùng có phải là chủ sở hữu comment HOẶC là Admin không
+            bool isOwner = (currentUserId != null && postComment.UserId.ToString() == currentUserId);
+            bool isAdmin = User.IsInRole("Admin");
+
+            if (!isOwner && !isAdmin)
             {
-                return Unauthorized();
+                // Nếu không phải chủ comment và cũng không phải Admin thì từ chối
+                return Unauthorized("Bạn không có quyền thực hiện hành động này.");
             }
+            // if (userIdClaim == null || postComment.UserId != int.Parse(userIdClaim.Value))
+            // {
+            //     return Unauthorized();
+            // }
 
             return View(postComment);
         }
 
         // POST: PostComments/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var postComment = await _context.PostComments.FindAsync(id);
-            int postId = 0;
+        // [HttpPost, ActionName("Delete")]
+        // [ValidateAntiForgeryToken]
+        // public async Task<IActionResult> DeleteConfirmed(int id)
+        // {
+        //     var postComment = await _context.PostComments.FindAsync(id);
+        //     int postId = 0;
 
-            if (postComment != null)
-            {
-                // _context.PostComments.Remove(postComment);
+        //     if (postComment != null)
+        //     {
+        //         // _context.PostComments.Remove(postComment);
 
-                // Lưu lại PostId trước khi xóa comment
-                postId = postComment.PostId;
+        //         // Lưu lại PostId trước khi xóa comment
+        //         postId = postComment.PostId;
                 
-                // Kiểm tra quyền xóa comment
-                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-                if (userIdClaim != null && postComment.UserId == int.Parse(userIdClaim.Value))
-                {
-                    _context.PostComments.Remove(postComment);
-                    await _context.SaveChangesAsync();
-                }
-            }
+        //         // Kiểm tra quyền xóa comment
+        //         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        //         if (userIdClaim != null && postComment.UserId == int.Parse(userIdClaim.Value))
+        //         {
+        //             _context.PostComments.Remove(postComment);
+        //             await _context.SaveChangesAsync();
+        //         }
+        //     }
 
-            // await _context.SaveChangesAsync();
+        //     // await _context.SaveChangesAsync();
             
-            // Trở về trang chi tiết bài viết sau khi xóa comment
-            if (postId > 0)
-            {
-                return RedirectToAction("Details", "Posts", new { id = postId });
-            }
+        //     // Trở về trang chi tiết bài viết sau khi xóa comment
+        //     if (postId > 0)
+        //     {
+        //         return RedirectToAction("Details", "Posts", new { id = postId });
+        //     }
 
-            return RedirectToAction(nameof(Index));
-        }
+        //     return RedirectToAction(nameof(Index));
+        // }
+        // POST: PostComments/Delete/5
+[HttpPost, ActionName("Delete")]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> DeleteConfirmed(int id)
+{
+    var postComment = await _context.PostComments.FindAsync(id);
+
+    // Nếu không tìm thấy comment, trả về NotFound
+    if (postComment == null)
+    {
+        return NotFound();
+    }
+
+    // Luôn lưu lại PostId để có thể chuyển hướng về đúng bài viết
+    int postId = postComment.PostId;
+
+    // --- Bắt đầu phần kiểm tra quyền ---
+    var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+    var currentUserId = userIdClaim?.Value;
+
+    // Điều kiện 1: Người dùng có phải là chủ sở hữu comment không?
+    // Chú ý: Chuyển đổi UserId (int) sang string để so sánh an toàn với claim (string)
+    bool isOwner = (currentUserId != null && postComment.UserId.ToString() == currentUserId);
+
+    // Điều kiện 2: Người dùng có phải là Admin không?
+    bool isAdmin = User.IsInRole("Admin");
+
+    // Nếu người dùng là chủ sở hữu HOẶC là Admin thì cho phép xóa
+    if (isOwner || isAdmin)
+    {
+        _context.PostComments.Remove(postComment);
+        await _context.SaveChangesAsync();
+    }
+    else
+    {
+        // Nếu không có quyền, trả về lỗi Unauthorized để người dùng biết
+        return Unauthorized("Bạn không có quyền thực hiện hành động này.");
+    }
+    // --- Kết thúc phần kiểm tra quyền ---
+    
+    // Chuyển hướng người dùng về trang chi tiết bài viết sau khi xóa thành công
+    return RedirectToAction("Details", "Posts", new { id = postId });
+}
 
         private bool PostCommentExists(int id)
         {
