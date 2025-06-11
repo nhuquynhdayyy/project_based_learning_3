@@ -442,7 +442,9 @@
                      {
                         @foreach (var review in Model.Reviews)
                      {
-                               <div class="blog-item">
+                               @* <div class="blog-item"> *@
+                               <div class="blog-item" style="cursor: pointer;" onclick="location.href='@Url.Action("Details", "TouristSpots", new { id = review.Spot.SpotId })'">
+
                             
                             <img src="@(Url.Content(review.ImageUrl))" 
                          alt="@review?.Spot?.Name" style="width: 100px; height: 100px;">
@@ -520,17 +522,26 @@
                 <div class="travel-inspiration">
                     @foreach (var favorite in Model.SpotFavorites.Take(3))
                     {
-                        <div class="inspiration-card">
+                        @* <div class="inspiration-card">
                             <img src="@favorite.Spot.ImageUrl" alt="@favorite.Spot.Name">
                             <div class="inspiration-content">
                                 <div class="inspiration-title">@favorite.Spot.Name</div>
                                 
                                 <div class="inspiration-meta">
-                                    @* <span>Thời gian tốt nhất: @favorite.Spot.BestTimeToVisit</span> *@
                                     <span>Đã lưu</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> *@
+                        <a asp-controller="TouristSpots" asp-action="Details" asp-route-id="@favorite.Spot.SpotId" class="inspiration-card">
+                <img src="@favorite.Spot.ImageUrl" alt="@favorite.Spot.Name">
+                <div class="inspiration-content">
+                    <div class="inspiration-title">@favorite.Spot.Name</div>
+                    
+                    <div class="inspiration-meta">
+                        <span>Đã lưu</span>
+                    </div>
+                </div>
+            </a>
                     }
                     @if (Model.SpotFavorites.Count == 0)
                     {
@@ -554,7 +565,7 @@
                 <div class="favorite-posts">
                     @foreach (var favorite in Model.PostFavorites.Take(4))
                     {
-                        <div class="favorite-post-card">
+                        @* <div class="favorite-post-card">
                             <img src="@favorite.Post.ImageUrl" alt="@favorite.Post.Title">
                             <div class="favorite-post-content">
                                 <div class="favorite-post-title">@favorite.Post.Title</div>
@@ -563,7 +574,17 @@
                                     <div class="favorite-post-author-name">@favorite.Post.User.FullName • @favorite.Post.CreatedAt.ToString("dd/MM/yyyy")</div>
                                 </div>
                             </div>
-                        </div>
+                        </div> *@
+                        <a asp-controller="Posts" asp-action="Details" asp-route-id="@favorite.Post.PostId" class="favorite-post-card">
+                <img src="@favorite.Post.ImageUrl" alt="@favorite.Post.Title">
+                <div class="favorite-post-content">
+                    <div class="favorite-post-title">@favorite.Post.Title</div>
+                    <div class="favorite-post-author">
+                        <img src="@favorite.Post.User.AvatarUrl" alt="@favorite.Post.User.FullName">
+                        <div class="favorite-post-author-name">@favorite.Post.User.FullName • @favorite.Post.CreatedAt.ToString("dd/MM/yyyy")</div>
+                    </div>
+                </div>
+            </a>
                     }
                     @if (Model.PostFavorites.Count == 0)
                     {

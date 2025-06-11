@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Antiforgery
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
 @Html.AntiForgeryToken()
+@using System.Security.Claims
 
 @{
     ViewData["Title"] = Model.Name;
@@ -396,9 +397,24 @@
                                                 </div>
                                             }
                                         </div>
-                                        <div class="review-item-side-actions ms-3">
+                                        @* <div class="review-item-side-actions ms-3">
                                             <a asp-controller="Report" asp-action="Create" asp-route-targetType="Review" asp-route-targetId="@review.ReviewId" asp-route-reportedUserId="@review.User?.UserId" class="report-review-btn-new" title="Báo cáo đánh giá này"><i class="fas fa-flag"></i></a>
-                                        </div>
+                                        </div> *@
+                                        <div class="review-item-side-actions ms-3">
+                                                @if (User.FindFirst(ClaimTypes.NameIdentifier)?.Value == review.UserId.ToString() || User.IsInRole("Admin")) // Cho phép chủ comment hoặc Admin xóa
+                                                {
+                                                    <a asp-controller="Reviews" asp-action="Delete"
+                                                       asp-route-id="@review.ReviewId" asp-route-returnUrl="@Context.Request.Path"
+                                                       class="comment-action text-danger small"
+                                                       onclick="return confirm('Bạn có chắc chắn muốn xóa đánh giá này?');">
+                                                        <i class="bi bi-trash"></i> Xóa
+                                                    </a>
+                                                }
+                                            </div>
+                                            @if (User.FindFirst(ClaimTypes.NameIdentifier)?.Value != review.UserId.ToString() || User.IsInRole("Admin")) 
+                                            {
+                                                <a asp-controller="Report" asp-action="Create" asp-route-targetType="Review" asp-route-targetId="@review.ReviewId" asp-route-reportedUserId="@review.User.UserId" class="report-review-btn-new" title="Báo cáo đánh giá này"><i class="fas fa-flag"></i></a>
+                                            }
                                     </div>
                                 </div>
                             </div>

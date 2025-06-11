@@ -78,7 +78,8 @@
                 <div class="featured-places">
                     @foreach (var item in Model.OrderByDescending(p => p.CreatedAt).Take(5))
                     {
-                        <div class="featured-place-item">
+                        @* <div class="featured-place-item"> *@
+                        <div class="featured-place-item" style="cursor: pointer;" onclick="location.href='@Url.Action("Details", "Posts", new { id = item.PostId })'">
                             <div class="featured-place-img">
                                 <img src="@item.ImageUrl" alt="@item.Title" />
                             </div>

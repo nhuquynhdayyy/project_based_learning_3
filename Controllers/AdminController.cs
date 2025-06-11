@@ -1174,4 +1174,52 @@ public async Task<IActionResult> Users(int pageNumber = 1, int pageSize = 10, st
 
         return RedirectToAction("Settings");
     }
+    // ===== ĐÂY LÀ ACTION ĐỂ XỬ LÝ YÊU CẦU XÓA TỪ AJAX =====
+    [HttpPost]
+    [ValidateAntiForgeryToken] // Rất quan trọng để khớp với token từ JS
+    public async Task<IActionResult> DeleteComment([FromBody] DeleteCommentRequest request)
+    {
+        // [FromBody] rất quan trọng vì JS gửi dữ liệu dạng JSON
+        if (request == null || request.Id <= 0 || string.IsNullOrEmpty(request.Type))
+        {
+            return Json(new { success = false, message = "Dữ liệu không hợp lệ." });
+        }
+
+        try
+        {
+            if (request.Type == "Review")
+            {
+                var review = await _context.Reviews.FindAsync(request.Id); // Sửa Reviews thành tên DbSet của bạn
+                if (review == null)
+                {
+                    return Json(new { success = false, message = "Không tìm thấy đánh giá để xóa." });
+                }
+                _context.Reviews.Remove(review);
+            }
+            else if (request.Type == "PostComment")
+            {
+                var comment = await _context.PostComments.FindAsync(request.Id); // Sửa PostComments thành tên DbSet của bạn
+                if (comment == null)
+                {
+                    return Json(new { success = false, message = "Không tìm thấy bình luận để xóa." });
+                }
+                _context.PostComments.Remove(comment);
+            }
+            else
+            {
+                return Json(new { success = false, message = "Loại mục không được hỗ trợ." });
+            }
+
+            await _context.SaveChangesAsync();
+            
+            // Trả về kết quả thành công dưới dạng JSON để JavaScript xử lý
+            return Json(new { success = true });
+        }
+        catch (Exception ex)
+        {
+            // Ghi lại lỗi để debug (tùy chọn)
+            // _logger.LogError(ex, "Lỗi khi xóa bình luận/đánh giá.");
+            return Json(new { success = false, message = "Đã xảy ra lỗi hệ thống." });
+        }
+    }
 }

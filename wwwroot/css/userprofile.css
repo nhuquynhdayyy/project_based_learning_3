@@ -652,3 +652,27 @@ tr:hover {
 .add-button:hover {
   background-color: #2980b9;
 }
+
+/* Reset style cho các card đã biến thành link */
+.inspiration-card,
+.favorite-post-card {
+  color: inherit; /* Giữ lại màu chữ gốc của văn bản */
+  text-decoration: none; /* Bỏ gạch chân của link */
+  display: block; /* Đảm bảo thẻ <a> hoạt động như một khối */
+  transition: all 0.3s ease; /* Thêm hiệu ứng chuyển động mượt mà */
+}
+
+/* Thêm hiệu ứng khi người dùng di chuột vào card */
+.inspiration-card:hover,
+.favorite-post-card:hover {
+  transform: translateY(-5px); /* Nhấc card lên một chút */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Thêm bóng đổ để nổi bật */
+  cursor: pointer; /* Đổi con trỏ chuột thành hình bàn tay */
+}
+
+/* Đảm bảo các link bên trong không bị ảnh hưởng (nếu có) */
+.inspiration-card a,
+.favorite-post-card a {
+  color: var(--primary-color, #007bff); /* Hoặc màu link bạn muốn */
+  text-decoration: underline;
+}
